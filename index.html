@@ -957,7 +957,10 @@
       const type = normalizeText(row["Loại"]);
       const area = parseArea(row["Diện tích"]);
       const interior = normalizeText(row["Nội thất"]);
-      const price = parseMoney(row["Giá bán"]);
+      const price = parseMoney(row["Giá thuê"] || row["Giá bán"]);
+      /* LUU Y: khoa trong data.json van la "Gia thue" du day la mang BAN.
+         Giu nguyen ten do de dung chung ma JavaScript voi ben cho thue.
+         Gia tri la DONG (2265000000), formatPrice() se doi ra ty khi hien. */
       /* Ben ban khong co "ngay vao o". Dung ngay cuoi cung hoi lai chu nha —
          do la tin hieu cho biet gia con dung khong. */
       const availableDate = parseGvizDate(row["Ngày xác nhận chủ"] || row["Ngày vào ở"]);
