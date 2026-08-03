@@ -454,13 +454,16 @@ p:last-child{margin-bottom:0}
 .the .vi-tri{order:3}
 .the .zalo{order:4;margin-top:auto}
 .the .ma-can{order:5}
+/* SUA 03/08/2026 — nut hanh dong tren tung the can doi sang tong do cua site.
+   De mau xanh Zalo giua luoi the mau do trong roi rac, va no canh tranh thi giac
+   voi nut Zalo noi o goc man hinh. Nut noi va nut dau trang VAN GIU xanh Zalo. */
 .ask,.zalo{
-  width:100%;background:var(--zalo);color:#fff;border:0;border-radius:var(--r-sm);
+  width:100%;background:var(--navy-2);color:#fff;border:0;border-radius:var(--r-sm);
   padding:11px;font-weight:600;font-size:.88rem;
   display:inline-flex;align-items:center;justify-content:center;gap:7px;
   transition:background .2s;min-height:44px;
 }
-.ask:hover,.zalo:hover{background:var(--zalo-dam);color:#fff;text-decoration:none}
+.ask:hover,.zalo:hover{background:var(--navy);color:#fff;text-decoration:none}
 .ask svg{width:15px;height:15px;flex:none}
 .zalo::before{
   content:"";width:15px;height:15px;flex:none;background:currentColor;
