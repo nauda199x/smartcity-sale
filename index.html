@@ -191,16 +191,8 @@
     </div>
   </header>
 
-  <!-- BĂNG CHỮ CHẠY (đổi 02/08/2026) — cùng nội dung và cùng logic cũ, chỉ đổi
-       cách trình bày: nền cam chạy ngang thay cho dải xanh đứng yên.
-       Đoạn chữ THẬT là .ntb-doan đầu tiên (chứa #newTodayCount do JS bơm số vào);
-       các đoạn sau là bản sao aria-hidden do script ở cuối trang nhân ra cho vòng
-       lặp liền mạch — không có đoạn nào ghi cứng số căn. -->
-  <button class="new-today-bar" id="newTodayBar" type="button">
-    <span class="ntb-chay" id="newTodayChay">
-      <span class="ntb-doan">✨ Có <strong id="newTodayCount">0</strong> căn vừa xác nhận lại giá với chủ trong 3 ngày qua — bấm xem ngay<span class="arrow" aria-hidden="true">→</span></span>
-    </span>
-  </button>
+  <!-- BANG CHU CHAY DA GO 03/08/2026 theo yeu cau.
+       Script dieu khien no o cuoi trang cung da go cung luc. -->
 
   <!-- DẢI LỌC NHANH (thêm 01/08/2026) — CHỈ hiện trên điện thoại.
        Trước đây toàn bộ bộ lọc bị giấu sau một nút, khách phải bấm mới lọc được.
@@ -249,7 +241,7 @@
         <p>Mỗi căn đều có giá mỗi mét vuông để anh/chị tự so rẻ hay đắt. Danh sách chỉ giữ những căn vừa hỏi lại chủ nhà, không để tin cũ giá đã đổi.</p>
         <!-- Dấu hiệu dữ liệu sống (V3). 30 phút là chu kỳ THẬT của Apps Script
              đẩy data.json lên GitHub — không phải con số trang trí. -->
-        <p class="hero-dong-bo"><span class="cham" aria-hidden="true"></span>Quỹ căn đồng bộ lại mỗi 30 phút</p>
+        <p class="hero-dong-bo"><span class="cham" aria-hidden="true"></span>Quỹ căn được cập nhật thường xuyên</p>
 
         <div class="stats" aria-label="Tổng quan căn hộ">
           <div class="stat"><strong id="totalCount">--</strong><span>Tổng căn</span></div>
@@ -1090,9 +1082,9 @@
        so voi tin dang de lau tren portal, bo han thi mat diem manh nhat.
        Cac can con lai khong hien gi, the gon hon. Ngay day du van nam trong
        hop chi tiet khi khach bam vao xem. */
-    function nhanTinhTrang(apartment) {
-      const n = soNgayTuKhi(apartment.availableDate);
-      if (n !== null && n <= 7) return "✨ Vừa xác nhận";
+    /* SUA 03/08/2026 — BO HAN nhan tinh trang tren the can theo yeu cau.
+       Giu ham (tra chuoi rong) thay vi xoa, vi con vai cho khac goi den no. */
+    function nhanTinhTrang() {
       return "";
     }
 
@@ -1444,7 +1436,11 @@
     }
 
     function mediaMarkup(apartment, index) {
-      const hangBadge = `<span class="badge">${nhanTinhTrang(apartment)}</span>${badgeNoiThatHtml(apartment)}`;
+      /* Truoc day luon ve <span class="badge"> du ben trong rong, nen tren the
+         hien ra mot o mau xanh trong khong chu. Nay rong thi khong ve. */
+      const chuBadge = nhanTinhTrang(apartment);
+      const hangBadge = (chuBadge ? `<span class="badge">${chuBadge}</span>` : "")
+                      + badgeNoiThatHtml(apartment);
       if (!apartment.cover || apartment.imgBroken) {
         return `<button class="media empty" type="button" data-gallery="${index}">
           ${hangBadge}
@@ -1609,12 +1605,14 @@
         const n = soNgayTuKhi(item.availableDate);
         return n !== null && n <= 3;
       }).length;
+      /* Bang chu chay da go 03/08/2026. Van kiem tra phan tu ton tai truoc khi
+         dung — neu sau nay bat lai thi doan nay tu chay tro lai, khong bat lai
+         thi cung khong bao loi. */
       const bar = $("#newTodayBar");
-      if (soCanMoiHomNay > 0) {
-        $("#newTodayCount").textContent = soCanMoiHomNay;
-        bar.classList.add("show");
-      } else {
-        bar.classList.remove("show");
+      const dem = $("#newTodayCount");
+      if (bar && dem) {
+        if (soCanMoiHomNay > 0) { dem.textContent = soCanMoiHomNay; bar.classList.add("show"); }
+        else { bar.classList.remove("show"); }
       }
     }
 
@@ -1860,13 +1858,19 @@
       render();
     });
 
-    $("#newTodayBar").addEventListener("click", () => {
-      state.sort = "newest";
-      $("#sortSelect").value = "newest";
-      state.page = 1;
-      render();
-      window.scrollTo({ top: $("#listingGrid").offsetTop - 90, behavior: "smooth" });
-    });
+    /* Bang chu chay da go — kiem tra ton tai truoc khi gan su kien.
+       Khong kiem tra thi $("#newTodayBar") tra ve null va dong nay nem loi,
+       lam DUNG toan bo doan script phia sau: bo loc, lien ket... deu chet. */
+    const nutBangChu = $("#newTodayBar");
+    if (nutBangChu) {
+      nutBangChu.addEventListener("click", () => {
+        state.sort = "newest";
+        $("#sortSelect").value = "newest";
+        state.page = 1;
+        render();
+        window.scrollTo({ top: $("#listingGrid").offsetTop - 90, behavior: "smooth" });
+      });
+    }
 
     $("#closeModal").addEventListener("click", () => $("#galleryModal").classList.remove("open"));
     $("#galleryModal").addEventListener("click", event => {
@@ -2213,65 +2217,7 @@
     })();
   </script>
   <script>
-    /* ================================================================
-       BĂNG CHỮ CHẠY "HÔM NAY THÊM N CĂN" (02/08/2026)
-       ----------------------------------------------------------------
-       KHÔNG đụng gì tới logic đếm căn: renderNewTodayBar() vẫn là nơi duy
-       nhất bơm số vào #newTodayCount và bật/tắt class .show. Khối này chỉ
-       lo phần nhìn — nhân bản đoạn chữ cho vòng lặp không hở khoảng trống.
 
-       Vì sao phải nhân bản bằng JS chứ không chép cứng 2 đoạn trong HTML:
-       ảnh động chạy từ 0 tới -50% bề ngang dải chữ, nên nửa dải phải rộng
-       hơn màn hình thì mới không lộ khoảng trống ở mép phải. Một đoạn chữ
-       rộng ~640px: màn 375px chỉ cần 2 đoạn, màn 1440px cần tới 6. Số đoạn
-       vì vậy phải tính theo bề ngang thật, và luôn là số CHẴN để mốc -50%
-       rơi đúng vào đầu một đoạn.
-       ================================================================ */
-    (function () {
-      var bang = document.getElementById("newTodayBar");
-      var chay = document.getElementById("newTodayChay");
-      if (!bang || !chay) return;
-      var goc = chay.querySelector(".ntb-doan");
-      if (!goc) return;
-
-      function nhanBan() {
-        // Xoá các bản sao cũ, giữ nguyên đoạn thật (đoạn đầu tiên).
-        while (chay.children.length > 1) chay.removeChild(chay.lastElementChild);
-
-        var rongDoan = goc.getBoundingClientRect().width;
-        var rongKhung = bang.getBoundingClientRect().width;
-        if (!rongDoan || !rongKhung) return;
-
-        // Cần: (số đoạn / 2) * rộng đoạn >= rộng khung  ->  số đoạn >= 2 * khung / đoạn
-        var soDoan = Math.ceil((2 * rongKhung) / rongDoan);
-        if (soDoan % 2) soDoan++;          // luôn chẵn
-        if (soDoan < 2) soDoan = 2;
-
-        for (var i = 1; i < soDoan; i++) {
-          var ban = goc.cloneNode(true);
-          // Bỏ mọi id trong bản sao để trang không có id trùng, và giấu khỏi
-          // trình đọc màn hình — chỉ đoạn thật mới được đọc.
-          ban.querySelectorAll("[id]").forEach(function (e) { e.removeAttribute("id"); });
-          ban.setAttribute("aria-hidden", "true");
-          chay.appendChild(ban);
-        }
-      }
-
-      /* Số căn do JS bơm vào sau khi đọc xong data.json -> chữ dài ra, phải
-         đếm lại số đoạn. Theo dõi luôn cả class .show vì lúc băng còn ẩn thì
-         đo bề ngang ra 0. */
-      var doi = new MutationObserver(function () { nhanBan(); });
-      doi.observe(document.getElementById("newTodayCount"), { childList: true, characterData: true, subtree: true });
-      doi.observe(bang, { attributes: true, attributeFilter: ["class"] });
-
-      var hen;
-      window.addEventListener("resize", function () {
-        clearTimeout(hen);
-        hen = setTimeout(nhanBan, 200);
-      });
-
-      nhanBan();
-    })();
   </script>
   <script src="/assets/gallery.js" defer></script>
   <script src="/assets/app-shell.js" defer></script>
