@@ -71,10 +71,10 @@
       },
       {
         "@type": "Question",
-        "name": "Căn hộ đang bán có sẵn nội thất không?",
+        "name": "Chọn tầng cao hay tầng thấp thì hơn?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Tùy từng căn, tình trạng nội thất được phân loại rõ trên từng tin đăng: Full nội thất (đầy đủ đồ dùng sẵn sàng dọn vào ở), Đồ Cơ bản, hoặc Nhà Nguyên Bản (chưa có nội thất). Anh/chị có thể lọc theo nhu cầu ngay trên trang."
+          "text": "Tầng cao thoáng và nhiều view hơn nên thường có giá nhỉnh hơn cùng diện tích; tầng thấp đi lại tiện khi đông thang máy và giá mềm hơn; tầng trung cân bằng giữa hai bên. Anh/chị lọc theo tầng cao, tầng trung hoặc tầng thấp ngay trên trang để so giá từng nhóm."
         }
       },
       {
@@ -294,8 +294,8 @@
           <select id="locPcPrice" data-nguon="priceFilters" data-thuoctinh="price"><option value="all">Tất cả mức giá</option></select>
         </label>
         <label class="loc-pc-o">
-          <span>Nội thất</span>
-          <select id="locPcInterior" data-nguon="interiorFilters" data-thuoctinh="interior"><option value="all">Tất cả nội thất</option></select>
+          <span>Tầng</span>
+          <select id="locPcInterior" data-nguon="interiorFilters" data-thuoctinh="interior"><option value="all">Tất cả tầng</option></select>
         </label>
         <button class="loc-pc-tim" id="locPcTim" type="button">Tìm căn</button>
         <button class="loc-pc-xoa" id="locPcXoa" type="button">Xóa bộ lọc</button>
@@ -327,10 +327,11 @@
       <button class="qt" type="button" data-nhom="interiorFilters">
         <span class="qt-ic" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
-            <path d="M3 18v-7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7M3 14h18M6 9V7.5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V9M13 9V7.5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V9"/>
+            <!-- Bieu tuong toa nha, thay cho bieu tuong ghe sofa cua bo loc noi that cu -->
+            <path d="M4 21V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v16M15 21V10h4a1 1 0 0 1 1 1v10M2 21h20M7 8h2M7 12h2M7 16h2"/>
           </svg>
         </span>
-        <b>Nội thất</b><span>Chọn nội thất</span>
+        <b>Tầng</b><span>Chọn tầng</span>
       </button>
     </div>
 
@@ -368,7 +369,7 @@
         <div class="chips" id="priceFilters"></div>
       </div>
       <div class="filter-group">
-        <div class="filter-label">Nội thất</div>
+        <div class="filter-label">Tầng</div>
         <div class="chips" id="interiorFilters"></div>
       </div>
       <div class="filters-foot-bar">
@@ -442,8 +443,8 @@
       </details>
 
       <details class="faq-item">
-        <summary>Căn hộ đang bán có sẵn nội thất không?</summary>
-        <p>Tùy từng căn, tình trạng nội thất được phân loại rõ trên từng tin đăng: Full nội thất (đầy đủ đồ dùng sẵn sàng dọn vào ở), Đồ Cơ bản, hoặc Nhà Nguyên Bản (chưa có nội thất). Anh/chị có thể lọc theo nhu cầu ngay trên trang.</p>
+        <summary>Chọn tầng cao hay tầng thấp thì hơn?</summary>
+        <p>Tầng cao thoáng và nhiều view hơn nên thường có giá nhỉnh hơn cùng diện tích; tầng thấp đi lại tiện khi đông thang máy và giá mềm hơn; tầng trung cân bằng giữa hai bên. Anh/chị lọc theo tầng cao, tầng trung hoặc tầng thấp ngay trên trang để so giá từng nhóm.</p>
       </details>
 
       <details class="faq-item">
@@ -686,11 +687,15 @@
       { key: "tren7", label: "Trên 7 tỷ", short: "> 7 tỷ", test: price => price > 7000000000 }
     ];
 
+    /* SUA 03/08/2026 — bo loc thu 4 doi tu NOI THAT sang TANG.
+       Nguoi MUA quan tam tang cao/trung/thap (view, thoang, gia) hon la noi that,
+       vi mua xong phan lon deu sua lai. Ben cho thue thi nguoc lai.
+       Bien van ten "interior" de khong phai sua hang chuc cho khac trong file. */
     const interiorFilters = [
-      { key: "all", label: "Tất cả", short: "Tất cả" },
-      { key: "full", label: "Full nội thất", short: "Full NT" },
-      { key: "nguyenban", label: "Nguyên bản", short: "Nguyên bản" },
-      { key: "coban", label: "Đồ cơ bản", short: "Cơ bản" }
+      { key: "all", label: "Tất cả tầng", short: "Tất cả" },
+      { key: "cao", label: "Tầng cao", short: "Tầng cao" },
+      { key: "trung", label: "Tầng trung", short: "Tầng trung" },
+      { key: "thap", label: "Tầng thấp", short: "Tầng thấp" }
     ];
 
     /* ================================================================
@@ -959,6 +964,12 @@
       /* BA TRUONG RIENG CUA MANG BAN — ben cho thue khong co */
       const giaM2  = parseFloat(String(row["Giá mỗi m2"] || "").replace(",", ".")) || 0;
       const phapLy = normalizeText(row["Pháp lý"]);
+      /* MOI 03/08/2026: danh dau can dang hien GIA THU VE (gia chu nha nhan),
+         de gan nhan ro cho khach — tranh canh khach vao vi 2,2 ty roi nghe bao
+         2,35 ty va nghi bi hut. */
+      const laGiaThuVe = normalizeKey(row["Là giá thu về"]) === "có"
+                      || normalizeKey(row["Là giá thu về"]) === "co";
+      const giaBaoPhi = parseMoney(row["Giá bao phí tỷ"]) * (parseMoney(row["Giá bao phí tỷ"]) < 1000 ? 1000000000 : 1);
       const tang   = normalizeText(row["Tầng"]);
       const huong  = normalizeText(row["Hướng ban công"]);
 
@@ -1016,6 +1027,8 @@
         show: visible === "có" || visible === "co" || visible === "yes" || visible === "true",
         giaM2,
         phapLy,
+        laGiaThuVe,
+        giaBaoPhi,
         tang,
         huong,
         cover: cover || photos[0] || "",
@@ -1072,13 +1085,15 @@
     /* MUA BAN (sua 03/08/2026): ben cho thue nhan nay bao "can trong tu ngay nao".
        Ben ban khong co khai niem do — thu khach quan tam la GIA NAY CON DUNG KHONG,
        tuc lan cuoi hoi lai chu nha cach day bao lau. */
+    /* SUA 03/08/2026 — BO NHAN NGAY tren the can theo yeu cau.
+       Chi giu nhan "Vua xac nhan" cho can moi trong 7 ngay: day la loi the that
+       so voi tin dang de lau tren portal, bo han thi mat diem manh nhat.
+       Cac can con lai khong hien gi, the gon hon. Ngay day du van nam trong
+       hop chi tiet khi khach bam vao xem. */
     function nhanTinhTrang(apartment) {
       const n = soNgayTuKhi(apartment.availableDate);
-      if (n === null) return "";
-      if (n <= 3)  return "✨ Vừa xác nhận";
-      if (n <= 7)  return `Xác nhận ${n} ngày trước`;
-      if (n <= 30) return `Xác nhận ${Math.floor(n / 7)} tuần trước`;
-      return `Xác nhận ${Math.floor(n / 30)} tháng trước`;
+      if (n !== null && n <= 7) return "✨ Vừa xác nhận";
+      return "";
     }
 
     /** So ngay tinh tu mot moc thoi gian den hom nay. Tra null neu khong doc duoc. */
@@ -1126,18 +1141,19 @@
 
     /* SUA 03/08/2026 — cung loi kieu tren: du lieu ghi "Nguyen ban" nhung bo loc
        tim "nha nguyen ban" nen chip do luon ra 0 can. */
-    function chuanNoiThat(v) {
+    /** Chuan hoa gia tri TANG. Nhan moi cach viet: "Tang cao", "cao", "Cao". */
+    function chuanTang(v) {
       const t = boDau(String(v || "")).toLowerCase();
       if (!t) return "";
-      if (t.includes("full")) return "full";
-      if (t.includes("nguyen ban") || t === "nb") return "nguyenban";
-      if (t.includes("co ban") || t === "cb") return "coban";
+      if (t.includes("cao")) return "cao";
+      if (t.includes("trung")) return "trung";
+      if (t.includes("thap")) return "thap";
       return t.replace(/\s+/g, "");
     }
 
     function apartmentMatchesInterior(apartment) {
       if (state.interior === "all") return true;
-      return chuanNoiThat(apartment.interior) === chuanNoiThat(state.interior);
+      return chuanTang(apartment.tang) === chuanTang(state.interior);
     }
 
     function apartmentMatchesPhanKhu(apartment) {
@@ -1268,7 +1284,7 @@
         if (tam.phanKhu !== "all" && can.phanKhuKey !== tam.phanKhu) continue;
         if (tam.type !== "all" && !typeMatchesFilterKey(can.type, tam.type)) continue;
         if (mucGia && !mucGia.test(can.price)) continue;
-        if (tam.interior !== "all" && chuanNoiThat(can.interior) !== chuanNoiThat(tam.interior)) continue;
+        if (tam.interior !== "all" && chuanTang(can.tang) !== chuanTang(tam.interior)) continue;
         if (!khopTuKhoa(can, tam.query)) continue;
         dem++;
       }
@@ -1499,6 +1515,7 @@
           <div class="body">
             <h3>${apartment.type}${apartment.area ? ` · ${apartment.area} m²` : ""}</h3>
             <div class="price">${formatPrice(apartment.price)}${apartment.giaM2 ? `<small>${formatM2(apartment.giaM2)}</small>` : ""}</div>
+              ${apartment.laGiaThuVe ? `<div class="cc-ghichu-gia">Giá chủ thu về, chưa gồm phí sang tên</div>` : ""}
             <span class="tower">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
