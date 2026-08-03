@@ -665,11 +665,11 @@
     const typeFilters = [
       { key: "all", label: "Tất cả phòng", short: "Tất cả" },
       { key: "studio", label: "Studio", short: "Studio" },
-      { key: "1 ngủ", label: "1 phòng ngủ", short: "1 PN" },
-      { key: "1 ngủ +", label: "1 phòng ngủ +", short: "1 PN+" },
-      { key: "2 ngủ", label: "2 phòng ngủ", short: "2 PN" },
-      { key: "2 ngủ +", label: "2 phòng ngủ +", short: "2 PN+" },
-      { key: "3 ngủ", label: "3 phòng ngủ", short: "3 PN" }
+      { key: "1pn", label: "1 phòng ngủ", short: "1 PN" },
+      { key: "1pn+", label: "1 phòng ngủ +", short: "1 PN+" },
+      { key: "2pn", label: "2 phòng ngủ", short: "2 PN" },
+      { key: "2pn+", label: "2 phòng ngủ +", short: "2 PN+" },
+      { key: "3pn", label: "3 phòng ngủ", short: "3 PN" }
     ];
 
     /* SUA 28/07/2026 - HO DAY KHOANG GIA: moc thap nhat truoc day la 6,5 trieu,
@@ -688,9 +688,9 @@
 
     const interiorFilters = [
       { key: "all", label: "Tất cả", short: "Tất cả" },
-      { key: "full nội thất", label: "Full nội thất", short: "Full NT" },
-      { key: "nhà nguyên bản", label: "Nhà Nguyên Bản", short: "Nguyên bản" },
-      { key: "đồ cơ bản", label: "Đồ Cơ bản", short: "Cơ bản" }
+      { key: "full", label: "Full nội thất", short: "Full NT" },
+      { key: "nguyenban", label: "Nguyên bản", short: "Nguyên bản" },
+      { key: "coban", label: "Đồ cơ bản", short: "Cơ bản" }
     ];
 
     /* ================================================================
@@ -978,7 +978,9 @@
           }
         }
       }
-      const isNew = !isNaN(addedAt) && (Date.now() - addedAt) < 3 * 24 * 60 * 60 * 1000;
+      /* Moc 7 ngay chu khong phai 3: phan lon can trong kho duoc xac nhan cung mot
+         dot nen moc 3 ngay chi ra 4 can, lua chon "Chi xem can moi" gan nhu vo dung. */
+      const isNew = !isNaN(addedAt) && (Date.now() - addedAt) < 7 * 24 * 60 * 60 * 1000;
 
       const phanKhu = tenPhanKhu(tower);
       // Dung san chuoi tim kiem MOT LAN luc nap du lieu, khong dung lai moi lan go phim.
@@ -1095,8 +1097,21 @@
     }
 
     /** So khớp CHÍNH XÁC (không phải kiểu "chứa chuỗi con"), để "1 ngủ" không bị lẫn với "1 ngủ +" */
+    /* SUA 03/08/2026 — LOI NANG.
+       Ben cho thue ghi loai can la "1 ngu", "2 ngu +". Ben ban ghi "1PN", "2PN+".
+       Ham cu so khop nguyen van nen MOI BO LOC TRU STUDIO deu ra 0 can.
+       Nay chuan hoa ca hai ve cung mot dang truoc khi so, chap nhan moi cach viet. */
+    function chuanLoaiCan(v) {
+      let t = boDau(String(v || "")).toLowerCase().replace(/\s+/g, "");
+      if (!t) return "";
+      if (t.includes("studio") || t === "stu") return "studio";
+      const m = t.match(/(\d)\s*(?:phongngu|phong|ngu|pn|n)?(\+?)/);
+      if (m) return m[1] + "pn" + (m[2] ? "+" : "");
+      return t;
+    }
+
     function typeMatchesFilterKey(typeText, filterKey) {
-      return normalizeKey(typeText) === filterKey;
+      return chuanLoaiCan(typeText) === chuanLoaiCan(filterKey);
     }
 
     function apartmentMatchesType(apartment) {
@@ -1109,9 +1124,20 @@
       return filter ? filter.test(apartment.price) : true;
     }
 
+    /* SUA 03/08/2026 — cung loi kieu tren: du lieu ghi "Nguyen ban" nhung bo loc
+       tim "nha nguyen ban" nen chip do luon ra 0 can. */
+    function chuanNoiThat(v) {
+      const t = boDau(String(v || "")).toLowerCase();
+      if (!t) return "";
+      if (t.includes("full")) return "full";
+      if (t.includes("nguyen ban") || t === "nb") return "nguyenban";
+      if (t.includes("co ban") || t === "cb") return "coban";
+      return t.replace(/\s+/g, "");
+    }
+
     function apartmentMatchesInterior(apartment) {
       if (state.interior === "all") return true;
-      return normalizeKey(apartment.interior) === state.interior;
+      return chuanNoiThat(apartment.interior) === chuanNoiThat(state.interior);
     }
 
     function apartmentMatchesPhanKhu(apartment) {
@@ -1242,7 +1268,7 @@
         if (tam.phanKhu !== "all" && can.phanKhuKey !== tam.phanKhu) continue;
         if (tam.type !== "all" && !typeMatchesFilterKey(can.type, tam.type)) continue;
         if (mucGia && !mucGia.test(can.price)) continue;
-        if (tam.interior !== "all" && normalizeKey(can.interior) !== tam.interior) continue;
+        if (tam.interior !== "all" && chuanNoiThat(can.interior) !== chuanNoiThat(tam.interior)) continue;
         if (!khopTuKhoa(can, tam.query)) continue;
         dem++;
       }
