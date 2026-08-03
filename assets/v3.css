@@ -1764,3 +1764,23 @@ figure figcaption{font-size:.8rem;color:var(--gray-lt);margin-top:7px;text-align
      âm kéo lên đè hero cũng mất theo — trả lại khoảng thở dưới hero. */
   .quick-tiles{margin-top:18px}
 }
+
+
+/* ================================================================
+   NHAN "GIA CHU THU VE" duoi gia tren the can  (them 03/08/2026)
+   ----------------------------------------------------------------
+   Web hien gia chu nha thu ve — thap hon gia ban thuc te vi chua gom
+   phi moi gioi va thue phi sang ten. Nhan nay noi ro dieu do ngay
+   duoi con so, de khach biet truoc thay vi bat ngo luc chat Zalo.
+   Chu nho va mau xam nhat de khong lan at con so gia.
+   ================================================================ */
+.cc-ghichu-gia{
+  font-size:11px;
+  line-height:1.35;
+  color:var(--gray-lt);
+  margin:-2px 0 6px;
+  letter-spacing:.005em;
+}
+@media(max-width:640px){
+  .cc-ghichu-gia{font-size:10.5px}
+}
