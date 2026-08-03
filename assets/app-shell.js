@@ -1,6 +1,14 @@
 /*!
  * app-shell.js — Thanh tab dưới đáy cho bản điện thoại
- * timmuasmartcity.com — thêm 01/08/2026
+ * timmuasmartcity.com — bản cho MẢNG BÁN, sửa 03/08/2026
+ *
+ * KHÁC BẢN BÊN CHO THUÊ:
+ *   - Tab thứ 2 đổi từ "Cẩm nang" thành "Tìm thuê", trỏ thẳng sang
+ *     timthuesmartcity.com. Khách đang xem mua mà muốn thuê thì sang
+ *     luôn, thay vì rời site.
+ *   - Cẩm nang chuyển vào bảng Menu.
+ *   - Toàn bộ mục Menu trỏ tới trang chưa dựng bên này ĐÃ BỎ, vì để
+ *     nguyên là hàng chục lỗi 404.
  *
  * VÌ SAO DỰNG BẰNG JS THAY VÌ DÁN HTML VÀO 39 TRANG:
  *   - Sửa một file là cả site đổi theo, không phải mở lại 39 file mỗi lần
@@ -33,8 +41,8 @@
   function tabDangMo() {
     var p = duongDan();
     if (p === "/" || p === "") return "trang-chu";
-    if (p.indexOf("/gui-thue") === 0) return "ky-gui";
-    if (/cam-nang|kinh-nghiem|luu-y|phi-dich-vu|tien-ich|bang-gia|so-sanh|gia-thue-studio/.test(p)) return "cam-nang";
+    /* Ben ban hien chi co trang chu. Hai tab giua deu tro ra ngoai site
+       nen khong bao gio o trang thai "dang o day". */
     return "";
   }
 
@@ -42,27 +50,27 @@
     nha: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3.5 10.5 12 4l8.5 6.5V19a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1Z"/></svg>',
     sach: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H5.5A1.5 1.5 0 0 1 4 15.5Z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H14a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h4.5a1.5 1.5 0 0 0 1.5-1.5Z"/></svg>',
     kygui: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3.5 10.5 12 4l8.5 6.5V19a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1Z"/><path d="M12 16v-5M9.6 13.2 12 10.8l2.4 2.4" stroke-linecap="round"/></svg>',
+    chiakhoa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><circle cx="8" cy="12" r="3.4"/><path d="M11.4 12H20M17 12v3M20 12v2.4" stroke-linecap="round"/></svg>',
     menu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="5" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>'
   };
 
   /* Các mục trong bảng Menu — TOÀN BỘ đều là trang đã có thật trên site,
      không tạo link tới trang chưa tồn tại. */
+  /* MENU — CHỈ liệt kê đích ĐÃ TỒN TẠI.
+     Bản cũ chép từ bên cho thuê nên trỏ tới /bang-gia-thue-*.html,
+     /cam-nang-thue-nha.html... — những trang chưa dựng bên mảng bán.
+     Bấm vào là lỗi 404, vừa mất khách vừa bị Google đánh giá thấp.
+     Dựng xong trang nào thì thêm lại dòng đó vào đây. */
   var MENU = [
     { nhom: "Liên hệ" },
     { ten: "Nhắn Zalo " + SDT, href: "https://zalo.me/" + SDT, ngoai: true, zalo: true },
     { ten: "Gọi " + SDT, href: "tel:" + SDT },
-    { nhom: "Tra cứu giá" },
-    { ten: "Bảng giá thuê Vinhomes Smart City", href: "/bang-gia-thue-vinhomes-smart-city.html" },
-    { ten: "So sánh giá thuê các phân khu", href: "/so-sanh-gia-thue-cac-phan-khu-smart-city.html" },
-    { ten: "Giá thuê căn Studio", href: "/gia-thue-studio-smart-city.html" },
-    { nhom: "Tìm hiểu trước khi thuê" },
-    { ten: "Cẩm nang thuê nhà", href: "/cam-nang-thue-nha.html" },
-    { ten: "Kinh nghiệm thuê chung cư Smart City", href: "/kinh-nghiem-thue-chung-cu-smart-city.html" },
-    { ten: "Tiện ích nội khu", href: "/tien-ich-vinhomes-smart-city.html" },
-    { ten: "Phí dịch vụ, gửi xe, thú cưng", href: "/phi-dich-vu-vinhomes-smart-city.html" },
-    { nhom: "Khác" },
-    { ten: "Danh mục căn hộ theo phân khu", href: "/#mucLucKhoDuLieu" },
-    { ten: "Chính sách quyền riêng tư", href: "/chinh-sach-quyen-rieng-tu.html" }
+    { nhom: "Xem căn" },
+    { ten: "Toàn bộ căn đang bán", href: "/#filtersSection" },
+    { ten: "Ký gửi bán căn", href: "https://zalo.me/" + SDT, ngoai: true },
+    { nhom: "Bên cho thuê" },
+    { ten: "Cẩm nang thuê nhà", href: "https://timthuesmartcity.com/cam-nang-thue-nha.html", ngoai: true },
+    { ten: "Xem căn cho thuê Smart City", href: "https://timthuesmartcity.com", ngoai: true }
   ];
 
   function dungMenuHtml() {
@@ -90,8 +98,10 @@
     bar.setAttribute("aria-label", "Điều hướng nhanh");
     bar.innerHTML =
         '<a href="/"' + lop("trang-chu") + '>' + IC.nha + '<span>Trang chủ</span></a>'
-      + '<a href="/cam-nang-thue-nha.html"' + lop("cam-nang") + '>' + IC.sach + '<span>Cẩm nang</span></a>'
-      + '<a href="/gui-thue/"' + lop("ky-gui") + '>' + IC.kygui + '<span>Ký gửi thuê</span></a>'
+      + '<a href="https://timthuesmartcity.com" target="_blank" rel="noopener">'
+        + IC.chiakhoa + '<span>Tìm thuê</span></a>'
+      + '<a href="https://zalo.me/' + SDT + '" target="_blank" rel="noopener">'
+        + IC.kygui + '<span>Ký gửi bán</span></a>'
       + '<button type="button" id="tabMenu" aria-haspopup="dialog">' + IC.menu + '<span>Menu</span></button>';
 
     var nen = document.createElement("div");
