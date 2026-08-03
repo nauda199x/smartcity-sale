@@ -1,0 +1,14 @@
+{
+  "name": "Bán căn hộ Vinhomes Smart City",
+  "short_name": "Mua Smart City",
+  "description": "Căn hộ đang bán tại Vinhomes Smart City, kèm giá mỗi m² để so mặt bằng.",
+  "icons": [
+    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "theme_color": "#C8202B",
+  "background_color": "#F4F6F9",
+  "display": "standalone",
+  "start_url": "/",
+  "lang": "vi"
+}
