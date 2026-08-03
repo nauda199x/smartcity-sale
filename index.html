@@ -13,10 +13,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bán căn hộ Vinhomes Smart City – Giá thật, cập nhật T08/2026</title>
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
-  <link rel="apple-touch-icon" href="/favicon-192.png">
 
   <meta name="description" content="Bán căn hộ Vinhomes Smart City Tây Mỗ: Sola Park, Sapphire, Imperia, Sakura, Masteri, Lumière. Xem giá mỗi m² của từng căn để biết rẻ hay đắt so với mặt bằng.">
   <!-- CANONICAL (thêm 23/07/2026): báo cho Google biết địa chỉ CHÍNH THỨC của trang này.
@@ -30,8 +26,6 @@
        điện thoại là hai khung hình KHÁC NHAU (16:9 và 4:5), chọn bằng media trong
        <picture> — imagesrcset chỉ đúng khi các bản ảnh cùng khung hình, dùng sai
        thì trình duyệt preload một file rồi <picture> lại lấy file khác, tải 2 lần. -->
-  <link rel="preload" as="image" href="/images/hero/hero-smart-city-mobile.webp" media="(max-width: 640px)" fetchpriority="high">
-  <link rel="preload" as="image" href="/images/hero/hero-smart-city-desktop.webp" media="(min-width: 641px)" fetchpriority="high">
   <link rel="canonical" href="https://timmuasmartcity.com/">
 
   <!-- Open Graph: hiển thị ảnh/tiêu đề đẹp khi dán link trên Zalo, Facebook, Messenger -->
@@ -39,16 +33,12 @@
   <meta property="og:url" content="https://timmuasmartcity.com/">
   <meta property="og:title" content="Bán căn hộ chung cư Vinhomes Smart City tháng 08/2026">
   <meta property="og:description" content="Bán căn hộ Vinhomes Smart City, có sẵn giá mỗi m² để so sánh. Đủ Studio, 1-2-3 phòng ngủ trên mọi phân khu.">
-  <meta property="og:image" content="https://timmuasmartcity.com/og-smartcity.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
   <meta property="og:locale" content="vi_VN">
 
   <!-- Twitter Card (một số app dùng chung chuẩn này để xem trước link) -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Bán căn hộ chung cư Vinhomes Smart City tháng 08/2026">
   <meta name="twitter:description" content="Bán căn hộ chung cư Vinhomes Smart City giá tốt, cập nhật mỗi ngày.">
-  <meta name="twitter:image" content="https://timmuasmartcity.com/og-smartcity.jpg">
 
   <script type="application/ld+json">
   {
@@ -114,10 +104,9 @@
     "name": "Bán căn hộ Smart City",
     "url": "https://timmuasmartcity.com/",
     "telephone": "+84977923284",
-    "logo": "https://timmuasmartcity.com/favicon-512.png",
-    "image": "https://timmuasmartcity.com/og-smartcity.jpg",
-    "priceRange": "5.500.000₫ - 16.000.000₫",
-    "sameAs": [
+        "priceRange": "2.265.000.000₫ - 9.600.000.000₫",
+    "_ghiChu": "sameAs dang tro ve kenh mang xa hoi cua ben CHO THUE. Day la kenh that nen giu lai giup Google noi hai site cung mot chu. Khi lap kenh rieng cho mang ban thi doi lai.",
+  "sameAs": [
       "https://www.facebook.com/people/T%C3%ACm-thu%C3%AA-Smart-City/61591756688919/",
       "https://www.tiktok.com/@timthuesmartcity",
       "https://www.instagram.com/timthuesmartcity_com/",
@@ -182,8 +171,12 @@
            liên kết nội bộ ngay dòng đầu trang. -->
       <nav class="topnav" aria-label="Điều hướng chính">
         <a href="/" aria-current="page">Trang chủ</a>
-        <a href="#mucLucKhoDuLieu">Danh mục căn</a>
-        <a href="/">Cẩm nang mua nhà</a>
+        <!-- SUA 03/08/2026: "#filtersSection" tro toi khoi muc luc DA BI GO
+             (cac trang con /studio/, /sapphire/... chua dung ben site ban),
+             nen day la link chet. Tro ve bo loc ngay tren trang.
+             "Cam nang mua nha" da bo khoi menu vi chua co trang — de link tro
+             ve "/" chi lam khach bam roi quay lai dung cho cu, gay kho chiu. -->
+        <a href="#filtersSection">Danh sách căn</a>
         <a href="https://zalo.me/0977923284" target="_blank" rel="noopener">Ký gửi bán căn</a>
       </nav>
 
@@ -205,7 +198,7 @@
        lặp liền mạch — không có đoạn nào ghi cứng số căn. -->
   <button class="new-today-bar" id="newTodayBar" type="button">
     <span class="ntb-chay" id="newTodayChay">
-      <span class="ntb-doan">✨ Hôm nay cập nhật thêm <strong id="newTodayCount">0</strong> căn hộ mới toanh — bấm xem ngay kẻo lỡ<span class="arrow" aria-hidden="true">→</span></span>
+      <span class="ntb-doan">✨ Có <strong id="newTodayCount">0</strong> căn vừa xác nhận lại giá với chủ trong 3 ngày qua — bấm xem ngay<span class="arrow" aria-hidden="true">→</span></span>
     </span>
   </button>
 
@@ -260,7 +253,7 @@
 
         <div class="stats" aria-label="Tổng quan căn hộ">
           <div class="stat"><strong id="totalCount">--</strong><span>Tổng căn</span></div>
-          <div class="stat"><strong id="readyCount">--</strong><span>Ở ngay</span></div>
+          <div class="stat"><strong id="readyCount">--</strong><span>Trung vị mỗi m²</span></div>
           <!-- Số phân khu ĐANG CÓ CĂN — JS đếm từ data.json, không ghi cứng.
                Hôm nay là 8 (Sola Park và Victoria chưa có căn nào), nhưng có căn
                là con số tự nhảy lên 9-10, không phải sửa tay. -->
@@ -473,8 +466,8 @@
     <section class="seo-block" aria-label="Giới thiệu">
       <h2>Bán căn hộ Smart City — mua chung cư Vinhomes Smart City</h2>
       <p><strong>Bán căn hộ Smart City</strong> tổng hợp căn hộ đang bán tại Vinhomes Smart City (Tây Mỗ, Nam Từ Liêm, Hà Nội) với dữ liệu đồng bộ tự động nhiều lần mỗi ngày, phản ánh đúng tình trạng còn bán, giá bán và ảnh thật của từng căn. Đủ loại hình từ Studio, 1 phòng ngủ, 2 phòng ngủ đến 3 phòng ngủ, trải trên các phân khu Sapphire, Miami, Sakura, Masteri West Heights, Imperia, Lumière, Canopy và Tonkin.</p>
-      <p>Giá <strong>mua nhà Smart City</strong> hiện dao động phổ biến từ khoảng 5,5 triệu/tháng với căn Studio, tăng dần theo diện tích, phân khu và tình trạng nội thất. Anh/chị xem chi tiết tại <a href="#filtersSection">bảng giá thuê theo từng phân khu</a>, hoặc dùng bộ lọc phía trên để lọc nhanh theo ngân sách và loại căn.</p>
-      <p>Mỗi tin <strong>bán căn Vinhomes Smart City</strong> đều ghi rõ giá, diện tích, hướng và tình trạng nội thất (Full nội thất / Cơ bản / Nguyên bản). Anh/chị xem theo <a href="#mucLucKhoDuLieu">danh mục</a>, sau đó nhắn Zalo để được dẫn xem nhà trực tiếp.</p>
+      <p>Giá <strong>mua nhà Smart City</strong> hiện dao động từ khoảng 2,2 tỷ với căn Studio đến trên 9 tỷ với căn 2-3 phòng ngủ ở phân khu cao cấp. Tính theo mét vuông thì mặt bằng chung khoảng 66 đến 122 triệu mỗi m², thay đổi theo phân khu, tầng và hướng ban công. Anh/chị xem chi tiết tại <a href="#filtersSection">bảng giá bán theo từng phân khu</a>, hoặc dùng bộ lọc phía trên để lọc nhanh theo ngân sách và loại căn.</p>
+      <p>Mỗi tin <strong>bán căn Vinhomes Smart City</strong> đều ghi rõ giá, diện tích, hướng và tình trạng nội thất (Full nội thất / Cơ bản / Nguyên bản). Anh/chị xem theo <a href="#filtersSection">danh mục</a>, sau đó nhắn Zalo để được dẫn xem nhà trực tiếp.</p>
     </section>
 
     <!-- KHÁM PHÁ THEO LOẠI CĂN HỘ (chuyển xuống đây 23/07/2026)
@@ -506,7 +499,6 @@
     <div class="shell" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; align-items:center; color:var(--muted); font-size:13.5px;">
       <span>© 2026 Bán căn hộ Smart City</span>
       <nav style="display:flex; gap:18px; flex-wrap:wrap;">
-        <a href="/" style="color:var(--muted); font-weight:600;">Cẩm nang mua nhà</a>
         <a href="https://zalo.me/0977923284" target="_blank" rel="noopener" style="color:var(--muted); font-weight:600;">Chủ nhà gửi căn</a>
         <a href="/" style="color:var(--muted); font-weight:600;">Chính sách quyền riêng tư</a>
       </nav>
@@ -986,7 +978,7 @@
           }
         }
       }
-      const isNew = !isNaN(addedAt) && (Date.now() - addedAt) < 72 * 60 * 60 * 1000;
+      const isNew = !isNaN(addedAt) && (Date.now() - addedAt) < 3 * 24 * 60 * 60 * 1000;
 
       const phanKhu = tenPhanKhu(tower);
       // Dung san chuoi tim kiem MOT LAN luc nap du lieu, khong dung lai moi lan go phim.
@@ -1075,10 +1067,25 @@
     /** Chữ trên huy hiệu tình trạng. Mỗi thẻ chỉ hiện ĐÚNG MỘT huy hiệu:
      *  căn vừa về ưu tiên nhãn "Mới", còn lại hiện tình trạng trống.
      *  Luôn có nhãn đi kèm - con số ngày đứng trần rất dễ bị hiểu nhầm. */
+    /* MUA BAN (sua 03/08/2026): ben cho thue nhan nay bao "can trong tu ngay nao".
+       Ben ban khong co khai niem do — thu khach quan tam la GIA NAY CON DUNG KHONG,
+       tuc lan cuoi hoi lai chu nha cach day bao lau. */
     function nhanTinhTrang(apartment) {
-      if (apartment.isNew) return "✨ Mới";
-      if (sanSangONgay(apartment)) return "Vào ngay";
-      return `Trống từ ${ngayNganGon(apartment.availableDate)}`;
+      const n = soNgayTuKhi(apartment.availableDate);
+      if (n === null) return "";
+      if (n <= 3)  return "✨ Vừa xác nhận";
+      if (n <= 7)  return `Xác nhận ${n} ngày trước`;
+      if (n <= 30) return `Xác nhận ${Math.floor(n / 7)} tuần trước`;
+      return `Xác nhận ${Math.floor(n / 30)} tháng trước`;
+    }
+
+    /** So ngay tinh tu mot moc thoi gian den hom nay. Tra null neu khong doc duoc. */
+    function soNgayTuKhi(dateStr) {
+      if (!dateStr) return null;
+      const d = dateStr instanceof Date ? dateStr : new Date(dateStr);
+      if (isNaN(d)) return null;
+      const n = Math.floor((Date.now() - d.getTime()) / 86400000);
+      return n < 0 ? 0 : n;
     }
 
     function zaloLink(apartment) {
@@ -1518,9 +1525,14 @@
 
     function renderStats() {
       const publicApartments = state.apartments.filter(item => item.show && item.tower && item.type && item.price);
-      const ready = publicApartments.filter(item => sanSangONgay(item)).length;
+      /* MUA BAN: o so thu 2 truoc day dem "can o ngay" — khai niem cua ben thue.
+         Doi thanh TRUNG VI GIA MOI M2, con so nguoi mua thuc su can de biet
+         mat bang chung dang o dau truoc khi xem tung can. */
       $("#totalCount").textContent = publicApartments.length;
-      $("#readyCount").textContent = ready;
+      const dsM2 = publicApartments.map(x => x.giaM2).filter(Boolean).sort((a, b) => a - b);
+      $("#readyCount").textContent = dsM2.length
+        ? String(dsM2[Math.floor(dsM2.length / 2)]).replace(".", ",") + " tr"
+        : "--";
       // Đếm số phân khu THỰC SỰ đang có căn. Căn nào không nhận diện được phân khu
       // (mã tòa lạ) sẽ không được tính, tránh thổi phồng con số.
       const oPhanKhu = $("#phanKhuCount");
@@ -1546,7 +1558,14 @@
 
     /** Banner nổi bật đầu trang: "Hôm nay cập nhật thêm X căn hộ mới" - chỉ hiện khi có căn mới hôm nay */
     function renderNewTodayBar() {
-      const soCanMoiHomNay = state.apartments.filter(item => item.show && laThemVaoHomNay(item.addedAt)).length;
+      /* MUA BAN: ben thue dem can MOI THEM hom nay. Ben ban dong bo lai ca kho
+         moi lan chay nen con so do luon bang 0. Doi thanh: so can vua duoc
+         XAC NHAN LAI VOI CHU trong 3 ngay gan day — dung thong diep cua trang. */
+      const soCanMoiHomNay = state.apartments.filter(item => {
+        if (!item.show) return false;
+        const n = soNgayTuKhi(item.availableDate);
+        return n !== null && n <= 3;
+      }).length;
       const bar = $("#newTodayBar");
       if (soCanMoiHomNay > 0) {
         $("#newTodayCount").textContent = soCanMoiHomNay;
@@ -2056,7 +2075,7 @@
       var d = new Date();
       var thang = String(d.getMonth() + 1).padStart(2, "0");
       var nam = d.getFullYear();
-      var tieuDe = "Cho thuê căn hộ chung cư Vinhomes Smart City tháng " + thang + "/" + nam;
+      var tieuDe = "Bán căn hộ chung cư Vinhomes Smart City tháng " + thang + "/" + nam;
       document.title = tieuDe;
       var h1 = document.querySelector("h1");
       if (h1) h1.textContent = tieuDe;
