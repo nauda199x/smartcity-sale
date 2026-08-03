@@ -195,15 +195,6 @@ p:last-child{margin-bottom:0}
 .pill-btn.primary:hover{background:var(--zalo-dam);border-color:var(--zalo-dam);color:#fff}
 
 /* Băng "hôm nay thêm N căn" ngay dưới header */
-.new-today-bar{
-  display:none;width:100%;border:0;text-align:left;
-  background:linear-gradient(100deg,var(--navy),var(--navy-2));
-  color:#fff;padding:11px 20px;font-size:.88rem;font-weight:500;
-}
-.new-today-bar.show{display:flex;align-items:center;justify-content:center;gap:12px}
-.new-today-bar strong{font-family:var(--font-tieu-de);font-weight:800}
-.new-today-bar .arrow{transition:transform .2s}
-.new-today-bar:hover .arrow{transform:translateX(3px)}
 
 /* ==================================================================
    4. HERO — ảnh nền phủ kín, lớp phủ tối chuyển từ trái sang
@@ -1091,7 +1082,7 @@ figure figcaption{font-size:.8rem;color:var(--gray-lt);margin-top:7px;text-align
    ================================================================== */
 @media print{
   .topbar,.top,.floating-zalo,.zalo-noi,.sticky-cta,.filters,
-  .mobile-filter-toggle,.new-today-bar,.pagination{display:none!important}
+  .mobile-filter-toggle,
   body{background:#fff}
   .card,.the{break-inside:avoid}
 }
@@ -1426,7 +1417,6 @@ figure figcaption{font-size:.8rem;color:var(--gray-lt);margin-top:7px;text-align
   .mobile-filter-toggle,.filters-backdrop{display:none}
 }
 
-
 /* ==================================================================
    18. LOGO MẠNG XÃ HỘI CUỐI TRANG  (bổ sung 02/08/2026)
    ------------------------------------------------------------------
@@ -1717,44 +1707,24 @@ figure figcaption{font-size:.8rem;color:var(--gray-lt);margin-top:7px;text-align
    ================================================================== */
 
 /* ---- 21.1 Băng chữ chạy ------------------------------------------- */
-.new-today-bar{
-  background:#FFF4E6;color:#EA580C;
-  padding:10px 0;                  /* bỏ đệm ngang: chữ phải chạy sát mép */
-  overflow:hidden;                 /* cắt phần chữ ra ngoài khung */
-  font-weight:600;
-}
-.new-today-bar.show{display:block}
+
 /* Dải chữ: các đoạn xếp ngang, không xuống dòng, chạy từ 0 tới -50% bề
    ngang của chính nó. Số đoạn do script ở cuối index.html tính theo bề
    ngang màn hình và luôn là số chẵn, nên mốc -50% rơi đúng đầu một đoạn
    -> vòng lặp khép kín, không giật, không hở khoảng trống. */
-.ntb-chay{
-  display:inline-flex;flex-wrap:nowrap;white-space:nowrap;
-  will-change:transform;
-  animation:ntb-chay 18s linear infinite;
-}
+
 /* inline-block chứ KHÔNG phải inline-flex: để flex thì mỗi cụm chữ giữa hai
    thẻ con thành một ô riêng và bị gap đẩy ra, số căn nhìn như bị tách rời. */
-.ntb-doan{
-  display:inline-block;flex:none;
-  padding-right:72px;              /* khoảng thở giữa hai lần lặp */
-}
-.ntb-doan .arrow{margin-left:9px;display:inline-block}
-@keyframes ntb-chay{
-  from{transform:translateX(0)}
-  to  {transform:translateX(-50%)}
-}
-.new-today-bar strong{font-family:var(--font-tieu-de);font-weight:800;color:#C2410C}
+
 /* Khối 3 cho mũi tên nhích sang phải khi rê chuột; băng giờ tự chạy rồi nên
    bỏ hiệu ứng đó đi, rê chuột là để đọc chứ không phải để nhấn nhá thêm. */
-.new-today-bar:hover .arrow{transform:none}
+
 /* Rê chuột thì dừng để khách đọc kịp và bấm được. */
-.new-today-bar:hover .ntb-chay,
-.new-today-bar:focus-visible .ntb-chay{animation-play-state:paused}
+
 /* Máy bật "giảm chuyển động": đứng yên hẳn, chỉ đọc đoạn chữ thật.
    Phải nằm sau khối 14 mới ghi đè được animation khai báo ở trên. */
 @media (prefers-reduced-motion:reduce){
-  .ntb-chay{animation:none}
+  
 }
 
 /* ---- 21.2 Ẩn card lọc trên điện thoại ------------------------------ */
@@ -1764,7 +1734,6 @@ figure figcaption{font-size:.8rem;color:var(--gray-lt);margin-top:7px;text-align
      âm kéo lên đè hero cũng mất theo — trả lại khoảng thở dưới hero. */
   .quick-tiles{margin-top:18px}
 }
-
 
 /* ================================================================
    NHAN "GIA CHU THU VE" duoi gia tren the can  (them 03/08/2026)
