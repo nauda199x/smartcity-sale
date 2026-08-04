@@ -36,9 +36,20 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#C8202B">
 
+  <!-- PRELOAD anh hero. Dung hai the rieng theo media thay vi imagesrcset:
+       hai ban anh KHAC KHUNG HINH (ngang cho may tinh, doc cho dien thoai),
+       dung imagesrcset se lam trinh duyet tai mot file roi <picture> lai lay
+       file khac — tai hai lan, cham hon la khong preload. -->
+  <link rel="preload" as="image" href="/images/hero/hero-smart-city-mobile.webp" media="(max-width: 640px)" fetchpriority="high">
+  <link rel="preload" as="image" href="/images/hero/hero-smart-city-desktop.webp" media="(min-width: 641px)" fetchpriority="high">
+
   <link rel="canonical" href="https://timmuasmartcity.com/">
 
   <!-- Open Graph: hiển thị ảnh/tiêu đề đẹp khi dán link trên Zalo, Facebook, Messenger -->
+  <meta property="og:image" content="https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.jpg">
+  <meta property="og:image:width" content="1800">
+  <meta property="og:image:height" content="1013">
+  <meta name="twitter:image" content="https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.jpg">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://timmuasmartcity.com/">
   <meta property="og:title" content="Bán căn hộ chung cư Vinhomes Smart City tháng 08/2026">
@@ -241,12 +252,18 @@
        .hero-dong-bo) giữ nguyên tại đúng phần tử cũ. -->
   <section class="hero hero-v4">
     <picture class="hero-v4__anh">
-      
-      
-      
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='500'%3E%3Crect width='1200' height='500' fill='%235C1216'/%3E%3C/svg%3E" width="1800" height="1013"
+      <!-- ANH HERO — anh that chup tai Tonkin (TK2) luc chang vang, 03/08/2026.
+           Co y dung anh tu chup thay vi anh render marketing cua chu dau tu:
+           anh render thi trang moi gioi nao cung dung, khach nhin la biet
+           nguoi dang khong o trong khu.
+           Chon lien anh CHUP DEM vi den vien vang lam nen sau, chu trang de
+           doc hon han anh ban ngay troi sang. -->
+      <source media="(max-width:640px)" type="image/webp" srcset="/images/hero/hero-smart-city-mobile.webp">
+      <source media="(max-width:640px)" type="image/jpeg" srcset="/images/hero/hero-smart-city-mobile.jpg">
+      <source type="image/webp" srcset="/images/hero/hero-smart-city-desktop.webp">
+      <img src="/images/hero/hero-smart-city-desktop.jpg" width="1800" height="1013"
            fetchpriority="high" decoding="async"
-           alt="Toà căn hộ Vinhomes Smart City nhìn từ hồ trung tâm, Tây Mỗ, Nam Từ Liêm, Hà Nội">
+           alt="Toà căn hộ Tonkin TK2 tại Vinhomes Smart City lúc lên đèn, Tây Mỗ, Nam Từ Liêm, Hà Nội">
     </picture>
     <!-- Lớp phủ chỉ tối bên trái để đỡ chữ; nửa phải gần như trong suốt để nhìn rõ
          hồ nước, bãi cát và hàng dừa. Không dùng filter/nền phủ đều lên cả ảnh. -->
