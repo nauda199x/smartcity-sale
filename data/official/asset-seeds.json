@@ -1,0 +1,46 @@
+{
+  "sources": [
+    {
+      "page": "https://smartcity.vinhomes.vn/",
+      "category": "overview",
+      "priority_keywords": ["home", "banner", "park", "garden", "city", "smart"]
+    },
+    {
+      "page": "https://smartcity.vinhomes.vn/gateway-tower/",
+      "category": "gateway-tower",
+      "priority_keywords": ["gateway", "mat-bang", "layout", "product", "location"]
+    },
+    {
+      "page": "https://smartcity.vinhomes.vn/sapphire-parkville/",
+      "category": "sapphire-parkville",
+      "priority_keywords": ["sapphire", "parkville", "mat-bang", "tien-ich"]
+    },
+    {
+      "page": "https://smartcity.vinhomes.vn/the-grand-sapphire/",
+      "category": "grand-sapphire",
+      "priority_keywords": ["grand", "sapphire", "lake", "park", "mat-bang"]
+    },
+    {
+      "page": "https://smartcity.vinhomes.vn/thu-vien/",
+      "category": "gallery",
+      "priority_keywords": ["album", "gallery", "park", "garden", "actual"]
+    }
+  ],
+  "curated": [
+    {
+      "url": "https://smartcity.vinhomes.vn/wp-content/themes/vinhomes-smart-city/assets/images/homepage/home1/a2.png",
+      "slug": "vinhomes-smart-city-overview",
+      "category": "overview"
+    },
+    {
+      "url": "https://vinhomes.vn/sites/default/files/styles/images_525_x_295/public/2021-07/Hinh-anh-the-sapphire-vinhomes-smart-city.jpg?itok=T_nLf8w9",
+      "slug": "the-sapphire-vinhomes-smart-city",
+      "category": "sapphire"
+    },
+    {
+      "url": "https://vinhomes.vn/sites/default/files/styles/images_560_x_315/public/2021-05/PC02.Topdown%20The%20Sakura%20-%20Final.jpg?itok=RBkxJLpO",
+      "slug": "the-sakura-vinhomes-smart-city",
+      "category": "sakura"
+    }
+  ]
+}
