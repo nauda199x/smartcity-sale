@@ -6,20 +6,20 @@ ROOT = Path(__file__).resolve().parents[1]
 DOMAIN = "https://timmuasmartcity.com"
 
 ROUTES = {
-    "blog/index.html": "cam-nang.html",
-    "blog/gia-ban-vinhomes-smart-city/index.html": "gia-ban-vinhomes-smart-city.html",
-    "blog/chi-phi-mua-can-ho-chuyen-nhuong-vinhomes-smart-city/index.html": "chi-phi-mua-can-ho-chuyen-nhuong-vinhomes-smart-city.html",
-    "blog/kinh-nghiem-mua-can-ho-vinhomes-smart-city/index.html": "kinh-nghiem-mua-can-ho-vinhomes-smart-city.html",
-    "blog/mua-can-ho-2pn-vinhomes-smart-city/index.html": "mua-can-ho-2pn-vinhomes-smart-city.html",
-    "blog/so-sanh-phan-khu-vinhomes-smart-city/index.html": "so-sanh-phan-khu-vinhomes-smart-city.html",
-    "blog/masteri-west-heights-smart-city/index.html": "masteri-west-heights-smart-city.html",
-    "blog/sapphire-vinhomes-smart-city/index.html": "sapphire-vinhomes-smart-city.html",
-    "blog/the-sakura-vinhomes-smart-city/index.html": "the-sakura-vinhomes-smart-city.html",
-    "can-ho-dang-ban/index.html": "can-ho-dang-ban.html",
-    "phan-khu/index.html": "phan-khu.html",
-    "phan-khu/sapphire/index.html": "phan-khu-sapphire.html",
-    "phan-khu/the-sakura/index.html": "phan-khu-the-sakura.html",
-    "phan-khu/gateway-tower/index.html": "gateway-tower.html",
+    "_source/blog/index.html": "cam-nang.html",
+    "_source/blog/gia-ban-vinhomes-smart-city/index.html": "gia-ban-vinhomes-smart-city.html",
+    "_source/blog/chi-phi-mua-can-ho-chuyen-nhuong-vinhomes-smart-city/index.html": "chi-phi-mua-can-ho-chuyen-nhuong-vinhomes-smart-city.html",
+    "_source/blog/kinh-nghiem-mua-can-ho-vinhomes-smart-city/index.html": "kinh-nghiem-mua-can-ho-vinhomes-smart-city.html",
+    "_source/blog/mua-can-ho-2pn-vinhomes-smart-city/index.html": "mua-can-ho-2pn-vinhomes-smart-city.html",
+    "_source/blog/so-sanh-phan-khu-vinhomes-smart-city/index.html": "so-sanh-phan-khu-vinhomes-smart-city.html",
+    "_source/blog/masteri-west-heights-smart-city/index.html": "masteri-west-heights-smart-city.html",
+    "_source/blog/sapphire-vinhomes-smart-city/index.html": "sapphire-vinhomes-smart-city.html",
+    "_source/blog/the-sakura-vinhomes-smart-city/index.html": "the-sakura-vinhomes-smart-city.html",
+    "_source/can-ho-dang-ban/index.html": "can-ho-dang-ban.html",
+    "_source/phan-khu/index.html": "phan-khu.html",
+    "_source/phan-khu/sapphire/index.html": "phan-khu-sapphire.html",
+    "_source/phan-khu/the-sakura/index.html": "phan-khu-the-sakura.html",
+    "_source/phan-khu/gateway-tower/index.html": "gateway-tower.html",
 }
 
 URL_MAP = {

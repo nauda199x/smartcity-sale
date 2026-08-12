@@ -1,0 +1,45 @@
+name: Build, validate and deploy
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build generated pages
+        run: python3 tools/build_site.py
+      - name: Verify generated files are committed
+        run: git diff --exit-code
+      - name: Validate production site
+        run: python3 tools/validate_site.py
+      - name: Stage public artifact
+        if: github.event_name != 'pull_request'
+        run: python3 tools/prepare_deploy.py
+      - name: Configure Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@v5
+      - name: Upload site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy
+        if: github.event_name != 'pull_request'
+        uses: actions/deploy-pages@v4
