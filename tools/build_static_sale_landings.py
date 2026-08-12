@@ -24,3 +24,12 @@ for filename,title,desc,pred in LANDINGS:
     doc=f'''<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title} | Tìm Mua Smart City</title><meta name="description" content="{desc}"><link rel="canonical" href="https://timmuasmartcity.com/{filename}"><meta name="robots" content="index,follow,max-image-preview:large"><meta property="og:type" content="website"><meta property="og:title" content="{title}"><meta property="og:description" content="{desc}"><meta property="og:image" content="https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp"><link rel="stylesheet" href="/assets/portal.css"></head><body class="listing-page"><header class="top"><div class="shell nav"><a class="brand" href="/"><span class="brand-mark">⌂</span><span>Tìm Mua Smart City</span></a><nav class="navlinks"><a href="/can-ho-dang-ban.html">Tất cả căn</a><a href="/cam-nang.html">Cẩm nang</a><a href="/ky-gui-ban-can.html">Ký gửi</a></nav></div></header><main><section class="listing-hero"><div class="shell"><div class="eyebrow">Dữ liệu tĩnh cho Google & người mua</div><h1>{title}</h1><p>{desc} Giá và tình trạng căn có thể thay đổi; cần xác nhận lại trước giao dịch.</p><div class="count">{len(items)} căn phù hợp trong dữ liệu hiện tại</div><div class="listing-grid">{cards}</div><a class="btn" style="background:#0b1220;color:#fff" href="/can-ho-dang-ban.html">Mở bộ lọc toàn bộ quỹ căn →</a></div></section></main></body></html>'''
     (ROOT/filename).write_text(doc,encoding='utf-8')
     print('built',filename,len(items))
+
+sitemap=ROOT/'sitemap.xml'
+if sitemap.exists():
+    text=sitemap.read_text(encoding='utf-8')
+    for filename,_,_,_ in LANDINGS:
+        url='https://timmuasmartcity.com/'+filename
+        if url not in text:
+            text=text.replace('</urlset>',f'  <url><loc>{url}</loc><lastmod>2026-08-12</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>\n</urlset>')
+    sitemap.write_text(text,encoding='utf-8')
