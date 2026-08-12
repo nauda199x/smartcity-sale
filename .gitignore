@@ -1,0 +1,12 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+
+# OS metadata
+.DS_Store
+
+# Local build and temporary artifacts
+_site/
+*.tmp
+*.temp
+*.log
