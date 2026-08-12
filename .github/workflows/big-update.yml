@@ -1,0 +1,34 @@
+name: Big update - validate sale listings
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Normalize sale data and website copy
+        run: python3 tools/big_update_2026_08_12.py
+
+      - name: Validate JSON
+        run: python3 -m json.tool data.json >/dev/null
+
+      - name: Commit normalized files
+        run: |
+          if git diff --quiet; then
+            echo "No normalization changes needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data.json index.html
+          git commit -m "Big update: clean sale data and website information"
+          git push
