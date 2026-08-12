@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,18 +39,37 @@ URL_MAP = {
     "/phan-khu/gateway-tower/": "/gateway-tower.html",
 }
 
+# Compute public inventory stats at build time so homepage never depends on JS for its key count.
+rows = json.loads((ROOT / "data.json").read_text(encoding="utf-8"))
+visible = [r for r in rows if isinstance(r, dict) and r.get("Hiển thị trên Web") == "Có"]
+missing_image = [r for r in visible if not str(r.get("Ảnh đại diện") or "").strip()]
+one_image = []
+for r in visible:
+    imgs = [x.strip() for x in str(r.get("Danh sách ảnh") or "").splitlines() if x.strip()]
+    if len(imgs) == 1:
+        one_image.append(r)
+stats = {"visible": len(visible), "missing_image": len(missing_image), "one_image": len(one_image), "total_rows": len(rows)}
+(ROOT / "data" / "public-stats.json").write_text(json.dumps(stats, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def remove_shared_ga(html: str) -> str:
+    # G-VF9KHC5TWD is also used by timthuesmartcity.com. Remove it from the sale portal
+    # until a dedicated GA4 stream/property ID is configured, preventing mixed analytics.
+    html = re.sub(r'<script async src="https://www\.googletagmanager\.com/gtag/js\?id=G-VF9KHC5TWD"></script>', '', html)
+    html = re.sub(r'<script>window\.dataLayer=window\.dataLayer\|\|\[\];function gtag\(\)\{dataLayer\.push\(arguments\)\}gtag\(\'js\',new Date\(\)\);gtag\(\'config\',\'G-VF9KHC5TWD\'\);</script>', '', html)
+    return html
+
 
 def rewrite(html: str, public_path: str) -> str:
     for old, new in sorted(URL_MAP.items(), key=lambda x: -len(x[0])):
         html = html.replace(old, new)
         html = html.replace(DOMAIN + old, DOMAIN + new)
-
     canonical = DOMAIN + "/" + public_path
     if 'rel="canonical"' in html:
         html = re.sub(r'<link rel="canonical" href="[^"]+">', f'<link rel="canonical" href="{canonical}">', html, count=1)
     else:
         html = html.replace("</head>", f'<link rel="canonical" href="{canonical}"></head>', 1)
-    return html
+    return remove_shared_ga(html)
 
 for src, dst in ROUTES.items():
     source = ROOT / src
@@ -57,33 +77,32 @@ for src, dst in ROUTES.items():
         print("skip missing", src)
         continue
     html = rewrite(source.read_text(encoding="utf-8"), dst)
-    if dst == "can-ho-dang-ban.html":
-        if 'property="og:title"' not in html:
-            og = (
-                '<meta property="og:type" content="website">'
-                '<meta property="og:url" content="https://timmuasmartcity.com/can-ho-dang-ban.html">'
-                '<meta property="og:title" content="Căn hộ đang bán tại Vinhomes Smart City">'
-                '<meta property="og:description" content="Quỹ căn chuyển nhượng Vinhomes Smart City: lọc theo phân khu, loại căn, giá, diện tích và nội thất.">'
-                '<meta property="og:image" content="https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp">'
-                '<meta name="twitter:card" content="summary_large_image">'
-            )
-            html = html.replace("</head>", og + "</head>", 1)
+    if dst == "can-ho-dang-ban.html" and 'property="og:title"' not in html:
+        og = (
+            '<meta property="og:type" content="website">'
+            '<meta property="og:url" content="https://timmuasmartcity.com/can-ho-dang-ban.html">'
+            '<meta property="og:title" content="Căn hộ đang bán tại Vinhomes Smart City">'
+            '<meta property="og:description" content="Quỹ căn chuyển nhượng Vinhomes Smart City: lọc theo phân khu, loại căn, giá, diện tích và nội thất.">'
+            '<meta property="og:image" content="https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp">'
+            '<meta name="twitter:card" content="summary_large_image">'
+        )
+        html = html.replace("</head>", og + "</head>", 1)
     (ROOT / dst).write_text(html, encoding="utf-8")
     print("built", dst)
 
-# Rewrite homepage and generated flat pages to use stable .html URLs.
+# Rewrite homepage and generated flat pages to stable .html URLs.
 for path in [ROOT / "index.html"] + [ROOT / p for p in ROUTES.values()]:
     if not path.exists():
         continue
-    text = path.read_text(encoding="utf-8")
+    text = remove_shared_ga(path.read_text(encoding="utf-8"))
     for old, new in sorted(URL_MAP.items(), key=lambda x: -len(x[0])):
         text = text.replace(old, new)
         text = text.replace(DOMAIN + old, DOMAIN + new)
-    text = text.replace('id="liveCount">—</strong>', 'id="liveCount">200+</strong>')
+    text = re.sub(r'id="liveCount">[^<]*</strong>', f'id="liveCount">{stats["visible"]}</strong>', text)
     text = text.replace('href="https://zalo.me/0977923284" target="_blank" rel="noopener">Ký gửi', 'href="/ky-gui-ban-can.html">Ký gửi')
     path.write_text(text, encoding="utf-8")
 
-# Sitemap: publish only stable URLs to avoid host trailing-slash loop.
+# Sitemap: only stable URLs that do not rely on directory trailing-slash behavior.
 sitemap = ROOT / "sitemap.xml"
 if sitemap.exists():
     text = sitemap.read_text(encoding="utf-8")
@@ -99,3 +118,5 @@ if sitemap.exists():
         if url not in text:
             text = text.replace("</urlset>", f'  <url><loc>{url}</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>{priority}</priority></url>\n</urlset>')
     sitemap.write_text(text, encoding="utf-8")
+
+print("public stats", stats)
