@@ -1,0 +1,50 @@
+{
+  "name": "Vinhomes Smart City",
+  "retrieved_at": "2026-08-12",
+  "facts": [
+    {
+      "key": "scale_ha",
+      "value": 280,
+      "unit": "ha",
+      "source_url": "https://smartcity.vinhomes.vn/",
+      "source_note": "Official homepage project overview"
+    },
+    {
+      "key": "construction_density_percent",
+      "value": 14.7,
+      "unit": "%",
+      "source_url": "https://smartcity.vinhomes.vn/",
+      "source_note": "Official homepage project overview"
+    },
+    {
+      "key": "location_axis",
+      "value": "Đại lộ Thăng Long",
+      "source_url": "https://smartcity.vinhomes.vn/",
+      "source_note": "Official homepage location section"
+    },
+    {
+      "key": "smart_city_pillars",
+      "value": ["An ninh thông minh", "Căn hộ thông minh", "Vận hành thông minh", "Cộng đồng thông minh"],
+      "source_url": "https://smartcity.vinhomes.vn/",
+      "source_note": "Official homepage smart-city section"
+    },
+    {
+      "key": "core_ecosystem",
+      "value": ["VinBus", "Vincom Mega Mall", "Vinschool", "Vinmec"],
+      "source_url": "https://smartcity.vinhomes.vn/",
+      "source_note": "Official homepage internal ecosystem section"
+    },
+    {
+      "key": "outdoor_amenities",
+      "value": ["Hồ cảnh quan", "Chèo thuyền Kayak", "Công viên dưỡng sinh", "Công viên dã ngoại", "Công viên Aerobic", "Công viên Patin", "Công viên khiêu vũ", "Công viên BBQ", "Công viên gym", "Vườn Nhật"],
+      "source_url": "https://smartcity.vinhomes.vn/",
+      "source_note": "Official homepage environment / park sections"
+    },
+    {
+      "key": "official_product_lines",
+      "value": ["Vinhomes Sapphire", "Vinhomes Ruby", "Vinhomes Diamond"],
+      "source_url": "https://smartcity.vinhomes.vn/",
+      "source_note": "Official homepage product lines"
+    }
+  ]
+}
