@@ -35,13 +35,13 @@ Các con số 280 ha, mật độ 14,7% và trục Đại lộ Thăng Long là t
 Ứng viên phải đồng thời:
 
 - được phép hiển thị;
-- có ảnh nguồn trong `Danh sách ảnh`;
+- có URL hợp lệ trong field public `Ảnh đại diện`;
 - có giá bán dương;
 - có diện tích dương.
 
-Ứng viên được xếp hạng cố định theo: số ảnh giảm dần, độ đầy đủ của tập trường công khai giảm dần, rồi `Phân khu`, `Tòa`, `Loại` theo alphabet. Bộ chọn lấy căn xếp hạng cao nhất của từng phân khu đến đủ sáu căn, tạo độ đa dạng và không random giữa hai lần build.
+Ứng viên được xếp hạng cố định theo độ đầy đủ của tập trường công khai, rồi `Phân khu`, `Tòa`, `Loại` theo alphabet. Bộ chọn lấy căn xếp hạng cao nhất của từng phân khu; nếu có ít hơn sáu phân khu đủ điều kiện, bộ chọn tiếp tục lấy các căn tốt nhất còn lại thay vì giảm số card hoặc tạo visual giả.
 
-Renderer tạo một dictionary whitelist gồm đúng: `Tòa`, `Phân khu`, `Loại`, `Diện tích`, `Tầng`, `Nội thất`, `Giá bán`, `Giá mỗi m2`. Giá thu về/net, phí, commission, ghi chú, ID và các trường nội bộ không thể đi vào HTML generated. Card dùng illustration dữ liệu local thay vì hotlink ảnh Drive; trạng thái “có ảnh nguồn” chỉ là tiêu chí chất lượng dữ liệu. CTA truyền `?q=` cho trang inventory, trang này khởi tạo ô tìm kiếm từ query string.
+Renderer tạo một dictionary whitelist gồm đúng: `Tòa`, `Phân khu`, `Loại`, `Diện tích`, `Tầng`, `Nội thất`, `Giá bán`, `Giá mỗi m2`. Giá thu về/net, phí, commission, ghi chú, ID và các trường nội bộ không thể đi vào HTML generated. Ảnh được đọc riêng từ field public `Ảnh đại diện`: helper chỉ chấp nhận HTTPS thumbnail của đúng host/path Drive đã duyệt, bỏ toàn bộ query option ngoài ID và tuyệt đối không đọc `Danh sách ảnh`. Mỗi card render ảnh căn thật và rơi về ảnh local nếu endpoint public lỗi. CTA truyền `?q=` cho trang inventory, trang này khởi tạo ô tìm kiếm từ query string.
 
 ## Image strategy và fallback
 
@@ -49,10 +49,10 @@ Repository hiện chỉ có một bộ ảnh Smart City thật ở `images/hero/
 
 - WebP desktop/mobile trong `<picture>` cho hero, với `fetchpriority="high"`, kích thước rõ và không lazy-load.
 - Mobile WebP cho visual dọc của câu chuyện đô thị.
-- Desktop JPG cho lifestyle image story.
-- Desktop WebP cho duy nhất project feature LUMIÈRE; các project còn lại dùng treatment màu editorial và không giả ảnh dự án.
+- Project LUMIÈRE và lifestyle dùng typography/color composition, tương tự các project chưa có ảnh riêng, thay vì tái sử dụng hero làm ảnh giả.
+- Featured inventory dùng đúng public representative thumbnail của từng căn, được sanitizer fail-closed như mô tả trên.
 
-Ảnh bên dưới fold có `loading="lazy"`. Không hotlink ảnh, không dùng stock và không gắn một ảnh chung thành ảnh giả của từng phân khu/căn. Khi repository có bộ ảnh local đã xác minh, visual project/listing có thể thay riêng mà không đổi cấu trúc dữ liệu.
+Ảnh bên dưới fold có `loading="lazy"`. Không dùng stock và không gắn một ảnh chung thành ảnh giả của từng phân khu/căn. Ảnh nội dung dự án đều là local; riêng ảnh căn là public inventory thumbnail đã được duyệt và có fallback local. Khi repository có pipeline mirror ảnh căn, URL public có thể được thay bằng bản local mà không đổi cấu trúc card.
 
 ## Internal linking
 
@@ -74,3 +74,5 @@ Homepage có title/description bám search intent mua bán, căn hộ và bảng
 ## Determinism và build
 
 `tools/build_site.py` gọi `build_homepage.py` sau khi build flat routes. Template nằm tại `_source/homepage.html`; artifact là `index.html`. Sorting có tie-breaker ổn định, không dùng timestamp build và không random. Hai lần build với cùng `data.json` tạo byte-identical homepage.
+
+`tools/validate_homepage.py` chạy ngay sau generator và fail build nếu còn token, thiếu local asset, không đủ sáu ảnh căn thật, public image sai host/path, thiếu fallback/alt hoặc featured markup chứa tên field nhạy cảm.

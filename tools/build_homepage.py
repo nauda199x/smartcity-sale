@@ -5,16 +5,28 @@ from datetime import date
 from html import escape
 from pathlib import Path
 from statistics import median
+from urllib.parse import parse_qs, quote, urlparse
 import json
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = ROOT / "_source" / "homepage.html"
 SAFE_FIELDS = {"Tòa", "Phân khu", "Loại", "Diện tích", "Tầng", "Nội thất", "Giá bán", "Giá mỗi m2"}
+PUBLIC_IMAGE_FIELD = "Ảnh đại diện"
+PUBLIC_IMAGE_HOST = "drive.google.com"
+LOCAL_IMAGE_FALLBACK = "/images/hero/hero-smart-city-mobile.webp"
 
 
-def image_urls(row):
-    return [url.strip() for url in str(row.get("Danh sách ảnh") or "").splitlines() if url.strip()]
+def public_image_url(row):
+    """Return one reviewed public thumbnail; never read the source gallery field."""
+    parsed = urlparse(str(row.get(PUBLIC_IMAGE_FIELD) or "").strip())
+    query = parse_qs(parsed.query)
+    image_id = query.get("id", [""])[0]
+    if parsed.scheme != "https" or parsed.netloc != PUBLIC_IMAGE_HOST:
+        return ""
+    if parsed.path != "/thumbnail" or not image_id:
+        return ""
+    return f"https://{PUBLIC_IMAGE_HOST}/thumbnail?id={quote(image_id, safe='')}&amp;sz=w1200"
 
 
 def is_positive_number(value):
@@ -27,8 +39,7 @@ def format_decimal(value):
 
 def listing_score(row):
     complete = sum(bool(row.get(key)) for key in SAFE_FIELDS)
-    # More source photos, then completeness; textual keys make every tie deterministic.
-    return (-len(image_urls(row)), -complete, str(row.get("Phân khu") or ""), str(row.get("Tòa") or ""), str(row.get("Loại") or ""))
+    return (-complete, str(row.get("Phân khu") or ""), str(row.get("Tòa") or ""), str(row.get("Loại") or ""))
 
 
 rows = json.loads((ROOT / "data.json").read_text(encoding="utf-8"))
@@ -46,7 +57,7 @@ for apartment_type in ("Studio", "1PN", "1PN+", "2PN", "2PN+", "3PN"):
             f'<strong>{escape(apartment_type)}</strong><i aria-hidden="true">→</i></a>'
         )
 
-candidates = [row for row in valid_market if image_urls(row)]
+candidates = [row for row in valid_market if public_image_url(row)]
 featured, used_zones = [], set()
 for row in sorted(candidates, key=listing_score):
     zone = str(row.get("Phân khu") or "")
@@ -56,11 +67,19 @@ for row in sorted(candidates, key=listing_score):
     used_zones.add(zone)
     if len(featured) == 6:
         break
+if len(featured) < 6:
+    for row in sorted(candidates, key=listing_score):
+        if row in featured:
+            continue
+        featured.append(row)
+        if len(featured) == 6:
+            break
 
 featured_cards = []
 for index, source in enumerate(featured, 1):
     # Whitelist prevents private pricing, notes, identifiers, fees and commissions entering HTML.
     row = {key: source.get(key) for key in SAFE_FIELDS}
+    image = public_image_url(source)
     title = f'{row.get("Loại") or "Căn hộ"} · {row.get("Tòa") or row.get("Phân khu") or "Smart City"}'
     area = format_decimal(row["Diện tích"])
     price = format_decimal(row["Giá bán"] / 1_000_000_000)
@@ -68,7 +87,9 @@ for index, source in enumerate(featured, 1):
     meta = " · ".join(filter(None, (f"{area} m²", str(row.get("Tầng") or ""), str(row.get("Nội thất") or ""))))
     psm_html = f'<span>{psm} triệu/m²</span>' if psm else ""
     featured_cards.append(
-        f'<article class="hp-listing"><div class="hp-listing__visual hp-listing__visual--{index}"><span>{index:02d}</span>'
+        f'<article class="hp-listing"><div class="hp-listing__visual"><img src="{image}" alt="Ảnh căn {escape(title)}" '
+        f'loading="lazy" width="1200" height="800" referrerpolicy="no-referrer" '
+        f'onerror="this.onerror=null;this.src=\'{LOCAL_IMAGE_FALLBACK}\'"><span>{index:02d}</span>'
         f'<small>{escape(str(row.get("Phân khu") or "Smart City"))}</small></div><div class="hp-listing__body">'
         f'<p>{escape(str(row.get("Phân khu") or ""))}</p><h3>{escape(title)}</h3><div class="hp-listing__meta">{escape(meta)}</div>'
         f'<div class="hp-listing__price"><strong>{price} tỷ</strong>{psm_html}</div>'
