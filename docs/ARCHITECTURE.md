@@ -62,8 +62,15 @@ _source/**/*.html + root source HTML + data.json
 Thứ tự build cố định: (1) flat routes và stats, (2) landing từ quỹ căn, (3) redirect
 compatibility. Build không gọi mạng, không commit và không push. CI build lại rồi dùng
 `git diff --exit-code`; thay đổi output chưa commit sẽ làm job fail. Pull request chỉ
-build/validate; push `main` pass mới upload và deploy. `concurrency` hủy deploy cũ cùng
-ref, nên không có hai writer.
+build/validate. Push `main` pass mới upload artifact; job `deploy` riêng chỉ chạy sau
+job build thành công, dùng environment `github-pages` và OIDC permissions theo yêu cầu
+của GitHub Pages. Concurrency production không hủy deployment đang chạy, nên không có
+hai writer hoặc deployment bị cắt giữa chừng.
+
+Repository Settings → Pages phải đặt **Source: GitHub Actions**. Đây là cơ chế production
+duy nhất: không chọn “Deploy from a branch”, vì lựa chọn đó kích hoạt workflow legacy
+“pages build and deployment” song song với artifact deployment trong
+`site-pipeline.yml`. Workflow custom không commit/push nội dung sang một Pages branch.
 
 ### Quy trình local
 

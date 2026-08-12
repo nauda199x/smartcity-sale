@@ -26,8 +26,14 @@ RUNTIME_URL = re.compile(
 
 class Document(HTMLParser):
     def __init__(self):
-        super().__init__(); self.links=[]; self.images=[]; self.canonical=[]; self.og_images=[]; self.noindex=False
+        super().__init__(); self.links=[]; self.images=[]; self.canonical=[]; self.og_images=[]; self.noindex=False; self.duplicate_attributes=[]
     def handle_starttag(self, tag, attrs):
+        names=[]
+        for name,_ in attrs:
+            normalized=name.lower()
+            if normalized in names and normalized not in self.duplicate_attributes:
+                self.duplicate_attributes.append(normalized)
+            names.append(normalized)
         a=dict(attrs)
         if tag in {"a","link","script"}:
             value=a.get("href") if tag != "script" else a.get("src")
@@ -62,6 +68,8 @@ for page in public_html():
     try: doc.feed(page.read_text(encoding="utf-8"))
     except Exception as exc: errors.append(f"{page.relative_to(ROOT)}: invalid HTML input: {exc}"); continue
     rel=page.relative_to(ROOT)
+    if doc.duplicate_attributes:
+        errors.append(f"{rel}: duplicate HTML attributes: {', '.join(doc.duplicate_attributes)}")
     if page.name != "404.html":
         if len(doc.canonical)!=1: errors.append(f"{rel}: expected one canonical, found {len(doc.canonical)}")
         else:
