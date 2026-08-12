@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  sitemap.xml — timmuasmartcity.com
-
-  HIEN CHI CO 1 URL vi site moi chi co trang chu. Khai bao them cac trang
-  chua ton tai (/studio/, /sapphire/...) se khien Google bao loi 404 hang
-  loat va danh gia thap ca site. Dung xong trang nao thi them URL do vao day.
-
-  Nho cap nhat <lastmod> moi khi noi dung trang chu thay doi dang ke.
--->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://timmuasmartcity.com/</loc>
-    <lastmod>2026-08-03</lastmod>
+    <lastmod>2026-08-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/blog/gia-ban-vinhomes-smart-city/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 </urlset>
