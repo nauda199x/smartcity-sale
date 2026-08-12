@@ -4,15 +4,25 @@ from collections import defaultdict
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlparse
+import argparse
 import re
 import sys
 import xml.etree.ElementTree as ET
 
-ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[1]
+parser = argparse.ArgumentParser()
+parser.add_argument("--root", type=Path, default=REPO_ROOT,
+                    help="public tree to validate (use _site after staging)")
+args = parser.parse_args()
+ROOT = args.root.resolve()
 DOMAIN = "timmuasmartcity.com"
-SOURCE_DIRS = {"_source", "_site", ".git"}
+SOURCE_DIRS = {"_source", "_site", ".git"} if ROOT == REPO_ROOT else set()
 errors = []
 canonicals = defaultdict(list)
+RUNTIME_URL = re.compile(
+    r"(?:fetch|importScripts)\s*\(\s*['\"]([^'\"]+)['\"]"
+    r"|\bnew\s+Worker\s*\(\s*['\"]([^'\"]+)['\"]"
+)
 
 class Document(HTMLParser):
     def __init__(self):
@@ -61,6 +71,22 @@ for page in public_html():
     for value in doc.links + doc.images + doc.og_images:
         target=local_path(value,page)
         if target and not target.exists(): errors.append(f"{rel}: missing local target {value}")
+    # HTMLParser cannot see browser-loaded dependencies inside inline JavaScript.
+    # Validate literal fetch/importScripts/Worker URLs against this exact tree too.
+    text = page.read_text(encoding="utf-8")
+    for match in RUNTIME_URL.finditer(text):
+        value = next(group for group in match.groups() if group is not None)
+        target = local_path(value, page)
+        if target and not target.exists():
+            errors.append(f"{rel}: runtime dependency is not staged: {value}")
+
+# External JS files can load additional local runtime data.
+for script in (ROOT / "assets").rglob("*.js") if (ROOT / "assets").exists() else ():
+    for match in RUNTIME_URL.finditer(script.read_text(encoding="utf-8")):
+        value = next(group for group in match.groups() if group is not None)
+        target = local_path(value, script)
+        if target and not target.exists():
+            errors.append(f"{script.relative_to(ROOT)}: runtime dependency is not staged: {value}")
 
 for canonical,pages in canonicals.items():
     if len(pages)>1: errors.append(f"duplicate canonical {canonical}: {', '.join(pages)}")
@@ -83,6 +109,13 @@ except Exception as exc: errors.append(f"sitemap.xml: cannot parse: {exc}")
 robots=(ROOT/"robots.txt").read_text(encoding="utf-8")
 if "Sitemap: https://timmuasmartcity.com/sitemap.xml" not in robots: errors.append("robots.txt: canonical sitemap declaration missing")
 if (ROOT/"CNAME").read_text().strip()!=DOMAIN: errors.append("CNAME: production domain changed or malformed")
+
+# Source/crawl metadata is never a browser runtime dependency. A staged artifact
+# must not expose it, even if a future broad copy operation accidentally includes it.
+if ROOT != REPO_ROOT:
+    forbidden = [p.relative_to(ROOT) for p in (ROOT / "data" / "official").rglob("*") if p.is_file()] if (ROOT / "data" / "official").exists() else []
+    if forbidden:
+        errors.append("staged artifact exposes internal data: " + ", ".join(map(str, forbidden)))
 
 if errors:
     print(f"VALIDATION FAILED ({len(errors)} errors)")

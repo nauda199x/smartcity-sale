@@ -30,8 +30,9 @@ jobs:
       - name: Validate production site
         run: python3 tools/validate_site.py
       - name: Stage public artifact
-        if: github.event_name != 'pull_request'
         run: python3 tools/prepare_deploy.py
+      - name: Validate staged artifact
+        run: python3 tools/validate_site.py --root _site
       - name: Configure Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5

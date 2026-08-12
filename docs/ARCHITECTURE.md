@@ -104,6 +104,18 @@ Validator bỏ qua `_source/` vì đó không phải public output và cho phép
 chỉ ở trang `noindex` compatibility. Ảnh remote ngoài domain không thể kiểm tra ổn định
 trong build offline; nên ưu tiên lưu asset cần SEO ở `images/`.
 
+### Public data boundary
+
+Audit runtime hiện tại cho thấy frontend chỉ tải `/data.json`; file này đã là public
+inventory contract và được stage ở root. Không có HTML/JS nào tải `data/public-stats.json`:
+đây là build output để audit số lượng, không phải runtime dependency. Toàn bộ
+`data/official/**` là source/crawl metadata và tuyệt đối không được deploy.
+`prepare_deploy.py` vì vậy dùng allowlist `PUBLIC_DATA_FILES` rỗng thay vì copy cả
+`data/`. Nếu sau này frontend cần một file dưới `/data/`, file đó phải được review field,
+thêm riêng vào allowlist, và validator chạy với `--root _site` sẽ fail cho tới khi runtime
+reference thực sự tồn tại trong artifact. Validator staged cũng fail nếu thấy
+`data/official/**`.
+
 ## 6. Nội dung và asset được bảo toàn
 
 Refactor không xóa `data.json`, không lọc/xóa căn bán, không đổi canonical đã có trong
