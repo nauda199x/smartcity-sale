@@ -24,6 +24,9 @@ jobs:
       - name: Hide apartment ID references in UI
         run: python3 tools/hide_public_id_ui.py
 
+      - name: Enrich SEO blog articles with visual media
+        run: python3 tools/enrich_blog_images.py
+
       - name: Validate JSON
         run: python3 -m json.tool data.json >/dev/null
 
@@ -35,6 +38,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data.json index.html
-          git commit -m "Big update: clean sale data, website info and public IDs"
+          git add data.json index.html blog
+          git commit -m "Big update: clean sale data and enrich SEO blog media"
           git push
