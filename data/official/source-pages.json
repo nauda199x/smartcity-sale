@@ -1,0 +1,36 @@
+{
+  "source_domain": "https://smartcity.vinhomes.vn/",
+  "retrieved_at": "2026-08-12",
+  "pages": [
+    {
+      "url": "https://smartcity.vinhomes.vn/",
+      "type": "project-homepage",
+      "topics": ["overview", "location", "smart-city", "amenities", "product-lines", "apartment-types"],
+      "priority": "P0"
+    },
+    {
+      "url": "https://smartcity.vinhomes.vn/gateway-tower/",
+      "type": "subdivision-building",
+      "topics": ["gateway-tower", "apartment-types", "areas", "layouts", "location", "amenities", "documents"],
+      "priority": "P1"
+    },
+    {
+      "url": "https://smartcity.vinhomes.vn/sapphire-parkville/",
+      "type": "subdivision",
+      "topics": ["sapphire-parkville", "layouts", "amenities", "gallery"],
+      "priority": "P1"
+    },
+    {
+      "url": "https://smartcity.vinhomes.vn/the-grand-sapphire/",
+      "type": "subdivision",
+      "topics": ["the-grand-sapphire", "layouts", "amenities", "gallery"],
+      "priority": "P1"
+    },
+    {
+      "url": "https://smartcity.vinhomes.vn/thu-vien-album/",
+      "type": "gallery-hub",
+      "topics": ["gallery", "official-media"],
+      "priority": "P0"
+    }
+  ]
+}
