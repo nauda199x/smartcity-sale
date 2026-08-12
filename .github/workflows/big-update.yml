@@ -21,6 +21,9 @@ jobs:
       - name: Remove apartment IDs from public JSON
         run: python3 tools/strip_public_ids.py
 
+      - name: Hide apartment ID references in UI
+        run: python3 tools/hide_public_id_ui.py
+
       - name: Validate JSON
         run: python3 -m json.tool data.json >/dev/null
 
