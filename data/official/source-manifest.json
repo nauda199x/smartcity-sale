@@ -1,0 +1,131 @@
+{
+  "project": "Vinhomes Smart City",
+  "source_domain": "https://smartcity.vinhomes.vn",
+  "retrieved_at": "2026-08-12",
+  "pages": [
+    {
+      "url": "https://smartcity.vinhomes.vn/",
+      "type": "project_homepage",
+      "priority": 1,
+      "extract": [
+        "project_overview",
+        "location",
+        "scale",
+        "construction_density",
+        "smart_city_systems",
+        "parks_and_amenities",
+        "vin_ecosystem",
+        "product_lines",
+        "project_images"
+      ]
+    },
+    {
+      "url": "https://smartcity.vinhomes.vn/the-grand-sapphire/",
+      "type": "subdivision",
+      "slug": "grand-sapphire",
+      "priority": 1,
+      "extract": [
+        "location",
+        "amenities",
+        "masterplan",
+        "typical_floorplans",
+        "tower_information",
+        "downloadable_images",
+        "project_videos"
+      ]
+    },
+    {
+      "url": "https://smartcity.vinhomes.vn/tai-lieu-ban-hang/",
+      "type": "document_library",
+      "priority": 2,
+      "extract": [
+        "brochures",
+        "historical_sales_policies",
+        "tower_flyers",
+        "floorplan_documents"
+      ],
+      "note": "Historical sales policies are source material only; do not present old developer pricing as current resale pricing."
+    },
+    {
+      "url": "https://smartcity.vinhomes.vn/mua-nha-o-ngay/",
+      "type": "historical_campaign",
+      "priority": 3,
+      "extract": [
+        "handover_history",
+        "amenity_completion_history",
+        "historical_campaign_images"
+      ],
+      "note": "Treat campaign numbers as historical and date-sensitive."
+    }
+  ],
+  "verified_facts": [
+    {
+      "topic": "project_overview",
+      "label": "Quy mô",
+      "value": 280,
+      "unit": "ha",
+      "source_url": "https://smartcity.vinhomes.vn/"
+    },
+    {
+      "topic": "project_overview",
+      "label": "Mật độ xây dựng",
+      "value": 14.7,
+      "unit": "%",
+      "source_url": "https://smartcity.vinhomes.vn/"
+    },
+    {
+      "topic": "location",
+      "label": "Trục giao thông chính",
+      "value": "Đại lộ Thăng Long",
+      "source_url": "https://smartcity.vinhomes.vn/"
+    },
+    {
+      "topic": "amenities",
+      "label": "BBQ",
+      "value": "Hơn 100 điểm nướng",
+      "source_url": "https://smartcity.vinhomes.vn/"
+    },
+    {
+      "topic": "amenities",
+      "label": "Gym ngoài trời",
+      "value": "Khoảng 1.200 máy tập theo thông tin giới thiệu trên website chính thức",
+      "source_url": "https://smartcity.vinhomes.vn/"
+    },
+    {
+      "topic": "smart_city",
+      "label": "Hệ thống",
+      "value": [
+        "Camera đa lớp thông minh",
+        "Kiểm soát phân tầng thang máy",
+        "Face ID",
+        "Cảnh báo cháy/thoát nạn qua smartphone",
+        "Cảnh báo môi trường",
+        "Giao thông thông minh",
+        "Intercom"
+      ],
+      "source_url": "https://smartcity.vinhomes.vn/"
+    },
+    {
+      "topic": "grand_sapphire",
+      "label": "Tiện ích nội khu",
+      "value": "Danh mục 30 hạng mục tiện ích được website chính thức liệt kê",
+      "source_url": "https://smartcity.vinhomes.vn/the-grand-sapphire/"
+    }
+  ],
+  "asset_categories": [
+    "hero_banner",
+    "project_overview",
+    "location_map",
+    "masterplan",
+    "central_park",
+    "sportia_park",
+    "zen_garden",
+    "vin_ecosystem",
+    "smart_city_technology",
+    "subdivision_exterior",
+    "subdivision_amenities",
+    "tower_floorplan",
+    "apartment_layout",
+    "brochure_pdf"
+  ]
+}
