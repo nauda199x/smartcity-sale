@@ -71,7 +71,7 @@
         "name": "Giá bán căn hộ Vinhomes Smart City hiện nay khoảng bao nhiêu?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Giá bán dao động phổ biến từ khoảng 2,2 tỷ với căn Studio đến trên 9 tỷ với căn 2-3 phòng ngủ ở phân khu cao cấp. Tính theo mét vuông thì mặt bằng chung khoảng 66 đến 122 triệu mỗi m², tùy phân khu, tầng và hướng. Mỗi căn trên trang đều ghi sẵn giá mỗi m² để anh/chị so nhanh."
+          "text": "Giá bán thay đổi theo loại căn, phân khu, diện tích, tầng, hướng, nội thất và thời điểm chủ nhà xác nhận. Mỗi căn trên trang đều ghi giá bán và giá mỗi m² để anh/chị tự so sánh; giá thực tế cần xác nhận lại trước khi giao dịch."
         }
       },
       {
@@ -79,7 +79,7 @@
         "name": "Vinhomes Smart City nằm ở đâu?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Vinhomes Smart City tọa lạc tại quận Nam Từ Liêm, Hà Nội, là một trong những khu đô thị thông minh quy mô lớn tại khu vực phía Tây thủ đô."
+          "text": "Vinhomes Smart City nằm trên Đại lộ Thăng Long, khu vực phường Tây Mỗ và phường Đại Mỗ, thành phố Hà Nội. Từ ngày 01/07/2025, Hà Nội vận hành mô hình chính quyền địa phương hai cấp và kết thúc đơn vị hành chính cấp huyện."
         }
       },
       {
@@ -126,21 +126,14 @@
     "url": "https://timmuasmartcity.com/",
     "telephone": "+84977923284",
         "priceRange": "2.265.000.000₫ - 9.600.000.000₫",
-    "_ghiChu": "sameAs dang tro ve kenh mang xa hoi cua ben CHO THUE. Day la kenh that nen giu lai giup Google noi hai site cung mot chu. Khi lap kenh rieng cho mang ban thi doi lai.",
-  "sameAs": [
-      "https://www.facebook.com/people/T%C3%ACm-thu%C3%AA-Smart-City/61591756688919/",
-      "https://www.tiktok.com/@timthuesmartcity",
-      "https://www.instagram.com/timthuesmartcity_com/",
-      "https://www.youtube.com/@Timthuesmartcity"
-    ],
-    "areaServed": {
+        "areaServed": {
       "@type": "Place",
-      "name": "Vinhomes Smart City, Nam Từ Liêm, Hà Nội"
+      "name": "Vinhomes Smart City, phường Tây Mỗ và phường Đại Mỗ, thành phố Hà Nội"
     },
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Vinhomes Smart City",
-      "addressLocality": "Tây Mỗ",
+      "addressLocality": "Tây Mỗ và Đại Mỗ",
       "addressRegion": "Hà Nội",
       "postalCode": "100000",
       "addressCountry": "VN"
@@ -175,7 +168,7 @@
           <path d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
         <input id="searchInput" type="search" autocomplete="off"
-               placeholder="Tìm phân khu, mã căn, loại căn… (VD: Sapphire, 2PN, 8 triệu)"
+               placeholder="Tìm phân khu, mã căn, loại căn… (VD: Sapphire, 2PN+, 3,5 tỷ)"
                aria-label="Tìm căn hộ theo phân khu, mã căn, loại căn hoặc giá">
         <!-- Bảng gợi ý chỉ bật lên khi khách bấm vào ô tìm, nên không chiếm chỗ cố định
              trên đầu trang. Mục đích: cho khách BIẾT là gõ tên phân khu được -
@@ -622,29 +615,29 @@
             <label for="leadKhoangGia">Khoảng giá mong muốn</label>
             <select id="leadKhoangGia" name="khoangGia">
               <option value="">Chưa xác định</option>
-              <option value="6,5 - 7,5 triệu">6,5 - 7,5 triệu</option>
-              <option value="7,5 - 10 triệu">7,5 - 10 triệu</option>
-              <option value="10 - 12 triệu">10 - 12 triệu</option>
-              <option value="12 - 15 triệu">12 - 15 triệu</option>
-              <option value="Trên 15 triệu">Trên 15 triệu</option>
+              <option value="2,5 - 3,5 tỷ">2,5 - 3,5 tỷ</option>
+              <option value="3,5 - 5 tỷ">3,5 - 5 tỷ</option>
+              <option value="5 - 7 tỷ">5 - 7 tỷ</option>
+              <option value="Trên 7 tỷ">Trên 7 tỷ</option>
+              <option value="Liên hệ để xác nhận">Liên hệ để xác nhận</option>
             </select>
           </div>
         </div>
 
         <div class="lead-row">
           <div class="lead-field">
-            <label for="leadNgayVao">Ngày cần vào ở</label>
+            <label for="leadNgayVao">Thời điểm dự kiến mua</label>
             <input type="date" id="leadNgayVao" name="ngayVao">
           </div>
           <div class="lead-field">
             <label for="leadKhuVuc">Khu vực / Tòa mong muốn</label>
-            <input type="text" id="leadKhuVuc" name="khuVuc" placeholder="VD: Sa2, gần hồ..." maxlength="100">
+            <input type="text" id="leadKhuVuc" name="khuVuc" placeholder="VD: SA2, gần hồ..." maxlength="100">
           </div>
         </div>
 
         <div class="lead-field">
           <label for="leadGhiChu">Ghi chú thêm</label>
-          <textarea id="leadGhiChu" name="ghiChu" placeholder="Nhu cầu khác (số người ở, có thú cưng, view...)" maxlength="500"></textarea>
+          <textarea id="leadGhiChu" name="ghiChu" placeholder="Nhu cầu khác (tài chính, view, nội thất...)" maxlength="500"></textarea>
         </div>
 
         <button class="lead-submit" type="submit" id="leadSubmitBtn">Gửi yêu cầu, để tụi mình tìm giúp</button>
@@ -980,10 +973,8 @@
       const type = normalizeText(row["Loại"]);
       const area = parseArea(row["Diện tích"]);
       const interior = normalizeText(row["Nội thất"]);
-      const price = parseMoney(row["Giá thuê"] || row["Giá bán"]);
-      /* LUU Y: khoa trong data.json van la "Gia thue" du day la mang BAN.
-         Giu nguyen ten do de dung chung ma JavaScript voi ben cho thue.
-         Gia tri la DONG (2265000000), formatPrice() se doi ra ty khi hien. */
+      const price = parseMoney(row["Giá bán"] || row["Giá thuê"]);
+      /* MANG BAN: gia duoc luu o truong "Gia ban" theo DONG. */
       /* Ben ban khong co "ngay vao o". Dung ngay cuoi cung hoi lai chu nha —
          do la tin hieu cho biet gia con dung khong. */
       const availableDate = parseGvizDate(row["Ngày xác nhận chủ"] || row["Ngày vào ở"]);
