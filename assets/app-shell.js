@@ -1,32 +1,12 @@
 /*!
- * app-shell.js — Thanh tab dưới đáy cho bản điện thoại
- * timmuasmartcity.com — bản cho MẢNG BÁN, sửa 03/08/2026
- *
- * KHÁC BẢN BÊN CHO THUÊ:
- *   - Tab thứ 2 đổi từ "Cẩm nang" thành "Tìm thuê", trỏ thẳng sang
- *     timthuesmartcity.com. Khách đang xem mua mà muốn thuê thì sang
- *     luôn, thay vì rời site.
- *   - Cẩm nang chuyển vào bảng Menu.
- *   - Toàn bộ mục Menu trỏ tới trang chưa dựng bên này ĐÃ BỎ, vì để
- *     nguyên là hàng chục lỗi 404.
- *
- * VÌ SAO DỰNG BẰNG JS THAY VÌ DÁN HTML VÀO 39 TRANG:
- *   - Sửa một file là cả site đổi theo, không phải mở lại 39 file mỗi lần
- *     đổi nhãn tab hay thêm mục trong Menu.
- *   - Các đường link trong thanh tab ĐỀU ĐÃ CÓ SẴN trong header/footer HTML
- *     tĩnh của từng trang, nên Google vẫn đọc đủ liên kết nội bộ. Thanh tab
- *     chỉ là lối đi tắt cho người dùng, không phải nguồn liên kết duy nhất.
- *   - Chỉ chèn thêm phần tử, KHÔNG đụng vào nội dung đang có.
- *
- * An toàn: bọc try/catch, lỗi ở đây tuyệt đối không được làm chết trang.
+ * app-shell.js — điều hướng dùng chung cho timmuasmartcity.com
+ * Cập nhật 12/08/2026: đưa Cẩm nang mua nhà ra desktop + homepage.
  */
 (function () {
   "use strict";
 
   var SDT = "0977923284";
 
-  /* Chỉ dựng trên màn hình hẹp. Khách xoay ngang máy tính bảng thì CSS tự ẩn,
-     không cần dựng lại DOM. */
   function laDienThoai() {
     return window.matchMedia("(max-width:640px)").matches;
   }
@@ -37,12 +17,10 @@
     return p;
   }
 
-  /* Tab nào đang mở: dùng để tô đậm đúng một mục */
   function tabDangMo() {
     var p = duongDan();
     if (p === "/" || p === "") return "trang-chu";
-    /* Ben ban hien chi co trang chu. Hai tab giua deu tro ra ngoai site
-       nen khong bao gio o trang thai "dang o day". */
+    if (p.indexOf("/blog/") === 0) return "cam-nang";
     return "";
   }
 
@@ -54,14 +32,12 @@
     menu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="5" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>'
   };
 
-  /* Các mục trong bảng Menu — TOÀN BỘ đều là trang đã có thật trên site,
-     không tạo link tới trang chưa tồn tại. */
-  /* MENU — CHỈ liệt kê đích ĐÃ TỒN TẠI.
-     Bản cũ chép từ bên cho thuê nên trỏ tới /bang-gia-thue-*.html,
-     /cam-nang-thue-nha.html... — những trang chưa dựng bên mảng bán.
-     Bấm vào là lỗi 404, vừa mất khách vừa bị Google đánh giá thấp.
-     Dựng xong trang nào thì thêm lại dòng đó vào đây. */
   var MENU = [
+    { nhom: "Cẩm nang mua nhà" },
+    { ten: "Tất cả bài hướng dẫn", href: "/blog/" },
+    { ten: "Giá bán Vinhomes Smart City", href: "/blog/gia-ban-vinhomes-smart-city/" },
+    { ten: "Kinh nghiệm mua căn hộ", href: "/blog/kinh-nghiem-mua-can-ho-vinhomes-smart-city/" },
+    { ten: "So sánh các phân khu", href: "/blog/so-sanh-phan-khu-vinhomes-smart-city/" },
     { nhom: "Liên hệ" },
     { ten: "Nhắn Zalo " + SDT, href: "https://zalo.me/" + SDT, ngoai: true, zalo: true },
     { ten: "Gọi " + SDT, href: "tel:" + SDT },
@@ -87,6 +63,49 @@
     return h;
   }
 
+  function boSungCamNangDesktop() {
+    var nav = document.querySelector(".topnav");
+    if (!nav || nav.querySelector('a[href="/blog/"]')) return;
+    var link = document.createElement("a");
+    link.href = "/blog/";
+    link.textContent = "Cẩm nang";
+    var timThue = nav.querySelector('a[href^="https://timthuesmartcity.com"]');
+    if (timThue) nav.insertBefore(link, timThue);
+    else nav.appendChild(link);
+  }
+
+  function chenKhoiCamNangTrangChu() {
+    var p = duongDan();
+    if (!(p === "/" || p === "") || document.getElementById("cam-nang-mua-nha")) return;
+
+    if (!document.getElementById("style-cam-nang-home")) {
+      var style = document.createElement("style");
+      style.id = "style-cam-nang-home";
+      style.textContent =
+        '.cam-nang-home{max-width:1180px;margin:44px auto 72px;padding:0 20px}.cam-nang-home__head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:18px}.cam-nang-home h2{margin:0;font-size:clamp(26px,3vw,38px);line-height:1.2}.cam-nang-home__head p{margin:7px 0 0;color:#65707c}.cam-nang-home__all{font-weight:700;color:#b71925;text-decoration:none;white-space:nowrap}.cam-nang-home__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.cam-nang-home__card{display:block;background:#fff;border:1px solid #e8eaed;border-radius:18px;padding:20px;text-decoration:none;color:inherit;box-shadow:0 8px 24px rgba(15,23,42,.05)}.cam-nang-home__card strong{display:block;font-size:18px;line-height:1.4;margin-bottom:7px}.cam-nang-home__card span{display:block;color:#667085;line-height:1.55}.cam-nang-home__card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(15,23,42,.08)}@media(max-width:800px){.cam-nang-home__grid{grid-template-columns:1fr}.cam-nang-home__head{align-items:start;flex-direction:column}.cam-nang-home{margin-top:32px}}';
+      document.head.appendChild(style);
+    }
+
+    var sec = document.createElement("section");
+    sec.id = "cam-nang-mua-nha";
+    sec.className = "cam-nang-home";
+    sec.setAttribute("aria-labelledby", "cam-nang-home-title");
+    sec.innerHTML =
+      '<div class="cam-nang-home__head"><div><h2 id="cam-nang-home-title">Cẩm nang mua căn hộ Smart City</h2><p>Giá bán, kinh nghiệm mua chuyển nhượng và cách chọn căn theo nhu cầu thực tế.</p></div><a class="cam-nang-home__all" href="/blog/">Xem tất cả bài viết →</a></div>' +
+      '<div class="cam-nang-home__grid">' +
+        '<a class="cam-nang-home__card" href="/blog/gia-ban-vinhomes-smart-city/"><strong>Giá bán Vinhomes Smart City 2026</strong><span>Cách đọc tổng giá và giá/m² để so căn cùng nhóm.</span></a>' +
+        '<a class="cam-nang-home__card" href="/blog/kinh-nghiem-mua-can-ho-vinhomes-smart-city/"><strong>Kinh nghiệm mua căn hộ</strong><span>Checklist xem căn, kiểm tra giấy tờ và đặt cọc.</span></a>' +
+        '<a class="cam-nang-home__card" href="/blog/so-sanh-phan-khu-vinhomes-smart-city/"><strong>So sánh các phân khu</strong><span>Chọn khu theo ngân sách, vị trí và nhu cầu ở thực.</span></a>' +
+        '<a class="cam-nang-home__card" href="/blog/mua-can-ho-2pn-vinhomes-smart-city/"><strong>Mua căn 2PN Smart City</strong><span>Cách chọn 2PN theo layout, số WC, tầng và hướng.</span></a>' +
+        '<a class="cam-nang-home__card" href="/blog/sapphire-vinhomes-smart-city/"><strong>Sapphire Vinhomes Smart City</strong><span>Kinh nghiệm so căn chuyển nhượng trong nhóm Sapphire.</span></a>' +
+        '<a class="cam-nang-home__card" href="/blog/the-sakura-vinhomes-smart-city/"><strong>The Sakura Smart City</strong><span>Những yếu tố cần kiểm tra trước khi mua căn Sakura.</span></a>' +
+      '</div>';
+
+    var footer = document.querySelector("footer");
+    if (footer && footer.parentNode) footer.parentNode.insertBefore(sec, footer);
+    else document.body.appendChild(sec);
+  }
+
   function dung() {
     if (document.querySelector(".tabbar")) return;
 
@@ -98,8 +117,7 @@
     bar.setAttribute("aria-label", "Điều hướng nhanh");
     bar.innerHTML =
         '<a href="/"' + lop("trang-chu") + '>' + IC.nha + '<span>Trang chủ</span></a>'
-      + '<a href="https://timthuesmartcity.com" target="_blank" rel="noopener">'
-        + IC.chiakhoa + '<span>Tìm thuê</span></a>'
+      + '<a href="/blog/"' + lop("cam-nang") + '>' + IC.sach + '<span>Cẩm nang</span></a>'
       + '<a href="https://zalo.me/' + SDT + '" target="_blank" rel="noopener">'
         + IC.kygui + '<span>Ký gửi bán</span></a>'
       + '<button type="button" id="tabMenu" aria-haspopup="dialog">' + IC.menu + '<span>Menu</span></button>';
@@ -133,8 +151,10 @@
 
   function khoiDong() {
     try {
+      boSungCamNangDesktop();
+      chenKhoiCamNangTrangChu();
       if (laDienThoai()) dung();
-    } catch (e) { /* im lặng — thanh tab hỏng không được kéo sập cả trang */ }
+    } catch (e) { /* điều hướng phụ hỏng không được kéo sập trang */ }
   }
 
   if (document.readyState === "loading") {
@@ -142,6 +162,5 @@
   } else {
     khoiDong();
   }
-  /* Xoay ngang / đổi kích thước cửa sổ: dựng bù nếu lúc tải là màn rộng */
   window.addEventListener("resize", khoiDong);
 })();
