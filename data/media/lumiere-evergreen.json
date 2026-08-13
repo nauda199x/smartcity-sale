@@ -21,7 +21,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-01-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-01-thumb.webp"
       },
-      "width": 1536
+      "width": 1536,
+      "gallerySelected": false
     },
     {
       "alt": "",
@@ -44,7 +45,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-02-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-02-thumb.webp"
       },
-      "width": 1536
+      "width": 1536,
+      "gallerySelected": false
     },
     {
       "alt": "",
@@ -67,7 +69,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-03-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-03-thumb.webp"
       },
-      "width": 1200
+      "width": 1200,
+      "gallerySelected": false
     },
     {
       "alt": "",
@@ -90,7 +93,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-04-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-04-thumb.webp"
       },
-      "width": 1536
+      "width": 1536,
+      "gallerySelected": false
     },
     {
       "alt": "",
@@ -113,7 +117,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-05-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-05-thumb.webp"
       },
-      "width": 960
+      "width": 960,
+      "gallerySelected": false
     },
     {
       "alt": "",
@@ -136,22 +141,23 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-06-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-06-thumb.webp"
       },
-      "width": 1280
+      "width": 1280,
+      "gallerySelected": false
     },
     {
-      "alt": "",
+      "alt": "Toàn cảnh các tòa LUMIÈRE Evergreen và hồ bơi nhìn từ nội khu",
       "aspectRatio": 1.500366,
       "bytes": 683278,
-      "caption": "",
-      "featured": false,
+      "caption": "Các khối căn hộ bao quanh hồ bơi trung tâm LUMIÈRE Evergreen",
+      "featured": true,
       "filename": "lumiere-evergreen-07-hero.webp",
       "height": 1280,
       "id": "lumiere-evergreen-07",
       "originalFilename": "0007-764056708_122107780755424157_8607671972078321449_n.jpg",
       "perceptualHash": "b0d4f4d4d0717171",
-      "role": "general",
+      "role": "hero",
       "sha256": "0946bfb2ac0d96cfd4096ba2125d8e7b597cf3a141a9b1734b7d1dcaacf1fb08",
-      "sortOrder": 7,
+      "sortOrder": 1,
       "src": "/images/projects/lumiere-evergreen/lumiere-evergreen-07-hero.webp",
       "variants": {
         "card": "/images/projects/lumiere-evergreen/lumiere-evergreen-07-card.webp",
@@ -159,20 +165,21 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-07-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-07-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": false
     },
     {
-      "alt": "",
+      "alt": "Thảm cỏ và đường dạo trong nội khu LUMIÈRE Evergreen",
       "aspectRatio": 1.500366,
       "bytes": 560564,
-      "caption": "",
+      "caption": "Cảnh quan xanh dưới chân các tòa căn hộ",
       "featured": false,
       "filename": "lumiere-evergreen-08-hero.webp",
       "height": 1280,
       "id": "lumiere-evergreen-08",
       "originalFilename": "0008-764845229_122107779789424157_5501039006374413779_n.jpg",
       "perceptualHash": "1607e3fa7f7b7bbb",
-      "role": "general",
+      "role": "landscape",
       "sha256": "bf344cfa9e295d736f027d110bf4fe209665266ea6e00560af3250ec2dd2b996",
       "sortOrder": 8,
       "src": "/images/projects/lumiere-evergreen/lumiere-evergreen-08-hero.webp",
@@ -182,7 +189,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-08-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-08-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": true
     },
     {
       "alt": "",
@@ -205,22 +213,23 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-09-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-09-thumb.webp"
       },
-      "width": 1440
+      "width": 1440,
+      "gallerySelected": false
     },
     {
-      "alt": "",
+      "alt": "Không gian sinh hoạt chung có bàn bi-a tại LUMIÈRE Evergreen",
       "aspectRatio": 1.500366,
       "bytes": 222850,
-      "caption": "",
+      "caption": "Khu sinh hoạt chung bên trong tòa căn hộ",
       "featured": false,
       "filename": "lumiere-evergreen-10-hero.webp",
       "height": 1280,
       "id": "lumiere-evergreen-10",
       "originalFilename": "0010-765855357_122107781169424157_8556997040234777911_n.jpg",
       "perceptualHash": "74662c8c8c8cb8ec",
-      "role": "general",
+      "role": "amenity",
       "sha256": "2f1d0d14188f9839e73de85defbb74157347bcf4b95946638cf22f7916c99475",
-      "sortOrder": 10,
+      "sortOrder": 7,
       "src": "/images/projects/lumiere-evergreen/lumiere-evergreen-10-hero.webp",
       "variants": {
         "card": "/images/projects/lumiere-evergreen/lumiere-evergreen-10-card.webp",
@@ -228,7 +237,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-10-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-10-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": true
     },
     {
       "alt": "",
@@ -251,22 +261,23 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-11-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-11-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": false
     },
     {
-      "alt": "",
+      "alt": "Sảnh đón bên ngoài tòa The Atmos tại LUMIÈRE Evergreen",
       "aspectRatio": 1.500366,
       "bytes": 356430,
-      "caption": "",
+      "caption": "Lối vào sảnh The Atmos dưới khối kiến trúc bo cong",
       "featured": false,
       "filename": "lumiere-evergreen-12-hero.webp",
       "height": 1280,
       "id": "lumiere-evergreen-12",
       "originalFilename": "0012-766915093_122107780677424157_6945532323304588940_n.jpg",
       "perceptualHash": "2031111111131213",
-      "role": "general",
+      "role": "exterior",
       "sha256": "f4a136760cfc9785bedf848c2cc7ff2d551396df6419f5cad1223ae5a02605dc",
-      "sortOrder": 12,
+      "sortOrder": 5,
       "src": "/images/projects/lumiere-evergreen/lumiere-evergreen-12-hero.webp",
       "variants": {
         "card": "/images/projects/lumiere-evergreen/lumiere-evergreen-12-card.webp",
@@ -274,22 +285,23 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-12-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-12-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": true
     },
     {
-      "alt": "",
+      "alt": "Cảnh quan xanh giữa các khối căn hộ LUMIÈRE Evergreen",
       "aspectRatio": 1.500366,
       "bytes": 448506,
-      "caption": "",
+      "caption": "Khoảng xanh nội khu đón nắng giữa các tòa căn hộ",
       "featured": false,
       "filename": "lumiere-evergreen-13-hero.webp",
       "height": 1280,
       "id": "lumiere-evergreen-13",
       "originalFilename": "0013-767002325_122107780869424157_5490464325807256419_n.jpg",
       "perceptualHash": "7430e2a0e0606060",
-      "role": "general",
+      "role": "landscape",
       "sha256": "af85378397d7b8cbc1893e61ff1a6b0989b322117898de09e6be0c9bbcf19183",
-      "sortOrder": 13,
+      "sortOrder": 3,
       "src": "/images/projects/lumiere-evergreen/lumiere-evergreen-13-hero.webp",
       "variants": {
         "card": "/images/projects/lumiere-evergreen/lumiere-evergreen-13-card.webp",
@@ -297,7 +309,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-13-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-13-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": true
     },
     {
       "alt": "",
@@ -320,7 +333,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-14-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-14-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": false
     },
     {
       "alt": "",
@@ -343,22 +357,23 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-15-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-15-thumb.webp"
       },
-      "width": 1448
+      "width": 1448,
+      "gallerySelected": false
     },
     {
-      "alt": "",
+      "alt": "Các tòa căn hộ LUMIÈRE Evergreen nhìn từ khuôn viên cây xanh",
       "aspectRatio": 1.5,
       "bytes": 323588,
-      "caption": "",
+      "caption": "Kiến trúc cao tầng nổi bật phía trên tán cây nội khu",
       "featured": false,
       "filename": "lumiere-evergreen-16-hero.webp",
       "height": 960,
       "id": "lumiere-evergreen-16",
       "originalFilename": "0016-768310534_122107779453424157_5864966811366544046_n.jpg",
       "perceptualHash": "d131b3b0b153523a",
-      "role": "general",
+      "role": "exterior",
       "sha256": "1599ae0db447fed1b83c3c870376868236b4afb8be149ed49f8df4dcceff8877",
-      "sortOrder": 16,
+      "sortOrder": 9,
       "src": "/images/projects/lumiere-evergreen/lumiere-evergreen-16-hero.webp",
       "variants": {
         "card": "/images/projects/lumiere-evergreen/lumiere-evergreen-16-card.webp",
@@ -366,7 +381,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-16-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-16-thumb.webp"
       },
-      "width": 1440
+      "width": 1440,
+      "gallerySelected": true
     },
     {
       "alt": "",
@@ -389,7 +405,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-17-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-17-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": false
     },
     {
       "alt": "",
@@ -412,22 +429,23 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-18-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-18-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": false
     },
     {
-      "alt": "",
+      "alt": "Toàn cảnh LUMIÈRE Evergreen và cảnh quan nội khu khi lên đèn",
       "aspectRatio": 1.779322,
       "bytes": 345878,
-      "caption": "",
+      "caption": "Không gian nội khu LUMIÈRE Evergreen nhìn từ trên cao vào buổi tối",
       "featured": false,
       "filename": "lumiere-evergreen-19-hero.webp",
       "height": 1079,
       "id": "lumiere-evergreen-19",
       "originalFilename": "0019-768442345_122107780923424157_3022693183994441793_n.jpg",
       "perceptualHash": "130684b8e9eb6353",
-      "role": "general",
+      "role": "exterior",
       "sha256": "d297a3207fcc09e9304a10913f1d4cc651d38041fc68aecef2379bbe925ddced",
-      "sortOrder": 19,
+      "sortOrder": 2,
       "src": "/images/projects/lumiere-evergreen/lumiere-evergreen-19-hero.webp",
       "variants": {
         "card": "/images/projects/lumiere-evergreen/lumiere-evergreen-19-card.webp",
@@ -435,22 +453,23 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-19-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-19-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": true
     },
     {
-      "alt": "",
+      "alt": "Không gian sảnh lễ tân tòa The Atmos tại LUMIÈRE Evergreen",
       "aspectRatio": 1.500366,
       "bytes": 199410,
-      "caption": "",
+      "caption": "Sảnh lễ tân với khu ghế chờ và vật liệu hoàn thiện sáng màu",
       "featured": false,
       "filename": "lumiere-evergreen-20-hero.webp",
       "height": 1280,
       "id": "lumiere-evergreen-20",
       "originalFilename": "0020-768586382_122107781007424157_3608187572148877445_n.jpg",
       "perceptualHash": "f1d0f8e8e0e64878",
-      "role": "general",
+      "role": "lobby",
       "sha256": "10578010d2e289b05659d9e22d92e1baee633f495695c8eae2084bee4b624e08",
-      "sortOrder": 20,
+      "sortOrder": 6,
       "src": "/images/projects/lumiere-evergreen/lumiere-evergreen-20-hero.webp",
       "variants": {
         "card": "/images/projects/lumiere-evergreen/lumiere-evergreen-20-card.webp",
@@ -458,7 +477,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-20-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-20-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": true
     },
     {
       "alt": "",
@@ -481,22 +501,23 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-21-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-21-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": false
     },
     {
-      "alt": "",
+      "alt": "Hồ bơi ngoài trời giữa các tòa LUMIÈRE Evergreen",
       "aspectRatio": 1.500366,
       "bytes": 752906,
-      "caption": "",
+      "caption": "Hồ bơi và khu thư giãn trong nội khu dự án",
       "featured": false,
       "filename": "lumiere-evergreen-22-hero.webp",
       "height": 1280,
       "id": "lumiere-evergreen-22",
       "originalFilename": "0022-772664442_122107780053424157_3394160545868830009_n.jpg",
       "perceptualHash": "0f07450505838387",
-      "role": "general",
+      "role": "pool",
       "sha256": "0416a464bbb39026b747950b0a700131afb93663fb7e94956d1c57d5fe647ffa",
-      "sortOrder": 22,
+      "sortOrder": 4,
       "src": "/images/projects/lumiere-evergreen/lumiere-evergreen-22-hero.webp",
       "variants": {
         "card": "/images/projects/lumiere-evergreen/lumiere-evergreen-22-card.webp",
@@ -504,13 +525,14 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-22-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-22-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": true
     },
     {
-      "alt": "",
+      "alt": "LUMIÈRE Evergreen trong không gian đô thị Smart City về đêm",
       "aspectRatio": 1.779167,
       "bytes": 125520,
-      "caption": "",
+      "caption": "Toàn cảnh dự án và các khu căn hộ lân cận khi lên đèn",
       "featured": false,
       "filename": "lumiere-evergreen-23-hero.webp",
       "height": 720,
@@ -519,7 +541,7 @@
       "perceptualHash": "4cbabc8dcccdf072",
       "role": "general",
       "sha256": "089a3c51366cd6db20c7f00d1bf0bac2669adff404e86ce0e3c6b1be18394d51",
-      "sortOrder": 23,
+      "sortOrder": 10,
       "src": "/images/projects/lumiere-evergreen/lumiere-evergreen-23-hero.webp",
       "variants": {
         "card": "/images/projects/lumiere-evergreen/lumiere-evergreen-23-card.webp",
@@ -527,7 +549,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-23-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-23-thumb.webp"
       },
-      "width": 1281
+      "width": 1281,
+      "gallerySelected": true
     },
     {
       "alt": "",
@@ -550,7 +573,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-24-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-24-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": false
     },
     {
       "alt": "",
@@ -573,7 +597,8 @@
         "hero": "/images/projects/lumiere-evergreen/lumiere-evergreen-25-hero.webp",
         "thumb": "/images/projects/lumiere-evergreen/lumiere-evergreen-25-thumb.webp"
       },
-      "width": 1920
+      "width": 1920,
+      "gallerySelected": false
     }
   ],
   "duplicates": [],
