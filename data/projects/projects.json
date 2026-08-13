@@ -4,7 +4,9 @@
     {
       "slug": "lumiere-evergreen",
       "route": "lumiere-evergreen-smart-city.html",
-      "inventoryLabels": ["Lumiere"],
+      "inventoryLabels": [
+        "Lumiere"
+      ],
       "name": "LUMIÈRE Evergreen",
       "eyebrow": "Hồ sơ dự án · Masterise Homes",
       "accent": "bronze",
@@ -14,86 +16,527 @@
       },
       "summary": "Một lựa chọn cao cấp trong Smart City, nhấn mạnh cảnh quan, trải nghiệm tiện ích và dải căn từ Studio đến 3PN.",
       "facts": [
-        ["Đơn vị phát triển", "Masterise Homes"], ["Quy mô", "3 tòa · 39 tầng"],
-        ["Số căn công bố", "2.294 căn"], ["Loại căn", "Studio – 3PN"]
+        {
+          "label": "Đơn vị phát triển",
+          "value": "Masterise Homes",
+          "sourceId": "masterise-lumiere-brochure"
+        },
+        {
+          "label": "Quy mô",
+          "value": "3 tòa · 39 tầng",
+          "sourceId": "masterise-lumiere-brochure"
+        },
+        {
+          "label": "Số căn công bố",
+          "value": "2.294 căn",
+          "sourceId": "masterise-lumiere-brochure"
+        },
+        {
+          "label": "Loại căn",
+          "value": "Studio – 3PN",
+          "sourceId": "masterise-lumiere-brochure"
+        }
       ],
       "overview": [
         "LUMIÈRE Evergreen thuộc bộ sưu tập LUMIÈRE của Masterise Homes tại Vinhomes Smart City. Dự án được định vị ở phân khúc cao cấp; thiết kế hướng đến ánh sáng tự nhiên, mảng xanh và chuỗi tiện ích riêng thay vì chỉ dựa vào tiện ích cấp đại đô thị.",
         "Với người mua chuyển nhượng, tên dự án mới là lớp lọc đầu tiên. Giá trị từng căn còn phụ thuộc tòa, tầng, hướng nhìn, khoảng chắn, layout, tình trạng bàn giao và hồ sơ của chính căn đó."
       ],
       "location": "Dự án nằm trên một trục nội khu lớn của Smart City, thuận tiện tiếp cận hệ trường học, công viên, trung tâm thương mại và các tuyến kết nối ra Đại lộ Thăng Long. Khi khảo sát, nên đo thời gian đi bộ hoặc lái xe thực tế vào giờ sử dụng thường ngày thay vì chỉ dùng khoảng cách quảng bá.",
-      "buildings": ["Ba tòa căn hộ tạo thành một cụm dự án thống nhất.", "Chọn tòa cần đối chiếu lối tiếp cận, hướng nhìn, khoảng cách tới tiện ích và luồng xe thực tế.", "Không suy luận chất lượng một căn từ tên tòa; cần kiểm tra tầng, mã căn và hiện trạng."],
-      "amenities": ["Bể bơi trong nhà và ngoài trời", "Không gian thể thao và gym", "Vườn thiền, BBQ và cảnh quan", "Khu vui chơi trẻ em", "Thư viện và không gian cộng đồng"],
-      "fit": ["Gia đình ưu tiên tiêu chuẩn bàn giao và tiện ích riêng", "Người mua coi trọng cảnh quan, ánh sáng và trải nghiệm nội khu", "Người cần so sản phẩm cao cấp với Masteri West Heights"],
-      "considerations": ["So giá/m² trong cùng loại căn, cùng tòa và nhóm tầng gần nhau.", "Kiểm tra nắng, view và khoảng chắn trực tiếp tại căn vào thời điểm phù hợp.", "Làm rõ danh mục nội thất để tránh định giá phần trang trí không cần thiết.", "Đối chiếu diện tích, nghĩa vụ tài chính và tình trạng pháp lý trên hồ sơ căn.", "Hỏi phí vận hành hiện hành và thử quãng đường tới điểm đỗ xe, thang máy, trường học."],
-      "related": [["Masteri West Heights: lựa chọn cao cấp để đối chiếu", "/masteri-west-heights-smart-city.html"], ["Cách đọc giá bán và giá/m²", "/gia-ban-vinhomes-smart-city.html"], ["So sánh các phân khu", "/so-sanh-phan-khu-vinhomes-smart-city.html"]],
+      "buildings": [
+        "Ba tòa căn hộ tạo thành một cụm dự án thống nhất.",
+        "Chọn tòa cần đối chiếu lối tiếp cận, hướng nhìn, khoảng cách tới tiện ích và luồng xe thực tế.",
+        "Không suy luận chất lượng một căn từ tên tòa; cần kiểm tra tầng, mã căn và hiện trạng."
+      ],
+      "amenities": [
+        "Bể bơi trong nhà và ngoài trời",
+        "Không gian thể thao và gym",
+        "Vườn thiền, BBQ và cảnh quan",
+        "Khu vui chơi trẻ em",
+        "Thư viện và không gian cộng đồng"
+      ],
+      "fit": [
+        "Gia đình ưu tiên tiêu chuẩn bàn giao và tiện ích riêng",
+        "Người mua coi trọng cảnh quan, ánh sáng và trải nghiệm nội khu",
+        "Người cần so sản phẩm cao cấp với Masteri West Heights"
+      ],
+      "considerations": [
+        "So giá/m² trong cùng loại căn, cùng tòa và nhóm tầng gần nhau.",
+        "Kiểm tra nắng, view và khoảng chắn trực tiếp tại căn vào thời điểm phù hợp.",
+        "Làm rõ danh mục nội thất để tránh định giá phần trang trí không cần thiết.",
+        "Đối chiếu diện tích, nghĩa vụ tài chính và tình trạng pháp lý trên hồ sơ căn.",
+        "Hỏi phí vận hành hiện hành và thử quãng đường tới điểm đỗ xe, thang máy, trường học."
+      ],
+      "related": [
+        [
+          "Masteri West Heights: lựa chọn cao cấp để đối chiếu",
+          "/masteri-west-heights-smart-city.html"
+        ],
+        [
+          "Cách đọc giá bán và giá/m²",
+          "/gia-ban-vinhomes-smart-city.html"
+        ],
+        [
+          "So sánh các phân khu",
+          "/so-sanh-phan-khu-vinhomes-smart-city.html"
+        ]
+      ],
       "faq": [
-        ["LUMIÈRE Evergreen có những loại căn nào?", "Dữ liệu quỹ căn trên website được tổng hợp theo đúng loại đang có; tài liệu dự án công bố dải từ Studio đến 3PN. Hãy kiểm tra layout và diện tích trên hồ sơ từng căn."],
-        ["Giá LUMIÈRE Evergreen hiện tại bao nhiêu?", "Trang tính snapshot từ các căn đang hiển thị tại thời điểm build. Đây là giá chào, không phải giá giao dịch đã hoàn tất."],
-        ["Nên chọn tòa nào?", "Không có một tòa phù hợp với mọi nhu cầu. Nên so lối tiếp cận, hướng/view, tầng, tiện ích gần nhất và chênh giá của các căn tương đồng."],
-        ["Nên so LUMIÈRE với dự án nào?", "Masteri West Heights là đối chứng tự nhiên trong nhóm sản phẩm cao cấp; Sapphire và Sakura hữu ích để kiểm tra phần chênh ngân sách đổi lấy tiêu chuẩn và trải nghiệm."],
-        ["Cần kiểm tra gì trước khi đặt cọc?", "Xác minh đúng chủ thể, hồ sơ căn, nghĩa vụ tài chính, hiện trạng bàn giao, giá bao gồm những gì và điều kiện đặt cọc bằng tài liệu cụ thể."]
+        [
+          "LUMIÈRE Evergreen có những loại căn nào?",
+          "Dữ liệu quỹ căn trên website được tổng hợp theo đúng loại đang có; tài liệu dự án công bố dải từ Studio đến 3PN. Hãy kiểm tra layout và diện tích trên hồ sơ từng căn."
+        ],
+        [
+          "Giá LUMIÈRE Evergreen hiện tại bao nhiêu?",
+          "Trang tính snapshot từ các căn đang hiển thị tại thời điểm build. Đây là giá chào, không phải giá giao dịch đã hoàn tất."
+        ],
+        [
+          "Nên chọn tòa nào?",
+          "Không có một tòa phù hợp với mọi nhu cầu. Nên so lối tiếp cận, hướng/view, tầng, tiện ích gần nhất và chênh giá của các căn tương đồng."
+        ],
+        [
+          "Nên so LUMIÈRE với dự án nào?",
+          "Masteri West Heights là đối chứng tự nhiên trong nhóm sản phẩm cao cấp; Sapphire và Sakura hữu ích để kiểm tra phần chênh ngân sách đổi lấy tiêu chuẩn và trải nghiệm."
+        ],
+        [
+          "Cần kiểm tra gì trước khi đặt cọc?",
+          "Xác minh đúng chủ thể, hồ sơ căn, nghĩa vụ tài chính, hiện trạng bàn giao, giá bao gồm những gì và điều kiện đặt cọc bằng tài liệu cụ thể."
+        ]
+      ],
+      "sources": [
+        {
+          "id": "masterise-lumiere-brochure",
+          "label": "Tài liệu giới thiệu LUMIÈRE Evergreen",
+          "url": "https://masterisehomes.com/lumiere-evergreen/wp-content/uploads/2023/12/LE_SaleLeaflet_print-3.pdf",
+          "publisher": "Masterise Homes",
+          "accessed": "2026-08-12"
+        }
       ]
     },
     {
-      "slug": "sapphire", "route": "phan-khu-sapphire.html", "inventoryLabels": ["Sapphire"],
-      "name": "The Sapphire", "eyebrow": "Hồ sơ nhóm sản phẩm", "accent": "blue",
-      "seo": {"title": "Sapphire Vinhomes Smart City | Hồ sơ & quỹ căn đang bán", "description": "Hiểu đúng Sapphire Vinhomes Smart City: nhiều cụm tòa, loại căn đa dạng, cách so sánh giá, buyer notes và quỹ căn thực tế."},
+      "slug": "sapphire",
+      "route": "phan-khu-sapphire.html",
+      "inventoryLabels": [
+        "Sapphire"
+      ],
+      "name": "The Sapphire",
+      "eyebrow": "Hồ sơ nhóm sản phẩm",
+      "accent": "blue",
+      "seo": {
+        "title": "Sapphire Vinhomes Smart City | Hồ sơ & quỹ căn đang bán",
+        "description": "Hiểu đúng Sapphire Vinhomes Smart City: nhiều cụm tòa, loại căn đa dạng, cách so sánh giá, buyer notes và quỹ căn thực tế."
+      },
       "summary": "Một nhóm sản phẩm lớn gồm nhiều cụm và nhiều tòa — thuận lợi để tạo tập căn đối chứng theo ngân sách, loại căn và vị trí.",
-      "facts": [["Phạm vi", "Nhiều cụm / nhiều tòa"], ["Loại sản phẩm", "Căn hộ trong Smart City"], ["Đặc trưng", "Quỹ căn đa dạng"]],
-      "overview": ["Sapphire không nên được hiểu như một tòa đơn lẻ. Đây là nhóm sản phẩm có độ phủ rộng trong đại đô thị, từng được triển khai theo nhiều cụm. Vì vậy hai căn cùng gắn nhãn Sapphire có thể khác đáng kể về tòa, khoảng cách tiện ích, view và mặt bằng.", "Lợi thế thực dụng của Sapphire là thường có đủ căn để lập nhóm so sánh. Người mua có thể giữ cố định loại căn và diện tích, sau đó đối chiếu tổng giá, giá/m², tầng, hướng, nội thất và pháp lý."],
+      "facts": [
+        {
+          "label": "Phạm vi",
+          "value": "Nhiều cụm / nhiều tòa",
+          "sourceId": "vinhomes-smart-city"
+        },
+        {
+          "label": "Loại sản phẩm",
+          "value": "Căn hộ trong Smart City",
+          "sourceId": "vinhomes-smart-city"
+        },
+        {
+          "label": "Đặc trưng",
+          "value": "Quỹ căn đa dạng",
+          "sourceId": "vinhomes-smart-city"
+        }
+      ],
+      "overview": [
+        "Sapphire không nên được hiểu như một tòa đơn lẻ. Đây là nhóm sản phẩm có độ phủ rộng trong đại đô thị, từng được triển khai theo nhiều cụm. Vì vậy hai căn cùng gắn nhãn Sapphire có thể khác đáng kể về tòa, khoảng cách tiện ích, view và mặt bằng.",
+        "Lợi thế thực dụng của Sapphire là thường có đủ căn để lập nhóm so sánh. Người mua có thể giữ cố định loại căn và diện tích, sau đó đối chiếu tổng giá, giá/m², tầng, hướng, nội thất và pháp lý."
+      ],
       "location": "Các cụm Sapphire phân bố ở nhiều vị trí trong Smart City. Cần xác định chính xác cụm và tòa rồi mới đánh giá kết nối tới cổng ra vào, công viên, trường học, trung tâm thương mại và điểm đón xe.",
-      "buildings": ["Tên Sapphire bao phủ nhiều cụm, không dùng một mức giá chung cho toàn bộ nhóm.", "Luôn ghi nhận đúng mã tòa trước khi so căn.", "Ưu tiên tạo shortlist cùng cụm hoặc các tòa có vị trí tương đồng."],
-      "amenities": ["Tiếp cận hệ công viên của đại đô thị", "Sân chơi và không gian thể thao", "Bể bơi và cảnh quan theo từng cụm", "Hệ thương mại, trường học và xe điện nội khu"],
-      "fit": ["Người mua ưu tiên ngân sách và muốn nhiều căn để đối chiếu", "Gia đình cần lựa chọn phong phú về loại căn", "Người chấp nhận khảo sát kỹ từng cụm thay vì chọn theo nhãn chung"],
-      "considerations": ["Không lấy một căn Sapphire làm đại diện giá cho tất cả cụm.", "So đúng mã tòa, loại căn, diện tích và tình trạng nội thất.", "Kiểm tra khoảng cách đi bộ thực tế tới tiện ích quan trọng.", "Đánh giá tiếng ồn, nắng và view ở cấp căn.", "Xác minh hồ sơ và các khoản chi phí tại thời điểm giao dịch."],
-      "related": [["The Sakura: lựa chọn thiên về cảnh quan chủ đề", "/phan-khu-the-sakura.html"], ["Masteri West Heights: so phần chênh tiêu chuẩn", "/masteri-west-heights-smart-city.html"], ["Kinh nghiệm chọn căn Sapphire", "/sapphire-vinhomes-smart-city.html"]],
-      "faq": [["Sapphire là một phân khu hay một tòa?", "Đây là tên của một nhóm sản phẩm lớn gồm nhiều cụm và tòa; khi tìm mua phải xuống tới đúng mã tòa."], ["Vì sao nguồn căn Sapphire thường dễ so sánh?", "Độ phủ lớn tạo nhiều lựa chọn cùng loại căn, giúp người mua lập nhóm đối chứng về giá/m², tầng và nội thất."], ["Sapphire khác Sakura thế nào?", "Sapphire thiên về độ đa dạng và phạm vi lựa chọn; Sakura có nhận diện cảnh quan Nhật rõ hơn. Quyết định nên dựa trên căn và vị trí thực tế."], ["Có nên chọn căn Sapphire rẻ nhất?", "Không nên chỉ xếp theo tổng giá; căn rẻ có thể khác diện tích, tầng, hướng, nội thất hoặc tình trạng hồ sơ."], ["Dữ liệu giá trên trang là gì?", "Đó là snapshot giá chào của các căn công khai đang khớp chính xác nhãn Sapphire, không phải lịch sử giao dịch."]]
+      "buildings": [
+        "Tên Sapphire bao phủ nhiều cụm, không dùng một mức giá chung cho toàn bộ nhóm.",
+        "Luôn ghi nhận đúng mã tòa trước khi so căn.",
+        "Ưu tiên tạo shortlist cùng cụm hoặc các tòa có vị trí tương đồng."
+      ],
+      "amenities": [
+        "Tiếp cận hệ công viên của đại đô thị",
+        "Sân chơi và không gian thể thao",
+        "Bể bơi và cảnh quan theo từng cụm",
+        "Hệ thương mại, trường học và xe điện nội khu"
+      ],
+      "fit": [
+        "Người mua ưu tiên ngân sách và muốn nhiều căn để đối chiếu",
+        "Gia đình cần lựa chọn phong phú về loại căn",
+        "Người chấp nhận khảo sát kỹ từng cụm thay vì chọn theo nhãn chung"
+      ],
+      "considerations": [
+        "Không lấy một căn Sapphire làm đại diện giá cho tất cả cụm.",
+        "So đúng mã tòa, loại căn, diện tích và tình trạng nội thất.",
+        "Kiểm tra khoảng cách đi bộ thực tế tới tiện ích quan trọng.",
+        "Đánh giá tiếng ồn, nắng và view ở cấp căn.",
+        "Xác minh hồ sơ và các khoản chi phí tại thời điểm giao dịch."
+      ],
+      "related": [
+        [
+          "The Sakura: lựa chọn thiên về cảnh quan chủ đề",
+          "/phan-khu-the-sakura.html"
+        ],
+        [
+          "Masteri West Heights: so phần chênh tiêu chuẩn",
+          "/masteri-west-heights-smart-city.html"
+        ],
+        [
+          "Kinh nghiệm chọn căn Sapphire",
+          "/sapphire-vinhomes-smart-city.html"
+        ]
+      ],
+      "faq": [
+        [
+          "Sapphire là một phân khu hay một tòa?",
+          "Đây là tên của một nhóm sản phẩm lớn gồm nhiều cụm và tòa; khi tìm mua phải xuống tới đúng mã tòa."
+        ],
+        [
+          "Vì sao nguồn căn Sapphire thường dễ so sánh?",
+          "Độ phủ lớn tạo nhiều lựa chọn cùng loại căn, giúp người mua lập nhóm đối chứng về giá/m², tầng và nội thất."
+        ],
+        [
+          "Sapphire khác Sakura thế nào?",
+          "Sapphire thiên về độ đa dạng và phạm vi lựa chọn; Sakura có nhận diện cảnh quan Nhật rõ hơn. Quyết định nên dựa trên căn và vị trí thực tế."
+        ],
+        [
+          "Có nên chọn căn Sapphire rẻ nhất?",
+          "Không nên chỉ xếp theo tổng giá; căn rẻ có thể khác diện tích, tầng, hướng, nội thất hoặc tình trạng hồ sơ."
+        ],
+        [
+          "Dữ liệu giá trên trang là gì?",
+          "Đó là snapshot giá chào của các căn công khai đang khớp chính xác nhãn Sapphire, không phải lịch sử giao dịch."
+        ]
+      ],
+      "sources": [
+        {
+          "id": "vinhomes-smart-city",
+          "label": "Trang chính thức Vinhomes Smart City",
+          "url": "https://smartcity.vinhomes.vn/",
+          "publisher": "Vinhomes",
+          "accessed": "2026-08-12"
+        },
+        {
+          "id": "vinhomes-grand-sapphire",
+          "label": "The Grand Sapphire",
+          "url": "https://smartcity.vinhomes.vn/the-grand-sapphire/",
+          "publisher": "Vinhomes",
+          "accessed": "2026-08-12"
+        }
+      ]
     },
     {
-      "slug": "the-sakura", "route": "phan-khu-the-sakura.html", "inventoryLabels": ["Sakura"],
-      "name": "The Sakura", "eyebrow": "Hồ sơ phân khu · The Metrolines", "accent": "sakura",
-      "seo": {"title": "The Sakura Smart City | Hồ sơ phân khu & căn đang bán", "description": "Hồ sơ The Sakura Smart City: cảnh quan Nhật, vị trí, loại căn, ưu nhược điểm thực tế, dữ liệu giá và inventory đang bán."},
+      "slug": "the-sakura",
+      "route": "phan-khu-the-sakura.html",
+      "inventoryLabels": [
+        "Sakura"
+      ],
+      "name": "The Sakura",
+      "eyebrow": "Hồ sơ phân khu · The Metrolines",
+      "accent": "sakura",
+      "seo": {
+        "title": "The Sakura Smart City | Hồ sơ phân khu & căn đang bán",
+        "description": "Hồ sơ The Sakura Smart City: cảnh quan Nhật, vị trí, loại căn, ưu nhược điểm thực tế, dữ liệu giá và inventory đang bán."
+      },
       "summary": "Phân khu có nhận diện cảnh quan Nhật rõ ràng, phù hợp người mua coi trọng môi trường nội khu và trải nghiệm ở thực.",
-      "facts": [["Hợp tác phát triển", "Vinhomes × SAMTY"], ["Vị trí", "The Metrolines"], ["Loại căn công bố", "Studio – 3PN"]],
-      "overview": ["The Sakura được phát triển với sự tham gia của SAMTY và tạo dấu ấn bằng cảnh quan mang cảm hứng Nhật. Giá trị cần kiểm chứng không nằm ở tên concept, mà ở chất lượng không gian người mua thực sự sử dụng: lối đi, khoảng xanh, độ thoáng và vị trí căn.", "So với Sapphire, Sakura có bản sắc cảnh quan tập trung hơn nhưng tập căn đối chứng có thể hẹp hơn. Hãy cân phần chênh giá với vị trí, view và nhu cầu sử dụng lâu dài."],
+      "facts": [
+        {
+          "label": "Hợp tác phát triển",
+          "value": "Vinhomes × SAMTY",
+          "sourceId": "vinhomes-sakura"
+        },
+        {
+          "label": "Vị trí",
+          "value": "The Metrolines",
+          "sourceId": "vinhomes-sakura"
+        },
+        {
+          "label": "Loại căn công bố",
+          "value": "Studio – 3PN",
+          "sourceId": "vinhomes-sakura"
+        }
+      ],
+      "overview": [
+        "The Sakura được phát triển với sự tham gia của SAMTY và tạo dấu ấn bằng cảnh quan mang cảm hứng Nhật. Giá trị cần kiểm chứng không nằm ở tên concept, mà ở chất lượng không gian người mua thực sự sử dụng: lối đi, khoảng xanh, độ thoáng và vị trí căn.",
+        "So với Sapphire, Sakura có bản sắc cảnh quan tập trung hơn nhưng tập căn đối chứng có thể hẹp hơn. Hãy cân phần chênh giá với vị trí, view và nhu cầu sử dụng lâu dài."
+      ],
       "location": "The Sakura nằm trong The Metrolines, kết nối với mạng đường nội khu và các tiện ích cấp đại đô thị. Các tuyến metro thường được nhắc trong định vị là hạ tầng quy hoạch; người mua cần tách rõ kết nối đang vận hành và kỳ vọng tương lai.",
-      "buildings": ["Phải xác nhận mã tòa và vị trí căn trước khi đánh giá.", "Tầm nhìn cảnh quan khác nhau theo tòa, hướng và tầng.", "Layout thực tế quan trọng hơn tên loại căn trên tin đăng."],
-      "amenities": ["Hồ và đường dạo cảnh quan", "Vườn thiền, cầu gỗ và không gian nghỉ", "Khu vận động và vui chơi trẻ em", "Tiện ích chung của Smart City"],
-      "fit": ["Gia đình ưu tiên cảnh quan và không gian dạo bộ", "Người mua ở thật thích một concept nội khu rõ", "Người đang so Sakura với các cụm Sapphire lân cận"],
-      "considerations": ["Kiểm tra hướng nhìn có thực sự tiếp cận cảnh quan mong muốn.", "Phân biệt hạ tầng đã vận hành và hạ tầng mới ở quy hoạch.", "So giá với căn Sapphire tương đồng về diện tích và tầng.", "Quan sát mật độ, tiếng ồn và luồng xe vào giờ cao điểm.", "Kiểm tra layout, nội thất và hồ sơ riêng của căn."],
-      "related": [["Sapphire: nguồn căn rộng để đối chiếu", "/phan-khu-sapphire.html"], ["Kinh nghiệm mua The Sakura", "/the-sakura-vinhomes-smart-city.html"], ["So sánh phân khu Smart City", "/so-sanh-phan-khu-vinhomes-smart-city.html"]],
-      "faq": [["The Sakura phù hợp với ai?", "Phù hợp người mua ở thật coi trọng cảnh quan, đường dạo và một không gian nội khu có nhận diện rõ."], ["Sakura có loại căn nào?", "Tài liệu dự án giới thiệu từ Studio tới 3PN; trên trang chỉ thống kê loại đang thực sự xuất hiện trong inventory."], ["Sakura khác Sapphire ra sao?", "Sakura nhấn mạnh concept cảnh quan; Sapphire có nhiều cụm và nguồn lựa chọn rộng hơn."], ["Giá Sakura trên trang có phải giá giao dịch?", "Không. Đây là giá chào của inventory công khai tại thời điểm build."], ["Khi xem căn nên chú ý gì?", "Ưu tiên kiểm tra view, nắng, tiếng ồn, layout, quãng đi bộ và hồ sơ căn thực tế."]]
+      "buildings": [
+        "Phải xác nhận mã tòa và vị trí căn trước khi đánh giá.",
+        "Tầm nhìn cảnh quan khác nhau theo tòa, hướng và tầng.",
+        "Layout thực tế quan trọng hơn tên loại căn trên tin đăng."
+      ],
+      "amenities": [
+        "Hồ và đường dạo cảnh quan",
+        "Vườn thiền, cầu gỗ và không gian nghỉ",
+        "Khu vận động và vui chơi trẻ em",
+        "Tiện ích chung của Smart City"
+      ],
+      "fit": [
+        "Gia đình ưu tiên cảnh quan và không gian dạo bộ",
+        "Người mua ở thật thích một concept nội khu rõ",
+        "Người đang so Sakura với các cụm Sapphire lân cận"
+      ],
+      "considerations": [
+        "Kiểm tra hướng nhìn có thực sự tiếp cận cảnh quan mong muốn.",
+        "Phân biệt hạ tầng đã vận hành và hạ tầng mới ở quy hoạch.",
+        "So giá với căn Sapphire tương đồng về diện tích và tầng.",
+        "Quan sát mật độ, tiếng ồn và luồng xe vào giờ cao điểm.",
+        "Kiểm tra layout, nội thất và hồ sơ riêng của căn."
+      ],
+      "related": [
+        [
+          "Sapphire: nguồn căn rộng để đối chiếu",
+          "/phan-khu-sapphire.html"
+        ],
+        [
+          "Kinh nghiệm mua The Sakura",
+          "/the-sakura-vinhomes-smart-city.html"
+        ],
+        [
+          "So sánh phân khu Smart City",
+          "/so-sanh-phan-khu-vinhomes-smart-city.html"
+        ]
+      ],
+      "faq": [
+        [
+          "The Sakura phù hợp với ai?",
+          "Phù hợp người mua ở thật coi trọng cảnh quan, đường dạo và một không gian nội khu có nhận diện rõ."
+        ],
+        [
+          "Sakura có loại căn nào?",
+          "Tài liệu dự án giới thiệu từ Studio tới 3PN; trên trang chỉ thống kê loại đang thực sự xuất hiện trong inventory."
+        ],
+        [
+          "Sakura khác Sapphire ra sao?",
+          "Sakura nhấn mạnh concept cảnh quan; Sapphire có nhiều cụm và nguồn lựa chọn rộng hơn."
+        ],
+        [
+          "Giá Sakura trên trang có phải giá giao dịch?",
+          "Không. Đây là giá chào của inventory công khai tại thời điểm build."
+        ],
+        [
+          "Khi xem căn nên chú ý gì?",
+          "Ưu tiên kiểm tra view, nắng, tiếng ồn, layout, quãng đi bộ và hồ sơ căn thực tế."
+        ]
+      ],
+      "sources": [
+        {
+          "id": "vinhomes-sakura",
+          "label": "The Sakura tại Vinhomes Smart City",
+          "url": "https://vinhomes.vn/vi/the-sakura-vinhomes-smart-city",
+          "publisher": "Vinhomes",
+          "accessed": "2026-08-12"
+        }
+      ]
     },
     {
-      "slug": "masteri-west-heights", "route": "masteri-west-heights-smart-city.html", "inventoryLabels": ["Masteri"],
-      "name": "Masteri West Heights", "eyebrow": "Hồ sơ dự án · Masterise Homes", "accent": "green",
-      "seo": {"title": "Masteri West Heights Smart City | Giá & căn đang bán", "description": "Hồ sơ Masteri West Heights Smart City: vị trí, layout, view, bàn giao, lưu ý mua ở thật hoặc đầu tư và quỹ căn thực tế."},
+      "slug": "masteri-west-heights",
+      "route": "masteri-west-heights-smart-city.html",
+      "inventoryLabels": [
+        "Masteri"
+      ],
+      "name": "Masteri West Heights",
+      "eyebrow": "Hồ sơ dự án · Masterise Homes",
+      "accent": "green",
+      "seo": {
+        "title": "Masteri West Heights Smart City | Giá & căn đang bán",
+        "description": "Hồ sơ Masteri West Heights Smart City: vị trí, layout, view, bàn giao, lưu ý mua ở thật hoặc đầu tư và quỹ căn thực tế."
+      },
       "summary": "Dự án cao cấp bên hồ trung tâm, nơi chênh lệch giữa tòa, tầng, hướng nhìn và hiện trạng căn cần được so theo nhóm tương đồng.",
-      "facts": [["Đơn vị phát triển", "Masterise Homes"], ["Vị trí nổi bật", "Kề hồ trung tâm 4,8 ha"], ["Loại sản phẩm", "Căn hộ cao cấp"]],
-      "overview": ["Masteri West Heights là lựa chọn cao cấp trong Smart City, được nhận diện bởi vị trí gần hồ trung tâm và hệ tiện ích riêng. Với người mua ở thật, layout, ánh sáng và hành trình sử dụng hàng ngày đáng ưu tiên hơn thông điệp thương hiệu.", "Với người đầu tư, không đủ dữ liệu lịch sử để khẳng định xu hướng. Nên tính trên giá chào hiện tại, chi phí nắm giữ, khả năng cho thuê có thể kiểm chứng và thanh khoản của đúng loại căn."],
+      "facts": [
+        {
+          "label": "Đơn vị phát triển",
+          "value": "Masterise Homes",
+          "sourceId": "masterise-west-heights"
+        },
+        {
+          "label": "Vị trí nổi bật",
+          "value": "Kề hồ trung tâm 4,8 ha",
+          "sourceId": "masterise-west-heights"
+        },
+        {
+          "label": "Loại sản phẩm",
+          "value": "Căn hộ cao cấp",
+          "sourceId": "masterise-west-heights"
+        }
+      ],
+      "overview": [
+        "Masteri West Heights là lựa chọn cao cấp trong Smart City, được nhận diện bởi vị trí gần hồ trung tâm và hệ tiện ích riêng. Với người mua ở thật, layout, ánh sáng và hành trình sử dụng hàng ngày đáng ưu tiên hơn thông điệp thương hiệu.",
+        "Với người đầu tư, không đủ dữ liệu lịch sử để khẳng định xu hướng. Nên tính trên giá chào hiện tại, chi phí nắm giữ, khả năng cho thuê có thể kiểm chứng và thanh khoản của đúng loại căn."
+      ],
       "location": "Vị trí cạnh hồ trung tâm tạo lợi thế trải nghiệm cho một số tòa và hướng căn, nhưng không phải mọi căn đều có cùng view. Cần đi thực tế để kiểm tra khoảng chắn và lối kết nối tới trung tâm thương mại, công viên, trường học.",
-      "buildings": ["Chênh giá có thể xuất phát từ vị trí tòa và hướng nhìn, không chỉ từ tầng.", "So mặt bằng để kiểm tra số phòng, logia, bếp và diện tích sử dụng.", "Đánh giá bàn giao dựa trên hiện trạng từng căn và danh mục thiết bị đi kèm."],
-      "amenities": ["Tiếp cận hồ trung tâm", "Tiện ích riêng của dự án", "Hệ công viên, thể thao và thương mại Smart City"],
-      "fit": ["Người mua ở thật ưu tiên vị trí trung tâm và tiêu chuẩn sản phẩm", "Gia đình sẵn sàng trả phần chênh cho layout/view phù hợp", "Nhà đầu tư có kịch bản dòng tiền thận trọng và dữ liệu kiểm chứng"],
-      "considerations": ["Không trả thêm cho nhãn view hồ nếu căn thực tế bị chắn hoặc góc nhìn hạn chế.", "So cùng tòa hoặc nhóm tòa tương đồng trước khi kết luận chênh giá.", "Kiểm tra chi tiết thiết bị, hao mòn và phần nội thất chủ nhà để lại.", "Đánh giá số thang, khoảng cách căn tới thang và tiếng ồn hành lang.", "Xác minh pháp lý, phí và nghĩa vụ tài chính riêng của căn."],
-      "related": [["LUMIÈRE Evergreen: một đối chứng cao cấp", "/lumiere-evergreen-smart-city.html"], ["Sapphire: kiểm tra phần chênh ngân sách", "/phan-khu-sapphire.html"], ["Hướng dẫn mua căn 2PN", "/mua-can-ho-2pn-vinhomes-smart-city.html"]],
-      "faq": [["Masteri West Heights phù hợp mua ở hay đầu tư?", "Cả hai mục tiêu đều có thể cân nhắc, nhưng ở thật nên ưu tiên layout và trải nghiệm; đầu tư cần kiểm chứng dòng tiền thay vì dựa trên kỳ vọng tăng giá."], ["Có nên trả thêm cho view hồ?", "Chỉ nên quyết định sau khi so căn đối chứng cùng loại và kiểm tra góc nhìn thực tế."], ["Giá có chênh theo tòa và tầng không?", "Inventory có thể cho thấy mức chào khác nhau, nhưng mẫu hiện tại không đủ để quy toàn bộ chênh lệch cho riêng tòa hay tầng."], ["Dữ liệu nào được hiển thị?", "Chỉ các trường công khai: tòa, loại căn, diện tích, tầng, hướng, nội thất, pháp lý, giá chào và ảnh."], ["Nên so với dự án nào?", "LUMIÈRE Evergreen là đối chứng cao cấp tự nhiên; Sapphire giúp đánh giá phần ngân sách tăng thêm."]]
+      "buildings": [
+        "Chênh giá có thể xuất phát từ vị trí tòa và hướng nhìn, không chỉ từ tầng.",
+        "So mặt bằng để kiểm tra số phòng, logia, bếp và diện tích sử dụng.",
+        "Đánh giá bàn giao dựa trên hiện trạng từng căn và danh mục thiết bị đi kèm."
+      ],
+      "amenities": [
+        "Tiếp cận hồ trung tâm",
+        "Tiện ích riêng của dự án",
+        "Hệ công viên, thể thao và thương mại Smart City"
+      ],
+      "fit": [
+        "Người mua ở thật ưu tiên vị trí trung tâm và tiêu chuẩn sản phẩm",
+        "Gia đình sẵn sàng trả phần chênh cho layout/view phù hợp",
+        "Nhà đầu tư có kịch bản dòng tiền thận trọng và dữ liệu kiểm chứng"
+      ],
+      "considerations": [
+        "Không trả thêm cho nhãn view hồ nếu căn thực tế bị chắn hoặc góc nhìn hạn chế.",
+        "So cùng tòa hoặc nhóm tòa tương đồng trước khi kết luận chênh giá.",
+        "Kiểm tra chi tiết thiết bị, hao mòn và phần nội thất chủ nhà để lại.",
+        "Đánh giá số thang, khoảng cách căn tới thang và tiếng ồn hành lang.",
+        "Xác minh pháp lý, phí và nghĩa vụ tài chính riêng của căn."
+      ],
+      "related": [
+        [
+          "LUMIÈRE Evergreen: một đối chứng cao cấp",
+          "/lumiere-evergreen-smart-city.html"
+        ],
+        [
+          "Sapphire: kiểm tra phần chênh ngân sách",
+          "/phan-khu-sapphire.html"
+        ],
+        [
+          "Hướng dẫn mua căn 2PN",
+          "/mua-can-ho-2pn-vinhomes-smart-city.html"
+        ]
+      ],
+      "faq": [
+        [
+          "Masteri West Heights phù hợp mua ở hay đầu tư?",
+          "Cả hai mục tiêu đều có thể cân nhắc, nhưng ở thật nên ưu tiên layout và trải nghiệm; đầu tư cần kiểm chứng dòng tiền thay vì dựa trên kỳ vọng tăng giá."
+        ],
+        [
+          "Có nên trả thêm cho view hồ?",
+          "Chỉ nên quyết định sau khi so căn đối chứng cùng loại và kiểm tra góc nhìn thực tế."
+        ],
+        [
+          "Giá có chênh theo tòa và tầng không?",
+          "Inventory có thể cho thấy mức chào khác nhau, nhưng mẫu hiện tại không đủ để quy toàn bộ chênh lệch cho riêng tòa hay tầng."
+        ],
+        [
+          "Dữ liệu nào được hiển thị?",
+          "Chỉ các trường công khai: tòa, loại căn, diện tích, tầng, hướng, nội thất, pháp lý, giá chào và ảnh."
+        ],
+        [
+          "Nên so với dự án nào?",
+          "LUMIÈRE Evergreen là đối chứng cao cấp tự nhiên; Sapphire giúp đánh giá phần ngân sách tăng thêm."
+        ]
+      ],
+      "sources": [
+        {
+          "id": "masterise-west-heights",
+          "label": "Masteri West Heights",
+          "url": "https://masterisehomes.com/masteri-west-heights/",
+          "publisher": "Masterise Homes",
+          "accessed": "2026-08-12"
+        }
+      ]
     },
     {
-      "slug": "gateway-tower", "route": "gateway-tower.html", "inventoryLabels": ["Gateway", "Gateway Tower"],
-      "name": "Gateway Tower", "eyebrow": "Hồ sơ tòa nhà · Sapphire 2", "accent": "slate",
-      "seo": {"title": "Gateway Tower Smart City | Vị trí, loại căn & nguồn bán", "description": "Hồ sơ Gateway Tower Smart City: vị trí cửa ngõ Sapphire 2, kết nối, loại căn, lợi thế, hạn chế và nguồn căn hiện tại."},
+      "slug": "gateway-tower",
+      "route": "gateway-tower.html",
+      "inventoryLabels": [
+        "Gateway",
+        "Gateway Tower"
+      ],
+      "name": "Gateway Tower",
+      "eyebrow": "Hồ sơ tòa nhà · Sapphire 2",
+      "accent": "slate",
+      "seo": {
+        "title": "Gateway Tower Smart City | Vị trí, loại căn & nguồn bán",
+        "description": "Hồ sơ Gateway Tower Smart City: vị trí cửa ngõ Sapphire 2, kết nối, loại căn, lợi thế, hạn chế và nguồn căn hiện tại."
+      },
       "summary": "Sản phẩm căn hộ dịch vụ tại Sapphire 2, có lợi thế kết nối cửa ngõ nhưng cần kiểm tra kỹ mục đích sử dụng và hồ sơ từng căn.",
-      "facts": [["Vị trí", "Khu Sapphire 2"], ["Loại hình công bố", "Căn hộ dịch vụ"], ["Dải căn công bố", "Studio – 3PN"]],
-      "overview": ["Gateway Tower được giới thiệu như tòa căn hộ dịch vụ tại khu Sapphire 2. Vị trí gần các trục ra vào tạo thuận lợi di chuyển và tiếp cận thương mại, đồng thời khiến việc kiểm tra tiếng ồn, luồng xe và mục đích sử dụng trở nên quan trọng.", "Các chương trình thuê, vay hoặc lợi nhuận khi mở bán là dữ liệu lịch sử, không đại diện cho điều kiện giao dịch hiện tại."],
+      "facts": [
+        {
+          "label": "Vị trí",
+          "value": "Khu Sapphire 2",
+          "sourceId": "vinhomes-gateway"
+        },
+        {
+          "label": "Loại hình công bố",
+          "value": "Căn hộ dịch vụ",
+          "sourceId": "vinhomes-gateway"
+        },
+        {
+          "label": "Dải căn công bố",
+          "value": "Studio – 3PN",
+          "sourceId": "vinhomes-gateway"
+        }
+      ],
+      "overview": [
+        "Gateway Tower được giới thiệu như tòa căn hộ dịch vụ tại khu Sapphire 2. Vị trí gần các trục ra vào tạo thuận lợi di chuyển và tiếp cận thương mại, đồng thời khiến việc kiểm tra tiếng ồn, luồng xe và mục đích sử dụng trở nên quan trọng.",
+        "Các chương trình thuê, vay hoặc lợi nhuận khi mở bán là dữ liệu lịch sử, không đại diện cho điều kiện giao dịch hiện tại."
+      ],
       "location": "Tòa nằm ở khu Sapphire 2, có kết nối tương đối trực tiếp tới Đại lộ Thăng Long và các trục lân cận. Người mua nên đi thử tuyến hàng ngày, đồng thời kiểm tra khoảng cách tới trường học, công viên và dịch vụ nội khu.",
-      "buildings": ["Studio công bố khoảng 31,5–33,9 m².", "1PN+1 công bố khoảng 46,3–51,7 m².", "2PN/2PN+1 công bố khoảng 58,9–69,4 m²; 3PN khoảng 81,8 m²."],
-      "amenities": ["Khối thương mại và dịch vụ khu vực", "Tiện ích chung của Sapphire và Smart City", "Kết nối các trục cửa ngõ"],
-      "fit": ["Người ưu tiên kết nối ra vào đại đô thị", "Người hiểu rõ loại hình sản phẩm và mục đích sử dụng", "Người muốn khảo sát khả năng khai thác nhưng dùng giả định thận trọng"],
-      "considerations": ["Xác minh loại hình và hồ sơ pháp lý của chính căn.", "Không sử dụng cam kết bán hàng lịch sử làm dự báo lợi nhuận.", "Kiểm tra tiếng ồn, luồng giao thông và hướng nhìn.", "Làm rõ phí vận hành, nội thất và điều kiện sử dụng hiện hành.", "So với căn Sapphire lân cận có diện tích gần tương đương."],
-      "related": [["Hồ sơ nhóm Sapphire", "/phan-khu-sapphire.html"], ["Cách đọc giá/m²", "/gia-ban-vinhomes-smart-city.html"], ["Tất cả phân khu", "/phan-khu.html"]],
-      "faq": [["Gateway Tower là loại hình gì?", "Thông tin ra mắt giới thiệu đây là tòa căn hộ dịch vụ tại Sapphire 2; người mua vẫn phải kiểm tra hồ sơ của căn cụ thể."], ["Gateway có những loại căn nào?", "Dải sản phẩm công bố gồm Studio, 1PN+1, 2PN/2PN+1 và 3PN."], ["Lợi thế chính là gì?", "Vị trí cửa ngõ thuận tiện kết nối; giá trị thực tế phụ thuộc tuyến di chuyển của người dùng."], ["Điểm hạn chế cần kiểm tra?", "Tiếng ồn, luồng xe, phí vận hành, loại hình pháp lý và khả năng sử dụng của đúng căn."], ["Vì sao trang chưa có giá?", "Nếu không có căn khớp chính xác trong inventory, hệ thống chủ động không suy đoán giá từ dự án khác."]]
+      "buildings": [
+        "Studio công bố khoảng 31,5–33,9 m².",
+        "1PN+1 công bố khoảng 46,3–51,7 m².",
+        "2PN/2PN+1 công bố khoảng 58,9–69,4 m²; 3PN khoảng 81,8 m²."
+      ],
+      "amenities": [
+        "Khối thương mại và dịch vụ khu vực",
+        "Tiện ích chung của Sapphire và Smart City",
+        "Kết nối các trục cửa ngõ"
+      ],
+      "fit": [
+        "Người ưu tiên kết nối ra vào đại đô thị",
+        "Người hiểu rõ loại hình sản phẩm và mục đích sử dụng",
+        "Người muốn khảo sát khả năng khai thác nhưng dùng giả định thận trọng"
+      ],
+      "considerations": [
+        "Xác minh loại hình và hồ sơ pháp lý của chính căn.",
+        "Không sử dụng cam kết bán hàng lịch sử làm dự báo lợi nhuận.",
+        "Kiểm tra tiếng ồn, luồng giao thông và hướng nhìn.",
+        "Làm rõ phí vận hành, nội thất và điều kiện sử dụng hiện hành.",
+        "So với căn Sapphire lân cận có diện tích gần tương đương."
+      ],
+      "related": [
+        [
+          "Hồ sơ nhóm Sapphire",
+          "/phan-khu-sapphire.html"
+        ],
+        [
+          "Cách đọc giá/m²",
+          "/gia-ban-vinhomes-smart-city.html"
+        ],
+        [
+          "Tất cả phân khu",
+          "/phan-khu.html"
+        ]
+      ],
+      "faq": [
+        [
+          "Gateway Tower là loại hình gì?",
+          "Thông tin ra mắt giới thiệu đây là tòa căn hộ dịch vụ tại Sapphire 2; người mua vẫn phải kiểm tra hồ sơ của căn cụ thể."
+        ],
+        [
+          "Gateway có những loại căn nào?",
+          "Dải sản phẩm công bố gồm Studio, 1PN+1, 2PN/2PN+1 và 3PN."
+        ],
+        [
+          "Lợi thế chính là gì?",
+          "Vị trí cửa ngõ thuận tiện kết nối; giá trị thực tế phụ thuộc tuyến di chuyển của người dùng."
+        ],
+        [
+          "Điểm hạn chế cần kiểm tra?",
+          "Tiếng ồn, luồng xe, phí vận hành, loại hình pháp lý và khả năng sử dụng của đúng căn."
+        ],
+        [
+          "Vì sao trang chưa có giá?",
+          "Nếu không có căn khớp chính xác trong inventory, hệ thống chủ động không suy đoán giá từ dự án khác."
+        ]
+      ],
+      "sources": [
+        {
+          "id": "vinhomes-gateway",
+          "label": "Gateway Tower tại Vinhomes Smart City",
+          "url": "https://smartcity.vinhomes.vn/gateway-tower/",
+          "publisher": "Vinhomes",
+          "accessed": "2026-08-12"
+        }
+      ]
     }
   ]
 }

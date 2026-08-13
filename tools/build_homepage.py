@@ -5,28 +5,21 @@ from datetime import date
 from html import escape
 from pathlib import Path
 from statistics import median
-from urllib.parse import parse_qs, quote, urlparse
 import json
 import re
+
+from public_images import public_inventory_image
 
 ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = ROOT / "_source" / "homepage.html"
 SAFE_FIELDS = {"Tòa", "Phân khu", "Loại", "Diện tích", "Tầng", "Nội thất", "Giá bán", "Giá mỗi m2"}
 PUBLIC_IMAGE_FIELD = "Ảnh đại diện"
-PUBLIC_IMAGE_HOST = "drive.google.com"
 LOCAL_IMAGE_FALLBACK = "/images/hero/hero-smart-city-mobile.webp"
 
 
 def public_image_url(row):
     """Return one reviewed public thumbnail; never read the source gallery field."""
-    parsed = urlparse(str(row.get(PUBLIC_IMAGE_FIELD) or "").strip())
-    query = parse_qs(parsed.query)
-    image_id = query.get("id", [""])[0]
-    if parsed.scheme != "https" or parsed.netloc != PUBLIC_IMAGE_HOST:
-        return ""
-    if parsed.path != "/thumbnail" or not image_id:
-        return ""
-    return f"https://{PUBLIC_IMAGE_HOST}/thumbnail?id={quote(image_id, safe='')}&amp;sz=w1200"
+    return public_inventory_image(row.get(PUBLIC_IMAGE_FIELD))
 
 
 def is_positive_number(value):

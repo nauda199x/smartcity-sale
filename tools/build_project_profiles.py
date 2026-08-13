@@ -10,11 +10,20 @@ import unicodedata
 from pathlib import Path
 from urllib.parse import quote
 
+from public_images import public_inventory_image
+
 ROOT = Path(__file__).resolve().parents[1]
 DOMAIN = "https://timmuasmartcity.com"
 PROJECTS = json.loads((ROOT / "data/projects/projects.json").read_text(encoding="utf-8"))["projects"]
 ROWS = json.loads((ROOT / "data.json").read_text(encoding="utf-8"))
 PUBLIC_FIELDS = {"Tòa", "Phân khu", "Loại", "Diện tích", "Tầng", "Nội thất", "Hướng ban công", "Giá bán tỷ", "Giá bán", "Giá mỗi m2", "Pháp lý", "Ảnh đại diện", "Hiển thị trên Web"}
+EDITORIAL_ART = {
+    "lumiere-evergreen": "/images/projects/editorial/lumiere-evergreen.svg",
+    "sapphire": "/images/projects/editorial/sapphire.svg",
+    "the-sakura": "/images/projects/editorial/the-sakura.svg",
+    "masteri-west-heights": "/images/projects/editorial/masteri-west-heights.svg",
+    "gateway-tower": "/images/projects/editorial/gateway-tower.svg",
+}
 
 
 def normalized(value: object) -> str:
@@ -33,22 +42,38 @@ def inventory(project: dict) -> list[dict]:
     return found
 
 
-def media(project: dict) -> list[dict]:
+def media(project: dict) -> tuple[dict, list[dict]]:
     manifest = ROOT / "data/media" / f'{project["slug"]}.json'
     if not manifest.exists():
-        return []
-    assets = json.loads(manifest.read_text(encoding="utf-8")).get("assets", [])
-    return sorted(assets, key=lambda x: (not x.get("featured", False), x.get("sortOrder", 999), x.get("filename", "")))
+        return {}, []
+    payload = json.loads(manifest.read_text(encoding="utf-8"))
+    assets = payload.get("assets", [])
+    return payload, sorted(assets, key=lambda x: (x.get("sortOrder", 999), x.get("filename", "")))
+
+
+def variant_dimensions(payload: dict, item: dict, variant: str) -> tuple[int, int]:
+    """Derive dimensions for the selected generated variant, not its hero."""
+    width = min(item.get("width", 1600), payload.get("variantWidths", {}).get(variant, item.get("width", 1600)))
+    ratio = number(item.get("aspectRatio")) or (item.get("width", 1600) / item.get("height", 900))
+    return int(width), max(1, round(width / ratio))
+
+
+def hero_asset(project: dict) -> dict | None:
+    payload, assets = media(project)
+    candidates = [item for item in assets if item.get("role") == "hero"]
+    candidates = candidates or [item for item in assets if item.get("featured")]
+    candidates = candidates or assets
+    return {"payload": payload, "item": candidates[0]} if candidates else None
 
 
 def image_for(project: dict, variant: str = "hero") -> tuple[str, str, int, int]:
-    assets = media(project)
-    if assets:
-        item = assets[0]
+    selected = hero_asset(project)
+    if selected:
+        payload, item = selected["payload"], selected["item"]
         src = item.get("variants", {}).get(variant) or item.get("src")
-        return src, item.get("alt") or project["name"], item.get("width", 1600), item.get("height", 900)
-    # The only reviewed local editorial image currently available. Never claim it depicts a project.
-    return "/images/hero/hero-smart-city-desktop.webp", "Không gian tổng thể Vinhomes Smart City", 1920, 1080
+        width, height = variant_dimensions(payload, item, variant)
+        return src, item.get("alt") or project["name"], width, height
+    return EDITORIAL_ART[project["slug"]], f'Đồ họa hồ sơ {project["name"]}', 1600, 1000
 
 
 def number(value: object) -> float | None:
@@ -89,12 +114,12 @@ def listing_cards(rows: list[dict], name: str) -> str:
         return f'<div class="pp-empty"><b>Chưa có căn khớp chính xác.</b><p>Inventory công khai hiện chưa ghi nhận căn mang nhãn {escape(name)}. Hệ thống không lấy căn dự án khác để lấp chỗ trống.</p></div>'
     cards = []
     for row in ranked:
-        image = str(row.get("Ảnh đại diện") or "/images/hero/hero-smart-city-desktop.webp")
+        image = public_inventory_image(row.get("Ảnh đại diện")) or EDITORIAL_ART[next((p["slug"] for p in PROJECTS if p["name"] == name), "gateway-tower")]
         title = " · ".join(filter(None, [str(row.get("Tòa") or ""), str(row.get("Loại") or "")]))
         details = " · ".join(filter(None, [f'{fmt(x)} m²' if (x := number(row.get("Diện tích"))) else "", str(row.get("Tầng") or ""), str(row.get("Hướng ban công") or "")]))
         price = f'{fmt(x, 2)} tỷ' if (x := number(row.get("Giá bán tỷ"))) else "Liên hệ xác nhận"
         ppm = f'{fmt(x)} tr/m²' if (x := number(row.get("Giá mỗi m2"))) else ""
-        cards.append(f'<article class="pp-listing"><img src="{escape(image, quote=True)}" alt="Căn {escape(title)} tại {escape(name)}" loading="lazy" width="640" height="480"><div><small>{escape(name)}</small><h3>{escape(title)}</h3><p>{escape(details)}</p><strong>{price}</strong><span>{ppm}</span></div></article>')
+        cards.append(f'<article class="pp-listing"><img src="{escape(image, quote=True)}" alt="Căn {escape(title)} tại {escape(name)}" loading="lazy" width="1200" height="800" referrerpolicy="no-referrer"><div><small>{escape(name)}</small><h3>{escape(title)}</h3><p>{escape(details)}</p><strong>{price}</strong><span>{ppm}</span></div></article>')
     return '<div class="pp-listings">' + ''.join(cards) + '</div>'
 
 
@@ -111,13 +136,18 @@ def market_section(rows: list[dict]) -> str:
 
 
 def gallery(project: dict) -> str:
-    assets = media(project)[1:7]
+    payload, all_assets = media(project)
+    hero = hero_asset(project)
+    hero_id = hero["item"].get("id") if hero else None
+    allowed = {"exterior", "interior", "amenity", "pool", "landscape", "lobby", "layout", "map", "construction", "actual", "general"}
+    assets = [item for item in all_assets if item.get("id") != hero_id and item.get("role") in allowed][:8]
     if not assets:
         return ""
     figures = []
     for item in assets:
         src = item.get("variants", {}).get("content") or item.get("src")
-        figures.append(f'<figure><img src="{src}" alt="{escape(item.get("alt") or project["name"], quote=True)}" loading="lazy" width="{item.get("width", 1200)}" height="{item.get("height", 800)}"><figcaption>{escape(item.get("caption") or "")}</figcaption></figure>')
+        width, height = variant_dimensions(payload, item, "content")
+        figures.append(f'<figure><img src="{src}" alt="{escape(item.get("alt") or project["name"], quote=True)}" loading="lazy" width="{width}" height="{height}"><figcaption>{escape(item.get("caption") or "")}</figcaption></figure>')
     return f'<section class="pp-section pp-gallery-section"><div class="shell"><div class="pp-heading"><span>Hình ảnh</span><h2>Không gian dự án</h2></div><div class="pp-gallery">{"".join(figures)}</div></div></section>'
 
 
@@ -127,7 +157,7 @@ def build_profile(project: dict) -> None:
     canonical = f'{DOMAIN}/{project["route"]}'
     faq_schema = {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in project["faq"]]}
     schema = [{"@context":"https://schema.org","@type":"WebPage","name":project["seo"]["title"],"description":project["seo"]["description"],"url":canonical,"inLanguage":"vi"}, {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":DOMAIN+"/"},{"@type":"ListItem","position":2,"name":"Phân khu","item":DOMAIN+"/phan-khu.html"},{"@type":"ListItem","position":3,"name":project["name"],"item":canonical}]}, {"@context":"https://schema.org", **faq_schema}]
-    facts = ''.join(f'<div><span>{escape(label)}</span><strong>{escape(value)}</strong></div>' for label, value in project["facts"])
+    facts = ''.join(f'<div><span>{escape(fact["label"])}</span><strong>{escape(fact["value"])}</strong></div>' for fact in project["facts"])
     overview = ''.join(f'<p>{escape(p)}</p>' for p in project["overview"])
     bullets = lambda values: ''.join(f'<li>{escape(x)}</li>' for x in values)
     type_stats = metrics(rows)["types"]
@@ -135,6 +165,7 @@ def build_profile(project: dict) -> None:
     filter_url = "/can-ho-dang-ban.html?q=" + quote(project["inventoryLabels"][0])
     faq = ''.join(f'<details><summary>{escape(q)}</summary><p>{escape(a)}</p></details>' for q, a in project["faq"])
     related = ''.join(f'<a href="{url}"><span>Đọc tiếp</span><b>{escape(label)}</b> →</a>' for label, url in project["related"])
+    sources = ''.join(f'<li><a href="{escape(source["url"], quote=True)}" rel="nofollow noopener">{escape(source["label"])}</a> · {escape(source["publisher"])} · truy cập {escape(source["accessed"])}</li>' for source in project["sources"])
     html = head(project, hero, schema) + f'''<body class="project-profile pp-{project["accent"]}">{header()}<main>
 <nav class="shell pp-breadcrumb" aria-label="Breadcrumb"><a href="/">Trang chủ</a><span>›</span><a href="/phan-khu.html">Phân khu</a><span>›</span><span>{escape(project["name"])}</span></nav>
 <section class="pp-hero"><img src="{hero}" alt="{escape(alt, quote=True)}" width="{width}" height="{height}" fetchpriority="high"><div class="shell pp-hero-copy"><span>{escape(project["eyebrow"])}</span><h1>{escape(project["name"])}</h1><p>{escape(project["summary"])}</p><div><a class="btn btn-primary" href="{filter_url}">Tìm căn đang bán</a><a class="btn btn-ghost" href="#thi-truong">Xem dữ liệu thị trường</a></div></div></section>
@@ -148,6 +179,7 @@ def build_profile(project: dict) -> None:
 <section class="pp-section pp-tint" id="inventory"><div class="shell"><div class="pp-heading pp-heading-row"><div><span>07 · Inventory</span><h2>Căn đang bán tại {escape(project["name"])}</h2></div><a href="{filter_url}">Xem toàn bộ căn →</a></div>{listing_cards(rows, project["name"])}<p class="pp-source">Dữ liệu có thể thay đổi. Vui lòng xác nhận lại giá, hiện trạng và hồ sơ trước khi đặt cọc.</p></div></section>
 <section class="pp-section" id="faq"><div class="shell pp-faq"><div class="pp-heading"><span>08 · FAQ</span><h2>Câu hỏi người mua thường đặt</h2></div><div>{faq}</div></div></section>
 <section class="pp-section pp-related"><div class="shell"><div class="pp-heading"><span>Liên quan</span><h2>Tiếp tục nghiên cứu</h2></div><div>{related}</div></div></section>
+<section class="pp-sources"><div class="shell"><h2>Nguồn tham khảo</h2><ul>{sources}</ul><p>Thông tin dự án dùng để định hướng; hồ sơ và điều kiện của từng căn cần được xác minh tại thời điểm giao dịch.</p></div></section>
 <section class="pp-cta"><div class="shell"><div><span>Bước tiếp theo</span><h2>Từ hồ sơ dự án tới căn phù hợp.</h2></div><div><a class="btn btn-primary" href="{filter_url}">Tìm quỹ căn</a><a class="btn btn-ghost" href="/ky-gui-ban-can.html">Ký gửi căn hộ</a></div></div></section></main>
 <footer class="footer"><div class="shell"><p>Tìm Mua Smart City · Cổng thông tin độc lập dành cho người mua. <a href="/gia-ban-vinhomes-smart-city.html">Cách đọc dữ liệu giá</a>.</p></div></footer><script src="/assets/app-shell.js" defer></script></body></html>'''
     (ROOT / project["route"]).write_text(html, encoding="utf-8")

@@ -24,8 +24,11 @@ The project file has a versioned root and a `projects` array. Each project decla
 - decision support: `fit` and `considerations`;
 - navigation: `related` links;
 - visible FAQ pairs used for both page content and `FAQPage` structured data.
+- provenance: stable `sources` with publisher, URL and access date; every quick fact points to a valid local `sourceId`.
 
 Optional sections are omitted when their underlying data is absent. In particular, a gallery is not emitted merely to repeat the fallback hero.
+
+No project media pack was present in the workspace during V1. Until a reviewed manifest is supplied, each project uses a distinct local, non-photographic editorial composition. This avoids implying that one generic Smart City photograph depicts five different projects while keeping the media integration ready.
 
 ## Inventory matching and public fields
 
@@ -49,9 +52,9 @@ Each profile reports the visible exact-match count and apartment-type distributi
 
 ## Media Pipeline integration
 
-For `data/media/<slug>.json`, the generator sorts assets by `featured`, `sortOrder` and filename. It selects the requested `hero`, `card` or `content` variant when available and uses manifest `alt`, `caption`, width and height. Up to six non-hero assets form the responsive editorial gallery.
+For `data/media/<slug>.json`, the generator sorts assets deterministically. Hero selection prefers `role=hero`, then `featured`, then `sortOrder`. Gallery selection excludes the chosen hero and accepts only reviewed gallery-capable roles. The requested `hero`, `card` or `content` variant receives dimensions derived for that exact variant rather than reusing hero dimensions.
 
-If a manifest is absent, the generator uses the existing local Smart City editorial image and a deliberately generic alt description. It does not invent a subject, fabricate a gallery, hotlink a map or download external project imagery. To add a reviewed pack:
+If a manifest is absent, the generator uses the project's distinct local editorial composition. It does not invent a photographic subject, fabricate a gallery, hotlink a map or download external project imagery. To add a reviewed pack:
 
 ```bash
 python3 tools/process_media_pack.py --input path/to/pack.zip --slug <slug> --type project
@@ -73,6 +76,8 @@ python3 tools/build_site.py
 ```
 
 For focused development, run `python3 tools/build_project_profiles.py`. Production validation includes media validation, site validation and staged deploy validation. Generated HTML is committed, so a second complete build must produce no diff.
+
+`tools/validate_project_profiles.py` additionally rejects missing or duplicate routes/canonicals, broken related links, unapproved inventory images, private-field labels, missing manifest assets, dangling fact sources and FAQ schema that differs from visible FAQ content.
 
 ## Adding a project
 
