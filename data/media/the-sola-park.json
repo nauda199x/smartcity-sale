@@ -1,5 +1,14 @@
 {
+  "assets": [],
+  "duplicates": [],
   "schemaVersion": 1,
-  "projectSlug": "the-sola-park",
-  "assets": []
+  "slug": "the-sola-park",
+  "type": "project",
+  "variantWidths": {
+    "card": 900,
+    "content": 1400,
+    "hero": 1920,
+    "thumb": 560
+  },
+  "webpQuality": 84
 }
