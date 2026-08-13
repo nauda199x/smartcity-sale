@@ -28,7 +28,7 @@ jobs:
       - name: Install media pipeline dependencies
         run: python3 -m pip install -r requirements-media.txt
       - name: Compile build and media pipelines
-        run: python3 -m py_compile tools/process_media_pack.py tools/media_utils.py tools/validate_media.py tools/public_images.py tools/build_project_profiles.py tools/validate_project_profiles.py
+        run: python3 -m py_compile tools/import_drive_media.py tools/process_media_pack.py tools/media_utils.py tools/validate_media.py tools/public_images.py tools/build_project_profiles.py tools/validate_project_profiles.py
       - name: Test media pipeline integration
         run: python3 -m unittest tests.test_media_pipeline tests.test_public_images -v
       - name: Validate media manifests

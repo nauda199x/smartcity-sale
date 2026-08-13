@@ -78,6 +78,47 @@ The contact sheet labels each thumbnail by index, deterministic output base name
 7. Codex runs media and site validation, then commits only optimized images and the production manifest.
 8. Codex pushes the branch and opens a pull request; it does not merge automatically.
 
+## Remote Google Drive Import
+
+Public Google Drive folders can be ingested without a local clone. The importer uses
+`gdown`'s maintained public-folder downloader (no Google credentials or private API
+key), keeps all remote files and its temporary ZIP outside the repository, and then
+passes an approved image-only ZIP to Media Pipeline V1:
+
+```bash
+python3 tools/import_drive_media.py \
+  --folder-id 1IePvNlBcINOwjuNsDZMw7P5rRuMeFlSc \
+  --slug lumiere-evergreen \
+  --type project
+```
+
+The remote boundary accepts only top-level `.jpg`, `.jpeg`, `.png`, and `.webp`
+files whose decoded Pillow format matches the extension. It rejects unsafe/control
+character names, nested paths, links, empty/corrupt/mismatched files, unsupported
+documents, and folders with any unsupported file. Defaults are at most 200 images,
+50 MB per image, and 500 MB total; `--max-files`, `--max-file-mb`, and
+`--max-total-mb` can adjust bounded limits. Originals, downloads, and the temporary
+ZIP are deleted on success or failure. The existing processor performs its own
+second validation, normalization, deduplication, and WebP generation.
+
+For the no-terminal workflow:
+
+1. Upload the source photos to a Google Drive folder.
+2. Share the folder as **Anyone with the link / Viewer**.
+3. Open **GitHub Actions → Import Media → Run workflow**.
+4. Enter the folder ID, slug, and media type; optionally supply a new branch name.
+5. The job validates, builds, creates and pushes a new branch, then opens a pull
+   request for review. It never commits directly to `main`.
+6. Review curation and generated pages, then merge the pull request manually.
+
+The action has only `contents: write` and `pull-requests: write` permissions. It
+stages optimized WebP files, the production manifest, and generated HTML explicitly;
+source images, contact sheets, temporary files, and deployment output are rejected.
+For project manifests, the existing profile builder deterministically chooses the
+first asset when no reviewed hero is marked, uses other assets for the gallery, and
+uses the card variant on the project hub. Alt and curation fields remain blank/editable
+rather than being fabricated by the remote job.
+
 ## Troubleshooting
 
 - **Output exists:** inspect it, then rerun with `--force` only when replacement is intended.
