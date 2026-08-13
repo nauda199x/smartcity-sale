@@ -26,4 +26,12 @@ for name in PUBLIC_DATA_FILES:
     destination = OUT / "data" / name
     destination.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(source, destination)
+# Media manifests are deliberately public runtime metadata. Preview contact
+# sheets remain tooling-only because only JSON files are selected here.
+media_data = ROOT / "data" / "media"
+if media_data.is_dir():
+    for source in media_data.glob("*.json"):
+        destination = OUT / "data" / "media" / source.name
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, destination)
 print(f"staged {sum(1 for p in OUT.rglob('*') if p.is_file())} public files in _site")
