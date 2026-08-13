@@ -10,3 +10,10 @@ _site/
 *.tmp
 *.temp
 *.log
+
+# Untrusted media imports and processor working state (production images and
+# data/media manifests remain tracked)
+*.zip
+media-source/
+.media-tmp/
+.media-cache/
