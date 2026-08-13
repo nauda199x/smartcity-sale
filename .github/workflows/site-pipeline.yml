@@ -23,7 +23,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          cache: pip
+          cache: 'pip'
+          cache-dependency-path: requirements-media.txt
       - name: Install media pipeline dependencies
         run: python3 -m pip install -r requirements-media.txt
       - name: Compile media pipeline
