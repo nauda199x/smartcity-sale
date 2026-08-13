@@ -58,9 +58,25 @@ class MediaPipelineTests(unittest.TestCase):
                 data = json.loads(manifest.read_text())
                 self.assertEqual(len(data["assets"]), 2)
                 self.assertEqual(len(data["duplicates"]), 1)
+                self.assertEqual(data["duplicates"][0]["strategy"], "sha256")
                 self.assertEqual(set(data["assets"][0]["variants"]), {"hero", "content", "card", "thumb"})
                 self.assertTrue(all((ROOT / path.lstrip("/")).is_file()
                                     for asset in data["assets"] for path in asset["variants"].values()))
+                for asset in data["assets"]:
+                    widths = {}
+                    for variant, path in asset["variants"].items():
+                        with Image.open(ROOT / path.lstrip("/")) as generated:
+                            self.assertEqual(generated.format, "WEBP")
+                            widths[variant] = generated.width
+                    self.assertLessEqual(widths["hero"], 1920)
+                    self.assertLessEqual(widths["content"], 1400)
+                    self.assertLessEqual(widths["card"], 900)
+                    self.assertLessEqual(widths["thumb"], 560)
+                self.assertTrue(preview.is_file())
+                with Image.open(preview) as contact_sheet:
+                    self.assertEqual(contact_sheet.format, "JPEG")
+                    self.assertGreater(contact_sheet.width, 0)
+                    self.assertGreater(contact_sheet.height, 0)
                 self.assertEqual(data["assets"][1]["role"], "pool")
                 validation = subprocess.run(
                     [sys.executable, str(ROOT / "tools/validate_media.py"), "--slug", slug], cwd=ROOT)

@@ -23,6 +23,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: pip
+      - name: Install media pipeline dependencies
+        run: python3 -m pip install -r requirements-media.txt
+      - name: Compile media pipeline
+        run: python3 -m py_compile tools/process_media_pack.py tools/media_utils.py tools/validate_media.py
+      - name: Test media pipeline integration
+        run: python3 -m unittest tests.test_media_pipeline -v
+      - name: Validate media manifests
+        run: python3 tools/validate_media.py
       - name: Build generated pages
         run: python3 tools/build_site.py
       - name: Verify generated files are committed
