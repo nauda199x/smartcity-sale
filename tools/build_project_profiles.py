@@ -140,14 +140,20 @@ def gallery(project: dict) -> str:
     hero = hero_asset(project)
     hero_id = hero["item"].get("id") if hero else None
     allowed = {"exterior", "interior", "amenity", "pool", "landscape", "lobby", "layout", "map", "construction", "actual", "general"}
-    assets = [item for item in all_assets if item.get("id") != hero_id and item.get("role") in allowed][:8]
+    explicitly_curated = any("gallerySelected" in item for item in all_assets)
+    if explicitly_curated:
+        assets = [item for item in all_assets if item.get("id") != hero_id and item.get("gallerySelected") is True]
+    else:
+        assets = [item for item in all_assets if item.get("id") != hero_id and item.get("role") in allowed][:8]
     if not assets:
         return ""
     figures = []
     for item in assets:
         src = item.get("variants", {}).get("content") or item.get("src")
         width, height = variant_dimensions(payload, item, "content")
-        figures.append(f'<figure><img src="{src}" alt="{escape(item.get("alt") or project["name"], quote=True)}" loading="lazy" width="{width}" height="{height}"><figcaption>{escape(item.get("caption") or "")}</figcaption></figure>')
+        caption = item.get("caption")
+        figcaption = f'<figcaption>{escape(caption)}</figcaption>' if caption else ""
+        figures.append(f'<figure><img src="{src}" alt="{escape(item.get("alt") or project["name"], quote=True)}" loading="lazy" width="{width}" height="{height}">{figcaption}</figure>')
     return f'<section class="pp-section pp-gallery-section"><div class="shell"><div class="pp-heading"><span>Hình ảnh</span><h2>Không gian dự án</h2></div><div class="pp-gallery">{"".join(figures)}</div></div></section>'
 
 
