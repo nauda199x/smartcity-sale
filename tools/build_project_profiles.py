@@ -24,6 +24,7 @@ EDITORIAL_ART = {
     "masteri-west-heights": "/images/projects/editorial/masteri-west-heights.svg",
     "gateway-tower": "/images/projects/editorial/gateway-tower.svg",
 }
+DEFAULT_EDITORIAL_ART = "/images/projects/editorial/sapphire.svg"
 
 
 def normalized(value: object) -> str:
@@ -73,7 +74,7 @@ def image_for(project: dict, variant: str = "hero") -> tuple[str, str, int, int]
         src = item.get("variants", {}).get(variant) or item.get("src")
         width, height = variant_dimensions(payload, item, variant)
         return src, item.get("alt") or project["name"], width, height
-    return EDITORIAL_ART[project["slug"]], f'Đồ họa hồ sơ {project["name"]}', 1600, 1000
+    return EDITORIAL_ART.get(project["slug"], DEFAULT_EDITORIAL_ART), f'Ảnh biên tập dự phòng cho hồ sơ {project["name"]}', 1600, 1000
 
 
 def number(value: object) -> float | None:
@@ -111,10 +112,10 @@ def head(project: dict, hero: str, schema: list[dict]) -> str:
 def listing_cards(rows: list[dict], name: str) -> str:
     ranked = sorted(rows, key=lambda r: (not bool(r.get("Ảnh đại diện")), not bool(number(r.get("Giá bán tỷ"))), not bool(number(r.get("Diện tích")))))[:6]
     if not ranked:
-        return f'<div class="pp-empty"><b>Chưa có căn khớp chính xác.</b><p>Inventory công khai hiện chưa ghi nhận căn mang nhãn {escape(name)}. Hệ thống không lấy căn dự án khác để lấp chỗ trống.</p></div>'
+        return f'<div class="pp-empty"><b>Chưa có căn khớp dữ liệu hiện tại.</b><p>Snapshot công khai chưa ghi nhận căn mang đúng nhãn {escape(name)}. Điều này không có nghĩa dự án hết hàng. Hệ thống không lấy căn dự án khác để lấp chỗ trống.</p></div>'
     cards = []
     for row in ranked:
-        image = public_inventory_image(row.get("Ảnh đại diện")) or EDITORIAL_ART[next((p["slug"] for p in PROJECTS if p["name"] == name), "gateway-tower")]
+        image = public_inventory_image(row.get("Ảnh đại diện")) or EDITORIAL_ART.get(next((p["slug"] for p in PROJECTS if p["name"] == name), ""), DEFAULT_EDITORIAL_ART)
         title = " · ".join(filter(None, [str(row.get("Tòa") or ""), str(row.get("Loại") or "")]))
         details = " · ".join(filter(None, [f'{fmt(x)} m²' if (x := number(row.get("Diện tích"))) else "", str(row.get("Tầng") or ""), str(row.get("Hướng ban công") or "")]))
         price = f'{fmt(x, 2)} tỷ' if (x := number(row.get("Giá bán tỷ"))) else "Liên hệ xác nhận"
@@ -193,16 +194,19 @@ def build_profile(project: dict) -> None:
 
 
 def build_hub() -> None:
-    cards = []
+    grouped = {}
     for project in PROJECTS:
         hero, alt, width, height = image_for(project, "card")
         count = len(inventory(project))
-        cards.append(f'<article class="pp-hub-card"><a class="pp-hub-image" href="/{project["route"]}"><img src="{hero}" alt="{escape(alt, quote=True)}" width="{width}" height="{height}" loading="lazy"></a><div><span>{count} căn đang hiển thị</span><h2><a href="/{project["route"]}">{escape(project["name"])}</a></h2><p>{escape(project["summary"])}</p><a href="/{project["route"]}">Mở hồ sơ →</a></div></article>')
-    schema = [{"@context":"https://schema.org","@type":"CollectionPage","name":"Hồ sơ phân khu Vinhomes Smart City","url":DOMAIN+"/phan-khu.html"}]
-    pseudo = {"seo":{"title":"Phân khu Vinhomes Smart City | 5 hồ sơ chuyên sâu","description":"So sánh 5 hồ sơ dự án Smart City theo vị trí, sản phẩm, buyer notes, giá chào và quỹ căn đang bán."},"route":"phan-khu.html"}
-    html = head(pseudo, "/images/hero/hero-smart-city-desktop.webp", schema) + f'''<body class="project-profile">{header()}<main><section class="pp-hub-hero"><div class="shell"><span>Project Profile System V1</span><h1>Chọn phân khu bằng dữ liệu,<br>không chỉ bằng brochure.</h1><p>Năm hồ sơ thống nhất kết nối thông tin dự án, góc nhìn người mua và quỹ căn thực tế. Bắt đầu từ nhu cầu, đọc điểm cần cân nhắc rồi mới so giá.</p></div></section><section class="pp-section"><div class="shell"><div class="pp-heading"><span>Hồ sơ đã hoàn thiện</span><h2>Mỗi dự án là một quyết định khác nhau</h2></div><div class="pp-hub-grid">{''.join(cards)}</div></div></section><section class="pp-section pp-dark"><div class="shell pp-split"><div><div class="pp-heading"><span>Quy trình</span><h2>Đọc khu trước, lọc căn sau.</h2></div><p>Snapshot chỉ dùng giá chào công khai và không thay thế thẩm định căn. Sau khi chọn 1–2 dự án, hãy tạo nhóm căn cùng loại, diện tích và vị trí để so.</p></div><div class="pp-links"><a href="/gia-ban-vinhomes-smart-city.html">Cách đọc giá/m² →</a><a href="/can-ho-dang-ban.html">Mở toàn bộ quỹ căn →</a><a href="/cam-nang.html">Cẩm nang người mua →</a></div></div></section></main><footer class="footer"><div class="shell"><p>Tìm Mua Smart City · Hồ sơ độc lập dành cho người mua.</p></div></footer><script src="/assets/app-shell.js" defer></script></body></html>'''
+        availability = f"{count} căn đang hiển thị" if count else "Chưa có căn khớp dữ liệu hiện tại"
+        card = f'<article class="pp-hub-card"><a class="pp-hub-image" href="/{project["route"]}"><img src="{hero}" alt="{escape(alt, quote=True)}" width="{width}" height="{height}" loading="lazy"></a><div><span>{escape(project["developer"])} · {availability}</span><h3><a href="/{project["route"]}">{escape(project["name"])}</a></h3><p>{escape(project["summary"])}</p><a href="/{project["route"]}">Mở hồ sơ →</a></div></article>'
+        grouped.setdefault(project["family"], []).append(card)
+    groups = "".join(f'<section class="pp-hub-group"><div class="pp-heading"><span>Nhóm chủ thể</span><h2>{escape(family)}</h2></div><div class="pp-hub-grid">{"".join(cards)}</div></section>' for family, cards in grouped.items())
+    schema = [{"@context":"https://schema.org","@type":"CollectionPage","name":"Hồ sơ dự án và phân khu Smart City","url":DOMAIN+"/phan-khu.html"}]
+    pseudo = {"seo":{"title":"Dự án & phân khu Vinhomes Smart City | Knowledge Hub","description":"Knowledge hub dự án Smart City theo đúng chủ thể phát triển, vị trí, sản phẩm, lưu ý người mua và quỹ căn hiện tại."},"route":"phan-khu.html"}
+    html = head(pseudo, "/images/hero/hero-smart-city-desktop.webp", schema) + f'''<body class="project-profile">{header()}<main><section class="pp-hub-hero"><div class="shell"><span>Project Knowledge Hub V2</span><h1>Hiểu đúng dự án,<br>rồi mới chọn căn.</h1><p>Hồ sơ được tách theo đúng phân khu, dự án và chủ thể phát triển. Mỗi trang kết nối nguồn sơ cấp, phân tích người mua và inventory hiện tại.</p></div></section><section class="pp-section"><div class="shell">{groups}</div></section><section class="pp-section pp-dark"><div class="shell pp-split"><div><div class="pp-heading"><span>Quy trình</span><h2>Đọc khu trước, lọc căn sau.</h2></div><p>Snapshot chỉ dùng giá chào công khai và không thay thế thẩm định căn. Sau khi chọn 1–2 dự án, hãy tạo nhóm căn cùng loại, diện tích và vị trí để so.</p></div><div class="pp-links"><a href="/so-sanh-phan-khu-vinhomes-smart-city.html">Mở bảng so sánh →</a><a href="/gia-ban-vinhomes-smart-city.html">Cách đọc giá/m² →</a><a href="/can-ho-dang-ban.html">Mở toàn bộ quỹ căn →</a><a href="/cam-nang.html">Cẩm nang người mua →</a></div></div></section></main><footer class="footer"><div class="shell"><p>Tìm Mua Smart City · Hồ sơ độc lập dành cho người mua.</p></div></footer><script src="/assets/app-shell.js" defer></script></body></html>'''
     (ROOT / "phan-khu.html").write_text(html, encoding="utf-8")
-    print("built project hub")
+    print("built grouped project hub")
 
 
 if __name__ == "__main__":
