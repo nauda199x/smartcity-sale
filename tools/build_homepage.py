@@ -5,6 +5,7 @@ from datetime import date
 from html import escape
 from pathlib import Path
 from statistics import median
+from urllib.parse import quote
 import json
 import re
 
@@ -46,7 +47,7 @@ type_cards = []
 for apartment_type in ("Studio", "1PN", "1PN+", "2PN", "2PN+", "3PN"):
     if types[apartment_type]:
         type_cards.append(
-            f'<a href="/can-ho-dang-ban.html?q={escape(apartment_type)}"><span>{types[apartment_type]} căn</span>'
+            f'<a href="/can-ho-dang-ban.html?q={quote(apartment_type, safe="")}"><span>{types[apartment_type]} căn</span>'
             f'<strong>{escape(apartment_type)}</strong><i aria-hidden="true">→</i></a>'
         )
 
