@@ -35,6 +35,16 @@ jobs:
         run: python3 tools/validate_media.py
       - name: Build generated pages
         run: python3 tools/build_site.py
+      - name: Upload generated preview
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-preview
+          path: |
+            *.html
+            sitemap.xml
+            data/public-stats.json
+          retention-days: 1
       - name: Verify generated files are committed
         run: git diff --exit-code
       - name: Validate production site
