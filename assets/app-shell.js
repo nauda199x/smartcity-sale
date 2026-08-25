@@ -14,7 +14,7 @@
     if (/gia-ban/.test(path)) return "gia";
     if (/can-ho-dang-ban|ban-(can-ho|studio)/.test(path)) return "can-ho";
     if (/ky-gui/.test(path)) return "ky-gui";
-    if (/cam-nang|kinh-nghiem|chi-phi|mua-can|so-sanh/.test(path)) return "cam-nang";
+    if (/cam-nang|kinh-nghiem|chi-phi|mua-can|so-sanh|chon-tang-huong-view|kiem-tra-phap-ly|quy-trinh-chuyen-nhuong/.test(path)) return "cam-nang";
     return path === "/" || path === "/index.html" ? "home" : "";
   }
   function header() {
@@ -35,7 +35,7 @@
       '<div><a class="site-brand" href="/"><span class="site-brand__mark" aria-hidden="true">S</span><span>Tìm Mua Smart City</span></a><p>Cổng thông tin độc lập dành cho người mua Vinhomes Smart City: hiểu dự án, so sánh phân khu, đọc dữ liệu giá và sàng lọc quỹ căn chuyển nhượng thực tế.</p></div>' +
       '<div><h2>Dự án nổi bật</h2><a href="/masteri-west-heights-smart-city.html">Masteri West Heights</a><a href="/lumiere-evergreen-smart-city.html">LUMIÈRE Evergreen</a><a href="/phan-khu-the-sakura.html">The Sakura</a><a href="/the-canopy-residences-smart-city.html">The Canopy Residences</a></div>' +
       '<div><h2>Dữ liệu người mua</h2><a href="/phan-khu.html">Tất cả phân khu</a><a href="/gia-ban-vinhomes-smart-city.html">Giá & thị trường</a><a href="/can-ho-dang-ban.html">Quỹ căn đang bán</a><a href="/so-sanh-phan-khu-vinhomes-smart-city.html">So sánh phân khu</a></div>' +
-      '<div><h2>Cẩm nang</h2><a href="/cam-nang.html">Cẩm nang mua căn</a><a href="/kinh-nghiem-mua-can-ho-vinhomes-smart-city.html">Kinh nghiệm mua</a><a href="/chi-phi-mua-can-ho-chuyen-nhuong-vinhomes-smart-city.html">Thuế phí chuyển nhượng</a><a href="/ky-gui-ban-can.html">Ký gửi bán căn</a></div>' +
+      '<div><h2>Cẩm nang</h2><a href="/cam-nang.html">Cẩm nang mua căn</a><a href="/chon-tang-huong-view-can-ho-vinhomes-smart-city.html">Chọn tầng · hướng · view</a><a href="/kiem-tra-phap-ly-can-ho-vinhomes-smart-city-truoc-dat-coc.html">Checklist pháp lý</a><a href="/quy-trinh-chuyen-nhuong-can-ho-vinhomes-smart-city.html">Quy trình chuyển nhượng</a></div>' +
       '<div><h2>Liên hệ</h2><a href="tel:0977923284">0977 923 284</a><a href="https://zalo.me/0977923284" rel="noopener">Zalo</a><h2>Pháp lý website</h2><a href="/chinh-sach-bao-mat.html">Chính sách bảo mật</a><a href="/dieu-khoan-su-dung.html">Điều khoản sử dụng</a></div>' +
       '</div><div class="site-footer__legal">Tìm Mua Smart City là cổng thông tin độc lập, không phải website chính thức của Vinhomes hoặc các chủ đầu tư/phát triển dự án. Dữ liệu giá và quỹ căn cần được xác nhận lại trước giao dịch.</div></div></footer>';
   }
