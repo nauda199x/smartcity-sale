@@ -25,7 +25,7 @@
       return '<a href="' + item[1] + '"' + cls + currentAttr + '>' + item[0] + '</a>';
     }).join("");
     return '<header class="site-header"><div class="container site-header__inner">' +
-      '<a class="site-brand" href="/" aria-label="Tìm Mua Smart City — Trang chủ"><span class="site-brand__mark" aria-hidden="true">S</span><span>Tìm Mua Smart City<small>Cổng dữ liệu cho người mua</small></span></a>' +
+      '<a class="site-brand" href="/" aria-label="Tìm Mua Smart City — Trang chủ"><span class="site-brand__mark" aria-hidden="true">S</span><span>Tìm Mua Smart City</span></a>' +
       '<nav class="site-nav" id="siteNav" aria-label="Điều hướng chính">' + nav + '</nav>' +
       '<button class="menu-toggle" type="button" aria-label="Mở menu" aria-controls="siteNav" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>' +
       '</div><div class="site-menu-backdrop"></div></header>';
