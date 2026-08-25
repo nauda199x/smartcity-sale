@@ -77,6 +77,20 @@ def image_for(project: dict, variant: str = "hero") -> tuple[str, str, int, int]
     return EDITORIAL_ART.get(project["slug"], DEFAULT_EDITORIAL_ART), f'Ảnh biên tập dự phòng cho hồ sơ {project["name"]}', 1600, 1000
 
 
+def hub_image_for(project: dict) -> tuple[str, str, int, int]:
+    """Prefer reviewed project media; otherwise use a real current listing photo on hub cards."""
+    if hero_asset(project):
+        return image_for(project, "card")
+    for row in inventory(project):
+        src = public_inventory_image(row.get("Ảnh đại diện"))
+        if src:
+            tower = str(row.get("Tòa") or "").strip()
+            kind = str(row.get("Loại") or "căn hộ").strip()
+            detail = " · ".join(x for x in (tower, kind) if x)
+            return src, f'Ảnh căn thực tế {detail} trong quỹ {project["name"]}', 1200, 800
+    return image_for(project, "card")
+
+
 def number(value: object) -> float | None:
     try:
         result = float(value)
@@ -93,8 +107,9 @@ def metrics(rows: list[dict]) -> dict:
     prices = [x for r in rows if (x := number(r.get("Giá bán tỷ")))]
     ppm = [x for r in rows if (x := number(r.get("Giá mỗi m2")))]
     areas = [x for r in rows if (x := number(r.get("Diện tích")))]
-    types = Counter(str(r.get("Loại") or "").strip() for r in rows if r.get("Loại"))
-    return {"count": len(rows), "prices": prices, "ppm": ppm, "areas": areas, "types": types}
+    types = Counter(str(r.get("Loại") or "").strip() for r in rows if str(r.get("Loại") or "").strip())
+    towers = Counter(str(r.get("Tòa") or "").strip() for r in rows if str(r.get("Tòa") or "").strip())
+    return {"count": len(rows), "prices": prices, "ppm": ppm, "areas": areas, "types": types, "towers": towers}
 
 
 def header() -> str:
@@ -124,6 +139,18 @@ def listing_cards(rows: list[dict], name: str) -> str:
     return '<div class="pp-listings">' + ''.join(cards) + '</div>'
 
 
+def tower_distribution(rows: list[dict]) -> str:
+    towers = metrics(rows)["towers"]
+    if not towers:
+        return ""
+    ranked = sorted(towers.items(), key=lambda item: (-item[1], normalized(item[0])))[:10]
+    links = ''.join(
+        f'<a href="/can-ho-dang-ban.html?q={quote(tower)}"><span>{escape(tower)}</span><b>{count} căn</b></a>'
+        for tower, count in ranked
+    )
+    return f'<div class="pp-tower-breakdown"><small>Tòa đang có hàng trong snapshot</small><div class="pp-tower-chips">{links}</div></div>'
+
+
 def market_section(rows: list[dict]) -> str:
     m = metrics(rows)
     blocks = [f'<div><span>Căn đang hiển thị</span><strong>{m["count"]}</strong></div>']
@@ -133,7 +160,7 @@ def market_section(rows: list[dict]) -> str:
         blocks.append(f'<div><span>Giá/m² trung vị</span><strong>{fmt(statistics.median(m["ppm"]))} triệu</strong></div>')
     distribution = ''.join(f'<li><span>{escape(kind)}</span><b>{count} căn</b></li>' for kind, count in sorted(m["types"].items()))
     note = "Mẫu dưới 3 căn nên không công bố trung vị." if 0 < m["count"] < 3 else "Giá chào tại thời điểm build; không phải giá giao dịch hay xu hướng lịch sử."
-    return f'<div class="pp-market-grid">{"".join(blocks)}</div>{f"<ul class=pp-distribution>{distribution}</ul>" if distribution else ""}<p class="pp-source">{note}</p>'
+    return f'<div class="pp-market-grid">{"".join(blocks)}</div>{f"<ul class=pp-distribution>{distribution}</ul>" if distribution else ""}{tower_distribution(rows)}<p class="pp-source">{note}</p>'
 
 
 def gallery(project: dict) -> str:
@@ -158,6 +185,29 @@ def gallery(project: dict) -> str:
     return f'<section class="pp-section pp-gallery-section"><div class="shell"><div class="pp-heading"><span>Hình ảnh</span><h2>Không gian dự án</h2></div><div class="pp-gallery">{"".join(figures)}</div></div></section>'
 
 
+def inventory_gallery(rows: list[dict], project: dict) -> str:
+    """Build a clearly-labelled gallery from reviewed live inventory, never from another project."""
+    figures = []
+    seen = set()
+    ranked = sorted(rows, key=lambda r: (not bool(r.get("Ảnh đại diện")), str(r.get("Tòa") or ""), str(r.get("Loại") or "")))
+    for row in ranked:
+        src = public_inventory_image(row.get("Ảnh đại diện"))
+        if not src or src in seen:
+            continue
+        seen.add(src)
+        tower = str(row.get("Tòa") or "").strip()
+        kind = str(row.get("Loại") or "Căn hộ").strip()
+        area = f'{fmt(x)} m²' if (x := number(row.get("Diện tích"))) else ""
+        caption = " · ".join(x for x in (tower, kind, area) if x)
+        alt = f'Ảnh căn thực tế {caption} tại {project["name"]}'
+        figures.append(f'<figure><img src="{escape(src, quote=True)}" alt="{escape(alt, quote=True)}" loading="lazy" width="1200" height="800" referrerpolicy="no-referrer"><figcaption>{escape(caption)}</figcaption></figure>')
+        if len(figures) >= 8:
+            break
+    if len(figures) < 2:
+        return ""
+    return f'<section class="pp-section pp-inventory-gallery-section" id="anh-can-thuc-te"><div class="shell"><div class="pp-heading pp-heading-row"><div><span>Ảnh căn thực tế</span><h2>Nhìn sản phẩm đang có trong quỹ.</h2></div><p class="pp-inventory-gallery-note">Ảnh lấy từ các bản ghi đang bán khớp đúng dự án/phân khu; đây không phải phối cảnh quảng cáo đại diện cho toàn dự án.</p></div><div class="pp-inventory-gallery">{"".join(figures)}</div></div></section>'
+
+
 def build_profile(project: dict) -> None:
     rows = inventory(project)
     hero, alt, width, height = image_for(project)
@@ -173,13 +223,16 @@ def build_profile(project: dict) -> None:
     faq = ''.join(f'<details><summary>{escape(q)}</summary><p>{escape(a)}</p></details>' for q, a in project["faq"])
     related = ''.join(f'<a href="{url}"><span>Đọc tiếp</span><b>{escape(label)}</b> →</a>' for label, url in project["related"])
     sources = ''.join(f'<li><a href="{escape(source["url"], quote=True)}" rel="nofollow noopener">{escape(source["label"])}</a> · {escape(source["publisher"])} · truy cập {escape(source["accessed"])}</li>' for source in project["sources"])
+    actual_gallery = inventory_gallery(rows, project)
+    photo_jump = '<a href="#anh-can-thuc-te">Ảnh căn thực tế</a>' if actual_gallery else ""
     html = head(project, hero, schema) + f'''<body class="project-profile pp-{project["accent"]}">{header()}<main>
 <nav class="shell pp-breadcrumb" aria-label="Breadcrumb"><a href="/">Trang chủ</a><span>›</span><a href="/phan-khu.html">Phân khu</a><span>›</span><span>{escape(project["name"])}</span></nav>
 <section class="pp-hero"><img src="{hero}" alt="{escape(alt, quote=True)}" width="{width}" height="{height}" fetchpriority="high"><div class="shell pp-hero-copy"><span>{escape(project["eyebrow"])}</span><h1>{escape(project["name"])}</h1><p>{escape(project["summary"])}</p><div><a class="btn btn-primary" href="{filter_url}">Tìm căn đang bán</a><a class="btn btn-ghost" href="#thi-truong">Xem dữ liệu thị trường</a></div></div></section>
 <section class="pp-facts"><div class="shell pp-facts-grid">{facts}</div></section>
-<section class="pp-section"><div class="shell pp-two"><div><div class="pp-heading"><span>01 · Tổng quan</span><h2>Hiểu dự án trước khi chọn căn</h2></div>{overview}</div><aside><b>Đi nhanh tới</b><a href="#vi-tri">Vị trí</a><a href="#loai-can">Loại căn</a><a href="#thi-truong">Dữ liệu thị trường</a><a href="#inventory">Quỹ căn</a><a href="#faq">FAQ</a></aside></div></section>
+<section class="pp-section"><div class="shell pp-two"><div><div class="pp-heading"><span>01 · Tổng quan</span><h2>Hiểu dự án trước khi chọn căn</h2></div>{overview}</div><aside><b>Đi nhanh tới</b><a href="#vi-tri">Vị trí</a>{photo_jump}<a href="#loai-can">Loại căn</a><a href="#thi-truong">Dữ liệu thị trường</a><a href="#inventory">Quỹ căn</a><a href="#faq">FAQ</a></aside></div></section>
 <section class="pp-section pp-tint" id="vi-tri"><div class="shell pp-split"><div class="pp-heading"><span>02 · Vị trí</span><h2>Kết nối trong Smart City</h2></div><div><p>{escape(project["location"])}</p><div class="pp-links"><a href="/phan-khu.html">Tổng quan phân khu →</a><a href="/cam-nang.html">Cẩm nang người mua →</a></div></div></div></section>
 {gallery(project)}
+{actual_gallery}
 <section class="pp-section"><div class="shell"><div class="pp-heading"><span>03 · Tòa & mặt bằng</span><h2>Đọc sản phẩm ở cấp từng căn</h2></div><div class="pp-three"><div><h3>Tòa / layout</h3><ul>{bullets(project["buildings"])}</ul></div><div><h3>Tiện ích & cảnh quan</h3><ul>{bullets(project["amenities"])}</ul></div><div id="loai-can"><h3>Loại căn đang có</h3>{f'<div class="pp-types">{types}</div>' if types else '<p>Chưa có mẫu inventory khớp để thống kê loại căn.</p>'}</div></div></div></section>
 <section class="pp-section pp-dark"><div class="shell pp-advice"><div><div class="pp-heading"><span>04 · Phù hợp với ai?</span><h2>Shortlist theo nhu cầu thật</h2></div><ul>{bullets(project["fit"])}</ul></div><div><div class="pp-heading"><span>05 · Buyer notes</span><h2>Điểm nên cân nhắc trước khi mua</h2></div><ol>{bullets(project["considerations"])}</ol></div></div></section>
 <section class="pp-section" id="thi-truong"><div class="shell pp-split"><div class="pp-heading"><span>06 · Snapshot</span><h2>Dữ liệu thị trường hiện tại</h2><p>Tính tự động từ các căn công khai khớp đúng nhãn dự án.</p></div><div>{market_section(rows)}</div></div></section>
@@ -196,10 +249,10 @@ def build_profile(project: dict) -> None:
 def build_hub() -> None:
     grouped = {}
     for project in PROJECTS:
-        hero, alt, width, height = image_for(project, "card")
+        hero, alt, width, height = hub_image_for(project)
         count = len(inventory(project))
         availability = f"{count} căn đang hiển thị" if count else "Chưa có căn khớp dữ liệu hiện tại"
-        card = f'<article class="pp-hub-card"><a class="pp-hub-image" href="/{project["route"]}"><img src="{hero}" alt="{escape(alt, quote=True)}" width="{width}" height="{height}" loading="lazy"></a><div><span>{escape(project["developer"])} · {availability}</span><h3><a href="/{project["route"]}">{escape(project["name"])}</a></h3><p>{escape(project["summary"])}</p><a href="/{project["route"]}">Mở hồ sơ →</a></div></article>'
+        card = f'<article class="pp-hub-card"><a class="pp-hub-image" href="/{project["route"]}"><img src="{hero}" alt="{escape(alt, quote=True)}" width="{width}" height="{height}" loading="lazy" referrerpolicy="no-referrer"></a><div><span>{escape(project["developer"])} · {availability}</span><h3><a href="/{project["route"]}">{escape(project["name"])}</a></h3><p>{escape(project["summary"])}</p><a href="/{project["route"]}">Mở hồ sơ →</a></div></article>'
         grouped.setdefault(project["family"], []).append(card)
     groups = "".join(f'<section class="pp-hub-group"><div class="pp-heading"><span>Nhóm chủ thể</span><h2>{escape(family)}</h2></div><div class="pp-hub-grid">{"".join(cards)}</div></section>' for family, cards in grouped.items())
     schema = [{"@context":"https://schema.org","@type":"CollectionPage","name":"Hồ sơ dự án và phân khu Smart City","url":DOMAIN+"/phan-khu.html"}]
