@@ -1,1 +1,117 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Căn hộ đang bán tại Vinhomes Smart City | Tìm Mua Smart City</title><meta name="description" content="Quỹ căn đang bán tại Vinhomes Smart City, lọc theo phân khu, loại căn, mức giá và tình trạng nội thất. Dữ liệu cập nhật từ nguồn chủ nhà."><link rel="canonical" href="https://timmuasmartcity.com/can-ho-dang-ban.html"><meta name="robots" content="index,follow,max-image-preview:large"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="/assets/portal.css"><meta property="og:type" content="website"><meta property="og:url" content="https://timmuasmartcity.com/can-ho-dang-ban.html"><meta property="og:title" content="Căn hộ đang bán tại Vinhomes Smart City"><meta property="og:description" content="Quỹ căn chuyển nhượng Vinhomes Smart City: lọc theo phân khu, loại căn, giá, diện tích và nội thất."><meta property="og:image" content="https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp"><meta name="twitter:card" content="summary_large_image"><link rel="stylesheet" href="/assets/design-system.css"></head><body class="listing-page"><header class="top"><div class="shell nav"><a class="brand" href="/"><span class="brand-mark">⌂</span><span>Tìm Mua Smart City</span></a><nav class="navlinks"><a href="/">Tổng quan</a><a href="/cam-nang.html">Cẩm nang</a><a href="/can-ho-dang-ban.html">Căn đang bán</a><a href="https://timthuesmartcity.com" target="_blank" rel="noopener">Tìm thuê</a><a class="nav-cta" href="/ky-gui-ban-can.html">Ký gửi bán</a></nav></div></header><main><section class="listing-hero"><div class="shell"><div class="eyebrow">Quỹ căn thực tế</div><h1>Căn hộ đang bán</h1><p>Đây là khu vực giao dịch riêng của Tìm Mua Smart City. Trang chủ tập trung vào thông tin đô thị, phân khu, tiện ích và cẩm nang; còn toàn bộ nguồn căn được gom tại đây để tìm nhanh hơn.</p><div class="filters"><input id="q" type="search" placeholder="Tìm tòa, phân khu, loại căn…"><select id="type"><option value="">Tất cả loại căn</option></select><select id="zone"><option value="">Tất cả phân khu</option></select><select id="price"><option value="">Tất cả mức giá</option><option value="0-3000000000">Dưới 3 tỷ</option><option value="3000000000-4000000000">3–4 tỷ</option><option value="4000000000-5000000000">4–5 tỷ</option><option value="5000000000-99999999999">Trên 5 tỷ</option></select></div><div class="count" id="count">Đang tải dữ liệu…</div><div class="listing-grid" id="grid"></div><div class="apt-more-wrap" id="moreWrap" style="display:none"><button type="button" id="more" class="apt-more"></button></div></div></section></main><script>const $=s=>document.querySelector(s);let rows=[];let soHien=60;let hienThi=[];const money=n=>new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND',maximumFractionDigits:0}).format(Number(n||0));function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function dsAnh(r){return String(r['Danh sách ảnh']||r['Ảnh đại diện']||'').split('\n').map(s=>s.trim()).filter(Boolean)}function uniq(k){return [...new Set(rows.map(x=>x[k]).filter(Boolean))].sort()}function opt(el,a){a.forEach(v=>el.insertAdjacentHTML('beforeend',`<option value="${esc(v)}">${esc(v)}</option>`))}function clean(r){return r['Hiển thị trên Web']==='Có'}function render(){const q=$('#q').value.trim().toLowerCase(),t=$('#type').value,z=$('#zone').value,p=$('#price').value;let a=rows.filter(clean).filter(r=>!q||[r['Tòa'],r['Phân khu'],r['Loại'],r['Nội thất'],r['Pháp lý']].join(' ').toLowerCase().includes(q)).filter(r=>!t||r['Loại']===t).filter(r=>!z||r['Phân khu']===z);if(p){const [lo,hi]=p.split('-').map(Number);a=a.filter(r=>Number(r['Giá bán']||0)>=lo&&Number(r['Giá bán']||0)<hi)}hienThi=a.slice(0,soHien);if(!a.length){$('#count').textContent='Đang hiện 0 / 0 căn';$('#grid').innerHTML=`<div class="apt-empty"><b>Chưa có căn nào khớp bộ lọc</b><p>Thử nới mức giá hoặc bỏ bớt điều kiện.</p><button type="button" id="reset">Xóa bộ lọc</button></div>`;$('#moreWrap').style.display='none';return}$('#count').textContent=`Đang hiện ${hienThi.length} / ${a.length} căn`;$('#grid').innerHTML=hienThi.map((r,i)=>{const anh=dsAnh(r);return `<article class="apt"><div class="apt-media"><img class="apt-anh" data-i="${i}" src="${esc(r['Ảnh đại diện']||'/images/hero/hero-smart-city-mobile.webp')}" alt="Căn ${esc(r['Loại']||'')} ${esc(r['Phân khu']||'')} ${esc(r['Tòa']||'')}" loading="lazy" onerror="this.onerror=null;this.src='/images/hero/hero-smart-city-mobile.webp'"${anh.length?` role="button" tabindex="0" aria-label="Xem ${anh.length} ảnh của căn này"`:''}>${anh.length>1?`<span class="apt-dem">${anh.length} ảnh</span>`:''}</div><div class="apt-body"><div class="apt-top"><h3>${esc(r['Loại']||'Căn hộ')} · ${esc(r['Tòa']||'')}</h3><div class="price">${money(r['Giá bán'])}</div></div><div class="apt-meta">${esc(r['Phân khu']||'')} · ${esc(r['Diện tích']||'')} m² · ${esc(r['Tầng']||'')}<br>${esc(r['Nội thất']||'')} · ${esc(r['Hướng ban công']||'')} · ${esc(r['Pháp lý']||'')}<br>${r['Giá mỗi m2']?esc(r['Giá mỗi m2'])+' triệu/m²':''}</div><div class="apt-action"><a href="https://zalo.me/0977923284" target="_blank" rel="noopener">Hỏi căn này</a></div></div></article>`}).join('');const con=a.length-hienThi.length;if(con>0){$('#more').textContent=`Xem thêm (còn ${con} căn)`;$('#moreWrap').style.display=''}else{$('#moreWrap').style.display='none'}}fetch('/data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{rows=d;opt($('#type'),uniq('Loại'));opt($('#zone'),uniq('Phân khu'));const params=new URLSearchParams(location.search);$('#q').value=params.get('q')||'';render()}).catch(()=>$('#count').textContent='Không tải được dữ liệu');['q','type','zone','price'].forEach(id=>$('#'+id).addEventListener(id==='q'?'input':'change',()=>{soHien=60;render()}));$('#more').addEventListener('click',()=>{soHien+=60;render()});$('#grid').addEventListener('click',e=>{const resetBtn=e.target.closest('#reset');if(resetBtn){$('#q').value='';$('#type').value='';$('#zone').value='';$('#price').value='';soHien=60;render();return}const img=e.target.closest('.apt-anh');if(!img)return;const urls=dsAnh(hienThi[+img.dataset.i]);if(!urls.length)return;window.MoGallery&&window.MoGallery(urls,0)});$('#grid').addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const img=e.target.closest('.apt-anh');if(!img)return;e.preventDefault();const urls=dsAnh(hienThi[+img.dataset.i]);if(!urls.length)return;window.MoGallery&&window.MoGallery(urls,0)});</script><script src="/assets/gallery.js" defer></script><script src="/assets/app-shell.js" defer></script></body></html>
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Căn hộ đang bán Vinhomes Smart City | Giá, đơn giá, so sánh</title>
+  <meta name="description" content="Quỹ căn chuyển nhượng Vinhomes Smart City có giá bán, đơn giá/m², phân khu, tòa, diện tích, tầng, hướng, pháp lý và ảnh. Lọc, lưu và so sánh căn trước khi đi xem.">
+  <link rel="canonical" href="https://timmuasmartcity.com/can-ho-dang-ban.html">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/portal.css">
+  <link rel="stylesheet" href="/assets/design-system.css">
+  <link rel="stylesheet" href="/assets/listing-v2.css">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://timmuasmartcity.com/can-ho-dang-ban.html">
+  <meta property="og:title" content="Căn hộ đang bán tại Vinhomes Smart City">
+  <meta property="og:description" content="Lọc quỹ căn theo phân khu, loại căn, giá và pháp lý. Xem đơn giá/m², lưu căn và so sánh trước khi đi xem.">
+  <meta property="og:image" content="https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"CollectionPage",
+    "name":"Căn hộ đang bán tại Vinhomes Smart City",
+    "url":"https://timmuasmartcity.com/can-ho-dang-ban.html",
+    "description":"Quỹ căn chuyển nhượng Vinhomes Smart City dành cho người mua tra cứu và so sánh.",
+    "isPartOf":{"@type":"WebSite","name":"Tìm Mua Smart City","url":"https://timmuasmartcity.com/"}
+  }
+  </script>
+</head>
+<body class="listing-page-v2">
+  <header></header>
+  <main>
+    <section class="inv-hero">
+      <div class="container inv-hero__grid">
+        <div>
+          <p class="inv-kicker">Quỹ căn chuyển nhượng · Buyer inventory</p>
+          <h1>Chọn căn bằng dữ liệu,<br>không chỉ nhìn giá.</h1>
+          <p class="inv-hero__lead">Lọc quỹ căn theo nhu cầu thực tế, nhìn đồng thời giá tổng, đơn giá mỗi m², tầng, hướng, nội thất và pháp lý. Anh/chị có thể lưu những căn đáng xem và đặt tối đa 3 căn cạnh nhau để so sánh trước khi đi thực địa.</p>
+        </div>
+        <aside class="inv-hero__trust" aria-label="Lưu ý dữ liệu">
+          <b>Dữ liệu giao dịch cần được xác nhận lại</b>
+          <p>Giá và tình trạng căn có thể thay đổi sau lần chủ nhà xác nhận gần nhất. Website hiển thị dữ liệu để sàng lọc nhanh; trước khi đặt cọc cần kiểm tra lại giá, pháp lý, phí chuyển nhượng và tình trạng thực tế của căn.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="inv-stats" aria-label="Tóm tắt quỹ căn">
+      <div class="container inv-stats__grid">
+        <div class="inv-stat"><span>Căn đang hiển thị</span><strong id="statTotal">—</strong><small>Lấy trực tiếp từ quỹ căn công khai</small></div>
+        <div class="inv-stat"><span>Trung vị giá chào</span><strong id="statPrice">—</strong><small>Giúp đặt ngân sách ban đầu</small></div>
+        <div class="inv-stat"><span>Trung vị đơn giá</span><strong id="statPpm">—</strong><small>Không thay thế định giá từng căn</small></div>
+        <div class="inv-stat"><span>Căn có ảnh</span><strong id="statPhoto">—</strong><small>Ưu tiên xem căn đủ dữ liệu</small></div>
+      </div>
+    </section>
+
+    <section class="inv-tools" aria-label="Bộ lọc căn hộ">
+      <div class="container">
+        <div class="inv-tools__panel">
+          <div class="inv-tools__row">
+            <label class="inv-tools__search">
+              <span class="sr-only">Tìm kiếm</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+              <input id="q" type="search" placeholder="Tìm tòa, phân khu, hướng, nội thất…" autocomplete="off">
+            </label>
+            <label><span class="sr-only">Loại căn</span><select id="type"><option value="">Tất cả loại căn</option></select></label>
+            <label><span class="sr-only">Phân khu</span><select id="zone"><option value="">Tất cả phân khu</option></select></label>
+            <label><span class="sr-only">Mức giá</span><select id="price"><option value="">Tất cả mức giá</option><option value="0-3000000000">Dưới 3 tỷ</option><option value="3000000000-4000000000">3–4 tỷ</option><option value="4000000000-5000000000">4–5 tỷ</option><option value="5000000000-7000000000">5–7 tỷ</option><option value="7000000000-99999999999">Trên 7 tỷ</option></select></label>
+            <label><span class="sr-only">Pháp lý</span><select id="legal"><option value="">Tất cả pháp lý</option></select></label>
+          </div>
+          <div class="inv-tools__bottom">
+            <div class="inv-active" id="activeFilters"><span class="inv-active__label">Bộ lọc: Tất cả căn</span></div>
+            <label class="inv-saved-only"><input id="savedOnly" type="checkbox"> Chỉ xem căn đã lưu</label>
+            <label><span class="sr-only">Sắp xếp</span><select id="sort"><option value="newest">Mới xác nhận trước</option><option value="price-asc">Giá thấp → cao</option><option value="price-desc">Giá cao → thấp</option><option value="ppm2-asc">Đơn giá/m² thấp → cao</option><option value="area-desc">Diện tích lớn → nhỏ</option></select></label>
+            <button class="inv-reset" id="resetAll" type="button">Xóa bộ lọc</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="inv-results">
+      <div class="container">
+        <div class="inv-results__head">
+          <div><h2>Quỹ căn phù hợp</h2><p id="resultMeta">Đang tải dữ liệu…</p></div>
+          <div class="inv-results__note">Ưu tiên căn có ảnh, ngày xác nhận gần và dữ liệu pháp lý rõ. Giá/m² chỉ là tín hiệu so sánh, không phản ánh toàn bộ chất lượng vị trí, view và nội thất.</div>
+        </div>
+        <div class="inv-grid" id="grid" aria-live="polite"></div>
+        <div class="inv-more-wrap" id="moreWrap" hidden><button class="inv-more" id="more" type="button">Xem thêm căn</button></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="inv-compare-bar" id="compareBar" aria-live="polite">
+    <div class="inv-compare-bar__inner">
+      <div class="inv-compare-bar__copy"><strong id="compareCount">0 / 3 căn đã chọn</strong><span id="compareNames">Chọn 2–3 căn để đối chiếu</span></div>
+      <div class="inv-compare-bar__actions"><button class="inv-compare-clear" id="compareClear" type="button">Bỏ chọn</button><button class="inv-compare-open" id="compareOpen" type="button">Xem so sánh</button></div>
+    </div>
+  </div>
+
+  <div class="inv-modal" id="compareModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="compareTitle">
+    <div class="inv-modal__dialog">
+      <div class="inv-modal__head"><h2 id="compareTitle">So sánh các căn đã chọn</h2><button class="inv-modal__close" id="compareClose" type="button" aria-label="Đóng">×</button></div>
+      <div class="inv-compare-table-wrap"><table class="inv-compare-table" id="compareTable"></table></div>
+    </div>
+  </div>
+
+  <footer></footer>
+  <script src="/assets/gallery.js" defer></script>
+  <script src="/assets/listing-v2.js" defer></script>
+  <script src="/assets/app-shell.js" defer></script>
+</body>
+</html>
