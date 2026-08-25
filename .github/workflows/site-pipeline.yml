@@ -53,10 +53,9 @@ jobs:
             echo "Generated files already match."
             exit 0
           fi
-          git diff --binary > /tmp/generated.patch
           git fetch origin "${{ github.head_ref }}"
           git checkout -B "${{ github.head_ref }}" "origin/${{ github.head_ref }}"
-          git apply --index /tmp/generated.patch
+          git add -u
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "build: sync generated project profiles"
