@@ -38,7 +38,7 @@
 };
   const directImageTypes=new Set(["image/jpeg","image/png","image/webp"]);
   const iphoneImageTypes=new Set(["image/heic","image/heif"]);
-  const draftKey="lumi-marketplace-draft-v2";
+  const draftKey="smartcity-marketplace-draft-v1";
   const draftMaxAge=7*24*60*60*1000;
   let previewUrls=[];
   let draftTimer=0;
