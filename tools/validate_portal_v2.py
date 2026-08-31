@@ -13,6 +13,7 @@ required=[
  "tong-quan-smart-city/index.html",
  "vi-tri-smart-city/index.html",
  "mat-bang-smart-city/index.html",
+ "tien-ich-smart-city/index.html",
  "phan-khu-smart-city/index.html",
  "gia-smart-city/index.html",
  "giao-dich-smart-city/index.html",
@@ -37,7 +38,7 @@ for rel in required:
 
 public_html=[ROOT/"index.html", ROOT/"404.html"]
 for dirname in [
-    "tong-quan-smart-city","vi-tri-smart-city","mat-bang-smart-city",
+    "tong-quan-smart-city","vi-tri-smart-city","mat-bang-smart-city","tien-ich-smart-city",
     "phan-khu-smart-city","gia-smart-city","giao-dich-smart-city",
     "mua-ban-smart-city","cho-thue-smart-city","dang-tin-smart-city",
     "tin-dang-smart-city","admin"
