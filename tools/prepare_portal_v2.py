@@ -14,7 +14,7 @@ files=[
 ]
 dirs=[
     "assets","images",
-    "tong-quan-smart-city","vi-tri-smart-city","mat-bang-smart-city",
+    "tong-quan-smart-city","vi-tri-smart-city","mat-bang-smart-city","tien-ich-smart-city",
     "phan-khu-smart-city","gia-smart-city",
     "giao-dich-smart-city","mua-ban-smart-city","cho-thue-smart-city",
     "dang-tin-smart-city","tin-dang-smart-city","admin"
