@@ -12,7 +12,7 @@
   const galleryFor=listing=>{
     const gallery=root.querySelector("[data-detail-gallery]");
     const images=[...(listing.listing_images||[])].sort((a,b)=>Number(a.sort_order)-Number(b.sort_order));
-    if(!images.length){const placeholder=document.createElement("div");placeholder.className="marketplace-state";placeholder.innerHTML='<span class="marketplace-state-mark">LH</span><div><h3>Tin chưa có ảnh</h3><p>Liên hệ người đăng để kiểm tra hình ảnh và hiện trạng căn trước khi giao dịch.</p></div>';gallery.replaceWith(placeholder);return;}
+    if(!images.length){const placeholder=document.createElement("div");placeholder.className="marketplace-state";placeholder.innerHTML='<span class="marketplace-state-mark">SC</span><div><h3>Tin chưa có ảnh</h3><p>Liên hệ người đăng để kiểm tra hình ảnh và hiện trạng căn trước khi giao dịch.</p></div>';gallery.replaceWith(placeholder);return;}
     const track=document.createElement("div");track.className="detail-gallery-track";track.tabIndex=0;track.setAttribute("aria-label","Thư viện ảnh căn hộ");
     images.forEach((item,index)=>{const figure=document.createElement("figure");const image=document.createElement("img");image.src=api.imageUrl(item.storage_path);image.alt=item.alt_text||`${listing.title} — ảnh ${index+1}`;image.loading=index?"lazy":"eager";image.decoding="async";figure.append(image);track.append(figure);});
     const counter=document.createElement("span");counter.className="detail-gallery-counter";counter.textContent=`1/${images.length}`;
