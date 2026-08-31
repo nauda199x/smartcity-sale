@@ -652,3 +652,25 @@ h3{font-weight:600;line-height:1.2;letter-spacing:-.02em}
   .home-project-grid{display:flex;overflow-x:auto;gap:12px;margin-inline:-16px;padding-inline:16px;scroll-snap-type:x mandatory}
   .home-project-card{min-width:82vw;scroll-snap-align:start}
 }
+
+/* 2026-08 internet-sourced tower floor plans */
+.tower-plan{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:42px;align-items:start}
+.tower-plan__media{background:#fff;border:1px solid var(--line);padding:14px;min-height:420px;display:grid;place-items:center}
+.tower-plan__media img{width:100%;max-height:780px;object-fit:contain}
+.tower-plan__copy{position:sticky;top:110px}
+.tower-plan__copy .lead{font-size:1rem}
+.tower-specs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:30px}
+.tower-spec{padding:20px;background:var(--paper)}
+.tower-spec span{display:block;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}
+.tower-spec strong{display:block;margin-top:5px;font:500 1.5rem Georgia}
+.unit-mix{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.unit-mix article{padding:22px;border:1px solid var(--line);background:var(--paper)}
+.unit-mix strong{display:block;font:500 1.35rem Georgia}
+.unit-mix span{display:block;margin-top:6px;color:var(--muted);font-size:.86rem}
+.deep-tower-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.deep-tower-card{min-height:260px;padding:26px;border:1px solid var(--line);background:var(--paper);display:flex;flex-direction:column}
+.deep-tower-card .eyebrow{margin-bottom:12px}.deep-tower-card h3{font-size:2rem}.deep-tower-card p{color:var(--muted)}
+.deep-tower-card .card-link{margin-top:auto}
+.deep-tower-card.is-muted{background:#eee8dc}
+@media(max-width:920px){.tower-plan{grid-template-columns:1fr}.tower-plan__copy{position:static}.tower-specs{grid-template-columns:repeat(2,1fr)}.deep-tower-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.unit-mix,.deep-tower-grid{grid-template-columns:1fr}.tower-plan__media{min-height:280px}.tower-specs{grid-template-columns:1fr 1fr}}
