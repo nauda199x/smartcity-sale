@@ -545,3 +545,21 @@ h3{font-weight:600;line-height:1.2;letter-spacing:-.02em}
 .smart-owner-cta .btn-primary{border-color:#fff;background:#fff;color:var(--night)}
 @media(max-width:800px){.smart-market-snapshot{grid-template-columns:1fr 1fr}.smart-owner-cta{grid-template-columns:1fr}.smart-owner-cta .btn{width:100%}}
 @media(max-width:420px){.smart-market-snapshot{grid-template-columns:1fr}}
+
+/* Smart City live inventory cards, styled in the Lumi editorial language */
+.hp-listings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.hp-listing{min-width:0;background:var(--paper);display:flex;flex-direction:column}
+.hp-listing__visual{position:relative;aspect-ratio:16/10;overflow:hidden;background:#ded8cd}
+.hp-listing__visual img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.hp-listing:hover .hp-listing__visual img{transform:scale(1.025)}
+.hp-listing__visual>span{position:absolute;left:16px;top:14px;display:grid;width:36px;height:36px;place-items:center;background:rgba(23,26,24,.88);color:#fff;font-size:.72rem}
+.hp-listing__visual>small{position:absolute;right:14px;bottom:12px;padding:6px 8px;background:rgba(251,249,243,.92);color:var(--ink);font-size:.7rem;font-weight:800}
+.hp-listing__body{display:flex;flex:1;flex-direction:column;padding:24px}
+.hp-listing__body>p{margin:0;color:var(--bronze-dark);font-size:.68rem;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+.hp-listing__body h3{margin:12px 0 10px;font-size:1.55rem}
+.hp-listing__meta{color:var(--muted);font-size:.82rem}
+.hp-listing__price{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-top:26px;padding-top:16px;border-top:1px solid var(--line)}
+.hp-listing__price strong{font:500 1.65rem Georgia}.hp-listing__price span{color:var(--muted);font-size:.76rem}
+.hp-listing__body>a{margin-top:18px;color:var(--bronze-dark);font-size:.82rem;font-weight:850}
+@media(max-width:900px){.hp-listings{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.hp-listings{display:flex;margin-inline:-12px;padding-inline:12px;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;background:none;border:0;scrollbar-width:none}.hp-listing{width:82vw;min-width:82vw;border:1px solid var(--line);scroll-snap-align:start}}
