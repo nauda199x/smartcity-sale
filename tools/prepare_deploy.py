@@ -17,7 +17,11 @@ for child in list(OUT.iterdir()):
 for pattern in ("*.html", "*.png", "*.ico"):
     for source in ROOT.glob(pattern):
         shutil.copy2(source, OUT / source.name)
-for name in ("assets", "blog", "can-ho-dang-ban", "phan-khu", "images"):
+for name in (
+    "assets", "blog", "can-ho-dang-ban", "phan-khu", "images",
+    "giao-dich-smart-city", "mua-ban-smart-city", "cho-thue-smart-city",
+    "dang-tin-smart-city", "tin-dang-smart-city", "admin",
+):
     shutil.copytree(ROOT / name, OUT / name)
 for name in ("CNAME", "robots.txt", "sitemap.xml", "site.webmanifest", "data.json"):
     shutil.copy2(ROOT / name, OUT / name)
