@@ -1,0 +1,603 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
+
+/* Smart City Modern UI
+   Distinct from the Lumi editorial/serif direction.
+   Typography: Be Vietnam Pro
+   Visual language: contemporary real-estate portal, soft geometry, green system.
+*/
+
+:root{
+  --ivory:#f4f7f6;
+  --paper:#ffffff;
+  --ink:#10231f;
+  --muted:#66746f;
+  --bronze:#0b7a66;
+  --bronze-dark:#086451;
+  --line:#dce5e2;
+  --night:#12302a;
+  --radius:18px;
+  --max:1280px;
+  --reading:800px;
+  --space-section:clamp(4rem,8vw,7.5rem);
+  --ui-accent:#0b7a66;
+  --ui-accent-strong:#086451;
+  --ui-accent-soft:#e7f4f0;
+  --ui-surface:#ffffff;
+  --ui-bg:#f4f7f6;
+  --ui-dark:#12302a;
+  --ui-shadow:0 18px 50px rgba(16,35,31,.08);
+}
+
+html{background:var(--ui-bg)}
+body{
+  font-family:"Be Vietnam Pro",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--ui-bg);
+  color:var(--ink);
+  letter-spacing:-.008em;
+}
+button,input,select,textarea{font:inherit}
+h1,h2,h3,h4,h5,h6,
+.article h2,.article h3,
+.stat strong,.fact-card strong,.phase-index,
+.location-facts dd,.progress-line span,
+.product-card strong,
+.ppx-fact strong,.lum-fact strong,
+.lum-intro__aside b,.lum-unit strong,
+.lum-amenity__copy strong{
+  font-family:"Be Vietnam Pro",system-ui,sans-serif !important;
+  font-style:normal !important;
+  letter-spacing:-.045em;
+}
+h1{font-weight:800}
+h2{font-weight:700}
+h3{font-weight:700}
+p,.lead{letter-spacing:-.01em}
+
+/* Header */
+.site-header{
+  background:rgba(255,255,255,.94);
+  border-bottom:1px solid rgba(16,35,31,.08);
+  box-shadow:0 8px 30px rgba(16,35,31,.04);
+  backdrop-filter:blur(18px);
+}
+.nav{min-height:76px}
+.brand{
+  gap:11px;
+  color:var(--ink);
+  font-weight:800;
+  font-size:.78rem;
+  letter-spacing:.08em;
+}
+.brand-mark{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  border:0;
+  background:var(--ui-dark);
+  color:#fff;
+  box-shadow:0 8px 20px rgba(18,48,42,.16);
+}
+.nav-links{
+  gap:clamp(8px,1.1vw,18px);
+  font-size:.78rem;
+  letter-spacing:.01em;
+  font-weight:600;
+}
+.nav-links a,.nav-dropdown summary{
+  border-radius:10px;
+  padding:9px 10px;
+}
+.nav-links a:after{display:none}
+.nav-links a:hover,.nav-dropdown summary:hover{
+  background:var(--ui-accent-soft);
+  color:var(--ui-accent-strong);
+}
+.nav-dropdown-menu{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:8px;
+  background:#fff;
+  box-shadow:var(--ui-shadow);
+}
+.nav-dropdown-menu a{border-radius:10px}
+
+/* Buttons */
+.btn{
+  border-radius:12px;
+  min-height:46px;
+  padding:12px 20px;
+  border:1px solid #cbd8d4;
+  background:#fff;
+  color:var(--ink);
+  font-weight:700;
+  letter-spacing:-.01em;
+  box-shadow:none;
+}
+.btn-primary{
+  background:var(--ui-accent);
+  border-color:var(--ui-accent);
+  color:#fff;
+}
+.btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 24px rgba(16,35,31,.09);
+}
+.btn:not(.btn-primary):hover{
+  background:var(--ui-accent-soft);
+  border-color:#b6d9cf;
+  color:var(--ui-accent-strong);
+}
+
+/* General sections */
+.section{padding:var(--space-section) 0}
+.section-alt{background:#eef4f2}
+.section-kicker{
+  color:var(--ui-accent-strong);
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-size:.75rem;
+}
+.section-kicker:before{
+  width:24px;
+  height:3px;
+  border-radius:999px;
+  background:var(--ui-accent);
+}
+.section-head{
+  gap:clamp(30px,7vw,100px);
+  margin-bottom:clamp(2.2rem,4vw,3.5rem);
+}
+.section-head h2{
+  max-width:22ch;
+  font-size:clamp(2rem,4vw,3.7rem);
+  line-height:1.05;
+}
+.lead{line-height:1.72}
+
+/* Home hero */
+.home-hero{
+  min-height:min(760px,calc(100svh - 76px));
+  border-radius:0 0 32px 32px;
+  overflow:hidden;
+}
+.home-hero:before{
+  background:
+    linear-gradient(90deg,rgba(10,39,33,.92) 0%,rgba(10,39,33,.62) 48%,rgba(10,39,33,.18) 80%),
+    linear-gradient(0deg,rgba(10,39,33,.7),transparent 58%);
+}
+.home-hero:after{
+  display:none;
+}
+.home-hero .container{
+  padding-block:clamp(6rem,14vh,9rem) clamp(3rem,6vh,4.5rem);
+}
+.home-hero h1{
+  max-width:10ch;
+  font-size:clamp(3.5rem,8vw,6.8rem);
+  line-height:.98;
+  letter-spacing:-.06em;
+}
+.home-hero .eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 11px;
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
+  color:#d9fff4;
+  backdrop-filter:blur(8px);
+}
+.hero-note{color:#d7e5e1}
+
+/* Article/project heroes */
+.article-hero,
+.ppx-hero,
+.lum-hero{
+  min-height:clamp(440px,62vh,660px);
+  border-radius:0 0 30px 30px;
+  overflow:hidden;
+}
+.article-hero:after,
+.ppx-hero:after,
+.lum-hero:after{
+  background:
+    linear-gradient(90deg,rgba(9,38,32,.9),rgba(9,38,32,.45) 58%,rgba(9,38,32,.12)),
+    linear-gradient(0deg,rgba(9,38,32,.68),transparent 58%);
+}
+.article-hero h1,
+.ppx-hero__copy h1,
+.lum-hero__copy h1{
+  font-size:clamp(3rem,7vw,6rem);
+  line-height:1;
+  max-width:12ch;
+  letter-spacing:-.055em;
+}
+.article-hero .eyebrow,
+.ppx-hero__copy .eyebrow,
+.lum-hero__copy .eyebrow{
+  color:#b9f1e2;
+  font-weight:700;
+}
+.ppx-hero__copy .lead,
+.lum-hero__copy .lead{color:#e5f0ed}
+.ppx-hero__actions .btn,
+.lum-hero__actions .btn{
+  border-radius:12px;
+  background:rgba(255,255,255,.1);
+}
+.ppx-hero__actions .btn-primary,
+.lum-hero__actions .btn-primary{
+  background:#fff;
+  color:var(--ui-dark);
+}
+
+/* Facts */
+.facts-panel,
+.ppx-facts,
+.lum-facts{
+  background:transparent;
+  color:var(--ink);
+  border:0;
+  padding:24px 0 0;
+}
+.facts-panel .container,
+.ppx-facts .container,
+.lum-facts .container{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  box-shadow:var(--ui-shadow);
+  overflow:hidden;
+}
+.facts-panel .stat,
+.ppx-fact,
+.lum-fact{
+  border-color:var(--line) !important;
+  padding:clamp(22px,3vw,34px);
+}
+.facts-panel .stat strong,
+.ppx-fact strong,
+.lum-fact strong{
+  color:var(--ink);
+  font-size:clamp(1.8rem,3vw,2.9rem);
+  font-weight:800;
+  letter-spacing:-.05em;
+}
+.facts-panel .stat span,
+.ppx-fact span,
+.lum-fact span{
+  color:var(--muted);
+  font-size:.72rem;
+  letter-spacing:.07em;
+}
+
+/* Cards */
+.card,.fact-card,.side-nav,.journey-card,
+.deep-tower-card,.market-card,.editorial-card,
+.ppx-tower,.ppx-amenity,.ppx-market-card,
+.lum-tower,.lum-amenity,.lum-market-card,.lum-unit{
+  border-radius:18px;
+}
+.card,.fact-card,.deep-tower-card,.journey-card,
+.ppx-tower,.ppx-amenity,.lum-tower,.lum-amenity,.lum-unit{
+  border:1px solid var(--line);
+  background:#fff;
+  box-shadow:0 8px 24px rgba(16,35,31,.045);
+}
+.card:hover,.deep-tower-card:hover,.journey-card:hover,
+.ppx-tower:hover,.lum-tower:hover{
+  transform:translateY(-3px);
+  border-color:#bcd8d0;
+  box-shadow:0 18px 42px rgba(16,35,31,.08);
+}
+.card-link{
+  color:var(--ui-accent-strong);
+  font-weight:700;
+}
+.phase-index{
+  color:#aacbc2;
+  font-size:3rem;
+  font-weight:800;
+}
+.notice{
+  border:0;
+  border-radius:16px;
+  background:var(--ui-accent-soft);
+  color:#214b41;
+  padding:24px;
+}
+.fact-card strong{font-weight:800}
+
+/* Collections */
+.collection-feature{
+  gap:clamp(26px,5vw,72px);
+}
+.collection-media{
+  border-radius:24px;
+  box-shadow:var(--ui-shadow);
+}
+.collection-copy .collection-number{
+  color:var(--ui-accent);
+  font-family:"Be Vietnam Pro",system-ui,sans-serif;
+  font-style:normal;
+  font-weight:800;
+}
+.collection-copy h3{
+  font-size:clamp(2.2rem,4.5vw,3.8rem);
+  letter-spacing:-.05em;
+}
+
+/* Floor plan and visual modules */
+.plan-story{
+  background:#eaf2ef;
+  color:var(--ink);
+}
+.plan-story .lead{color:var(--muted)}
+.plan-frame{
+  border-radius:22px;
+  box-shadow:0 18px 45px rgba(16,35,31,.1);
+  border:1px solid var(--line);
+  overflow:hidden;
+}
+.tower-plan__media{
+  border-radius:22px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 16px 42px rgba(16,35,31,.08);
+}
+.tower-specs{
+  border-radius:16px;
+  overflow:hidden;
+}
+.tower-spec{
+  background:#fff;
+  border-color:var(--line);
+}
+.tower-spec span{
+  color:var(--muted);
+  font-weight:600;
+}
+.tower-spec strong{
+  color:var(--ink);
+  font-family:"Be Vietnam Pro",system-ui,sans-serif !important;
+  font-weight:800;
+}
+.product-card{
+  background:#fff;
+  border-color:var(--line);
+  border-radius:0;
+}
+.product-card:hover{
+  background:var(--ui-dark);
+}
+.visual-tile{
+  border-radius:22px;
+}
+.visual-tile-copy h3{
+  font-size:clamp(1.8rem,3vw,2.6rem);
+}
+
+/* Premium project pages */
+.ppx{
+  --ppx-accent:var(--ui-accent);
+  --ppx-dark:var(--ui-dark);
+  --ppx-soft:#edf4f2;
+}
+.ppx--sakura,.ppx--miami,.ppx--tonkin,.ppx--masteri{
+  --ppx-accent:var(--ui-accent);
+  --ppx-dark:var(--ui-dark);
+  --ppx-soft:#edf4f2;
+}
+.ppx-intro,.lum-intro{background:#edf4f2}
+.ppx-note,.lum-intro__aside{
+  border:0;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 12px 30px rgba(16,35,31,.06);
+}
+.ppx-note{border-left:4px solid var(--ui-accent)}
+.ppx-story{gap:16px}
+.ppx-story-card,.lum-principle{
+  min-height:480px;
+  border-radius:24px;
+}
+.ppx-story-card:after,.lum-principle:after{
+  background:linear-gradient(0deg,rgba(7,32,27,.86),rgba(7,32,27,.1) 70%);
+}
+.ppx-story-card__copy h3,.lum-principle__copy h3{
+  font-size:clamp(2rem,3.4vw,3rem);
+  letter-spacing:-.045em;
+}
+.ppx-story-card__copy span,.lum-principle__copy span{
+  color:#bff1e3;
+  font-weight:700;
+}
+.ppx-towers,.lum-towers{gap:16px}
+.ppx-tower,.lum-tower{
+  min-height:300px;
+  padding:26px;
+  overflow:hidden;
+}
+.ppx-tower:before,.lum-tower:before{
+  color:rgba(11,122,102,.07);
+  font-family:"Be Vietnam Pro",system-ui,sans-serif;
+  font-weight:800;
+}
+.ppx-tower h3,.lum-tower h3{
+  font-size:clamp(2rem,3.5vw,3rem);
+}
+.lum-tower--aura{
+  background:var(--ui-dark);
+  color:#fff;
+}
+.lum-tower--aura p{color:#c9d8d4}
+.ppx-gallery,.lum-gallery{
+  gap:14px;
+}
+.ppx-gallery figure,.lum-gallery figure{
+  border-radius:20px;
+  overflow:hidden;
+}
+.ppx-amenities,.lum-amenities{gap:16px}
+.ppx-market,.lum-market{
+  background:var(--ui-dark);
+  border-radius:30px 30px 0 0;
+}
+.ppx-market-card,.lum-market-card{
+  background:rgba(255,255,255,.06);
+  border-color:rgba(255,255,255,.13);
+}
+.ppx-market-card span,.lum-market-card span{
+  color:#bff1e3;
+}
+.lum-story{
+  background:var(--ui-dark);
+}
+.lum-floorband{
+  background:#e9f1ee;
+}
+.lum-unit-grid{
+  gap:12px;
+  background:transparent;
+  border:0;
+}
+.lum-unit{
+  padding:22px;
+}
+.lum-amenity{
+  overflow:hidden;
+}
+.lum-amenity__copy span{
+  color:var(--ui-accent-strong);
+  font-weight:700;
+}
+
+/* Article / content */
+.article{
+  font-size:1.02rem;
+}
+.article>p:first-of-type{
+  font-size:1.12rem;
+  color:#344942;
+}
+.article h2{
+  border-top:0;
+  padding-top:0;
+  font-size:clamp(1.9rem,3vw,2.6rem);
+  letter-spacing:-.045em;
+}
+.article h3{
+  font-size:1.45rem;
+}
+.article table{
+  border-radius:16px;
+  overflow:hidden;
+  border-color:var(--line);
+}
+.article th{
+  background:var(--ui-dark);
+}
+.source-list{
+  border-radius:16px;
+  background:#edf4f2;
+}
+.side-nav{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  background:#fff;
+  box-shadow:0 10px 28px rgba(16,35,31,.05);
+}
+
+/* Marketplace */
+.market-card{
+  background:var(--ui-dark);
+  border-radius:20px;
+}
+.marketplace-card,.listing-card{
+  border-radius:18px !important;
+}
+input,select,textarea{
+  border-radius:12px !important;
+}
+
+/* Footer */
+.site-footer{
+  background:#0d2b25;
+  border-radius:30px 30px 0 0;
+}
+.footer-links{
+  border-color:rgba(255,255,255,.12);
+}
+.footer-links a{
+  color:#d8e6e2;
+}
+.site-footer .brand{color:#fff}
+.site-footer .brand-mark{
+  background:#fff;
+  color:var(--ui-dark);
+}
+.disclaimer{color:#9fb3ad}
+
+/* Breadcrumb */
+.breadcrumb{
+  color:#75837e;
+  font-weight:500;
+}
+.breadcrumb a:hover{color:var(--ui-accent-strong)}
+
+/* Mobile */
+@media(max-width:1000px){
+  .nav-links{
+    top:72px;
+    left:12px;
+    right:12px;
+    border-radius:18px;
+    background:#fff;
+    box-shadow:0 20px 50px rgba(16,35,31,.14);
+  }
+}
+@media(max-width:700px){
+  :root{--radius:16px}
+  .nav{min-height:68px}
+  .nav-links{top:68px}
+  .home-hero{
+    min-height:calc(100svh - 68px);
+    border-radius:0 0 22px 22px;
+  }
+  .home-hero h1{
+    font-size:clamp(3rem,15vw,4.8rem);
+    line-height:.98;
+  }
+  .article-hero,.ppx-hero,.lum-hero{
+    min-height:470px;
+    border-radius:0 0 22px 22px;
+  }
+  .article-hero h1,.ppx-hero__copy h1,.lum-hero__copy h1{
+    font-size:clamp(2.7rem,12vw,4rem);
+  }
+  .facts-panel .container,.ppx-facts .container,.lum-facts .container{
+    border-radius:16px;
+  }
+  .ppx-story-card,.lum-principle{min-height:390px}
+  .collection-media,.visual-tile,.plan-frame,.tower-plan__media{border-radius:16px}
+  .site-footer{border-radius:22px 22px 0 0}
+}
+
+/* Zoom viewer inherits new UI */
+.plan-zoom__panel{
+  border-radius:20px;
+  background:#0d211d;
+}
+.plan-zoom__toolbar,.plan-zoom__caption{
+  background:#112d27;
+}
+.plan-zoom__btn{
+  border-radius:10px;
+  background:#1a443a;
+}
+.plan-zoom__close{
+  background:#fff;
+  color:#10231f;
+}
