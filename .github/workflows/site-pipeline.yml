@@ -1,4 +1,4 @@
-name: Build, validate and deploy
+name: Validate and deploy Smart City portal
 
 on:
   pull_request:
@@ -7,13 +7,13 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 concurrency:
-  group: pages-${{ github.ref }}
-  cancel-in-progress: false
+  group: smartcity-portal-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -23,55 +23,23 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          cache: 'pip'
-          cache-dependency-path: requirements-media.txt
-      - name: Install media pipeline dependencies
-        run: python3 -m pip install -r requirements-media.txt
-      - name: Compile build and media pipelines
-        run: python3 -m py_compile tools/import_drive_media.py tools/process_media_pack.py tools/media_utils.py tools/validate_media.py tools/public_images.py tools/build_project_profiles.py tools/validate_project_profiles.py
-      - name: Test media pipeline integration
-        run: python3 -m unittest tests.test_media_pipeline tests.test_public_images -v
-      - name: Validate media manifests
-        run: python3 tools/validate_media.py
-      - name: Build generated pages
-        run: python3 tools/build_site.py
-      - name: Upload generated preview
+      - name: Validate source portal
+        run: python3 tools/validate_portal_v2.py
+      - name: Stage clean public site
+        run: python3 tools/prepare_portal_v2.py
+      - name: Validate staged portal
+        run: python3 tools/validate_portal_v2.py --root _site
+      - name: Upload preview artifact
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
         with:
-          name: generated-preview
-          path: |
-            *.html
-            sitemap.xml
-            data/public-stats.json
+          name: smartcity-portal-preview
+          path: _site
           retention-days: 1
-      - name: Sync generated files on trusted same-repo PR
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor == 'nauda199x'
-        shell: bash
-        run: |
-          if git diff --quiet; then
-            echo "Generated files already match."
-            exit 0
-          fi
-          git fetch origin "${{ github.head_ref }}"
-          git checkout -B "${{ github.head_ref }}" "origin/${{ github.head_ref }}"
-          git add -u
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "build: sync generated project profiles"
-          git push origin "HEAD:${{ github.head_ref }}"
-      - name: Verify generated files are committed
-        run: git diff --exit-code
-      - name: Validate production site
-        run: python3 tools/validate_site.py
-      - name: Stage public artifact
-        run: python3 tools/prepare_deploy.py
-      - name: Validate staged artifact
-        run: python3 tools/validate_site.py --root _site
       - name: Configure Pages
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
-      - name: Upload site
+      - name: Upload Pages artifact
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
