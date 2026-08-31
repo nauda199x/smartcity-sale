@@ -59,6 +59,12 @@ for p in htmls:
         errors.append(f"{rel}: missing title")
     if "lumi-hanoi.com" in text or "salsyqatlzapnzbcnnsr" in text:
         errors.append(f"{rel}: Lumi project contamination")
+    lowered=text.lower()
+    if "drive.google.com" in lowered or "docs.google.com" in lowered:
+        errors.append(f"{rel}: public Google Drive/Docs link is not allowed")
+    forbidden_public_copy=["mở file drive","mở tài liệu gốc","nguồn tài liệu","drive cũ"]
+    if any(token in lowered for token in forbidden_public_copy):
+        errors.append(f"{rel}: internal source/archive copy leaked into public page")
     if "YOUR_PROJECT.supabase.co" in text or "YOUR_PUBLISHABLE_KEY" in text:
         errors.append(f"{rel}: placeholder backend config")
     for href in re.findall(r'href=["\']([^"\']+)["\']',text):
