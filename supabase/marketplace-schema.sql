@@ -1,0 +1,341 @@
+-- Vinhomes Smart City Marketplace V1
+-- Run in a dedicated Supabase project. This schema never exposes pending posts.
+
+begin;
+
+create extension if not exists pgcrypto;
+
+-- Preserve the empty Auth/listings scaffold created during initial project setup.
+-- Moving it to a non-exposed schema avoids destructive deletion and frees the
+-- public.listings name for the marketplace contract used by the website.
+create schema if not exists archive;
+revoke all on schema archive from public;
+
+do $$
+begin
+  if to_regclass('public.listings') is not null
+    and exists (
+      select 1
+      from information_schema.columns
+      where table_schema = 'public'
+        and table_name = 'listings'
+        and column_name = 'moderation'
+    )
+    and not exists (
+      select 1
+      from information_schema.columns
+      where table_schema = 'public'
+        and table_name = 'listings'
+        and column_name = 'listing_code'
+    )
+  then
+    if to_regclass('archive.listings_auth_scaffold') is not null then
+      raise exception 'archive.listings_auth_scaffold already exists';
+    end if;
+    alter table public.listings set schema archive;
+    alter table archive.listings rename to listings_auth_scaffold;
+  end if;
+end;
+$$;
+
+drop function if exists public.admin_update_listing(uuid,text,text);
+
+create schema if not exists private;
+revoke all on schema private from public;
+grant usage on schema private to anon, authenticated;
+
+create table if not exists public.admin_users (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  created_at timestamptz not null default now()
+);
+
+create or replace function private.is_admin()
+returns boolean
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  select (select auth.uid()) is not null
+    and exists(
+      select 1
+      from public.admin_users
+      where user_id = (select auth.uid())
+    );
+$$;
+
+revoke all on function private.is_admin() from public, anon, authenticated;
+grant execute on function private.is_admin() to authenticated;
+
+create table if not exists public.listings (
+  id uuid primary key default gen_random_uuid(),
+  listing_code text not null unique check (char_length(listing_code) between 4 and 24),
+  slug text not null unique check (char_length(slug) between 8 and 120),
+  listing_type text not null check (listing_type in ('sale','rent')),
+  status text not null default 'pending' check (status in ('pending','approved','rejected','expired','sold','rented')),
+  title text not null check (char_length(title) between 10 and 180),
+  description text not null check (char_length(description) between 30 and 3000),
+  phase text not null check (phase in ('Signature','Prestige','Elite')),
+  tower text not null check (tower in ('S1','S2','S3','S5','S6','P1','P2','E1','E2')),
+  unit_type text not null,
+  bedroom_count smallint check (bedroom_count is null or bedroom_count between 1 and 4),
+  area_sqm numeric(8,2) not null check (area_sqm between 20 and 1000),
+  floor_label text,
+  unit_code text check (unit_code is null or char_length(unit_code) <= 40),
+  price_vnd bigint not null check (price_vnd >= 1000000),
+  furnishing text check (furnishing is null or char_length(furnishing) <= 80),
+  direction text check (direction is null or char_length(direction) <= 40),
+  view_text text check (view_text is null or char_length(view_text) <= 120),
+  available_from date,
+  legal_status text check (legal_status is null or char_length(legal_status) <= 120),
+  poster_type text check (poster_type in ('owner','agent')),
+  poster_name text not null check (char_length(poster_name) between 2 and 120),
+  contact_phone text not null check (char_length(contact_phone) between 8 and 30),
+  contact_zalo text check (contact_zalo is null or char_length(contact_zalo) <= 30),
+  contact_email text check (contact_email is null or char_length(contact_email) <= 200),
+  contact_public boolean not null default false,
+  is_featured boolean not null default false,
+  sort_priority integer not null default 0,
+  approved_at timestamptz,
+  expires_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  check (char_length(phase) between 2 and 80),
+  check (char_length(tower) between 1 and 80)
+);
+
+-- Smart City marketplace: keep seller/landlord data minimal and normalize filters.
+alter table public.listings alter column poster_type drop not null;
+
+alter table public.listings drop constraint if exists listings_unit_type_check;
+alter table public.listings add constraint listings_unit_type_check
+check (unit_type in ('Studio','1PN','1PN+','2PN','2PN+','3PN','4PN','Duplex','Penthouse','Shop chân đế')) not valid;
+alter table public.listings validate constraint listings_unit_type_check;
+
+alter table public.listings drop constraint if exists listings_floor_label_check;
+alter table public.listings add constraint listings_floor_label_check
+check (floor_label is null or floor_label in ('Thấp','Trung','Cao')) not valid;
+alter table public.listings validate constraint listings_floor_label_check;
+
+create table if not exists public.listing_images (
+  id bigint generated by default as identity primary key,
+  listing_id uuid not null references public.listings(id) on delete cascade,
+  storage_path text not null unique check (char_length(storage_path) between 10 and 500),
+  sort_order smallint not null default 0 check (sort_order between 0 and 30),
+  alt_text text check (alt_text is null or char_length(alt_text) <= 180),
+  created_at timestamptz not null default now()
+);
+
+create table if not exists public.listing_reports (
+  id bigint generated by default as identity primary key,
+  listing_id uuid not null references public.listings(id) on delete cascade,
+  reason text not null check (reason in ('already_done','wrong_info','cannot_contact','other')),
+  details text check (char_length(details) <= 600),
+  created_at timestamptz not null default now(),
+  resolved_at timestamptz,
+  resolved_by uuid references auth.users(id) on delete set null
+);
+
+drop index if exists public.listings_public_feed_idx;
+create index listings_public_feed_idx on public.listings(listing_type,is_featured desc,sort_priority desc,approved_at desc)
+where status = 'approved';
+drop index if exists public.listings_location_idx;
+create index listings_location_idx on public.listings(listing_type,phase,tower,unit_type,price_vnd)
+where status = 'approved';
+create index if not exists listings_expiry_idx on public.listings(expires_at) where status = 'approved';
+create index if not exists listings_admin_created_idx on public.listings(created_at desc);
+create index if not exists listing_images_listing_idx on public.listing_images(listing_id,sort_order);
+create index if not exists listing_reports_listing_idx on public.listing_reports(listing_id,created_at desc);
+create index if not exists listing_reports_resolved_by_idx on public.listing_reports(resolved_by) where resolved_by is not null;
+
+create or replace function private.set_updated_at()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  new.updated_at = now();
+  return new;
+end;
+$$;
+
+drop trigger if exists listings_set_updated_at on public.listings;
+create trigger listings_set_updated_at before update on public.listings for each row execute function private.set_updated_at();
+
+create or replace function private.can_attach_pending(target_listing_id uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  select exists(select 1 from public.listings where id = target_listing_id and status = 'pending');
+$$;
+
+revoke all on function private.can_attach_pending(uuid) from public, anon, authenticated;
+grant execute on function private.can_attach_pending(uuid) to anon, authenticated;
+
+-- Keep private listing columns unavailable to anonymous visitors while still
+-- allowing image RLS to verify that its parent listing is public. A direct
+-- subquery from the image policy would require table-level SELECT on listings,
+-- which would defeat the column-level grants below.
+create or replace function private.is_public_listing(target_listing_id uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  select exists(
+    select 1
+    from public.listings
+    where id = target_listing_id
+      and status = 'approved'
+      and contact_public
+      and (expires_at is null or expires_at > now())
+  );
+$$;
+
+revoke all on function private.is_public_listing(uuid) from public, anon, authenticated;
+grant execute on function private.is_public_listing(uuid) to anon;
+
+create or replace function private.can_upload_pending_image(object_name text)
+returns boolean
+language plpgsql
+stable
+security definer
+set search_path = ''
+as $$
+declare
+  folders text[];
+  target_listing_id uuid;
+begin
+  folders := storage.foldername(object_name);
+  if array_length(folders, 1) < 2 or folders[1] <> 'pending' then
+    return false;
+  end if;
+  target_listing_id := folders[2]::uuid;
+  if not private.can_attach_pending(target_listing_id) then
+    return false;
+  end if;
+  return (
+    select count(*) < 12
+    from storage.objects object
+    where object.bucket_id = 'listing-images'
+      and (storage.foldername(object.name))[1] = 'pending'
+      and (storage.foldername(object.name))[2] = target_listing_id::text
+  );
+exception when invalid_text_representation then
+  return false;
+end;
+$$;
+
+revoke all on function private.can_upload_pending_image(text) from public, anon, authenticated;
+grant execute on function private.can_upload_pending_image(text) to anon, authenticated;
+
+alter table public.admin_users enable row level security;
+alter table public.listings enable row level security;
+alter table public.listing_images enable row level security;
+alter table public.listing_reports enable row level security;
+
+drop policy if exists admin_users_self_read on public.admin_users;
+create policy admin_users_self_read on public.admin_users for select to authenticated
+using (user_id = (select auth.uid()));
+
+drop policy if exists listings_public_read_approved on public.listings;
+create policy listings_public_read_approved on public.listings for select to anon
+using (status = 'approved' and contact_public and (expires_at is null or expires_at > now()));
+
+drop policy if exists listings_anon_submit_pending on public.listings;
+create policy listings_anon_submit_pending on public.listings for insert to anon
+with check (status = 'pending' and contact_public and not is_featured and sort_priority = 0 and approved_at is null and expires_at is null);
+
+drop policy if exists listings_admin_manage on public.listings;
+create policy listings_admin_manage on public.listings for all to authenticated
+using ((select private.is_admin()))
+with check ((select private.is_admin()));
+
+drop policy if exists listing_images_public_read on public.listing_images;
+create policy listing_images_public_read on public.listing_images for select to anon
+using (private.is_public_listing(listing_id));
+
+drop policy if exists listing_images_anon_insert on public.listing_images;
+create policy listing_images_anon_insert on public.listing_images for insert to anon
+with check (
+  private.can_attach_pending(listing_id)
+  and storage_path like ('pending/' || listing_id::text || '/%')
+);
+
+drop policy if exists listing_images_admin_manage on public.listing_images;
+create policy listing_images_admin_manage on public.listing_images for all to authenticated
+using ((select private.is_admin()))
+with check ((select private.is_admin()));
+
+drop policy if exists listing_reports_anon_insert on public.listing_reports;
+create policy listing_reports_anon_insert on public.listing_reports for insert to anon
+with check (exists(select 1 from public.listings l where l.id = listing_id and l.status = 'approved' and (l.expires_at is null or l.expires_at > now())));
+
+drop policy if exists listing_reports_admin_manage on public.listing_reports;
+create policy listing_reports_admin_manage on public.listing_reports for all to authenticated
+using ((select private.is_admin()))
+with check ((select private.is_admin()));
+
+revoke all on public.admin_users,public.listings,public.listing_images,public.listing_reports from anon, authenticated;
+grant usage on schema public to anon, authenticated;
+grant select (
+  id,listing_code,slug,listing_type,status,title,description,phase,tower,unit_type,bedroom_count,
+  area_sqm,floor_label,price_vnd,furnishing,available_from,poster_name,contact_phone,is_featured,sort_priority,
+  approved_at,expires_at,created_at,updated_at
+) on public.listings to anon;
+grant insert (
+  id,listing_code,slug,listing_type,title,description,phase,tower,unit_type,bedroom_count,
+  area_sqm,floor_label,price_vnd,furnishing,available_from,legal_status,poster_name,contact_phone,contact_public
+) on public.listings to anon;
+grant select (id,listing_id,storage_path,sort_order,alt_text,created_at) on public.listing_images to anon;
+grant insert (listing_id,storage_path,sort_order,alt_text) on public.listing_images to anon;
+grant insert (listing_id,reason,details) on public.listing_reports to anon;
+grant select (user_id,created_at) on public.admin_users to authenticated;
+grant select,update,delete on public.listings to authenticated;
+grant select,update,delete on public.listing_images to authenticated;
+grant select,update on public.listing_reports to authenticated;
+grant usage,select on sequence public.listing_images_id_seq,public.listing_reports_id_seq to anon;
+
+insert into storage.buckets(id,name,public,file_size_limit,allowed_mime_types)
+values ('listing-images','listing-images',true,5242880,array['image/jpeg','image/png','image/webp'])
+on conflict (id) do update set public = excluded.public,file_size_limit = excluded.file_size_limit,allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists listing_images_storage_public_read on storage.objects;
+
+-- Remove policies belonging to the preserved Auth scaffold. The marketplace
+-- uses anonymous pending uploads plus admin-only moderation instead.
+drop policy if exists listing_images_insert_own_folder on storage.objects;
+drop policy if exists listing_images_update_own_folder on storage.objects;
+drop policy if exists listing_images_delete_own_or_admin on storage.objects;
+
+drop policy if exists listing_images_storage_anon_upload on storage.objects;
+create policy listing_images_storage_anon_upload on storage.objects for insert to anon
+with check (
+  bucket_id = 'listing-images' and
+  private.can_upload_pending_image(name) and
+  lower(storage.extension(name)) in ('jpg','jpeg','png','webp')
+);
+
+drop policy if exists listing_images_storage_admin_manage on storage.objects;
+create policy listing_images_storage_admin_manage on storage.objects for all to authenticated
+using (bucket_id = 'listing-images' and (select private.is_admin()))
+with check (bucket_id = 'listing-images' and (select private.is_admin()));
+
+-- Remove V1 helpers that may exist in the exposed public schema.
+drop function if exists public.is_admin();
+drop function if exists public.can_attach_pending(uuid);
+drop function if exists public.can_upload_pending_image(text);
+drop function if exists public.set_updated_at();
+
+notify pgrst, 'reload schema';
+
+commit;
+
+-- After creating the admin in Authentication, grant access with:
+-- insert into public.admin_users(user_id)
+-- select id from auth.users where email = 'ADMIN_EMAIL_HERE'
+-- on conflict (user_id) do nothing;
