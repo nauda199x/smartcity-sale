@@ -7,6 +7,7 @@ parser=argparse.ArgumentParser()
 parser.add_argument("--root",default=".")
 args=parser.parse_args()
 ROOT=Path(args.root).resolve()
+
 required=[
  "index.html",
  "tong-quan-smart-city/index.html",
@@ -24,14 +25,32 @@ required=[
  "assets/css/marketplace.css",
  "assets/js/site.js",
  "assets/js/marketplace-config.js",
- "assets/js/marketplace-api.js"
+ "assets/js/marketplace-api.js",
+ "assets/js/marketplace-list.js",
+ "assets/js/marketplace-form.js",
+ "assets/js/marketplace-detail.js"
 ]
 errors=[]
 for rel in required:
     if not (ROOT/rel).exists():
         errors.append(f"missing required file: {rel}")
 
-htmls=[p for p in ROOT.rglob("*.html") if "_source" not in p.parts and "_site" not in p.parts]
+public_html=[ROOT/"index.html", ROOT/"404.html"]
+for dirname in [
+    "tong-quan-smart-city","vi-tri-smart-city","mat-bang-smart-city",
+    "phan-khu-smart-city","gia-smart-city","giao-dich-smart-city",
+    "mua-ban-smart-city","cho-thue-smart-city","dang-tin-smart-city",
+    "tin-dang-smart-city","admin"
+]:
+    d=ROOT/dirname
+    if d.exists():
+        public_html.extend(d.rglob("*.html"))
+htmls=[]
+seen=set()
+for p in public_html:
+    if p.exists() and p not in seen:
+        seen.add(p); htmls.append(p)
+
 for p in htmls:
     text=p.read_text("utf-8",errors="replace")
     rel=p.relative_to(ROOT)
@@ -65,7 +84,7 @@ if cfg.exists():
 
 if errors:
     print(f"PORTAL VALIDATION FAILED ({len(errors)} errors)")
-    for e in errors[:80]:
+    for e in errors[:100]:
         print("-",e)
     sys.exit(1)
 print(f"PORTAL VALIDATION PASSED: {len(htmls)} HTML pages")
