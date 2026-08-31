@@ -563,3 +563,16 @@ h3{font-weight:600;line-height:1.2;letter-spacing:-.02em}
 .hp-listing__body>a{margin-top:18px;color:var(--bronze-dark);font-size:.82rem;font-weight:850}
 @media(max-width:900px){.hp-listings{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.hp-listings{display:flex;margin-inline:-12px;padding-inline:12px;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;background:none;border:0;scrollbar-width:none}.hp-listing{width:82vw;min-width:82vw;border:1px solid var(--line);scroll-snap-align:start}}
+
+/* Sapphire archive / floor-plan modules */
+.archive-note{padding:20px 22px;border:1px solid var(--line);background:#f4ede1;color:var(--muted)}
+.cluster-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.cluster-card{display:grid;grid-template-columns:.9fr 1.1fr;min-height:300px;border:1px solid var(--line);background:var(--paper);overflow:hidden}
+.cluster-card img{width:100%;height:100%;object-fit:cover;background:#ddd}
+.cluster-card__copy{padding:28px;display:flex;flex-direction:column}.cluster-card__copy p{color:var(--muted)}.cluster-card__copy .card-link{margin-top:auto}
+.tower-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;border:1px solid var(--line);background:var(--line)}
+.tower-card{min-height:220px;padding:26px;background:var(--paper);display:flex;flex-direction:column}.tower-card span{color:var(--bronze-dark);font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.tower-card h3{margin-top:15px;font-size:2rem}.tower-card p{color:var(--muted)}.tower-card .card-link{margin-top:auto}
+.source-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.source-card{padding:24px;border:1px solid var(--line);background:var(--paper)}.source-card strong{display:block;font:500 1.35rem Georgia}.source-card p{color:var(--muted)}.source-card a{color:var(--bronze-dark);font-weight:800}
+.drive-plan{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:34px;align-items:start}.drive-plan img{width:100%;max-height:760px;object-fit:contain;background:#fff;border:1px solid var(--line)}.drive-plan__copy{position:sticky;top:110px}.drive-plan__copy p{color:var(--muted)}
+@media(max-width:900px){.cluster-grid{grid-template-columns:1fr}.tower-grid{grid-template-columns:repeat(2,1fr)}.drive-plan{grid-template-columns:1fr}.drive-plan__copy{position:static}}
+@media(max-width:620px){.cluster-card{grid-template-columns:1fr}.cluster-card img{aspect-ratio:16/10}.tower-grid,.source-grid{grid-template-columns:1fr}}

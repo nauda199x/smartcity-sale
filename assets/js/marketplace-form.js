@@ -25,7 +25,7 @@
   const draftStatus=form.querySelector("[data-draft-status]");
   const mobileSubmitBar=form.querySelector("[data-mobile-submit]");
   const towerMap={
-  "Sapphire":["S101","S102","S103","S105","S106","S201","S202","S203","S301","S302","S303","S401","S402","S403"],
+  "Sapphire":["S101","S102","S103","S105","S106","S201","S202","S203","S205","S301","S302","S303","S401","S402","S403"],
   "Sakura":["SA1","SA2","SA3","SA5"],
   "Miami":["GS1","GS2","GS3","GS5","GS6"],
   "Tonkin":["TK1","TK2"],
