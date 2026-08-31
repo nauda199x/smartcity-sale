@@ -775,6 +775,10 @@ h3{font-weight:600;line-height:1.2;letter-spacing:-.02em}
 .ppx--miami{--ppx-accent:#a66f39;--ppx-dark:#161a17;--ppx-soft:#eee2d4}
 .ppx--tonkin{--ppx-accent:#92734b;--ppx-dark:#1a1713;--ppx-soft:#eae0d2}
 .ppx--masteri{--ppx-accent:#8e7c69;--ppx-dark:#141719;--ppx-soft:#e7e6e2}
+.ppx--sola{--ppx-accent:#a28a5f;--ppx-dark:#131814;--ppx-soft:#e8e5dc}
+.ppx--canopy{--ppx-accent:#6f8b78;--ppx-dark:#111815;--ppx-soft:#e2e9e3}
+.ppx--imperia{--ppx-accent:#8b735c;--ppx-dark:#171514;--ppx-soft:#e9e2d9}
+.ppx--victoria{--ppx-accent:#9a765e;--ppx-dark:#161414;--ppx-soft:#ebe3dd}
 .ppx-hero{position:relative;min-height:min(860px,calc(100svh - 82px));display:flex;align-items:flex-end;overflow:hidden;background:var(--ppx-dark);color:#fff}
 .ppx-hero__media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .ppx-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,12,10,.9) 0%,rgba(10,12,10,.52) 46%,rgba(10,12,10,.1) 78%),linear-gradient(0deg,rgba(10,12,10,.7),transparent 58%)}
