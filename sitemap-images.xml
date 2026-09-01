@@ -410,10 +410,61 @@
     </image:image>
   </url>
   <url>
+    <loc>https://timmuasmartcity.com/phan-khu-smart-city/victoria/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-cat-noc-toan-canh-2026.webp</image:loc>
+      <image:title>Toàn cảnh The Victoria Smart City sau khi hoàn thành phần thô</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-le-cat-noc-06022026.webp</image:loc>
+      <image:title>Lễ cất nóc The Victoria ngày 06/02/2026</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-cong-truong-thang-6-2025.webp</image:loc>
+      <image:title>Công trường The Victoria tháng 6/2025</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-thi-cong-san-thang-6-2025.webp</image:loc>
+      <image:title>Thi công sàn The Victoria tháng 6/2025</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-thi-cong-ket-cau-thang-6-2025.webp</image:loc>
+      <image:title>Thi công kết cấu The Victoria tháng 6/2025</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-cong-nhan-thang-6-2025.webp</image:loc>
+      <image:title>Hoạt động thi công thực tế The Victoria tháng 6/2025</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-tien-do-thang-9-2025.webp</image:loc>
+      <image:title>Tiến độ ba tòa The Victoria tháng 9/2025</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-mat-bang-v1.webp</image:loc>
+      <image:title>Mặt bằng V1 Spring The Victoria</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-mat-bang-v2.webp</image:loc>
+      <image:title>Mặt bằng V2 Sky The Victoria</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-mat-bang-v3.webp</image:loc>
+      <image:title>Mặt bằng V3 Shine The Victoria</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/victoria/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp</image:loc>
-      <image:title>Mặt bằng Imperia Smart City The Victoria</image:title>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-mat-bang-v1.webp</image:loc>
+      <image:title>Mặt bằng V1 Spring The Victoria</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-mat-bang-v2.webp</image:loc>
+      <image:title>Mặt bằng V2 Sky The Victoria</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-mat-bang-v3.webp</image:loc>
+      <image:title>Mặt bằng V3 Shine The Victoria</image:title>
     </image:image>
   </url>
   <url>
@@ -461,22 +512,22 @@
   <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/victoria/v1/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp</image:loc>
-      <image:title>V1 Imperia Smart City The Victoria</image:title>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-mat-bang-v1.webp</image:loc>
+      <image:title>Mặt bằng V1 Spring The Victoria</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/victoria/v2/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp</image:loc>
-      <image:title>V2 Imperia Smart City The Victoria</image:title>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-mat-bang-v2.webp</image:loc>
+      <image:title>Mặt bằng V2 Sky The Victoria</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/victoria/v3/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp</image:loc>
-      <image:title>V3 Imperia Smart City The Victoria</image:title>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-mat-bang-v3.webp</image:loc>
+      <image:title>Mặt bằng V3 Shine The Victoria</image:title>
     </image:image>
   </url>
   <url>
