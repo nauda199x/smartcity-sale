@@ -1206,4 +1206,68 @@
       <image:title>Mặt bằng TC2 The Canopy Residences</image:title>
     </image:image>
   </url>
+  <url>
+    <loc>https://timmuasmartcity.com/phan-khu-smart-city/tonkin/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-tk1-canh-quan-thuc-te-2023.webp</image:loc>
+      <image:title>TK1 The Tonkin và cảnh quan thực tế</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-sanh-lounge-thuc-te-2023.webp</image:loc>
+      <image:title>Sảnh lounge thực tế The Tonkin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-ho-boi-thuc-te-2023.webp</image:loc>
+      <image:title>Hồ bơi và sân thể thao The Tonkin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-the-goddess-ban-dem.webp</image:loc>
+      <image:title>The Goddess và cổng The Tonkin ban đêm</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-tk1-cong-thuc-te.webp</image:loc>
+      <image:title>Lối vào TK1 The Tonkin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-tong-mat-bang.webp</image:loc>
+      <image:title>Tổng mặt bằng The Tonkin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-mat-bang-tk1.webp</image:loc>
+      <image:title>Mặt bằng TK1 The Tonkin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-mat-bang-tk2.webp</image:loc>
+      <image:title>Mặt bằng TK2 The Tonkin</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/tonkin/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-tong-mat-bang.webp</image:loc>
+      <image:title>Tổng mặt bằng The Tonkin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-mat-bang-tk1.webp</image:loc>
+      <image:title>Mặt bằng TK1 The Tonkin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-mat-bang-tk2.webp</image:loc>
+      <image:title>Mặt bằng TK2 The Tonkin</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/tonkin/tk1/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-mat-bang-tk1.webp</image:loc>
+      <image:title>Mặt bằng TK1 The Tonkin</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/tonkin/tk2/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-mat-bang-tk2.webp</image:loc>
+      <image:title>Mặt bằng TK2 The Tonkin</image:title>
+    </image:image>
+  </url>
 </urlset>
