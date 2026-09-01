@@ -1716,3 +1716,51 @@ h3{font-weight:600;line-height:1.2;letter-spacing:-.02em}
   .sakura-dl dd{text-align:left}
   .sakura-tower-stack .tower-plan{grid-template-columns:1fr}
 }
+
+
+/* The Miami depth page */
+.miami-grid{display:grid;gap:22px}
+.miami-grid--2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.miami-grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.miami-card{padding:24px;border:1px solid var(--line,#e5e7eb);border-radius:20px;background:var(--surface,#fff);box-shadow:0 12px 32px rgba(15,23,42,.06)}
+.miami-card h3{margin-top:0}
+.miami-number{display:inline-grid;place-items:center;min-width:36px;height:36px;padding:0 10px;border-radius:999px;background:#111827;color:#fff;font-weight:800;margin-bottom:12px}
+.miami-dl{margin:0}
+.miami-dl>div{display:grid;grid-template-columns:minmax(120px,.8fr) minmax(0,1.2fr);gap:16px;padding:13px 0;border-bottom:1px solid var(--line,#e5e7eb)}
+.miami-dl>div:last-child{border-bottom:0}
+.miami-dl dt{color:var(--muted,#64748b)}
+.miami-dl dd{margin:0;font-weight:700;text-align:right}
+.miami-gallery figure img{aspect-ratio:4/3;object-fit:cover}
+.miami-gallery figure:first-child img{object-position:center 40%}
+.miami-tower-stack{display:grid;gap:28px}
+.miami-tower-stack .tower-plan{align-items:center}
+.miami-tower-stack .tower-plan__media img{width:100%;height:auto;max-height:620px;object-fit:contain;background:#fff;border-radius:18px}
+.miami-area-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:0 0 28px}
+.miami-area-grid article{padding:22px;border:1px solid var(--line,#e5e7eb);border-radius:18px;background:#fff}
+.miami-area-grid strong,.miami-area-grid span{display:block}
+.miami-area-grid strong{font-size:1.1rem;margin-bottom:7px}
+.miami-area-grid span{color:var(--muted,#64748b)}
+.miami-amenity-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:28px}
+.miami-amenity-grid article{padding:20px;border-radius:18px;background:#111827;color:#fff}
+.miami-amenity-grid strong{display:block;font-size:1.15rem;margin-bottom:7px}
+.miami-amenity-grid p{margin:0;color:#e5e7eb}
+.miami-check-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;counter-reset:miamistep;list-style:none;padding:0;margin:0}
+.miami-check-steps li{position:relative;padding:20px 20px 20px 62px;border:1px solid var(--line,#e5e7eb);border-radius:18px;background:#fff;counter-increment:miamistep}
+.miami-check-steps li:before{content:counter(miamistep);position:absolute;left:18px;top:18px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#111827;color:#fff;font-weight:800}
+.miami-check-steps strong,.miami-check-steps span{display:block}
+.miami-check-steps span{margin-top:5px;color:var(--muted,#64748b)}
+.miami-faq{display:grid;gap:10px}
+.miami-faq details{border:1px solid var(--line,#e5e7eb);border-radius:16px;background:#fff;padding:0 18px}
+.miami-faq summary{cursor:pointer;font-weight:800;padding:17px 0}
+.miami-faq p{margin:0;padding:0 0 17px;color:var(--muted,#475569)}
+.miami-hero .article-hero-media{object-position:center 48%}
+
+@media (max-width:900px){
+  .miami-area-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:800px){
+  .miami-grid--2,.miami-grid--3,.miami-check-steps,.miami-area-grid,.miami-amenity-grid{grid-template-columns:1fr}
+  .miami-dl>div{grid-template-columns:1fr;gap:4px}
+  .miami-dl dd{text-align:left}
+  .miami-tower-stack .tower-plan{grid-template-columns:1fr}
+}
