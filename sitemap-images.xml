@@ -398,11 +398,23 @@
   <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/canopy/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-mobile.webp</image:loc>
-      <image:title>The Canopy Residences Smart City</image:title>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-tong-mat-bang.webp</image:loc>
+      <image:title>Tổng mặt bằng The Canopy Residences</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-mat-bang-tc1.webp</image:loc>
+      <image:title>Mặt bằng TC1 The Canopy Vista</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-mat-bang-tc2.webp</image:loc>
+      <image:title>Mặt bằng TC2 The Canopy Summit</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-mat-bang-tc3.webp</image:loc>
+      <image:title>Mặt bằng TC3 The Canopy Harmony</image:title>
     </image:image>
   </url>
-  <url>
+<url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/sola-park/</loc>
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp</image:loc>
@@ -568,25 +580,18 @@
   <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/canopy/tc1/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-mobile.webp</image:loc>
-      <image:title>TC1 – The Canopy Vista The Canopy Residences</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://timmuasmartcity.com/mat-bang-smart-city/canopy/tc2/</loc>
-    <image:image>
-      <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-mobile.webp</image:loc>
-      <image:title>TC2 – The Canopy Summit The Canopy Residences</image:title>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-mat-bang-tc1.webp</image:loc>
+      <image:title>Mặt bằng TC1 The Canopy Residences</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/canopy/tc3/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-mobile.webp</image:loc>
-      <image:title>TC3 – The Canopy Harmony The Canopy Residences</image:title>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-mat-bang-tc3.webp</image:loc>
+      <image:title>Mặt bằng TC3 The Canopy Residences</image:title>
     </image:image>
   </url>
-  <url>
+<url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/lumiere-evergreen/a1/</loc>
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/projects/lumiere-evergreen/lumiere-evergreen-16-hero.webp</image:loc>
@@ -1153,6 +1158,52 @@
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/official/miami/miami-mat-bang-gs6.webp</image:loc>
       <image:title>Mặt bằng GS6 The Miami</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/phan-khu-smart-city/canopy/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-3-toa-thuc-te-2025.webp</image:loc>
+      <image:title>Ba tòa The Canopy Residences sau hoàn thiện</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-sanh-thuc-te-2025.webp</image:loc>
+      <image:title>Sảnh thực tế The Canopy Residences</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-canh-quan-thuc-te-2025.webp</image:loc>
+      <image:title>Cảnh quan thực tế The Canopy Residences</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-be-boi-tre-em-thuc-te.webp</image:loc>
+      <image:title>Bể bơi trẻ em The Canopy Residences</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-be-boi-thuc-te.webp</image:loc>
+      <image:title>Bể bơi thực tế The Canopy Residences</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-tong-mat-bang.webp</image:loc>
+      <image:title>Tổng mặt bằng TC1 TC2 TC3 The Canopy Residences</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-mat-bang-tc1.webp</image:loc>
+      <image:title>Mặt bằng TC1 The Canopy Vista</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-mat-bang-tc2.webp</image:loc>
+      <image:title>Mặt bằng TC2 The Canopy Summit</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-mat-bang-tc3.webp</image:loc>
+      <image:title>Mặt bằng TC3 The Canopy Harmony</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/canopy/tc2/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-mat-bang-tc2.webp</image:loc>
+      <image:title>Mặt bằng TC2 The Canopy Residences</image:title>
     </image:image>
   </url>
 </urlset>
