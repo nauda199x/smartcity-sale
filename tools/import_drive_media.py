@@ -14,7 +14,10 @@ from pathlib import Path
 import gdown
 from PIL import Image, UnidentifiedImageError
 
-from media_utils import SUPPORTED_EXTENSIONS, validate_slug
+try:
+    from .media_utils import SUPPORTED_EXTENSIONS, validate_slug
+except ImportError:  # Direct CLI execution: python tools/import_drive_media.py
+    from media_utils import SUPPORTED_EXTENSIONS, validate_slug
 
 ROOT = Path(__file__).resolve().parents[1]
 DRIVE_ID_RE = re.compile(r"^[A-Za-z0-9_-]{10,100}$")

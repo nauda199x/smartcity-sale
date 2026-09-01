@@ -1,33 +1,38 @@
 # Visual media audit and remaining gaps
 
-Audit date: 2026-08-13
+Audit updated: 2026-09-01
 
 ## Scope reviewed
 
-- Static/generated architecture, build scripts, homepage, project hub, ten project profiles, sale routes, SEO/editorial routes, project and listing cards.
-- `data/media/`, local hero/project assets, LUMIÈRE Evergreen variants and curation, responsive image markup, lazy/LCP behavior, media/site/profile validators, deploy staging, tests, and both GitHub Actions workflows.
-- Listing data was not changed. Project/editorial images were not inserted into listing media.
+- Homepage, project knowledge routes, subdivision/tower pages, listing routes, local media manifests, deploy staging, sitemap coverage, and image performance markup.
+- External image dependencies were counted separately from local project/editorial media and listing-owner media.
+- Listing data and its Google Drive image fields were not changed. Project/editorial imagery remains isolated from inventory imagery.
 
-## Improvements made
+## Improvements completed
 
-- The homepage LUMIÈRE Evergreen feature card now uses its reviewed project-specific card variant instead of an abstract monogram.
-- The project knowledge hub now opens with the existing Smart City overview image, with fixed dimensions, eager LCP loading, readable overlays, and responsive cropping.
-- Existing project-profile gallery behavior remains unchanged: the LUMIÈRE gallery uses curated lazy-loaded content variants while all inventory cards retain only reviewed listing imagery.
+- Added a 48-file, first-party-source Smart City media library with exact URL-level provenance in `data/official/asset-manifest.json`.
+- Replaced hotlinked/generic heroes on the Smart City overview, amenities, Gateway Tower, and Sapphire 4/ParkVille pages with local, optimised WebP assets.
+- Expanded those four routes with descriptive captions that distinguish current facts, historical launch material, renderings, and reference interiors.
+- Added fixed image dimensions, hero loading priority, lazy loading below the fold, local-file validation, and an image sitemap generator.
+- Corrected the editorial handling of conflicting S4.02/S4.03 shape labels: the page records the source disagreement and directs buyers to the actual tower plan.
 
-## MEDIA_GAPS
+## Remaining media gaps
 
-| Project/page | Missing media | Why it was not added | Recommended source |
-| --- | --- | --- | --- |
-| The Sapphire | Project-specific exterior and landscape gallery | Repository manifest is empty; no clearly licensed source was available locally | User-owned photos or a licensed developer press kit |
-| The Miami | Project-specific exterior and amenity gallery | Repository manifest is empty | User-owned photos or a licensed developer press kit |
-| The Sakura | Project-specific exterior and Japanese landscape gallery | Only editorial SVG fallback is available | User-owned photos or a licensed developer press kit |
-| The Tonkin | Project-specific exterior and common-space gallery | Repository manifest is empty | User-owned photos or a licensed developer press kit |
-| Masteri West Heights | Project-specific exterior, lobby, and landscape gallery | Only editorial SVG fallback is available | User-owned photos or a licensed Masterise press kit |
-| Imperia Smart City / The Mirae Park | Project-specific overview and common-space gallery | Repository manifest is empty | User-owned photos or a licensed MIK press kit |
-| The Sola Park | Project-specific exterior and amenity gallery | Repository manifest is empty | User-owned photos or a licensed MIK press kit |
-| Imperia Smart City – The Victoria | Project-specific exterior and amenity gallery | Repository manifest is empty | User-owned photos or a licensed MIK press kit |
-| The Canopy Residences | Project-specific exterior and amenity gallery | Repository manifest is empty | User-owned photos or a licensed developer press kit |
-| Gateway Tower | Project-specific exterior/gallery manifest | An editorial SVG exists, but no project manifest or verified photo pack exists | User-owned photos or a licensed developer press kit |
-| Homepage lifestyle section | Verified Smart City-wide park, lake, sports, and retail imagery | LUMIÈRE-specific photos would misrepresent the broader development; no reusable general pack exists | User-owned Smart City photography or clearly licensed destination media |
+| Project/page | Still missing | Recommended source |
+| --- | --- | --- |
+| The Sapphire outside ParkVille | Current exterior, lobby, corridor, lift, and amenity photography by tower | User-owned dated photo survey or written-permission developer press kit |
+| The Miami | Exterior, amenity, lobby, corridor, and representative view-direction gallery | User-owned dated photo survey or licensed source pack |
+| The Sakura | Current Japanese landscape, exterior, lobby, and pool gallery | User-owned dated photo survey or licensed source pack |
+| The Tonkin | Current exterior, common-space, lift, and representative view gallery | User-owned dated photo survey or licensed source pack |
+| Masteri West Heights | Current exterior, lobby, landscape, corridor, and unit-condition gallery | User-owned dated photo survey or Masterise media with explicit reuse terms |
+| Imperia Smart City / The Mirae Park | Current overview and common-space gallery | User-owned dated photo survey or MIK media with explicit reuse terms |
+| The Sola Park | Current exterior, construction/handover status, and amenity gallery | Dated owner photos or MIK media with explicit reuse terms |
+| The Victoria | Dated construction progress, exterior, and amenity gallery | Dated owner photos or MIK media with explicit reuse terms |
+| The Canopy Residences | Current exterior, lobby, common-space, and view-direction gallery | User-owned dated photo survey or licensed CapitaLand media |
+| Gateway Tower | Verified 2026 current-condition exterior, lobby, corridor, lift, and representative unit photos | User-owned dated photo survey; existing official pack is historical/reference material |
+| Sapphire 4/ParkVille | Verified 2026 current-condition photos and full typical-floor plans for all three towers | User-owned dated photo survey plus verified tower documents |
+| Smart City location page | Original route-by-route travel photos or maps with clear reuse rights | Original map/diagram created from verified data, or user-owned photography |
 
-Unrelated or uncertain imagery was deliberately not used as a substitute. Future additions should use the existing media importer, exact manifest schema, optimized variants, and validators documented in `docs/MEDIA-PIPELINE.md`.
+## Next collection standard
+
+For each project, collect at least one 4:3 or 16:9 exterior hero, four to eight landscape/common-space photos, one lobby and lift photo, representative view directions, and verified floor plans. Record photographer/owner, capture date, location, permission status, original file, derivative dimensions, and page role before publication. Do not use project renders or general Smart City imagery as a substitute for a specific resale unit.
