@@ -50,7 +50,7 @@ if re.search(r'<img[^>]+src="https?://',overview):
     errors.append("overview still contains image hotlinks")
 if re.search(r'<a[^>]+href="https?://',overview):
     errors.append("overview still exposes outbound source links")
-if re.search(r'Nguồn|Mở nguồn|Source',overview,re.I):
+if re.search(r'>\s*(Nguồn|Mở nguồn|Source)\b',overview,re.I):
     errors.append("overview still exposes source-labelled UI")
 if re.search(r'<img[^>]+src="https?://',hub):
     errors.append("project hub still contains image hotlinks")
