@@ -44,6 +44,14 @@ if "home-v2-hero" not in home or "home-v2-finder" not in home:
     errors.append("premium homepage structure missing")
 if "overview-v2-hero" not in overview or "overview-v2-steps" not in overview:
     errors.append("premium overview structure missing")
+if "/assets/css/home-overview.css?v=20260901-pro1" not in home:
+    errors.append("homepage is not directly linked to robust home-overview CSS")
+if "/assets/css/home-overview.css?v=20260901-pro1" not in overview:
+    errors.append("overview is not directly linked to robust home-overview CSS")
+if "<h1>Vinhomes Smart City</h1>" not in home:
+    errors.append("homepage hero title regressed")
+if "<h1>Tổng quan Vinhomes Smart City</h1>" not in overview:
+    errors.append("overview hero title regressed")
 if re.search(r'<img[^>]+src="https?://',home):
     errors.append("homepage still contains image hotlinks")
 if re.search(r'<img[^>]+src="https?://',overview):
