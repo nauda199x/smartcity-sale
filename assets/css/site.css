@@ -1501,3 +1501,57 @@ h3{font-weight:600;line-height:1.2;letter-spacing:-.02em}
   .mwh-steps span{grid-column:2}
   .mwh-faq summary{font-size:1.15rem}
 }
+
+/* 2026-09-01 The Sola Park research dossier */
+.ppx--sola .ppx-hero__media{
+  object-position:center 58%;
+}
+.sola-single-media{
+  grid-template-columns:minmax(0,1fr);
+}
+.sola-single-media .mwh-media-card--wide{
+  grid-column:auto;
+}
+.sola-towers{
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  margin-top:42px;
+}
+.sola-towers .ppx-tower{
+  min-height:350px;
+  padding:24px 21px;
+}
+.sola-towers .ppx-tower:before{
+  font-size:6.6rem;
+}
+.sola-towers .ppx-tower h3{
+  margin-top:58px;
+}
+.sola-section-actions{
+  margin-top:34px;
+}
+.sola-image-open{
+  display:inline-flex;
+  margin-top:2px;
+  color:var(--ppx-accent);
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:.02em;
+}
+.sola-image-open:hover{
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.sola-progress-steps{
+  margin-bottom:42px;
+}
+.sola-progress-gallery{
+  margin-top:0;
+}
+@media(max-width:1180px){
+  .sola-towers{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  .ppx--sola .ppx-hero__media{object-position:62% center}
+  .sola-towers{grid-template-columns:1fr;margin-top:30px}
+  .sola-towers .ppx-tower{min-height:285px}
+}
