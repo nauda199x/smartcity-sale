@@ -11,10 +11,27 @@ OUT.mkdir()
 files=[
     "index.html","404.html","gateway-tower.html","robots.txt","sitemap.xml","sitemap-images.xml","CNAME",
     "favicon-32.png","favicon-192.png","favicon-512.png","apple-touch-icon.png","site.webmanifest",
-    "data.json"
+    "data.json",
+    # Editorial / SEO assets with unique intent. Project-profile duplicates stay on
+    # their canonical /phan-khu-smart-city/ routes instead of being staged twice.
+    "cam-nang.html",
+    "chi-phi-mua-can-ho-chuyen-nhuong-vinhomes-smart-city.html",
+    "chon-tang-huong-view-can-ho-vinhomes-smart-city.html",
+    "gia-ban-vinhomes-smart-city.html",
+    "kiem-tra-phap-ly-can-ho-vinhomes-smart-city-truoc-dat-coc.html",
+    "kinh-nghiem-mua-can-ho-vinhomes-smart-city.html",
+    "mua-can-ho-2pn-vinhomes-smart-city.html",
+    "mua-can-ho-vinhomes-smart-city-de-o-hay-dau-tu.html",
+    "quy-trinh-chuyen-nhuong-can-ho-vinhomes-smart-city.html",
+    "so-sanh-phan-khu-vinhomes-smart-city.html",
+    "ban-can-ho-2pn-vinhomes-smart-city.html",
+    "ban-can-ho-duoi-4-ty-vinhomes-smart-city.html",
+    "ban-can-ho-sapphire-smart-city.html",
+    "ban-studio-vinhomes-smart-city.html",
+    "chinh-sach-bao-mat.html","dieu-khoan-su-dung.html"
 ]
 dirs=[
-    "assets","images",
+    "assets","images","blog",
     "tong-quan-smart-city","vi-tri-smart-city","mat-bang-smart-city","tien-ich-smart-city",
     "phan-khu-smart-city","gia-smart-city",
     "giao-dich-smart-city","mua-ban-smart-city","cho-thue-smart-city",
