@@ -31,7 +31,7 @@ def parse_marketplace_config() -> tuple[str, str, str]:
     def grab(name: str) -> str:
         match = re.search(rf'{re.escape(name)}\s*:\s*"([^"]+)"', text)
         return match.group(1) if match else ""
-    return grab("supabaseUrl").rstrip("/"), grab("supabasePublishableKey"), grab("storageBucket") or "listing-images"
+    return grab("supabaseUrl").rstrip("/"), (grab("supabaseAnonKey") or grab("supabasePublishableKey")), grab("storageBucket") or "listing-images"
 
 
 def fetch_approved_listings() -> list[dict]:
