@@ -2046,3 +2046,13 @@ h3{font-weight:600;line-height:1.2;letter-spacing:-.02em}
 @media(max-width:390px){
   .site-header .brand>span:last-child{font-size:.69rem}
 }
+
+
+/* 2026-09-01 navigation priority: put Marketplace immediately after Overview */
+.nav-links > a[href="/tong-quan-smart-city/"]{order:10}
+.nav-links > details.nav-dropdown:has(a[href="/giao-dich-smart-city/"]){order:20}
+.nav-links > a[href="/vi-tri-smart-city/"]{order:30}
+.nav-links > a[href="/mat-bang-smart-city/"]{order:40}
+.nav-links > a[href="/tien-ich-smart-city/"]{order:50}
+.nav-links > details.nav-dropdown:not(:has(a[href="/giao-dich-smart-city/"])){order:60}
+.nav-links > a[href="/gia-smart-city/"]{order:70}

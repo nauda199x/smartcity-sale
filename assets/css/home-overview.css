@@ -603,3 +603,16 @@
   .home-v2-metrics__grid{grid-template-columns:1fr 1fr}
   .overview-v2-project-links{grid-template-columns:1fr}
 }
+
+
+/* Direct marketplace entry in the sticky bar below the overview hero */
+.overview-v2-nav a.overview-v2-nav__market{
+  margin-right:6px;
+  background:#0b6b57;
+  color:#fff!important;
+  box-shadow:0 5px 16px rgba(11,107,87,.16);
+}
+.overview-v2-nav a.overview-v2-nav__market:hover{
+  background:#075647;
+  color:#fff!important;
+}
