@@ -61,6 +61,45 @@
     status.textContent="";
     status.className="form-status";
   };
+  const showSuccessPanel=(listingCode,imageNote="")=>{
+    document.querySelector("[data-post-success-modal]")?.remove();
+    const modal=document.createElement("div");
+    modal.className="post-success-modal";
+    modal.dataset.postSuccessModal="";
+    modal.innerHTML=`<section class="post-success-card" role="dialog" aria-modal="true" aria-labelledby="post-success-title">
+      <div class="post-success-mark" aria-hidden="true">✓</div>
+      <p class="post-success-kicker">ĐÃ TIẾP NHẬN TIN</p>
+      <h2 id="post-success-title">Tin đăng thành công — chờ duyệt</h2>
+      <p class="post-success-lead">Mã tin <strong data-post-success-code></strong> đã được gửi lên hệ thống. Tin chưa hiển thị công khai cho đến khi quản trị viên duyệt.</p>
+      <div class="post-success-flow" aria-label="Trạng thái tin đăng">
+        <div><span>1</span><p><strong>Đã nhận dữ liệu</strong><small>Thông tin căn và ảnh đã được tiếp nhận.</small></p></div>
+        <div><span>2</span><p><strong>Thông báo quản trị viên</strong><small>Hệ thống tự gửi thông báo email để kiểm tra tin mới.</small></p></div>
+        <div><span>3</span><p><strong>Chờ duyệt</strong><small>Sau khi duyệt, tin mới xuất hiện trên sàn giao dịch.</small></p></div>
+      </div>
+      <p class="post-success-note" data-post-success-note></p>
+      <div class="post-success-actions">
+        <a class="btn btn-primary" href="/giao-dich-smart-city/">Về cổng giao dịch</a>
+        <button class="btn post-success-secondary" type="button" data-post-another>Đăng tin khác</button>
+      </div>
+    </section>`;
+    modal.querySelector("[data-post-success-code]").textContent=String(listingCode||"");
+    modal.querySelector("[data-post-success-note]").textContent=imageNote
+      ?imageNote.trim()
+      :"Ảnh của tin đã được tải lên đầy đủ.";
+    const close=()=>{
+      modal.classList.remove("is-visible");
+      document.body.classList.remove("has-post-success");
+      setTimeout(()=>modal.remove(),180);
+    };
+    modal.querySelector("[data-post-another]")?.addEventListener("click",()=>{
+      close();
+      setTimeout(()=>form.querySelector('[name="listing_type"]')?.focus(),220);
+    });
+    document.body.append(modal);
+    document.body.classList.add("has-post-success");
+    requestAnimationFrame(()=>modal.classList.add("is-visible"));
+    setTimeout(()=>modal.querySelector("[data-post-another]")?.focus(),0);
+  };
   const listingType=()=>form.querySelector('[name="listing_type"]:checked')?.value||"sale";
   const formatNumber=value=>new Intl.NumberFormat("vi-VN",{maximumFractionDigits:2}).format(value);
   const parseLocalizedNumber=raw=>{
@@ -387,7 +426,8 @@
       }
       const imageNote=files.length&&uploaded<files.length?` Đã tải ${uploaded}/${files.length} ảnh; quản trị viên sẽ liên hệ nếu cần bổ sung.`:"";
       clearDraft();
-      showStatus(`Đã nhận tin ${listing.listing_code}. Tin đang chờ quản trị viên duyệt và chưa hiển thị công khai.${imageNote}`,"success");
+      showStatus(`Tin đăng thành công — chờ duyệt. Mã tin ${listing.listing_code} đã được tiếp nhận và chưa hiển thị công khai.${imageNote}`,"success");
+      showSuccessPanel(listing.listing_code,imageNote);
       form.reset();
       clearPreviews();
       refreshType(false);
