@@ -93,6 +93,15 @@ def main() -> None:
             errors.append(f"{label}: SHA-1 is stale for {local}")
 
     soup = BeautifulSoup(PAGE.read_text(encoding="utf-8"), "html.parser")
+    if soup.select_one("#nguon") or soup.select_one(".mwh-sources"):
+        errors.append("public page exposes the internal source panel")
+    external_links = sorted(
+        tag["href"]
+        for tag in soup.find_all("a", href=True)
+        if urlsplit(tag["href"]).scheme or urlsplit(tag["href"]).netloc
+    )
+    if external_links:
+        errors.append("public page links to external sources: " + ", ".join(external_links))
     page_images = {tag["src"] for tag in soup.find_all("img", src=True)}
     external_images = sorted(
         src for src in page_images if urlsplit(src).scheme or urlsplit(src).netloc
@@ -115,7 +124,7 @@ def main() -> None:
         raise SystemExit(1)
     print(
         f"MASTERI ASSET VALIDATION PASSED: {len(assets)} traced WebP files, "
-        "no image hotlinks"
+        "no public source panel, external links, or image hotlinks"
     )
 
 
