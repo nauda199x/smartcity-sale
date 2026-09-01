@@ -47,7 +47,7 @@ def fetch_approved_listings() -> list[dict]:
     }
     req = Request(
         f"{base}/rest/v1/listings?{urlencode(params)}",
-        headers={"apikey": key, "Authorization": f"Bearer {key}", "Accept": "application/json"},
+        headers={"apikey": key, "Accept": "application/json"},
     )
     try:
         with urlopen(req, timeout=20) as response:
