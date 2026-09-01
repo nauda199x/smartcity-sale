@@ -1,0 +1,115 @@
+{
+  "count": 10,
+  "assets": [
+    {
+      "source_url": "https://i.ex-cdn.com/nongnghiepmoitruong.vn/files/content/2026/02/10/dji_0652-211219_579-025519.jpg",
+      "source_page": "https://nongnghiepmoitruong.vn/mik-group-cat-noc-phan-khu-imperia-smart-city--the-victoria-vuot-tien-do-d797054.html",
+      "local_path": "/images/official/victoria/victoria-cat-noc-toan-canh-2026.webp",
+      "width": 1200,
+      "height": 864,
+      "sha1": "4138893c292ead86b5e5626ea8fac12393016916",
+      "bytes": 159474,
+      "media_type": "actual",
+      "published_context": "actual construction aerial published February 2026"
+    },
+    {
+      "source_url": "https://i.ex-cdn.com/nongnghiepmoitruong.vn/files/content/2026/02/10/tt_01463-211218_692-025519.jpg",
+      "source_page": "https://nongnghiepmoitruong.vn/mik-group-cat-noc-phan-khu-imperia-smart-city--the-victoria-vuot-tien-do-d797054.html",
+      "local_path": "/images/official/victoria/victoria-le-cat-noc-06022026.webp",
+      "width": 1200,
+      "height": 800,
+      "sha1": "2ed75236b4d68dc0d62e4af7fa9be667ca63f9e2",
+      "bytes": 95600,
+      "media_type": "actual",
+      "published_context": "topping-out ceremony on 06 February 2026"
+    },
+    {
+      "source_url": "https://phuchung.com.vn/upload/174.jpg?v=1.0.1",
+      "source_page": "https://phuchung.com.vn/vi/cap-nhat-tien-do-du-an-victoria-smart-city.html",
+      "local_path": "/images/official/victoria/victoria-cong-truong-thang-6-2025.webp",
+      "width": 2560,
+      "height": 1440,
+      "sha1": "e95776e9d4b1481f7ded859e1dde693d476592fd",
+      "bytes": 793024,
+      "media_type": "actual",
+      "published_context": "actual construction overview published June 2025"
+    },
+    {
+      "source_url": "https://phuchung.com.vn/upload/248.jpg?v=1.0.1",
+      "source_page": "https://phuchung.com.vn/vi/cap-nhat-tien-do-du-an-victoria-smart-city.html",
+      "local_path": "/images/official/victoria/victoria-thi-cong-san-thang-6-2025.webp",
+      "width": 1280,
+      "height": 960,
+      "sha1": "fc93b545577c552d5d36ab2db6769d168a2143b8",
+      "bytes": 452860,
+      "media_type": "actual",
+      "published_context": "actual slab construction published June 2025"
+    },
+    {
+      "source_url": "https://phuchung.com.vn/upload/343.jpg?v=1.0.1",
+      "source_page": "https://phuchung.com.vn/vi/cap-nhat-tien-do-du-an-victoria-smart-city.html",
+      "local_path": "/images/official/victoria/victoria-thi-cong-ket-cau-thang-6-2025.webp",
+      "width": 1280,
+      "height": 960,
+      "sha1": "6244790f8ed371826f0bb98f26ac43e222b39e6e",
+      "bytes": 336192,
+      "media_type": "actual",
+      "published_context": "actual structural work published June 2025"
+    },
+    {
+      "source_url": "https://phuchung.com.vn/upload/45-edit3.png?v=1.0.1",
+      "source_page": "https://phuchung.com.vn/vi/cap-nhat-tien-do-du-an-victoria-smart-city.html",
+      "local_path": "/images/official/victoria/victoria-cong-nhan-thang-6-2025.webp",
+      "width": 1484,
+      "height": 580,
+      "sha1": "6c78f1ffee5a5c095b679ee75ac2070db565e10e",
+      "bytes": 167674,
+      "media_type": "actual",
+      "published_context": "actual site work collage published June 2025"
+    },
+    {
+      "source_url": "https://static1.cafeland.vn/cafelandnew/hinh-anh/2025/10/08/215/image-20251008134327-14.png?t=1",
+      "source_page": "https://cafeland.vn/du-an/the-victoria-phan-thu-thuoc-imperia-smart-city-ha-noi-4695.html",
+      "local_path": "/images/official/victoria/victoria-tien-do-thang-9-2025.webp",
+      "width": 800,
+      "height": 472,
+      "sha1": "15ba226bcf83b12ab1a6a1d3cebf644cafc1473b",
+      "bytes": 145828,
+      "media_type": "actual",
+      "published_context": "actual three-tower construction image reported as September 2025 progress"
+    },
+    {
+      "source_url": "https://thevictoriasmartcity.vn/wp-content/uploads/2024/09/z5849718706270_85fc4201ebb5ef33601d10805f4c5149.jpg",
+      "source_page": "https://thevictoriasmartcity.vn/mat-bang-the-victoria-smart-city/",
+      "local_path": "/images/official/victoria/victoria-mat-bang-v1.webp",
+      "width": 2560,
+      "height": 1791,
+      "sha1": "1a3eb492541d59e9e175ee33277c0f64777d0e9f",
+      "bytes": 243720,
+      "media_type": "diagram",
+      "published_context": "Spring V1 typical-floor plan catalogue"
+    },
+    {
+      "source_url": "https://vinhomesland.vn/wp-content/uploads/2024/09/mat-bang-tang-2-10-toa-v2-imperia-smart-city-the-victoria.jpg",
+      "source_page": "https://vinhomesland.vn/toa-v2-imperia-smart-city-the-victoria/",
+      "local_path": "/images/official/victoria/victoria-mat-bang-v2.webp",
+      "width": 2000,
+      "height": 1500,
+      "sha1": "96ab3f5572a6b108b7f7186c98b56da561bcafd9",
+      "bytes": 200138,
+      "media_type": "diagram",
+      "published_context": "Sky V2 typical-floor plan catalogue"
+    },
+    {
+      "source_url": "https://vinhomesland.vn/wp-content/uploads/2024/09/mat-bang-tang-2-10-toa-v3-imperia-smart-city-the-victoria.jpg",
+      "source_page": "https://vinhomesland.vn/toa-v3-imperia-smart-city-the-victoria/",
+      "local_path": "/images/official/victoria/victoria-mat-bang-v3.webp",
+      "width": 2000,
+      "height": 1500,
+      "sha1": "265a616ed73d729d2df3beaf41a8043ec275a554",
+      "bytes": 189726,
+      "media_type": "diagram",
+      "published_context": "Shine V3 typical-floor plan catalogue"
+    }
+  ]
+}
