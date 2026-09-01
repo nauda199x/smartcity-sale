@@ -337,27 +337,67 @@
   <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/sapphire/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/projects/editorial/sapphire.svg</image:loc>
-      <image:title>Tổng mặt bằng Vinhomes Smart City</image:title>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/sapphire-s1-01.webp</image:loc>
+      <image:title>Mặt bằng S1.01 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s1-02.jpg</image:loc>
+      <image:title>Mặt bằng S1.02 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/sapphire-s1-03.webp</image:loc>
+      <image:title>Mặt bằng S1.03 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/sapphire-s1-05.webp</image:loc>
+      <image:title>Mặt bằng S1.05 The Sapphire</image:title>
     </image:image>
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s1-06.jpg</image:loc>
-      <image:title>Sapphire 1</image:title>
+      <image:title>Mặt bằng S1.06 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/sapphire-s2-01.webp</image:loc>
+      <image:title>Mặt bằng S2.01 The Sapphire</image:title>
     </image:image>
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s2-02.jpg</image:loc>
-      <image:title>Sapphire 2</image:title>
+      <image:title>Mặt bằng S2.02 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s2-03.jpg</image:loc>
+      <image:title>Mặt bằng S2.03 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/sapphire-s2-05.webp</image:loc>
+      <image:title>Mặt bằng S2.05 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/sapphire-s3-01.webp</image:loc>
+      <image:title>Mặt bằng S3.01 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/sapphire-s3-02.webp</image:loc>
+      <image:title>Mặt bằng S3.02 The Sapphire</image:title>
     </image:image>
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s3-03.jpg</image:loc>
-      <image:title>Sapphire 3</image:title>
+      <image:title>Mặt bằng S3.03 The Sapphire</image:title>
     </image:image>
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s4-01.jpg</image:loc>
-      <image:title>Sapphire 4</image:title>
+      <image:title>Mặt bằng S4.01 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/sapphire-s4-02.webp</image:loc>
+      <image:title>Mặt bằng S4.02 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s4-03.jpg</image:loc>
+      <image:title>Mặt bằng S4.03 The Sapphire</image:title>
     </image:image>
   </url>
-  <url>
+<url>
     <loc>https://timmuasmartcity.com/phan-khu-smart-city/sapphire/s1/</loc>
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s1-06.jpg</image:loc>
@@ -545,11 +585,23 @@
   <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/masteri-west-heights/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/projects/editorial/masteri-west-heights.svg</image:loc>
-      <image:title>Masteri West Heights Smart City</image:title>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/masteri-west-a-b.webp</image:loc>
+      <image:title>Mặt bằng West A Masteri West Heights</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/masteri-west-a-b.webp</image:loc>
+      <image:title>Mặt bằng West B Masteri West Heights</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/masteri-west-c.webp</image:loc>
+      <image:title>Mặt bằng West C Masteri West Heights</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/masteri-west-d.webp</image:loc>
+      <image:title>Mặt bằng West D Masteri West Heights</image:title>
     </image:image>
   </url>
-  <url>
+<url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/lumiere-evergreen/</loc>
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/projects/lumiere-evergreen/lumiere-evergreen-19-hero.webp</image:loc>
@@ -1484,11 +1536,27 @@
   <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/sola-park/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/official/sola-park/sola-park-cat-noc-g5-g6-moc-tien-do.webp</image:loc>
-      <image:title>Tiến độ The Sola Park khi G5 G6 cất nóc tháng 7 năm 2026</image:title>
+      <image:loc>https://timmuasmartcity.com/images/official/sola-park/sola-park-mat-bang-g1-g2.webp</image:loc>
+      <image:title>Mặt bằng G1 · The Garden The Sola Park</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sola-park/sola-park-mat-bang-g1-g2.webp</image:loc>
+      <image:title>Mặt bằng G2 · The Aqua The Sola Park</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sola-park/sola-park-mat-bang-g3.webp</image:loc>
+      <image:title>Mặt bằng G3 · The Metro The Sola Park</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/sola-g5-the-avenue.webp</image:loc>
+      <image:title>Mặt bằng G5 · The Avenue The Sola Park</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/sola-g6-the-sky.webp</image:loc>
+      <image:title>Mặt bằng G6 · The Sky The Sola Park</image:title>
     </image:image>
   </url>
-  <url>
+<url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/sola-park/g2/</loc>
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/official/sola-park/sola-park-cat-noc-cum-ba-thap-2025-tap-the.webp</image:loc>
@@ -1535,6 +1603,21 @@
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/official/floorplans/lumiere-a3-the-aura.webp</image:loc>
       <image:title>Mặt bằng A3 The Aura tầng 12-19 và 21-39 LUMIÈRE Evergreen</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/lumiere-evergreen/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/lumiere-a1-the-aqua.webp</image:loc>
+      <image:title>Mặt bằng A1 · The Aqua LUMIÈRE Evergreen</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/lumiere-a2-the-atmos.webp</image:loc>
+      <image:title>Mặt bằng A2 · The Atmos LUMIÈRE Evergreen</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/floorplans/lumiere-a3-the-aura.webp</image:loc>
+      <image:title>Mặt bằng A3 · The Aura LUMIÈRE Evergreen</image:title>
     </image:image>
   </url>
 </urlset>
