@@ -1,0 +1,45 @@
+{
+  "count": 5,
+  "assets": [
+    {
+      "source_url": "https://rs.onehousing.vn/fast/1921x0/filters%3Aquality%2895%29%3Aformat%28webp%29/cdn-merchant.vinid.net/images/gallery/omre_trang_tin_tuc/1751511447_unnamed%20-%202025-07-03T095654.323.jpg",
+      "local_path": "/images/official/sapphire/sapphire-1-canh-quan-thuc-te.webp",
+      "width": 1921,
+      "height": 1279,
+      "bytes": 269836,
+      "sha1": "af24e64a8fc832fe688a63506c4018db2d8e5390"
+    },
+    {
+      "source_url": "https://cdn-merchant.vinid.net/images/gallery/omre_trang_tin_tuc/image_upload_1734090686_2.jpg",
+      "local_path": "/images/official/sapphire/sapphire-2-ho-boi-thuc-te.webp",
+      "width": 1600,
+      "height": 1200,
+      "bytes": 424004,
+      "sha1": "883ce14e64ed643e6aa52406c306d619bcfce572"
+    },
+    {
+      "source_url": "https://cdn-merchant.vinid.net/images/gallery/omre_trang_tin_tuc/LTyOlgAKSlHtLawANdtTbrTAJhqRHl.jpg",
+      "local_path": "/images/official/sapphire/sapphire-3-san-the-thao-thuc-te.webp",
+      "width": 960,
+      "height": 533,
+      "bytes": 116060,
+      "sha1": "1a11b7f718134f88b476c18e027ab7cd64980ed8"
+    },
+    {
+      "source_url": "https://cdn.thuviennhadat.vn/upload/tin-dang/hinh-anh/20250312170824/20250312170823638773961037333814.jpg",
+      "local_path": "/images/official/sapphire/sapphire-4-sanh-shophouse-thuc-te.webp",
+      "width": 1536,
+      "height": 2048,
+      "bytes": 460166,
+      "sha1": "5fed97bde456c0788e45cb03c299b8024404bc16"
+    },
+    {
+      "source_url": "https://congchungnguyenhue.com/Uploaded/Images/Original/2024/01/05/the-sapphire-vinhomes-smart-city_0501020614.jpg",
+      "local_path": "/images/official/sapphire/sapphire-tong-the-thuc-te.webp",
+      "width": 1600,
+      "height": 1200,
+      "bytes": 280490,
+      "sha1": "330854987ca7f33a5575ce27f8652033c1e57503"
+    }
+  ]
+}

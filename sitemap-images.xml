@@ -1390,4 +1390,27 @@
       <image:title>Mặt bằng TK2 The Tonkin</image:title>
     </image:image>
   </url>
+  <url>
+    <loc>https://timmuasmartcity.com/phan-khu-smart-city/sapphire/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sapphire/sapphire-tong-the-thuc-te.webp</image:loc>
+      <image:title>The Sapphire Vinhomes Smart City thực tế</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sapphire/sapphire-1-canh-quan-thuc-te.webp</image:loc>
+      <image:title>Sapphire 1 Vinhomes Smart City thực tế</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sapphire/sapphire-2-ho-boi-thuc-te.webp</image:loc>
+      <image:title>Sapphire 2 hồ bơi thực tế</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sapphire/sapphire-3-san-the-thao-thuc-te.webp</image:loc>
+      <image:title>Sapphire 3 sân thể thao thực tế</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sapphire/sapphire-4-sanh-shophouse-thuc-te.webp</image:loc>
+      <image:title>Sapphire 4 sảnh và shophouse thực tế</image:title>
+    </image:image>
+  </url>
 </urlset>
