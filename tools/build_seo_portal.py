@@ -40,7 +40,7 @@ def fetch_approved_listings() -> list[dict]:
         print("SEO: marketplace config missing; skip static listing generation")
         return []
     params = {
-        "select": "id,slug,listing_code,listing_type,title,description,poster_name,contact_phone,phase,tower,unit_type,bedroom_count,area_sqm,price_vnd,furnishing,floor_label,available_from,legal_status,approved_at,created_at,listing_images(storage_path,sort_order,alt_text)",
+        "select": "id,slug,listing_code,listing_type,title,description,poster_name,contact_phone,phase,tower,bedroom_count,unit_type,area_sqm,price_vnd,furnishing,floor_label,available_from,is_featured,approved_at,expires_at,created_at,listing_images(id,storage_path,sort_order,alt_text)",
         "status": "eq.approved",
         "order": "is_featured.desc,sort_priority.desc,approved_at.desc",
         "limit": "500",
@@ -49,7 +49,7 @@ def fetch_approved_listings() -> list[dict]:
     try:
         result = subprocess.run(
             [
-                "curl", "--fail-with-body", "--silent", "--show-error", "--location",
+                "curl", "--silent", "--show-error", "--location",
                 "--max-time", "20",
                 "-H", f"apikey: {key}",
                 "-H", "Accept: application/json",
@@ -57,17 +57,20 @@ def fetch_approved_listings() -> list[dict]:
                 "-H", f"Referer: {SITE}/",
                 url,
             ],
-            check=True,
+            check=False,
             capture_output=True,
             text=True,
         )
+        if result.returncode != 0:
+            print(f"SEO: approved listings fetch failed with curl status {result.returncode}")
+            return []
         rows = json.loads(result.stdout or "[]")
+        if isinstance(rows, dict) and rows.get("code"):
+            print(f"SEO: approved listings API returned {rows.get('code')}; continuing without static listing pages")
+            return []
         return rows if isinstance(rows, list) else []
     except Exception as exc:
-        detail = ""
-        if isinstance(exc, subprocess.CalledProcessError):
-            detail = (exc.stderr or exc.stdout or "").strip()[:400]
-        print(f"SEO: approved listings fetch failed: {exc}{': ' + detail if detail else ''}")
+        print(f"SEO: approved listings fetch failed: {type(exc).__name__}")
         return []
 
 
