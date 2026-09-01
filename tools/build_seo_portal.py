@@ -45,16 +45,29 @@ def fetch_approved_listings() -> list[dict]:
         "order": "is_featured.desc,sort_priority.desc,approved_at.desc",
         "limit": "500",
     }
-    req = Request(
-        f"{base}/rest/v1/listings?{urlencode(params)}",
-        headers={"apikey": key, "Accept": "application/json", "Origin": SITE, "Referer": SITE + "/", "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"},
-    )
+    url = f"{base}/rest/v1/listings?{urlencode(params)}"
     try:
-        with urlopen(req, timeout=20) as response:
-            rows = json.loads(response.read().decode("utf-8"))
+        result = subprocess.run(
+            [
+                "curl", "--fail-with-body", "--silent", "--show-error", "--location",
+                "--max-time", "20",
+                "-H", f"apikey: {key}",
+                "-H", "Accept: application/json",
+                "-H", f"Origin: {SITE}",
+                "-H", f"Referer: {SITE}/",
+                url,
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        rows = json.loads(result.stdout or "[]")
         return rows if isinstance(rows, list) else []
     except Exception as exc:
-        print(f"SEO: approved listings fetch failed: {exc}")
+        detail = ""
+        if isinstance(exc, subprocess.CalledProcessError):
+            detail = (exc.stderr or exc.stdout or "").strip()[:400]
+        print(f"SEO: approved listings fetch failed: {exc}{': ' + detail if detail else ''}")
         return []
 
 
