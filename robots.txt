@@ -3,3 +3,4 @@ Allow: /
 Disallow: /admin/
 
 Sitemap: https://timmuasmartcity.com/sitemap.xml
+Sitemap: https://timmuasmartcity.com/sitemap-images.xml

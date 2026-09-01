@@ -10,6 +10,8 @@ ROOT=Path(args.root).resolve()
 
 required=[
  "index.html",
+ "gateway-tower.html",
+ "sitemap-images.xml",
  "tong-quan-smart-city/index.html",
  "vi-tri-smart-city/index.html",
  "mat-bang-smart-city/index.html",
@@ -36,7 +38,7 @@ for rel in required:
     if not (ROOT/rel).exists():
         errors.append(f"missing required file: {rel}")
 
-public_html=[ROOT/"index.html", ROOT/"404.html"]
+public_html=[ROOT/"index.html", ROOT/"404.html", ROOT/"gateway-tower.html"]
 for dirname in [
     "tong-quan-smart-city","vi-tri-smart-city","mat-bang-smart-city","tien-ich-smart-city",
     "phan-khu-smart-city","gia-smart-city","giao-dich-smart-city",
@@ -80,6 +82,15 @@ for p in htmls:
             target=target/"index.html"
         if not target.exists():
             errors.append(f"{rel}: broken local href {href}")
+    for src in re.findall(r'<img\b[^>]*\bsrc=["\']([^"\']+)["\']', text, flags=re.I):
+        if src.startswith(("data:", "https://", "http://")):
+            continue
+        path=urlsplit(src).path
+        if not path.startswith("/"):
+            continue
+        target=ROOT/path.lstrip("/")
+        if not target.is_file():
+            errors.append(f"{rel}: broken local image {src}")
 
 cfg=ROOT/"assets/js/marketplace-config.js"
 if cfg.exists():

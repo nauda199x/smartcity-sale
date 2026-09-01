@@ -9,7 +9,7 @@ if OUT.exists():
 OUT.mkdir()
 
 files=[
-    "index.html","404.html","robots.txt","sitemap.xml","CNAME",
+    "index.html","404.html","gateway-tower.html","robots.txt","sitemap.xml","sitemap-images.xml","CNAME",
     "favicon-32.png","favicon-192.png","favicon-512.png","apple-touch-icon.png","site.webmanifest"
 ]
 dirs=[

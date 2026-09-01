@@ -83,6 +83,7 @@ def download_image(url: str) -> tuple[bytes, str] | None:
 
 
 def save_webp(content: bytes, category: str, slug: str, source_url: str) -> dict | None:
+    temp_path: Path | None = None
     try:
         im = Image.open(BytesIO(content)).convert("RGB")
         width, height = im.size
@@ -97,15 +98,23 @@ def save_webp(content: bytes, category: str, slug: str, source_url: str) -> dict
         if width > max_width:
             new_height = round(height * max_width / width)
             im = im.resize((max_width, new_height), Image.Resampling.LANCZOS)
-        im.save(path, "WEBP", quality=82, method=6)
+        final_width, final_height = im.size
+        temp_path = path.with_suffix(path.suffix + ".tmp")
+        im.save(temp_path, "WEBP", quality=82, method=6)
+        if temp_path.stat().st_size <= 0:
+            raise OSError("encoder produced an empty file")
+        temp_path.replace(path)
         return {
             "source_url": source_url,
             "local_path": "/" + str(path.relative_to(ROOT)).replace("\\", "/"),
-            "width": width,
-            "height": height,
+            "width": final_width,
+            "height": final_height,
             "sha1": hashlib.sha1(content).hexdigest(),
+            "bytes": path.stat().st_size,
         }
     except Exception as exc:
+        if temp_path:
+            temp_path.unlink(missing_ok=True)
         print("image decode failed", source_url, exc)
         return None
 
