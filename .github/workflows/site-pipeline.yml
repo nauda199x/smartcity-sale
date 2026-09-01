@@ -29,6 +29,8 @@ jobs:
         run: python3 tools/validate_victoria_assets.py
       - name: Validate The Sakura dossier
         run: python3 tools/validate_sakura_assets.py
+      - name: Validate The Miami dossier
+        run: python3 tools/validate_miami_assets.py
       - name: Validate source portal
         run: python3 tools/validate_portal_v2.py
       - name: Stage clean public site
