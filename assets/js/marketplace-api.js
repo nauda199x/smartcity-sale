@@ -1,7 +1,7 @@
 (()=>{
   const config=window.SMARTCITY_MARKETPLACE_CONFIG||{};
   const base=String(config.supabaseUrl||"").replace(/\/$/,"");
-  const publishableKey=String(config.supabasePublishableKey||config.supabaseAnonKey||"");
+  const publishableKey=String(config.supabaseAnonKey||config.supabasePublishableKey||"");
   const sessionKey="smartcity_marketplace_admin_session";
 
   class MarketplaceError extends Error{
