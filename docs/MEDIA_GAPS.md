@@ -15,6 +15,8 @@ Audit updated: 2026-09-01
 - Expanded those four routes with descriptive captions that distinguish current facts, historical launch material, renderings, and reference interiors.
 - Added fixed image dimensions, hero loading priority, lazy loading below the fold, local-file validation, and an image sitemap generator.
 - Corrected the editorial handling of conflicting S4.02/S4.03 shape labels: the page records the source disagreement and directs buyers to the actual tower plan.
+- Added a 15-file Masteri West Heights dossier: seven dated handover/operation photographs, six clearly labelled project renderings, and two project diagrams with URL-level provenance.
+- Rebuilt the Masteri West Heights page so every actual image is dated 2023 or 2024 and no rendering is presented as current-condition photography.
 
 ## Remaining media gaps
 
@@ -24,7 +26,7 @@ Audit updated: 2026-09-01
 | The Miami | Exterior, amenity, lobby, corridor, and representative view-direction gallery | User-owned dated photo survey or licensed source pack |
 | The Sakura | Current Japanese landscape, exterior, lobby, and pool gallery | User-owned dated photo survey or licensed source pack |
 | The Tonkin | Current exterior, common-space, lift, and representative view gallery | User-owned dated photo survey or licensed source pack |
-| Masteri West Heights | Current exterior, lobby, landscape, corridor, and unit-condition gallery | User-owned dated photo survey or Masterise media with explicit reuse terms |
+| Masteri West Heights | Verified 2026 exterior, landscape, corridor, lift, representative view directions, and resale-unit condition; the current pack covers selected handover/operation spaces from 2023–2024 | User-owned dated photo survey or Masterise media with explicit reuse terms |
 | Imperia Smart City / The Mirae Park | Current overview and common-space gallery | User-owned dated photo survey or MIK media with explicit reuse terms |
 | The Sola Park | Current exterior, construction/handover status, and amenity gallery | Dated owner photos or MIK media with explicit reuse terms |
 | The Victoria | Dated construction progress, exterior, and amenity gallery | Dated owner photos or MIK media with explicit reuse terms |
