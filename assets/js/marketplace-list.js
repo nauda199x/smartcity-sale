@@ -11,6 +11,7 @@
   const emptyBenefits=state?.querySelector("[data-empty-benefits]");
   const skeleton=root.querySelector("[data-listing-skeleton]");
   const count=root.querySelector("[data-listing-count]");
+  const headingActions=root.querySelector(".marketplace-actions");
   const form=root.querySelector("[data-listing-filters]");
   const phase=form?.querySelector('[name="phase"]');
   const tower=form?.querySelector('[name="tower"]');
@@ -32,6 +33,7 @@
   let filteredRows=[];
   let visibleCount=0;
   let timer=0;
+  let sortMode="newest";
 
   const el=(tag,className,text)=>{
     const node=document.createElement(tag);
@@ -39,6 +41,19 @@
     if(text!==undefined)node.textContent=text;
     return node;
   };
+  const sortWrap=el("div","marketplace-sort");
+  const sortLabel=el("label","", "Sắp xếp");
+  const sortSelect=document.createElement("select");
+  sortSelect.setAttribute("aria-label","Sắp xếp danh sách căn hộ");
+  [
+    ["newest","Mới nhất"],
+    ["price-asc","Giá thấp → cao"],
+    ["price-desc","Giá cao → thấp"],
+    ["area-desc","Diện tích lớn → nhỏ"]
+  ].forEach(([value,label])=>sortSelect.append(new Option(label,value)));
+  sortWrap.append(sortLabel,sortSelect);
+  headingActions?.prepend(sortWrap);
+
   const loadMoreWrap=el("div","marketplace-load-more");
   const loadMoreStatus=el("span","marketplace-load-more-status","");
   const loadMoreButton=el("button","btn","Xem thêm căn");
@@ -214,6 +229,10 @@
     loadMoreWrap.hidden=filteredRows.length<=pageSize();
   };
   loadMoreButton.addEventListener("click",()=>renderMore(false));
+  sortSelect.addEventListener("change",()=>{
+    sortMode=sortSelect.value||"newest";
+    if(sourceRows.length)showRows();
+  });
 
   const mobileControls=el("div","marketplace-mobile-controls");
   const mobileFilterButton=el("button","marketplace-mobile-filter","Bộ lọc");
@@ -242,9 +261,21 @@
     mobileFilterButton.textContent=n?`Bộ lọc (${n})`:"Bộ lọc";
   };
 
+  const sortRows=rows=>{
+    const next=[...rows];
+    const number=value=>Number(value||0);
+    const date=value=>new Date(value||0).getTime()||0;
+    if(sortMode==="price-asc")return next.sort((a,b)=>number(a.price_vnd)-number(b.price_vnd));
+    if(sortMode==="price-desc")return next.sort((a,b)=>number(b.price_vnd)-number(a.price_vnd));
+    if(sortMode==="area-desc")return next.sort((a,b)=>number(b.area_sqm)-number(a.area_sqm));
+    return next.sort((a,b)=>{
+      const featured=Number(Boolean(b.is_featured))-Number(Boolean(a.is_featured));
+      return featured||date(b.approved_at||b.created_at)-date(a.approved_at||a.created_at);
+    });
+  };
   const showRows=()=>{
     const filters=filterValues();
-    filteredRows=applyClientFilters(sourceRows,filters);
+    filteredRows=sortRows(applyClientFilters(sourceRows,filters));
     syncMobileControls();
     if(filteredRows.length){
       grid.hidden=false;if(state)state.hidden=true;renderMore(true);
