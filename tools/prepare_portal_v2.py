@@ -31,7 +31,7 @@ for name in dirs:
 
 # Apply the site-wide visual identity at staging time so every current and future
 # public HTML page receives the same theme without duplicating markup in source files.
-theme_link='<link rel="stylesheet" href="/assets/css/modern-ui.css?v=20260901-realestate1">'
+theme_link='<link rel="stylesheet" href="/assets/css/modern-ui.css?v=20260901-homeoverview2">'
 theme_meta='<meta name="theme-color" content="#102a24">'
 shell_script='<script src="/assets/app-shell.js?v=20260901-shellfix1" defer></script>'
 themed=0
