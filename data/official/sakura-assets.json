@@ -1,0 +1,93 @@
+{
+  "count": 8,
+  "assets": [
+    {
+      "source_url": "https://images.trvl-media.com/lodging/124000000/123140000/123132700/123132604/9bf660f1.jpg?impolicy=resizecrop&ra=fit&rw=1600",
+      "source_page": "https://www.wotif.co.nz/Hanoi-Hotels-Luxhomes-SA1-Toji-Sakura-Vinhome-Smart-City.h123132604.Hotel-Information",
+      "local_path": "/images/official/sakura/sakura-sa1-thuc-te.webp",
+      "width": 1500,
+      "height": 2000,
+      "sha1": "acb5aa551a5c5e29c8a1d8147274b6ade4bc5ce0",
+      "bytes": 637778,
+      "media_type": "actual",
+      "published_context": "operational SA1 exterior and Sakura sculpture, retrieved 2026-09-01"
+    },
+    {
+      "source_url": "https://images.trvl-media.com/lodging/124000000/123140000/123132700/123132604/8037e041.jpg?impolicy=resizecrop&ra=fit&rw=1600",
+      "source_page": "https://www.wotif.co.nz/Hanoi-Hotels-Luxhomes-SA1-Toji-Sakura-Vinhome-Smart-City.h123132604.Hotel-Information",
+      "local_path": "/images/official/sakura/sakura-ho-boi-thuc-te.webp",
+      "width": 1600,
+      "height": 1200,
+      "sha1": "d278e703e2b77338f2413638045ab8c68f038728",
+      "bytes": 473690,
+      "media_type": "actual",
+      "published_context": "operational resident swimming-pool image, retrieved 2026-09-01"
+    },
+    {
+      "source_url": "https://chungcudep.net/wp-content/uploads/2023/10/anh-thuc-te-tien-do-toa-sa1-the-sakura-vinhomes-smart-city-thang-5-2025.jpg",
+      "source_page": "https://chungcudep.net/toa-sa1-the-sakura-vinhomes-smart-city.html",
+      "local_path": "/images/official/sakura/sakura-sa1-thang-5-2025.webp",
+      "width": 1200,
+      "height": 1600,
+      "sha1": "be80147cf6036f3017d8ac92ef18fc74e8cc0cbe",
+      "bytes": 479814,
+      "media_type": "actual",
+      "published_context": "SA1 exterior progress labelled May 2025"
+    },
+    {
+      "source_url": "https://chungcuvinhomessmartcity.com.vn/wp-content/uploads/Tien-do-SA5-thang-7.jpg",
+      "source_page": "https://chungcuvinhomessmartcity.com.vn/the-sakura/toa-sa5/",
+      "local_path": "/images/official/sakura/sakura-sa5-tien-do-2023.webp",
+      "width": 2400,
+      "height": 1351,
+      "sha1": "a035c9e0ce1fb976fff12acbba177a69fcb48445",
+      "bytes": 534272,
+      "media_type": "actual",
+      "published_context": "SA5 construction progress labelled July 2023"
+    },
+    {
+      "source_url": "https://chungcudep.net/wp-content/uploads/2023/11/mat-bang-toa-sa1-the-sakura-vinhomes-smart-city.jpg",
+      "source_page": "https://chungcudep.net/mat-bang-toa-sa1-the-sakura.html",
+      "local_path": "/images/official/sakura/sakura-mat-bang-sa1.webp",
+      "width": 1800,
+      "height": 1116,
+      "sha1": "24638e34b2d456e686b197da75df97369dd73bb9",
+      "bytes": 267916,
+      "media_type": "diagram",
+      "published_context": "SA1 typical-floor plan"
+    },
+    {
+      "source_url": "https://vinhomesland.vn/wp-content/uploads/2022/10/mat-bang-toa-sa2-vinhomes-smart-city.jpg",
+      "source_page": "https://vinhomesland.vn/toa-sa2-vinhomes-smart-city/",
+      "local_path": "/images/official/sakura/sakura-mat-bang-sa2.webp",
+      "width": 3000,
+      "height": 2000,
+      "sha1": "3f349ddae26c9c2e033e26694fc65016603926a8",
+      "bytes": 446328,
+      "media_type": "diagram",
+      "published_context": "SA2 typical-floor plan"
+    },
+    {
+      "source_url": "https://thanhdatland.com/wp-content/uploads/2023/06/mat-bang-tang-dien-hinh-SA3.webp",
+      "source_page": "https://thanhdatland.com/?da_image=mat-bang-toa-sa3-vinhomes-smart-city",
+      "local_path": "/images/official/sakura/sakura-mat-bang-sa3.webp",
+      "width": 2550,
+      "height": 1881,
+      "sha1": "eebed75a8976563c632636e7d455088c99675607",
+      "bytes": 407998,
+      "media_type": "diagram",
+      "published_context": "SA3 typical-floor plan"
+    },
+    {
+      "source_url": "https://vinhomesland.vn/wp-content/uploads/2023/09/mat-bang-toa-sa5-vinhomes-smart-city.jpg",
+      "source_page": "https://vinhomesland.vn/toa-sa5-vinhomes-smart-city/",
+      "local_path": "/images/official/sakura/sakura-mat-bang-sa5.webp",
+      "width": 3000,
+      "height": 2000,
+      "sha1": "62de363cbe668936cca987730d2ec3b2166b3594",
+      "bytes": 444750,
+      "media_type": "diagram",
+      "published_context": "SA5 typical-floor plan"
+    }
+  ]
+}
