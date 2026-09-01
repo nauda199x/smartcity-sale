@@ -10,6 +10,7 @@ errors=[]
 modern=(ROOT/"assets/css/modern-ui.css").read_text(encoding="utf-8")
 shell=(ROOT/"assets/app-shell.js").read_text(encoding="utf-8")
 home=(ROOT/"index.html").read_text(encoding="utf-8")
+overview=(ROOT/"tong-quan-smart-city"/"index.html").read_text(encoding="utf-8")
 hub=(ROOT/"phan-khu-smart-city/index.html").read_text(encoding="utf-8")
 market=(ROOT/"assets/js/marketplace-list.js").read_text(encoding="utf-8")
 stage=(ROOT/"tools/prepare_portal_v2.py").read_text(encoding="utf-8")
@@ -20,7 +21,10 @@ for token in (
     ".detail-shell--portal",
     ".marketplace-toolbar",
     ".mobile-property-nav",
-    ".home-search-panel",
+    ".home-v2-hero",
+    ".home-v2-finder",
+    ".overview-v2-hero",
+    ".overview-v2-steps",
     ".floor-hub-card",
     ".form-section--premium",
 ):
@@ -36,10 +40,18 @@ if "outerHTML" in shell:
 if "mobile-property-nav" not in shell or "nav-direct-cta" not in shell:
     errors.append("shell enhancer missing property navigation")
 
-if "home-search-panel" not in home:
-    errors.append("homepage property-intent panel missing")
+if "home-v2-hero" not in home or "home-v2-finder" not in home:
+    errors.append("premium homepage structure missing")
+if "overview-v2-hero" not in overview or "overview-v2-steps" not in overview:
+    errors.append("premium overview structure missing")
 if re.search(r'<img[^>]+src="https?://',home):
     errors.append("homepage still contains image hotlinks")
+if re.search(r'<img[^>]+src="https?://',overview):
+    errors.append("overview still contains image hotlinks")
+if re.search(r'<a[^>]+href="https?://',overview):
+    errors.append("overview still exposes outbound source links")
+if re.search(r'>\s*(Nguồn|Mở nguồn|Source)\b',overview,re.I):
+    errors.append("overview still exposes source-labelled UI")
 if re.search(r'<img[^>]+src="https?://',hub):
     errors.append("project hub still contains image hotlinks")
 if "/images/official/sapphire/sapphire-tong-the-thuc-te.webp" not in home:
@@ -51,8 +63,8 @@ if "/images/projects/sapphire/archive/s4-03.jpg" in hub:
 
 if "marketplace-sort" not in market or "price-asc" not in market or "area-desc" not in market:
     errors.append("marketplace sort control missing")
-if "20260901-realestate1" not in stage:
-    errors.append("staging does not inject new real-estate stylesheet")
+if "20260901-homeoverview2" not in stage:
+    errors.append("staging does not inject latest homepage/overview stylesheet")
 if "app-shell.js" not in stage:
     errors.append("staging does not ensure shell enhancer")
 
@@ -67,4 +79,4 @@ if errors:
         print("-",e)
     raise SystemExit(1)
 
-print("REAL ESTATE UI VALIDATION PASSED: unified shell, local home/project media, property-first homepage, marketplace sorting, desktop/mobile portal styling")
+print("REAL ESTATE UI VALIDATION PASSED: premium homepage + overview, unified shell, local media, marketplace sorting, desktop/mobile portal styling")
