@@ -61,13 +61,7 @@ jobs:
               "media_type":"actual",
               "published_context":"SA5 construction progress labelled July 2023"
             },
-            {
-              "filename":"sakura-tong-mat-bang.webp",
-              "source_url":"https://vinhomes.vn/sites/default/files/styles/images_947_x_590/public/2021-05/hight%20light%20PK%20SA22.png?itok=ieXZsExQ",
-              "source_page":"https://vinhomes.vn/vi/the-sakura",
-              "media_type":"diagram",
-              "published_context":"Vinhomes project master-plan graphic"
-            },
+
             {
               "filename":"sakura-mat-bang-sa1.webp",
               "source_url":"https://chungcudep.net/wp-content/uploads/2023/11/mat-bang-toa-sa1-the-sakura-vinhomes-smart-city.jpg",
@@ -124,7 +118,7 @@ jobs:
             })
             print(item["filename"],im.size,len(b))
           (DATA/"sakura-assets.json").write_text(json.dumps({"count":len(manifest),"assets":manifest},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-          if len(manifest)!=9: raise SystemExit("expected 9 assets")
+          if len(manifest)!=8: raise SystemExit("expected 8 assets")
           PY
       - name: Commit generated assets
         run: |
