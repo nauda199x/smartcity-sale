@@ -1,0 +1,74 @@
+name: Bootstrap Sapphire real images
+
+on:
+  push:
+    branches:
+      - fix-sapphire-images-20260901
+
+permissions:
+  contents: write
+
+jobs:
+  sapphire-images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download and convert Sapphire images
+        run: |
+          python -m pip install --quiet pillow requests
+          python - <<'PY'
+          import io, json, hashlib
+          from pathlib import Path
+          import requests
+          from PIL import Image
+
+          OUT=Path("images/official/sapphire")
+          OUT.mkdir(parents=True,exist_ok=True)
+
+          assets=[
+            ("sapphire-1-canh-quan-thuc-te.webp","https://rs.onehousing.vn/fast/1921x0/filters%3Aquality%2895%29%3Aformat%28webp%29/cdn-merchant.vinid.net/images/gallery/omre_trang_tin_tuc/1751511447_unnamed%20-%202025-07-03T095654.323.jpg"),
+            ("sapphire-2-ho-boi-thuc-te.webp","https://cdn-merchant.vinid.net/images/gallery/omre_trang_tin_tuc/image_upload_1734090686_2.jpg"),
+            ("sapphire-3-san-the-thao-thuc-te.webp","https://cdn-merchant.vinid.net/images/gallery/omre_trang_tin_tuc/LTyOlgAKSlHtLawANdtTbrTAJhqRHl.jpg"),
+            ("sapphire-4-sanh-shophouse-thuc-te.webp","https://cdn.thuviennhadat.vn/upload/tin-dang/hinh-anh/20250312170824/20250312170823638773961037333814.jpg"),
+            ("sapphire-tong-the-thuc-te.webp","https://congchungnguyenhue.com/Uploaded/Images/Original/2024/01/05/the-sapphire-vinhomes-smart-city_0501020614.jpg")
+          ]
+
+          s=requests.Session()
+          s.headers.update({"User-Agent":"Mozilla/5.0","Accept":"image/avif,image/webp,image/apng,image/*,*/*;q=0.8"})
+          manifest=[]
+          for name,url in assets:
+            r=s.get(url,timeout=45)
+            r.raise_for_status()
+            im=Image.open(io.BytesIO(r.content)); im.load()
+            if im.mode=="RGBA":
+              bg=Image.new("RGB",im.size,"white"); bg.paste(im,mask=im.getchannel("A")); im=bg
+            elif im.mode!="RGB":
+              im=im.convert("RGB")
+            dest=OUT/name
+            im.save(dest,"WEBP",quality=86,method=6)
+            b=dest.read_bytes()
+            manifest.append({
+              "source_url":url,
+              "local_path":"/"+dest.as_posix(),
+              "width":im.width,
+              "height":im.height,
+              "bytes":len(b),
+              "sha1":hashlib.sha1(b).hexdigest()
+            })
+            print(name,im.size,len(b))
+          Path("data/official").mkdir(parents=True,exist_ok=True)
+          Path("data/official/sapphire-real-assets.json").write_text(json.dumps({"count":len(manifest),"assets":manifest},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          PY
+      - name: Commit generated images
+        run: |
+          rm -f .github/workflows/sapphire-real-images-bootstrap.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images/official/sapphire data/official/sapphire-real-assets.json .github/workflows/sapphire-real-images-bootstrap.yml
+          git commit -m "Bootstrap Sapphire real image pack [skip ci]"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
