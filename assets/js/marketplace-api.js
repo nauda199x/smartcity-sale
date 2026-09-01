@@ -85,7 +85,17 @@
     };
     if(filters.phase)params.phase=`eq.${filters.phase}`;
     if(filters.tower)params.tower=`eq.${filters.tower}`;
-    if(filters.bedroom)params.unit_type=`eq.${filters.bedroom}`;
+    if(filters.bedroom){
+      const aliases={
+        "1PN+1":["1PN+1","1PN+"],
+        "2PN+1":["2PN+1","2PN+","2PN+1 (1WC)","2PN+1 (2WC)"],
+        "3PN+1":["3PN+1","3PN+"]
+      };
+      const values=aliases[filters.bedroom]||[filters.bedroom];
+      params.unit_type=values.length>1
+        ?`in.(${values.map(value=>`"${value}"`).join(",")})`
+        :`eq.${values[0]}`;
+    }
     if(filters.minPrice)params.price_vnd=`gte.${Number(filters.minPrice)}`;
     if(filters.maxPrice)params.price_vnd=`lte.${Number(filters.maxPrice)}`;
     const rows=await request(restPath("listings",params));

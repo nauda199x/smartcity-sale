@@ -22,9 +22,53 @@
   const mobileStepName=form.querySelector("[data-mobile-step-name]");
   const mq=matchMedia("(max-width:760px)");
   const stepNames=["Loại tin","Căn hộ","Ảnh & mô tả","Liên hệ"];
+  const phaseSelect=form.querySelector('[name="phase"]');
+  const unitTypeSelect=form.querySelector('[name="unit_type"]');
+  const unitTypeHelp=form.querySelector("[data-unit-type-help]");
+  const phaseUnitTypes={
+    "Sapphire":["Studio","1PN","1PN+1","2PN","2PN+1 (1WC)","2PN+1 (2WC)","3PN","Shop chân đế"],
+    "Sakura":["Studio","1PN","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
+    "Miami":["Studio","1PN","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
+    "Tonkin":["Studio","1PN","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
+    "Masteri":["Studio","1PN+1","2PN","2PN+1","3PN","Duplex","Shop chân đế"],
+    "Lumiere":["Studio","1PN","1PN+","2PN","2PN+","3PN","4PN","Shop chân đế"],
+    "Imperia":["Studio","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
+    "Canopy":["Studio","1PN","2PN","2PN+1","3PN","3PN+1","Shop chân đế"],
+    "Sola Park":["Studio","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
+    "Victoria":["Studio","1PN","1PN+","2PN","2PN+","3PN","Shop chân đế"]
+  };
   let currentStep=1;
 
   const q=name=>form.elements[name];
+  const equivalentUnitTypes=value=>{
+    const v=String(value||"");
+    if(v==="1PN+")return ["1PN+","1PN+1"];
+    if(v==="1PN+1")return ["1PN+1","1PN+"];
+    if(v==="2PN+")return ["2PN+","2PN+1","2PN+1 (1WC)","2PN+1 (2WC)"];
+    if(v==="2PN+1")return ["2PN+1","2PN+","2PN+1 (1WC)","2PN+1 (2WC)"];
+    if(v.startsWith("2PN+1 ("))return [v,"2PN+1","2PN+"];
+    if(v==="3PN+")return ["3PN+","3PN+1"];
+    if(v==="3PN+1")return ["3PN+1","3PN+"];
+    return [v];
+  };
+  const refreshUnitTypes=()=>{
+    if(!unitTypeSelect)return;
+    const phase=phaseSelect?.value||"";
+    const current=unitTypeSelect.value;
+    const options=phaseUnitTypes[phase]||[...new Set(Object.values(phaseUnitTypes).flat())];
+    unitTypeSelect.replaceChildren(
+      new Option(phase?"Chọn loại căn":"Chọn phân khu trước",""),
+      ...options.map(value=>new Option(value,value))
+    );
+    const restored=equivalentUnitTypes(current).find(value=>options.includes(value));
+    if(restored)unitTypeSelect.value=restored;
+    unitTypeSelect.disabled=!phase;
+    if(unitTypeHelp){
+      unitTypeHelp.textContent=phase
+        ?`Loại căn theo đúng cơ cấu ${phase} tại Smart City.`
+        :"Chọn phân khu trước, hệ thống sẽ hiện đúng loại căn của khu đó.";
+    }
+  };
   const checkedType=()=>form.querySelector('[name="listing_type"]:checked')?.value||"sale";
   const clean=value=>String(value||"").trim();
   const fieldLabel=element=>{
@@ -285,6 +329,7 @@
     updatePreview();
   });
   form.addEventListener("change",event=>{
+    if(event.target===phaseSelect)refreshUnitTypes();
     event.target?.removeAttribute?.("aria-invalid");
     clearStepError(event.target?.closest?.("[data-form-step]"));
     requestAnimationFrame(updatePreview);
@@ -327,6 +372,7 @@
     keyboardState();
   }
 
+  refreshUnitTypes();
   syncImageValidity();
   updatePreview();
   decoratePreviews();
