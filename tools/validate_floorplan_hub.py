@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 from pathlib import Path
+import json
 from urllib.parse import urlsplit
 from bs4 import BeautifulSoup
 
@@ -82,6 +83,14 @@ def main():
             errors.append(f"tower page missing: {href}")
 
 
+    manifest_path=ROOT/"data"/"official"/"missing-floorplans-20260901.json"
+    if not manifest_path.is_file():
+        errors.append("missing 49/49 acquisition manifest")
+    else:
+        manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
+        if manifest.get("acquired")!=16 or manifest.get("failed"):
+            errors.append(f"floorplan acquisition manifest is incomplete: acquired={manifest.get('acquired')}, failed={manifest.get('failed')}")
+
     required_new_plans={
         "/mat-bang-smart-city/sapphire/s1-01/": "/images/official/floorplans/sapphire-s1-01.webp",
         "/mat-bang-smart-city/sapphire/s1-03/": "/images/official/floorplans/sapphire-s1-03.webp",
@@ -100,7 +109,7 @@ def main():
         "/mat-bang-smart-city/lumiere-evergreen/a3/": "/images/official/floorplans/lumiere-a3-the-aura.webp",
         "/mat-bang-smart-city/sola-park/g5/": "/images/official/floorplans/sola-g5-the-avenue.webp",
         "/mat-bang-smart-city/sola-park/g6/": "/images/official/floorplans/sola-g6-the-sky.webp"
-}
+    }
     card_by_href={}
     for card in plan_cards:
         link=card.select_one("a.card-link[href]")
