@@ -1972,3 +1972,36 @@ h3{font-weight:600;line-height:1.2;letter-spacing:-.02em}
   .sola-progress-board{grid-template-columns:1fr}
   .sola-tower-progress__facts{grid-template-columns:1fr 1fr}
 }
+
+
+/* 2026-09-01 SEO editorial blocks for core landing pages */
+.seo-content{border-top:1px solid var(--line);background:var(--paper)}
+.seo-content--alt{background:var(--ivory)}
+.seo-content__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,340px);gap:clamp(36px,7vw,88px);align-items:start}
+.seo-copy{max-width:850px}
+.seo-copy>p:first-of-type{font-size:1.08rem;color:var(--muted)}
+.seo-copy h2{max-width:22ch;margin:0 0 18px;font-size:clamp(1.9rem,3.2vw,2.75rem)}
+.seo-copy h3{margin:30px 0 9px;font-size:1.35rem}
+.seo-copy p{margin:0 0 18px;color:#4f504b}
+.seo-copy ul,.seo-copy ol{margin:0 0 22px;padding-left:1.25rem;color:#4f504b}
+.seo-copy li+li{margin-top:8px}
+.seo-copy a{color:var(--bronze-dark);font-weight:750;text-decoration:underline;text-underline-offset:3px}
+.seo-aside{position:sticky;top:112px;display:grid;gap:12px}
+.seo-aside__card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.seo-aside__card strong{display:block;margin-bottom:10px;font:500 1.2rem/1.25 Georgia,"Times New Roman",serif}
+.seo-aside__card p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.55}
+.seo-aside__card a{display:block;margin-top:12px;color:var(--bronze-dark);font-size:.88rem;font-weight:800}
+.seo-faq{display:grid;gap:10px;margin-top:28px}
+.seo-faq details{border:1px solid var(--line);border-radius:12px;background:#fff;padding:0 18px}
+.seo-faq summary{cursor:pointer;padding:16px 0;font-weight:800}
+.seo-faq details p{margin:0;padding:0 0 16px;color:var(--muted)}
+.seo-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:24px}
+.seo-links a{padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:#fff;text-decoration:none}
+@media(max-width:850px){
+ .seo-content__grid{grid-template-columns:1fr}
+ .seo-aside{position:static;grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:620px){
+ .seo-aside,.seo-links{grid-template-columns:1fr}
+ .seo-copy h2{max-width:none}
+}
