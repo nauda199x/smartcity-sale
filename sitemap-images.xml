@@ -972,4 +972,86 @@
       <image:title>Vinhomes Smart City</image:title>
     </image:image>
   </url>
+  <url>
+    <loc>https://timmuasmartcity.com/phan-khu-smart-city/sakura/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-sa1-thuc-te.webp</image:loc>
+      <image:title>SA1 The Sakura Smart City thực tế</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-ho-boi-thuc-te.webp</image:loc>
+      <image:title>Hồ bơi thực tế The Sakura Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-sa1-thang-5-2025.webp</image:loc>
+      <image:title>SA1 The Sakura năm 2025</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-sa5-tien-do-2023.webp</image:loc>
+      <image:title>Lịch sử thi công SA5 The Sakura</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa1.webp</image:loc>
+      <image:title>Mặt bằng SA1 The Sakura</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa2.webp</image:loc>
+      <image:title>Mặt bằng SA2 The Sakura</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa3.webp</image:loc>
+      <image:title>Mặt bằng SA3 The Sakura</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa5.webp</image:loc>
+      <image:title>Mặt bằng SA5 The Sakura</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/sakura/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa1.webp</image:loc>
+      <image:title>Mặt bằng SA1 The Sakura</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa2.webp</image:loc>
+      <image:title>Mặt bằng SA2 The Sakura</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa3.webp</image:loc>
+      <image:title>Mặt bằng SA3 The Sakura</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa5.webp</image:loc>
+      <image:title>Mặt bằng SA5 The Sakura</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/sakura/sa1/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa1.webp</image:loc>
+      <image:title>Mặt bằng SA1 The Sakura</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/sakura/sa2/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa2.webp</image:loc>
+      <image:title>Mặt bằng SA2 The Sakura</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/sakura/sa3/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa3.webp</image:loc>
+      <image:title>Mặt bằng SA3 The Sakura</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/sakura/sa5/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa5.webp</image:loc>
+      <image:title>Mặt bằng SA5 The Sakura</image:title>
+    </image:image>
+  </url>
 </urlset>
