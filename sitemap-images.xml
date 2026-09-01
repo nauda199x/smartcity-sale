@@ -391,8 +391,8 @@
   <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/imperia/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-mobile.webp</image:loc>
-      <image:title>Imperia Smart City Smart City</image:title>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-toan-canh-thuc-te-ban-ngay.webp</image:loc>
+      <image:title>Toàn cảnh thực tế Imperia Smart City</image:title>
     </image:image>
   </url>
   <url>
@@ -569,6 +569,61 @@
     </image:image>
   </url>
   <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/imperia/i1/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-toan-canh-thuc-te-ban-ngay.webp</image:loc>
+      <image:title>I1 The Lake Premium Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i1.webp</image:loc>
+      <image:title>Mặt bằng I1 Imperia Smart City</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/imperia/i2/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-toan-canh-thuc-te-ban-ngay.webp</image:loc>
+      <image:title>I2 The Park Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i2.webp</image:loc>
+      <image:title>Mặt bằng I2 Imperia Smart City</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/imperia/i3/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-toan-canh-thuc-te-ban-ngay.webp</image:loc>
+      <image:title>I3 The Central Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i3.webp</image:loc>
+      <image:title>Mặt bằng I3 Imperia Smart City</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/imperia/i4/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-toan-canh-thuc-te-ban-ngay.webp</image:loc>
+      <image:title>I4 Nguyệt Quế Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i4.webp</image:loc>
+      <image:title>Mặt bằng I4 Imperia Smart City</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/imperia/i5/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-toan-canh-thuc-te-ban-ngay.webp</image:loc>
+      <image:title>I5 Thảo Mộc Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i5.webp</image:loc>
+      <image:title>Mặt bằng I5 Imperia Smart City</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://timmuasmartcity.com/phan-khu-smart-city/</loc>
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp</image:loc>
@@ -691,6 +746,65 @@
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/projects/lumiere-evergreen/lumiere-evergreen-10-content.webp</image:loc>
       <image:title>Không gian sinh hoạt chung LUMIÈRE Evergreen</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/phan-khu-smart-city/imperia/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-tong-the-thuc-te-chieu-toi.webp</image:loc>
+      <image:title>Toàn cảnh thực tế các tòa Imperia Smart City đã đi vào vận hành</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-toan-canh-thuc-te-ban-ngay.webp</image:loc>
+      <image:title>Toàn cảnh thực tế ban ngày của cụm năm tòa Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-canh-quan-noi-khu-thuc-te.webp</image:loc>
+      <image:title>Đường dạo, cây xanh và mặt ngoài tầng đế Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-sanh-chinh-thuc-te.webp</image:loc>
+      <image:title>Sảnh chính thực tế của một tòa Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-be-boi-tren-cao-thuc-te.webp</image:loc>
+      <image:title>Góc nhìn trên cao xuống bể bơi và sân thể thao Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-be-boi-san-vuon-thuc-te.webp</image:loc>
+      <image:title>Bể bơi, sân vườn và các tòa Imperia Smart City vào chiều tối</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-noi-khu-ban-dem-thuc-te.webp</image:loc>
+      <image:title>Cụm tòa và cảnh quan Imperia Smart City vào ban đêm</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i1.webp</image:loc>
+      <image:title>Mặt bằng tầng điển hình I1 The Lake Premium Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i2.webp</image:loc>
+      <image:title>Mặt bằng tầng điển hình I2 The Park Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i3.webp</image:loc>
+      <image:title>Mặt bằng tầng điển hình I3 The Central Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i4.webp</image:loc>
+      <image:title>Mặt bằng tầng điển hình I4 Nguyệt Quế Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i5.webp</image:loc>
+      <image:title>Mặt bằng tầng điển hình I5 Thảo Mộc Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-thu-vien-cong-dong-thuc-te.webp</image:loc>
+      <image:title>Không gian thư viện cộng đồng thực tế tại Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-phong-gym-thuc-te.webp</image:loc>
+      <image:title>Phòng gym thực tế dành cho cư dân Imperia Smart City</image:title>
     </image:image>
   </url>
   <url>
