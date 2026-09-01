@@ -4,6 +4,9 @@ on:
   pull_request:
   push:
     branches: [main]
+  schedule:
+    # Refresh approved listing pages + listing sitemap every morning (07:20 Vietnam).
+    - cron: '20 0 * * *'
   workflow_dispatch:
 
 permissions:
