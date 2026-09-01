@@ -13,9 +13,9 @@ from datetime import date
 from html import escape
 from pathlib import Path
 from urllib.parse import urlencode, urlsplit
-from urllib.request import Request, urlopen
 import json
 import re
+import subprocess
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
