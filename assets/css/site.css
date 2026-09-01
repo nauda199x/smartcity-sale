@@ -1668,3 +1668,51 @@ h3{font-weight:600;line-height:1.2;letter-spacing:-.02em}
   .vic-dl dd{text-align:left}
   .victoria-tower-stack .tower-plan{grid-template-columns:1fr}
 }
+
+
+/* The Sakura depth page */
+.sakura-grid{display:grid;gap:22px}
+.sakura-grid--2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.sakura-grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.sakura-card{padding:24px;border:1px solid var(--line,#e5e7eb);border-radius:20px;background:var(--surface,#fff);box-shadow:0 12px 32px rgba(15,23,42,.06)}
+.sakura-card h3{margin-top:0}
+.sakura-number{display:inline-grid;place-items:center;min-width:36px;height:36px;padding:0 10px;border-radius:999px;background:#111827;color:#fff;font-weight:800;margin-bottom:12px}
+.sakura-dl{margin:0}
+.sakura-dl>div{display:grid;grid-template-columns:minmax(120px,.8fr) minmax(0,1.2fr);gap:16px;padding:13px 0;border-bottom:1px solid var(--line,#e5e7eb)}
+.sakura-dl>div:last-child{border-bottom:0}
+.sakura-dl dt{color:var(--muted,#64748b)}
+.sakura-dl dd{margin:0;font-weight:700;text-align:right}
+.sakura-gallery figure img{aspect-ratio:4/3;object-fit:cover}
+.sakura-gallery figure:nth-child(2) img{object-position:center 35%}
+.sakura-tower-stack{display:grid;gap:28px}
+.sakura-tower-stack .tower-plan{align-items:center}
+.sakura-tower-stack .tower-plan__media img{width:100%;height:auto;max-height:620px;object-fit:contain;background:#fff;border-radius:18px}
+.sakura-area-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:0 0 28px}
+.sakura-area-grid article{padding:22px;border:1px solid var(--line,#e5e7eb);border-radius:18px;background:#fff}
+.sakura-area-grid strong,.sakura-area-grid span{display:block}
+.sakura-area-grid strong{font-size:1.1rem;margin-bottom:7px}
+.sakura-area-grid span{color:var(--muted,#64748b)}
+.sakura-amenity-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:28px}
+.sakura-amenity-grid article{padding:20px;border-radius:18px;background:#111827;color:#fff}
+.sakura-amenity-grid strong{display:block;font-size:1.15rem;margin-bottom:7px}
+.sakura-amenity-grid p{margin:0;color:#e5e7eb}
+.sakura-check-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;counter-reset:sakurastep;list-style:none;padding:0;margin:0}
+.sakura-check-steps li{position:relative;padding:20px 20px 20px 62px;border:1px solid var(--line,#e5e7eb);border-radius:18px;background:#fff;counter-increment:sakurastep}
+.sakura-check-steps li:before{content:counter(sakurastep);position:absolute;left:18px;top:18px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#111827;color:#fff;font-weight:800}
+.sakura-check-steps strong,.sakura-check-steps span{display:block}
+.sakura-check-steps span{margin-top:5px;color:var(--muted,#64748b)}
+.sakura-faq{display:grid;gap:10px}
+.sakura-faq details{border:1px solid var(--line,#e5e7eb);border-radius:16px;background:#fff;padding:0 18px}
+.sakura-faq summary{cursor:pointer;font-weight:800;padding:17px 0}
+.sakura-faq p{margin:0;padding:0 0 17px;color:var(--muted,#475569)}
+.sakura-hero .article-hero-media{object-position:center 38%}
+
+@media (max-width:900px){
+  .sakura-area-grid,.sakura-amenity-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:800px){
+  .sakura-grid--2,.sakura-grid--3,.sakura-check-steps,.sakura-area-grid,.sakura-amenity-grid{grid-template-columns:1fr}
+  .sakura-dl>div{grid-template-columns:1fr;gap:4px}
+  .sakura-dl dd{text-align:left}
+  .sakura-tower-stack .tower-plan{grid-template-columns:1fr}
+}
