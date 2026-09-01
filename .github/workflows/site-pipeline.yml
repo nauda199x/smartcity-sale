@@ -4,6 +4,9 @@ on:
   pull_request:
   push:
     branches: [main]
+  schedule:
+    # Refresh approved listing pages + listing sitemap every morning (07:20 Vietnam).
+    - cron: '20 0 * * *'
   workflow_dispatch:
 
 permissions:
@@ -45,6 +48,10 @@ jobs:
         run: python3 tools/validate_portal_v2.py
       - name: Stage clean public site
         run: python3 tools/prepare_portal_v2.py
+      - name: Build production SEO surfaces
+        run: python3 tools/build_seo_portal.py
+      - name: Validate SEO canonicals and sitemaps
+        run: python3 tools/validate_seo_portal.py
       - name: Validate staged portal
         run: python3 tools/validate_portal_v2.py --root _site
       - name: Upload preview artifact
