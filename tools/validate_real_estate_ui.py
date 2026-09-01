@@ -42,6 +42,12 @@ if re.search(r'<img[^>]+src="https?://',home):
     errors.append("homepage still contains image hotlinks")
 if re.search(r'<img[^>]+src="https?://',hub):
     errors.append("project hub still contains image hotlinks")
+if "/images/official/sapphire/sapphire-tong-the-thuc-te.webp" not in home:
+    errors.append("homepage Sapphire card is not using real local Sapphire imagery")
+if "/images/official/sapphire/sapphire-tong-the-thuc-te.webp" not in hub:
+    errors.append("project hub Sapphire card is not using real local Sapphire imagery")
+if "/images/projects/sapphire/archive/s4-03.jpg" in hub:
+    errors.append("project hub regressed to Sapphire floor-plan image")
 
 if "marketplace-sort" not in market or "price-asc" not in market or "area-desc" not in market:
     errors.append("marketplace sort control missing")
