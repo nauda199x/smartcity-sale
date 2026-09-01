@@ -1,0 +1,157 @@
+name: Bootstrap Victoria internal assets
+
+on:
+  push:
+    branches:
+      - content/victoria-depth-20260901
+
+permissions:
+  contents: write
+
+jobs:
+  victoria-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build local WebP asset pack
+        run: |
+          python -m pip install --quiet pillow requests
+          python - <<'PY'
+          from __future__ import annotations
+          import hashlib, io, json
+          from pathlib import Path
+          import requests
+          from PIL import Image
+
+          ROOT = Path(".")
+          OUT = ROOT / "images" / "official" / "victoria"
+          OUT.mkdir(parents=True, exist_ok=True)
+          DATA = ROOT / "data" / "official"
+          DATA.mkdir(parents=True, exist_ok=True)
+
+          assets = [
+              {
+                  "filename": "victoria-cat-noc-toan-canh-2026.webp",
+                  "source_url": "https://i.ex-cdn.com/nongnghiepmoitruong.vn/files/content/2026/02/10/dji_0652-211219_579-025519.jpg",
+                  "source_page": "https://nongnghiepmoitruong.vn/mik-group-cat-noc-phan-khu-imperia-smart-city--the-victoria-vuot-tien-do-d797054.html",
+                  "media_type": "actual",
+                  "published_context": "actual construction aerial published February 2026"
+              },
+              {
+                  "filename": "victoria-le-cat-noc-06022026.webp",
+                  "source_url": "https://i.ex-cdn.com/nongnghiepmoitruong.vn/files/content/2026/02/10/tt_01463-211218_692-025519.jpg",
+                  "source_page": "https://nongnghiepmoitruong.vn/mik-group-cat-noc-phan-khu-imperia-smart-city--the-victoria-vuot-tien-do-d797054.html",
+                  "media_type": "actual",
+                  "published_context": "topping-out ceremony on 06 February 2026"
+              },
+              {
+                  "filename": "victoria-cong-truong-thang-6-2025.webp",
+                  "source_url": "https://phuchung.com.vn/upload/174.jpg?v=1.0.1",
+                  "source_page": "https://phuchung.com.vn/vi/cap-nhat-tien-do-du-an-victoria-smart-city.html",
+                  "media_type": "actual",
+                  "published_context": "actual construction overview published June 2025"
+              },
+              {
+                  "filename": "victoria-thi-cong-san-thang-6-2025.webp",
+                  "source_url": "https://phuchung.com.vn/upload/248.jpg?v=1.0.1",
+                  "source_page": "https://phuchung.com.vn/vi/cap-nhat-tien-do-du-an-victoria-smart-city.html",
+                  "media_type": "actual",
+                  "published_context": "actual slab construction published June 2025"
+              },
+              {
+                  "filename": "victoria-thi-cong-ket-cau-thang-6-2025.webp",
+                  "source_url": "https://phuchung.com.vn/upload/343.jpg?v=1.0.1",
+                  "source_page": "https://phuchung.com.vn/vi/cap-nhat-tien-do-du-an-victoria-smart-city.html",
+                  "media_type": "actual",
+                  "published_context": "actual structural work published June 2025"
+              },
+              {
+                  "filename": "victoria-cong-nhan-thang-6-2025.webp",
+                  "source_url": "https://phuchung.com.vn/upload/45-edit3.png?v=1.0.1",
+                  "source_page": "https://phuchung.com.vn/vi/cap-nhat-tien-do-du-an-victoria-smart-city.html",
+                  "media_type": "actual",
+                  "published_context": "actual site work collage published June 2025"
+              },
+              {
+                  "filename": "victoria-tien-do-thang-9-2025.webp",
+                  "source_url": "https://static1.cafeland.vn/cafelandnew/hinh-anh/2025/10/08/215/image-20251008134327-14.png?t=1",
+                  "source_page": "https://cafeland.vn/du-an/the-victoria-phan-thu-thuoc-imperia-smart-city-ha-noi-4695.html",
+                  "media_type": "actual",
+                  "published_context": "actual three-tower construction image reported as September 2025 progress"
+              },
+              {
+                  "filename": "victoria-mat-bang-v1.webp",
+                  "source_url": "https://thevictoriasmartcity.vn/wp-content/uploads/2024/09/z5849718706270_85fc4201ebb5ef33601d10805f4c5149.jpg",
+                  "source_page": "https://thevictoriasmartcity.vn/mat-bang-the-victoria-smart-city/",
+                  "media_type": "diagram",
+                  "published_context": "Spring V1 typical-floor plan catalogue"
+              },
+              {
+                  "filename": "victoria-mat-bang-v2.webp",
+                  "source_url": "https://vinhomesland.vn/wp-content/uploads/2024/09/mat-bang-tang-2-10-toa-v2-imperia-smart-city-the-victoria.jpg",
+                  "source_page": "https://vinhomesland.vn/toa-v2-imperia-smart-city-the-victoria/",
+                  "media_type": "diagram",
+                  "published_context": "Sky V2 typical-floor plan catalogue"
+              },
+              {
+                  "filename": "victoria-mat-bang-v3.webp",
+                  "source_url": "https://vinhomesland.vn/wp-content/uploads/2024/09/mat-bang-tang-2-10-toa-v3-imperia-smart-city-the-victoria.jpg",
+                  "source_page": "https://vinhomesland.vn/toa-v3-imperia-smart-city-the-victoria/",
+                  "media_type": "diagram",
+                  "published_context": "Shine V3 typical-floor plan catalogue"
+              },
+          ]
+
+          session = requests.Session()
+          session.headers.update({
+              "User-Agent": "Mozilla/5.0 (compatible; TimmuaSmartCityAssetBot/1.0)",
+              "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+          })
+          manifest = []
+          for item in assets:
+              response = session.get(item["source_url"], timeout=35)
+              response.raise_for_status()
+              source = Image.open(io.BytesIO(response.content))
+              source.load()
+              if source.mode not in ("RGB", "RGBA"):
+                  source = source.convert("RGB")
+              elif source.mode == "RGBA":
+                  background = Image.new("RGB", source.size, "white")
+                  background.paste(source, mask=source.getchannel("A"))
+                  source = background
+              dest = OUT / item["filename"]
+              source.save(dest, "WEBP", quality=86, method=6)
+              payload = dest.read_bytes()
+              manifest.append({
+                  "source_url": item["source_url"],
+                  "source_page": item["source_page"],
+                  "local_path": "/" + dest.as_posix(),
+                  "width": source.width,
+                  "height": source.height,
+                  "sha1": hashlib.sha1(payload).hexdigest(),
+                  "bytes": len(payload),
+                  "media_type": item["media_type"],
+                  "published_context": item["published_context"],
+              })
+              print(item["filename"], source.size, len(payload))
+
+          (DATA / "victoria-assets.json").write_text(
+              json.dumps({"count": len(manifest), "assets": manifest}, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          if len(manifest) != 10:
+              raise SystemExit(f"expected 10 assets, got {len(manifest)}")
+          PY
+      - name: Commit generated assets
+        run: |
+          rm -f .github/workflows/victoria-assets-bootstrap.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images/official/victoria data/official/victoria-assets.json .github/workflows/victoria-assets-bootstrap.yml
+          git commit -m "Bootstrap internal Victoria image pack [skip ci]"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
