@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">Tìm Mua Smart City</title>
+<desc id="desc">Biểu tượng chữ A cách điệu thành mái nhà, chuyển sắc xanh lá sang xanh dương.</desc>
+<defs>
+  <linearGradient id="roof" x1="88" y1="400" x2="422" y2="132" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#B7E600"/><stop offset=".23" stop-color="#4AD342"/><stop offset=".5" stop-color="#00B77A"/><stop offset=".76" stop-color="#14B7D7"/><stop offset="1" stop-color="#1787E8"/>
+  </linearGradient>
+  <linearGradient id="bar" x1="122" y1="354" x2="392" y2="286" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#61D42F"/><stop offset=".48" stop-color="#08B878"/><stop offset="1" stop-color="#169EE6"/>
+  </linearGradient>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+    <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0A3550" flood-opacity=".12"/>
+  </filter>
+</defs>
+<rect x="26" y="26" width="460" height="460" rx="112" fill="#FCFDFC"/>
+<g filter="url(#shadow)">
+  <path d="M112 365 L239 125 C247 110 266 101 282 108 C291 112 298 120 303 129 L410 365" fill="none" stroke="url(#roof)" stroke-width="66" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M125 366 L187 272 C197 256 217 249 235 256 L372 319" fill="none" stroke="url(#bar)" stroke-width="58" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g fill="#40505A">
+  <rect x="226" y="360" width="24" height="24" rx="4"/><rect x="262" y="360" width="24" height="24" rx="4"/>
+  <rect x="226" y="396" width="24" height="24" rx="4"/><rect x="262" y="396" width="24" height="24" rx="4"/>
+</g>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="360" viewBox="0 0 1360 360" role="img" aria-labelledby="title desc">
+<title id="title">Tìm Mua Smart City</title>
+<desc id="desc">Logo Tìm Mua Smart City với biểu tượng chữ A mái nhà xanh.</desc>
+<defs>
+  <linearGradient id="roof" x1="38" y1="292" x2="304" y2="65" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#B7E600"/><stop offset=".23" stop-color="#4AD342"/><stop offset=".5" stop-color="#00B77A"/><stop offset=".76" stop-color="#14B7D7"/><stop offset="1" stop-color="#1787E8"/>
+  </linearGradient>
+  <linearGradient id="bar" x1="52" y1="275" x2="287" y2="224" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#61D42F"/><stop offset=".48" stop-color="#08B878"/><stop offset="1" stop-color="#169EE6"/>
+  </linearGradient>
+  <linearGradient id="word" x1="372" y1="0" x2="1280" y2="0" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#163248"/><stop offset=".31" stop-color="#163248"/><stop offset=".315" stop-color="#06B77A"/><stop offset=".53" stop-color="#04B88A"/><stop offset=".535" stop-color="#159DDC"/><stop offset="1" stop-color="#1567D9"/>
+  </linearGradient>
+</defs>
+<g transform="translate(8,5)">
+  <path d="M63 274 L165 82 C172 69 186 62 200 68 C207 71 213 77 217 84 L303 274" fill="none" stroke="url(#roof)" stroke-width="52" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M73 275 L123 201 C131 188 147 182 161 188 L270 238" fill="none" stroke="url(#bar)" stroke-width="46" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#40505A"><rect x="154" y="271" width="18" height="18" rx="3"/><rect x="181" y="271" width="18" height="18" rx="3"/><rect x="154" y="298" width="18" height="18" rx="3"/><rect x="181" y="298" width="18" height="18" rx="3"/></g>
+</g>
+<text x="380" y="215" fill="url(#word)" font-family="Inter, Arial, Helvetica, sans-serif" font-size="112" font-weight="760" letter-spacing="-4">TimMuaSmartCity</text>
+<text x="386" y="270" fill="#60707A" font-family="Inter, Arial, Helvetica, sans-serif" font-size="28" font-weight="650" letter-spacing="5">CỔNG GIAO DỊCH VINHOMES SMART CITY</text>
+</svg>

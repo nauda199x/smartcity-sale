@@ -2005,3 +2005,44 @@ h3{font-weight:600;line-height:1.2;letter-spacing:-.02em}
  .seo-aside,.seo-links{grid-template-columns:1fr}
  .seo-copy h2{max-width:none}
 }
+
+
+/* Brand refresh 2026-09-01: TimMuaSmartCity */
+.brand{
+  gap:10px;
+  letter-spacing:.075em;
+}
+.brand-mark{
+  width:44px!important;
+  height:44px!important;
+  flex:0 0 44px;
+  border:0!important;
+  border-radius:12px!important;
+  background:url('/assets/brand/timmua-smartcity-mark.svg') center/contain no-repeat!important;
+  color:transparent!important;
+  font-size:0!important;
+  line-height:0!important;
+  box-shadow:0 7px 20px rgba(13,88,112,.12);
+}
+.site-header .brand>span:last-child{
+  background:linear-gradient(90deg,#163248 0%,#163248 30%,#06ad79 52%,#1588df 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+  font-weight:850;
+  letter-spacing:.07em;
+}
+.site-footer .brand>span:last-child{
+  background:none;
+  color:#f6f1e8;
+  -webkit-text-fill-color:#f6f1e8;
+}
+@media(max-width:700px){
+  .brand{gap:8px;font-size:.75rem;letter-spacing:.045em}
+  .brand-mark{width:38px!important;height:38px!important;flex-basis:38px;border-radius:10px!important}
+  .site-header .brand>span:last-child{letter-spacing:.045em}
+}
+@media(max-width:390px){
+  .site-header .brand>span:last-child{font-size:.69rem}
+}
