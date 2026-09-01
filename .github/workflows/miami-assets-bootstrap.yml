@@ -1,0 +1,143 @@
+name: Bootstrap Miami internal assets
+
+on:
+  push:
+    branches:
+      - content/miami-depth-20260901
+
+permissions:
+  contents: write
+
+jobs:
+  miami-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build local WebP asset pack
+        run: |
+          python -m pip install --quiet pillow requests
+          python - <<'PY'
+          import hashlib, io, json
+          from pathlib import Path
+          import requests
+          from PIL import Image
+
+          OUT = Path("images/official/miami")
+          OUT.mkdir(parents=True, exist_ok=True)
+          DATA = Path("data/official")
+          DATA.mkdir(parents=True, exist_ok=True)
+
+          assets = [
+            {
+              "filename":"miami-ho-boi-san-the-thao-thuc-te.webp",
+              "source_url":"https://cdn-merchant.vinid.net/images/gallery/omre_trang_tin_tuc/1734421144_unnamed%20%2892%29.jpg",
+              "source_page":"https://vinhomes.vn/vi/the-miami-vinhomes-smart-city",
+              "media_type":"actual",
+              "published_context":"operational Miami pool and sports courtyard image used in current market editorial, retrieved 2026-09-01"
+            },
+            {
+              "filename":"miami-gs1-thuc-te.webp",
+              "source_url":"https://cdn.onehousing.vn/transaction-media/MEGQwQJSIJbZzfnjbZgWoqAhxpgiFx.jpg",
+              "source_page":"https://onehousing.vn/",
+              "media_type":"actual",
+              "published_context":"GS1 completed exterior image, retrieved 2026-09-01"
+            },
+            {
+              "filename":"miami-ho-boi-hang-co-thuc-te.webp",
+              "source_url":"https://admin.vov.gov.vn/UploadFolder/KhoTin/Images/UploadFolder/VOVVN/Images/sites/default/files/styles/large/public/2024-03/2_2.jpeg.jpg",
+              "source_page":"https://vov.gov.vn/tan-huong-chat-song-miami-ngay-tai-phia-tay-thu-do-dtnew-718196",
+              "media_type":"actual",
+              "published_context":"Miami tropical pool image published 2024"
+            },
+            {
+              "filename":"miami-gs6-thuc-te-2024.webp",
+              "source_url":"https://media.vov.vn/sites/default/files/styles/large/public/2024-02/a2_6.jpeg.jpg",
+              "source_page":"https://vov.vn/kinh-te/bat-dong-san/bat-dong-san-phia-tay-ha-noi-tang-toc-lien-tuc-thiet-lap-mat-bang-gia-moi-post1075298.vov",
+              "media_type":"actual",
+              "published_context":"GS6 completed exterior with Miami landscape published February 2024"
+            },
+            {
+              "filename":"miami-flycam-gs3.webp",
+              "source_url":"https://chungcudep.net/wp-content/uploads/2023/12/flycam-toa-gs3-the-miami-vinhomes-smart-city.jpg",
+              "source_page":"https://chungcudep.net/toa-gs3-the-miami-vinhomes-smart-city.html",
+              "media_type":"actual",
+              "published_context":"GS3 flycam image published in 2023 editorial"
+            },
+            {
+              "filename":"miami-mat-bang-gs1.webp",
+              "source_url":"https://storage.googleapis.com/vinhomes-data-02/mat-bang-dien-hinh-toa-gs1-tai-mat-bang-the-miami.jpg",
+              "source_page":"https://vinhomes.vn/vi/chi-tiet-mat-bang-the-miami-vinhomes-smart-city-moi-nhat",
+              "media_type":"diagram",
+              "published_context":"GS1 typical-floor plan"
+            },
+            {
+              "filename":"miami-mat-bang-gs2.webp",
+              "source_url":"https://storage.googleapis.com/vinhomes-data-02/mat-bang-dien-hinh-toa-gs2-tai-mat-bang-the-miami.jpg",
+              "source_page":"https://vinhomes.vn/vi/chi-tiet-mat-bang-the-miami-vinhomes-smart-city-moi-nhat",
+              "media_type":"diagram",
+              "published_context":"GS2 typical-floor plan"
+            },
+            {
+              "filename":"miami-mat-bang-gs3.webp",
+              "source_url":"https://storage.googleapis.com/vinhomes-data-02/mat-bang-dien-hinh-toa-gs3-tai-mat-bang-the-miami.jpg",
+              "source_page":"https://vinhomes.vn/vi/chi-tiet-mat-bang-the-miami-vinhomes-smart-city-moi-nhat",
+              "media_type":"diagram",
+              "published_context":"GS3 typical-floor plan"
+            },
+            {
+              "filename":"miami-mat-bang-gs5.webp",
+              "source_url":"https://nhatot.tv/wp-content/uploads/2024/07/mat-bang-gs5-the-miami.png",
+              "source_page":"https://nhatot.tv/the-miami-vinhomes-smart-city/",
+              "media_type":"diagram",
+              "published_context":"GS5 typical-floor plan with CH01-CH16"
+            },
+            {
+              "filename":"miami-mat-bang-gs6.webp",
+              "source_url":"https://nhatot.tv/wp-content/uploads/2024/07/mat-bang-gs6-the-miami-vinhomes-smart-city-scaled.jpeg",
+              "source_page":"https://nhatot.tv/the-miami-vinhomes-smart-city/",
+              "media_type":"diagram",
+              "published_context":"GS6 typical-floor plan with CH01-CH16"
+            }
+          ]
+
+          s=requests.Session()
+          s.headers.update({"User-Agent":"Mozilla/5.0","Accept":"image/avif,image/webp,image/apng,image/*,*/*;q=0.8"})
+          manifest=[]
+          for item in assets:
+            r=s.get(item["source_url"],timeout=45)
+            r.raise_for_status()
+            im=Image.open(io.BytesIO(r.content)); im.load()
+            if im.mode=="RGBA":
+              bg=Image.new("RGB",im.size,"white"); bg.paste(im,mask=im.getchannel("A")); im=bg
+            elif im.mode!="RGB":
+              im=im.convert("RGB")
+            dest=OUT/item["filename"]
+            im.save(dest,"WEBP",quality=86,method=6)
+            b=dest.read_bytes()
+            manifest.append({
+              "source_url":item["source_url"],
+              "source_page":item["source_page"],
+              "local_path":"/"+dest.as_posix(),
+              "width":im.width,"height":im.height,
+              "sha1":hashlib.sha1(b).hexdigest(),
+              "bytes":len(b),
+              "media_type":item["media_type"],
+              "published_context":item["published_context"]
+            })
+            print(item["filename"],im.size,len(b))
+          (DATA/"miami-assets.json").write_text(json.dumps({"count":len(manifest),"assets":manifest},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          if len(manifest)!=10: raise SystemExit("expected 10 assets")
+          PY
+      - name: Commit generated assets
+        run: |
+          rm -f .github/workflows/miami-assets-bootstrap.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images/official/miami data/official/miami-assets.json .github/workflows/miami-assets-bootstrap.yml
+          git commit -m "Bootstrap internal Miami image pack [skip ci]"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
