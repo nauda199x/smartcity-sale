@@ -60,11 +60,131 @@
   <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/projects/lumiere-evergreen/lumiere-evergreen-07-hero.webp</image:loc>
-      <image:title>Mặt đứng và không gian căn hộ tại Smart City</image:title>
+      <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s1-02.jpg</image:loc>
+      <image:title>Mặt bằng S1.02 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s1-06.jpg</image:loc>
+      <image:title>Mặt bằng S1.06 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s2-02.jpg</image:loc>
+      <image:title>Mặt bằng S2.02 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s2-03.jpg</image:loc>
+      <image:title>Mặt bằng S2.03 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s3-03.jpg</image:loc>
+      <image:title>Mặt bằng S3.03 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s4-01.jpg</image:loc>
+      <image:title>Mặt bằng S4.01 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/projects/sapphire/archive/s4-03.jpg</image:loc>
+      <image:title>Mặt bằng S4.03 The Sapphire</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa1.webp</image:loc>
+      <image:title>Mặt bằng SA1 The Sakura</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa2.webp</image:loc>
+      <image:title>Mặt bằng SA2 The Sakura</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa3.webp</image:loc>
+      <image:title>Mặt bằng SA3 The Sakura</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sakura/sakura-mat-bang-sa5.webp</image:loc>
+      <image:title>Mặt bằng SA5 The Sakura</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/miami/miami-mat-bang-gs1.webp</image:loc>
+      <image:title>Mặt bằng GS1 The Miami</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/miami/miami-mat-bang-gs2.webp</image:loc>
+      <image:title>Mặt bằng GS2 The Miami</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/miami/miami-mat-bang-gs3.webp</image:loc>
+      <image:title>Mặt bằng GS3 The Miami</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/miami/miami-mat-bang-gs5.webp</image:loc>
+      <image:title>Mặt bằng GS5 The Miami</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/miami/miami-mat-bang-gs6.webp</image:loc>
+      <image:title>Mặt bằng GS6 The Miami</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-mat-bang-tk1.webp</image:loc>
+      <image:title>Mặt bằng TK1 The Tonkin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/tonkin/tonkin-mat-bang-tk2.webp</image:loc>
+      <image:title>Mặt bằng TK2 The Tonkin</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i1.webp</image:loc>
+      <image:title>Mặt bằng I1 Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i2.webp</image:loc>
+      <image:title>Mặt bằng I2 Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i3.webp</image:loc>
+      <image:title>Mặt bằng I3 Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i4.webp</image:loc>
+      <image:title>Mặt bằng I4 Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/imperia/imperia-mat-bang-i5.webp</image:loc>
+      <image:title>Mặt bằng I5 Imperia Smart City</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-mat-bang-tc1.webp</image:loc>
+      <image:title>Mặt bằng TC1 The Canopy Vista</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-mat-bang-tc2.webp</image:loc>
+      <image:title>Mặt bằng TC2 The Canopy Summit</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-mat-bang-tc3.webp</image:loc>
+      <image:title>Mặt bằng TC3 The Canopy Harmony</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sola-park/sola-park-mat-bang-g1-g2.webp</image:loc>
+      <image:title>Mặt bằng G1 G2 The Sola Park</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sola-park/sola-park-mat-bang-g3.webp</image:loc>
+      <image:title>Mặt bằng G3 The Sola Park</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-mat-bang-v1.webp</image:loc>
+      <image:title>Mặt bằng V1 The Victoria</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-mat-bang-v2.webp</image:loc>
+      <image:title>Mặt bằng V2 The Victoria</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/victoria/victoria-mat-bang-v3.webp</image:loc>
+      <image:title>Mặt bằng V3 The Victoria</image:title>
     </image:image>
   </url>
-  <url>
+<url>
     <loc>https://timmuasmartcity.com/tien-ich-smart-city/</loc>
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/official/overview/pc5-255d9667.webp</image:loc>
