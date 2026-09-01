@@ -47,7 +47,7 @@ def fetch_approved_listings() -> list[dict]:
     }
     req = Request(
         f"{base}/rest/v1/listings?{urlencode(params)}",
-        headers={"apikey": key, "Accept": "application/json"},
+        headers={"apikey": key, "Accept": "application/json", "Origin": SITE, "Referer": SITE + "/", "User-Agent": "Mozilla/5.0 SEO-Sitemap-Builder/1.0"},
     )
     try:
         with urlopen(req, timeout=20) as response:
