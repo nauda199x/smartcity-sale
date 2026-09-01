@@ -665,11 +665,11 @@
   <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/sola-park/g1/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp</image:loc>
-      <image:title>G1 – The Garden The Sola Park</image:title>
+      <image:loc>https://timmuasmartcity.com/images/official/sola-park/sola-park-cat-noc-cum-ba-thap-2025-tap-the.webp</image:loc>
+      <image:title>Cụm G1 G2 G3 The Sola Park sau khi hoàn tất phần thô</image:title>
     </image:image>
   </url>
-  <url>
+<url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/sola-park/g2/</loc>
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp</image:loc>
@@ -679,11 +679,11 @@
   <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/sola-park/g3/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp</image:loc>
-      <image:title>G3 – The Metro The Sola Park</image:title>
+      <image:loc>https://timmuasmartcity.com/images/official/sola-park/sola-park-cat-noc-cum-ba-thap-2025-nghi-thuc.webp</image:loc>
+      <image:title>Mốc cất nóc cụm G1 G2 G3 The Sola Park</image:title>
     </image:image>
   </url>
-  <url>
+<url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/sola-park/g5/</loc>
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp</image:loc>
@@ -693,11 +693,11 @@
   <url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/sola-park/g6/</loc>
     <image:image>
-      <image:loc>https://timmuasmartcity.com/images/hero/hero-smart-city-desktop.webp</image:loc>
-      <image:title>G6 – The Sky The Sola Park</image:title>
+      <image:loc>https://timmuasmartcity.com/images/official/sola-park/sola-park-cat-noc-g5-g6-tap-the.webp</image:loc>
+      <image:title>G5 G6 The Sola Park tại mốc cất nóc tháng 7 năm 2026</image:title>
     </image:image>
   </url>
-  <url>
+<url>
     <loc>https://timmuasmartcity.com/mat-bang-smart-city/canopy/tc1/</loc>
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/official/canopy/canopy-mat-bang-tc1.webp</image:loc>
@@ -1411,6 +1411,27 @@
     <image:image>
       <image:loc>https://timmuasmartcity.com/images/official/sapphire/sapphire-4-sanh-shophouse-thuc-te.webp</image:loc>
       <image:title>Sapphire 4 sảnh và shophouse thực tế</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/sola-park/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sola-park/sola-park-cat-noc-g5-g6-moc-tien-do.webp</image:loc>
+      <image:title>Tiến độ The Sola Park khi G5 G6 cất nóc tháng 7 năm 2026</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/sola-park/g2/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sola-park/sola-park-cat-noc-cum-ba-thap-2025-tap-the.webp</image:loc>
+      <image:title>Cụm G1 G2 G3 The Sola Park đang hoàn thiện</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://timmuasmartcity.com/mat-bang-smart-city/sola-park/g5/</loc>
+    <image:image>
+      <image:loc>https://timmuasmartcity.com/images/official/sola-park/sola-park-cat-noc-g5-g6-nghi-thuc.webp</image:loc>
+      <image:title>Lễ cất nóc G5 G6 The Sola Park ngày 30 tháng 7 năm 2026</image:title>
     </image:image>
   </url>
 </urlset>
