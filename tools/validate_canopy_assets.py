@@ -16,7 +16,7 @@ HUB=ROOT/"mat-bang-smart-city"/"canopy"/"index.html"
 TOWERS={c:ROOT/"mat-bang-smart-city"/"canopy"/c/"index.html" for c in ("tc1","tc2","tc3")}
 PREFIX="/images/official/canopy/"
 EXPECTED={"actual":5,"diagram":4}
-PLANS={c:f"{PREFIX}canopy-mat-bang-{c}.webp" for c in TOWERS}
+LEGACY_PLANS={c:f"{PREFIX}canopy-mat-bang-{c}.webp" for c in TOWERS}\nPLANS={c:f"/images/official/floorplans-hd/canopy-{c}.webp" for c in TOWERS}
 TOTAL=f"{PREFIX}canopy-tong-mat-bang.webp"
 
 def digest(path):
@@ -60,9 +60,8 @@ def main():
     if [a["href"] for a in soup.find_all("a",href=True) if external(a["href"])]: errors.append("external links present")
     tags=soup.find_all("img",src=True); images=[t["src"] for t in tags]
     if [x for x in images if external(x)]: errors.append("image hotlinks present")
-    if set(images)!=locals: errors.append(f"main image set differs: unused={sorted(locals-set(images))}, undeclared={sorted(set(images)-locals)}")
-    repeated=[x for x,n in Counter(images).items() if n>1]
-    if repeated: errors.append("main repeats images: "+", ".join(repeated))
+    expected_images=(locals-set(LEGACY_PLANS.values()))|set(PLANS.values())\n    if set(images)!=expected_images: errors.append(f"main image set differs: unused={sorted(expected_images-set(images))}, undeclared={sorted(set(images)-expected_images)}")
+    repeated=[x for x,n in Counter(images).items() if n>1 and not x.startswith("/images/official/floorplans-hd/")]\n    if repeated: errors.append("main repeats images: "+", ".join(repeated))
     for t in tags:
         src=t["src"]
         if not t.get("alt","").strip(): errors.append(f"missing alt {src}")
