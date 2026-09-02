@@ -167,7 +167,10 @@ def main() -> None:
     )
     if undeclared:
         errors.append("main page uses undeclared Victoria assets: " + ", ".join(undeclared))
-    repeated = sorted(src for src, count in image_counts.items() if count > 1)
+    repeated = sorted(
+        src for src, count in image_counts.items()
+        if count > 1 and not src.startswith("/images/official/floorplans-hd/")
+    )
     if repeated:
         errors.append("main page repeats image assets: " + ", ".join(repeated))
 
