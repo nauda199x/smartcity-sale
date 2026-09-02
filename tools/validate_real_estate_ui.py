@@ -4,6 +4,7 @@
 from pathlib import Path
 import json
 import re
+from bs4 import BeautifulSoup
 
 ROOT=Path(__file__).resolve().parents[1]
 errors=[]
@@ -117,17 +118,22 @@ for token in (
     if token not in theme:
         errors.append(f"site-wide posting theme missing {token}")
 
-theme_href="/assets/css/site-theme.css?v=20260902-1"
+theme_prefix="/assets/css/site-theme.css?v=20260902-"
 for page in ROOT.rglob("*.html"):
     relative=page.relative_to(ROOT)
     if any(part in {".git","_site"} for part in relative.parts):
         continue
     text=page.read_text(encoding="utf-8",errors="replace")
-    if theme_href not in text:
+    soup=BeautifulSoup(text,"html.parser")
+    styles=[
+        link.get("href","")
+        for link in soup.find_all("link")
+        if "stylesheet" in (link.get("rel") or [])
+    ]
+    if not any(href.startswith(theme_prefix) for href in styles):
         errors.append(f"site-wide posting theme not linked from {relative}")
         continue
-    styles=re.findall(r'<link[^>]+rel=["\']stylesheet["\'][^>]+href=["\']([^"\']+)',text,re.I)
-    if not styles or styles[-1]!=theme_href:
+    if not styles or not styles[-1].startswith(theme_prefix):
         errors.append(f"site-wide posting theme is not the final stylesheet in {relative}")
 
 if modern.count("@media(max-width:760px)") < 1:
