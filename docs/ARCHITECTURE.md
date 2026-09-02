@@ -1,4 +1,4 @@
-# Kiến trúc kỹ thuật — Tìm Mua Smart City
+# Kiến trúc kỹ thuật — Sàn Smart City
 
 _Cập nhật: 2026-08-12. Phạm vi: refactor build/SEO, không redesign và không thay đổi domain._
 

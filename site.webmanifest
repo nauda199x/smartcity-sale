@@ -1,7 +1,7 @@
 {
-  "name": "Tìm Mua Smart City",
-  "short_name": "Tìm Mua SC",
-  "description": "Cổng thông tin và sàn giao dịch chuyên sâu Vinhomes Smart City.",
+  "name": "Sàn Smart City",
+  "short_name": "Sàn SC",
+  "description": "Mua bán, cho thuê và đăng căn hộ tại Vinhomes Smart City.",
   "icons": [
     {
       "src": "/assets/brand/timmua-smartcity-mark.svg",

@@ -1,4 +1,4 @@
-# Tìm Mua Smart City — Design System V2
+# Sàn Smart City — Design System V2
 
 ## Theme toàn site 2026-09-02
 

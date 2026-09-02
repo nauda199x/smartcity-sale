@@ -1,6 +1,6 @@
 # Official-source media
 
-This directory stores selected first-party project media used by Tìm Mua Smart City.
+This directory stores selected first-party project media used by Sàn Smart City.
 
 Current structure:
 

@@ -2,6 +2,7 @@
 """Validate the unified real-estate design system and critical shell fixes."""
 
 from pathlib import Path
+import json
 import re
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -15,6 +16,27 @@ hub=(ROOT/"phan-khu-smart-city/index.html").read_text(encoding="utf-8")
 market=(ROOT/"assets/js/marketplace-list.js").read_text(encoding="utf-8")
 stage=(ROOT/"tools/prepare_portal_v2.py").read_text(encoding="utf-8")
 theme=(ROOT/"assets/css/site-theme.css").read_text(encoding="utf-8")
+manifest=json.loads((ROOT/"site.webmanifest").read_text(encoding="utf-8"))
+brand_logo=(ROOT/"assets/brand/timmua-smartcity-logo.svg").read_text(encoding="utf-8")
+
+if "<span>SÀN SMART CITY</span>" not in home:
+    errors.append("homepage header is missing the Sàn Smart City identity")
+if "<title>Sàn Smart City – Mua bán & Cho thuê căn hộ</title>" not in home:
+    errors.append("homepage SEO title is not aligned with the new brand")
+if '"name":"Sàn Smart City"' not in home or '"alternateName":"timmuasmartcity.com"' not in home:
+    errors.append("homepage WebSite schema is missing the new name or domain alias")
+if manifest.get("name") != "Sàn Smart City" or manifest.get("short_name") != "Sàn SC":
+    errors.append("web manifest still exposes an outdated site name")
+if "SÀN SMART CITY" not in brand_logo or "MUA BÁN • CHO THUÊ • ĐĂNG CĂN" not in brand_logo:
+    errors.append("full brand logo is missing the new name or transaction line")
+
+legacy_brand = "Tìm" + " Mua Smart City"
+for page in ROOT.rglob("*.html"):
+    relative=page.relative_to(ROOT)
+    if any(part in {".git","_site"} for part in relative.parts):
+        continue
+    if legacy_brand in page.read_text(encoding="utf-8",errors="replace"):
+        errors.append(f"legacy brand name remains in {relative}")
 
 for token in (
     "REAL ESTATE PORTAL UI 2026",
@@ -80,7 +102,7 @@ if "site-theme.css?v=20260902-1" not in stage:
     errors.append("staging does not inject the site-wide posting theme")
 
 for token in (
-    "TÌM MUA SMART CITY — SITE THEME 2026-09-02",
+    "SÀN SMART CITY — SITE THEME 2026-09-02",
     "--sc-green:#0b6b57",
     "--sc-blue:#1588df",
     "--sc-dark:#0e211c",
