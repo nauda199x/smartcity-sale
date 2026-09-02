@@ -266,8 +266,10 @@ def main() -> None:
     ]
     changed_text_files = sum(replace_text_refs(p, canonical_replacements) for p in text_files)
 
-    # Then make the master hub and each tower page point to the tower-specific
-    # filename and keep intrinsic dimensions accurate.
+    # Then make the master hub and every tower page point to the tower-specific
+    # filename. Every tower also gets a dedicated non-hero drawing section so
+    # the shared pinch/zoom viewer works even on pages that previously used a
+    # lifestyle hero or had no floor-plan drawing in the body.
     hub_html = HUB.read_text(encoding="utf-8")
     hub_soup = BeautifulSoup(hub_html, "html.parser")
     hub_by_href: dict[str, Any] = {}
@@ -276,6 +278,7 @@ def main() -> None:
         if link:
             hub_by_href[str(link["href"])] = card
 
+    inserted_sections = 0
     for entry in entries:
         href = entry["href"]
         canonical = canonical_replacements[entry["old_src"]]
@@ -285,6 +288,7 @@ def main() -> None:
         img = card.select_one(".floor-hub-card__media img[src]")
         if img is None:
             raise SystemExit(f"Hub image missing: {href}")
+        plan_alt = str(img.get("alt") or f"Mặt bằng {entry['tower_slug']}")
         img["src"] = entry["hd_src"]
         img["width"] = str(entry["output_width"])
         img["height"] = str(entry["output_height"])
@@ -292,29 +296,65 @@ def main() -> None:
         tower_page = ROOT / href.lstrip("/") / "index.html"
         if not tower_page.is_file():
             raise SystemExit(f"Tower page missing: {href}")
+
         tower_html = tower_page.read_text(encoding="utf-8")
-        tower_html, n = replace_img_src_and_dimensions(
-            tower_html,
-            canonical,
-            entry["hd_src"],
-            int(entry["output_width"]),
-            int(entry["output_height"]),
+        # Promote all tower-specific metadata and any pre-existing image
+        # reference from the generic/shared output to this tower's SEO path.
+        tower_html = tower_html.replace(canonical, entry["hd_src"])
+        tower_html = tower_html.replace(entry["old_src"], entry["hd_src"])
+        tower_soup = BeautifulSoup(tower_html, "html.parser")
+
+        matching_imgs = [
+            node
+            for node in tower_soup.select("main img[src]")
+            if str(node.get("src")) == entry["hd_src"]
+        ]
+        for node in matching_imgs:
+            node["width"] = str(entry["output_width"])
+            node["height"] = str(entry["output_height"])
+
+        zoomable_match = next(
+            (
+                node
+                for node in matching_imgs
+                if "article-hero-media" not in (node.get("class") or [])
+            ),
+            None,
         )
-        # If the generic pass did not touch this tag for any reason, try the
-        # original source as a second deterministic route.
-        if n == 0:
-            tower_html, n = replace_img_src_and_dimensions(
-                tower_html,
-                entry["old_src"],
-                entry["hd_src"],
-                int(entry["output_width"]),
-                int(entry["output_height"]),
-            )
-        if n == 0:
-            raise SystemExit(f"Could not wire HD image into tower page: {href}")
-        tower_page.write_text(tower_html, encoding="utf-8")
+
+        if zoomable_match is None:
+            section_html = f"""
+<section class="section section-alt floorplan-hd-section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow section-kicker">Bản vẽ HD</p>
+        <h2>Mặt bằng tòa · ảnh 4K để phóng to</h2>
+      </div>
+      <p>Bấm vào bản vẽ để mở chế độ xem lớn; trên điện thoại có thể chụm hai ngón để zoom và kéo ảnh.</p>
+    </div>
+    <div class="plan-frame">
+      <img src="{entry['hd_src']}" width="{entry['output_width']}" height="{entry['output_height']}" alt="{plan_alt}" loading="lazy" decoding="async">
+    </div>
+  </div>
+</section>
+"""
+            section = BeautifulSoup(section_html, "html.parser").section
+            main = tower_soup.find("main")
+            if main is None or section is None:
+                raise SystemExit(f"Cannot insert HD floor-plan section: {href}")
+            cta = tower_soup.select_one(".smart-owner-cta")
+            cta_section = cta.find_parent("section") if cta else None
+            if cta_section is not None:
+                cta_section.insert_before(section)
+            else:
+                main.append(section)
+            inserted_sections += 1
+
+        tower_page.write_text(str(tower_soup), encoding="utf-8")
 
     HUB.write_text(str(hub_soup), encoding="utf-8")
+    print(f"Tower detail pages refreshed; inserted {inserted_sections} dedicated zoomable plan sections.")
 
     # Update sitemap-image references to HD variants after tower-specific hub
     # wiring. Shared plans use the canonical HD path there.
