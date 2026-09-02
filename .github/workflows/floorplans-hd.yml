@@ -1,0 +1,71 @@
+name: Render 49 floor plans in HD
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/render_floorplans_hd.py'
+      - 'tools/validate_floorplan_hub.py'
+      - '.github/workflows/floorplans-hd.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: floorplans-hd-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  render:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install render dependencies
+        run: python3 -m pip install --quiet pillow beautifulsoup4 requests pymupdf
+
+      - name: Render all tower floor plans
+        run: python3 tools/render_floorplans_hd.py
+
+      - name: Validate floor-plan hub
+        run: python3 tools/validate_floorplan_hub.py
+
+      - name: Validate portal structure
+        run: python3 tools/validate_portal_v2.py
+
+      - name: Validate generated HD set
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path('.')
+          m = json.loads((root/'data/official/floorplans-hd-20260902.json').read_text())
+          assert m['tower_count'] == 49
+          assert len(m['assets']) == 49
+          assert len({x['hd_src'] for x in m['assets']}) == 49
+          assert all(max(x['output_width'], x['output_height']) >= 3840 for x in m['assets'])
+          assert all((root/x['hd_src'].lstrip('/')).is_file() for x in m['assets'])
+          print('HD manifest validation passed: 49/49 tower assets at >=3840px long edge')
+          PY
+
+      - name: Commit generated HD floor plans to PR
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          if git diff --cached --quiet; then
+            echo 'No generated changes'
+            exit 0
+          fi
+          git commit -m "Render 49 floor plans in 4K HD"
+          git push origin HEAD:${{ github.head_ref }}
