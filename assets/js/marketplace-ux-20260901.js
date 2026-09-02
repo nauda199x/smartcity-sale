@@ -30,7 +30,7 @@
     "Sakura":["Studio","1PN","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
     "Miami":["Studio","1PN","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
     "Tonkin":["Studio","1PN","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
-    "Masteri":["Studio","1PN+1","2PN","2PN+1","3PN","Duplex","Shop chân đế"],
+    "Masteri":["Studio","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
     "Lumiere":["Studio","1PN","1PN+","2PN","2PN+","3PN","4PN","Shop chân đế"],
     "Imperia":["Studio","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
     "Canopy":["Studio","1PN","2PN","2PN+1","3PN","3PN+1","Shop chân đế"],
