@@ -41,6 +41,18 @@ def main():
     if errors:
         raise SystemExit("\n".join(errors))
 
+    if not (SITE/"assets/css/site-theme.css").is_file():
+        errors.append("missing staged site-wide theme stylesheet")
+
+    for page in SITE.rglob("*.html"):
+        text=page.read_text(encoding="utf-8",errors="replace")
+        if "/assets/css/site-theme.css?v=20260902-1" not in text:
+            errors.append(f"site-wide theme missing from {page.relative_to(SITE)}")
+            continue
+        styles=re.findall(r'<link[^>]+rel=["\']stylesheet["\'][^>]+href=["\']([^"\']+)',text,re.I)
+        if not styles or styles[-1]!="/assets/css/site-theme.css?v=20260902-1":
+            errors.append(f"site-wide theme is not final in {page.relative_to(SITE)}")
+
     index=ET.parse(SITE/"sitemap.xml").getroot()
     sitemap_locs=[node.text.strip() for node in index.findall("sm:sitemap/sm:loc",NS) if node.text]
     expected={DOMAIN+"/sitemap-pages.xml",DOMAIN+"/sitemap-floorplans.xml",DOMAIN+"/sitemap-listings.xml",DOMAIN+"/sitemap-images.xml"}

@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
+
+/* ================================================================
+   TÌM MUA SMART CITY — SITE THEME 2026-09-02
+   Visual language promoted from /dang-tin-smart-city/ to every route.
+   This file is intentionally loaded last and only changes presentation.
+   ================================================================ */
+
+:root{
+  --sc-green:#0b6b57;
+  --sc-green-dark:#075346;
+  --sc-green-bright:#16a777;
+  --sc-green-soft:#eaf5f0;
+  --sc-blue:#1588df;
+  --sc-ink:#14211d;
+  --sc-muted:#66736e;
+  --sc-line:#dfe7e3;
+  --sc-bg:#f5f8f6;
+  --sc-surface:#fff;
+  --sc-dark:#0e211c;
+  --sc-gradient:linear-gradient(100deg,#16a777 0%,#1588df 100%);
+  --sc-radius-sm:12px;
+  --sc-radius:18px;
+  --sc-radius-lg:24px;
+  --sc-shadow-xs:0 2px 8px rgba(17,46,37,.045);
+  --sc-shadow-sm:0 13px 42px rgba(18,50,40,.07);
+  --sc-shadow:0 24px 70px rgba(17,46,37,.09);
+  --sc-font:"Be Vietnam Pro",Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  /* Current component aliases. */
+  --ivory:var(--sc-bg);
+  --paper:var(--sc-surface);
+  --ink:var(--sc-ink);
+  --muted:var(--sc-muted);
+  --bronze:var(--sc-green);
+  --bronze-dark:var(--sc-green-dark);
+  --line:var(--sc-line);
+  --night:var(--sc-dark);
+  --radius:var(--sc-radius-sm);
+
+  /* Portal UI aliases. */
+  --re-bg:var(--sc-bg);
+  --re-surface:var(--sc-surface);
+  --re-surface-2:var(--sc-green-soft);
+  --re-ink:var(--sc-ink);
+  --re-muted:var(--sc-muted);
+  --re-brand:var(--sc-green);
+  --re-brand-dark:var(--sc-green-dark);
+  --re-brand-soft:var(--sc-green-soft);
+  --re-dark:var(--sc-dark);
+  --re-border:var(--sc-line);
+  --re-radius-xs:8px;
+  --re-radius-sm:var(--sc-radius-sm);
+  --re-radius:var(--sc-radius);
+  --re-radius-lg:var(--sc-radius-lg);
+  --re-shadow-xs:var(--sc-shadow-xs);
+  --re-shadow-sm:var(--sc-shadow-sm);
+  --re-shadow:var(--sc-shadow);
+
+  /* Design System V2 aliases used by legacy editorial pages. */
+  --color-primary:var(--sc-green);
+  --color-primary-dark:var(--sc-green-dark);
+  --color-accent:var(--sc-blue);
+  --color-text:var(--sc-ink);
+  --color-text-muted:var(--sc-muted);
+  --color-bg:var(--sc-bg);
+  --color-surface:var(--sc-surface);
+  --color-border:var(--sc-line);
+  --color-dark:var(--sc-dark);
+  --font-display:var(--sc-font);
+  --font-body:var(--sc-font);
+}
+
+html{background:var(--sc-bg);scroll-padding-top:92px}
+body{
+  background:var(--sc-bg);
+  color:var(--sc-ink);
+  font-family:var(--sc-font);
+  letter-spacing:-.01em;
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,select,textarea{font-family:var(--sc-font)}
+main{font-family:var(--sc-font)}
+h1,h2,h3,h4,h5,h6,
+.article h2,.article h3,.stat strong,.fact-card strong,.phase-index,
+.ppx-fact strong,.lum-fact strong,.vic-card h3,.miami-card h3,
+.canopy-card h3,.tonkin-card h3{
+  font-family:var(--sc-font)!important;
+  font-style:normal!important;
+  letter-spacing:-.045em;
+}
+h1{font-weight:800!important}
+h2{font-weight:750!important}
+h3{font-weight:700!important}
+p{letter-spacing:-.008em}
+::selection{background:#cceae1;color:#0d2a23}
+:focus-visible{outline:3px solid rgba(21,136,223,.34)!important;outline-offset:3px}
+
+/* Header and identity */
+.site-header,header.top,header.topbar{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(255,255,255,.96)!important;
+  border-bottom:1px solid var(--sc-line)!important;
+  box-shadow:none!important;
+  backdrop-filter:blur(18px);
+}
+
+@media print{
+  .site-header,header.top,header.topbar{position:static}
+}
+.site-header.is-scrolled,header.top.is-scrolled,header.topbar.is-scrolled{
+  box-shadow:0 8px 30px rgba(17,46,37,.08)!important;
+}
+.brand,.site-brand{
+  gap:10px!important;
+  color:var(--sc-ink)!important;
+  font-family:var(--sc-font)!important;
+  font-weight:800!important;
+  letter-spacing:.055em!important;
+}
+.brand-mark,.site-brand__mark{
+  width:44px!important;
+  height:44px!important;
+  flex:0 0 44px!important;
+  overflow:hidden!important;
+  border:0!important;
+  border-radius:12px!important;
+  background:url('/assets/brand/timmua-smartcity-mark.svg') center/contain no-repeat #fff!important;
+  color:transparent!important;
+  font-size:0!important;
+  line-height:0!important;
+  box-shadow:0 7px 20px rgba(13,88,112,.12)!important;
+}
+.site-header .brand>span:last-child,
+header.top .brand>span:last-child,
+header.topbar .brand>span:last-child{
+  background:linear-gradient(90deg,#163248 0%,#163248 30%,#06ad79 52%,#1588df 100%);
+  background-clip:text;
+  -webkit-background-clip:text;
+  color:transparent!important;
+  -webkit-text-fill-color:transparent;
+}
+.nav-links>a,.nav-dropdown>summary,.site-nav>a,.navlinks>a{
+  border-radius:9px!important;
+  color:#34423e!important;
+  font-family:var(--sc-font)!important;
+  font-weight:650!important;
+}
+.nav-links>a:hover,.nav-dropdown>summary:hover,.site-nav>a:hover,.navlinks>a:hover,
+.nav-links>a[aria-current="page"],.site-nav>a[aria-current="page"],.navlinks>a[aria-current="page"]{
+  background:var(--sc-green-soft)!important;
+  color:var(--sc-green-dark)!important;
+}
+.nav-dropdown-menu{
+  border-color:var(--sc-line)!important;
+  border-radius:14px!important;
+  background:#fff!important;
+  box-shadow:var(--sc-shadow)!important;
+}
+.nav-toggle,.menu-toggle{
+  min-height:44px;
+  border:1px solid #d8d3c8!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  color:var(--sc-green-dark)!important;
+}
+
+/* Buttons and actions */
+.btn,.button,.button-primary,.listing-card-action,.admin-action{
+  min-height:46px;
+  border-radius:var(--sc-radius-sm)!important;
+  font-family:var(--sc-font)!important;
+  font-weight:750!important;
+}
+.btn-primary,.button-primary,.nav-direct-cta,.listing-card-action--call,
+.home-v2-primary,.overview-v2-hero .btn-primary,.home-v2-final .btn-primary,
+.overview-v2-final .btn-primary,.article-hero .btn-primary,
+.ppx-hero .btn-primary,.lum-hero .btn-primary{
+  border-color:transparent!important;
+  background:var(--sc-gradient)!important;
+  color:#fff!important;
+  box-shadow:0 12px 28px rgba(11,107,87,.18)!important;
+}
+.btn-primary:hover,.button-primary:hover,.nav-direct-cta:hover,
+.listing-card-action--call:hover{
+  filter:saturate(1.08) brightness(.96);
+  color:#fff!important;
+}
+
+/* Surfaces, cards and readable data */
+.section-alt,.section-surface,.market{background:var(--sc-green-soft)!important}
+.card,.property-card,.article-card,.project-card,.card-le,.fact-card,
+.home-intro-card,.ecosystem-card,.park-card,.journey-card,.home-project-card,
+.deep-tower-card,.collection-feature,.vic-card,.miami-card,.canopy-card,.tonkin-card,
+.ppx-tower,.ppx-amenity,.lum-tower,.lum-amenity,.lum-unit,
+.floor-hub-card,.listing-card--marketplace,.detail-copy,.detail-panel,
+.marketplace-state,.form-section--premium,.admin-login,.admin-kpi,.admin-item{
+  border-color:var(--sc-line)!important;
+  border-radius:var(--sc-radius)!important;
+  background:var(--sc-surface)!important;
+  box-shadow:var(--sc-shadow-xs)!important;
+}
+.card:hover,.property-card:hover,.article-card:hover,.project-card:hover,
+.home-intro-card:hover,.journey-card:hover,.home-project-card:hover,
+.collection-feature:hover,.floor-hub-card:hover,.listing-card--marketplace:hover{
+  border-color:#bed9d0!important;
+  box-shadow:var(--sc-shadow-sm)!important;
+}
+.eyebrow,.section-kicker,.badge,.tag,.card-link,
+.listing-card-facts>strong,.detail-price{
+  color:var(--sc-green-dark)!important;
+}
+.notice,.note,.callout{
+  border-color:#cce4dc!important;
+  border-left-color:var(--sc-green)!important;
+  background:#eef8f4!important;
+  color:#29483f!important;
+}
+.field input,.field select,.field textarea,input:not([type="checkbox"]):not([type="radio"]),select,textarea{
+  border-color:#cfded8!important;
+  border-radius:11px!important;
+  background:#fff!important;
+  color:var(--sc-ink)!important;
+  box-shadow:none!important;
+}
+.field input:focus,.field select:focus,.field textarea:focus,
+input:not([type="checkbox"]):not([type="radio"]):focus,select:focus,textarea:focus{
+  border-color:var(--sc-green)!important;
+  outline:3px solid rgba(11,107,87,.09)!important;
+}
+.table-wrapper,.article table,.detail-feature-list,.detail-specs{
+  border-color:var(--sc-line)!important;
+  border-radius:var(--sc-radius-sm)!important;
+}
+.article th,.table-wrapper th{background:var(--sc-dark)!important;color:#fff!important}
+
+/* Dark-green hero family from the posting flow */
+.page-hero,.sub-hero,.listing-hero,.article-hero,.marketplace-hero,
+.floor-hub-hero,.submit-hero-premium,.transaction-hero-premium,
+.home-v2-final,.overview-v2-final{
+  background-color:var(--sc-dark)!important;
+}
+.page-hero h1,.sub-hero h1,.listing-hero h1,.article-hero h1,
+.marketplace-hero h1,.floor-hub-hero h1,.submit-hero-premium h1,
+.transaction-hero-premium h1,.home-v2-final h2,.overview-v2-final h2{
+  color:#fff!important;
+}
+.article-hero:after,.ppx-hero:after,.lum-hero:after,
+.home-v2-hero__overlay,.overview-v2-hero__shade{
+  background:
+    linear-gradient(90deg,rgba(5,26,21,.94) 0%,rgba(5,26,21,.72) 48%,rgba(5,26,21,.18) 82%),
+    linear-gradient(0deg,rgba(5,26,21,.72),transparent 58%)!important;
+}
+.home-v2-finder,.overview-v2-hero__metrics,.tx-post-card,.post-hero__guide{
+  border-color:rgba(255,255,255,.18)!important;
+  background:rgba(10,31,25,.78)!important;
+  box-shadow:0 30px 90px rgba(0,0,0,.22)!important;
+}
+
+/* Marketplace, forms and shell utility surfaces */
+.marketplace-section,.admin-page{background:var(--sc-bg)!important}
+.marketplace-toolbar,.form-progress,.post-progress{
+  border-color:var(--sc-line)!important;
+  border-radius:16px!important;
+  background:rgba(255,255,255,.97)!important;
+  box-shadow:0 12px 32px rgba(20,53,42,.07)!important;
+}
+.form-progress-track span,.post-preview__progress span{background:var(--sc-gradient)!important}
+.form-section-index,.listing-card-avatar,.marketplace-state-mark,
+.home-v2-path__index,.home-v2-checks span,.overview-v2-mini>span,
+.overview-v2-steps li>span{
+  background:var(--sc-green-soft)!important;
+  color:var(--sc-green-dark)!important;
+}
+.choice-card input:checked+label,.post-choice-grid .choice-card input:checked+label{
+  border-color:var(--sc-green)!important;
+  background:linear-gradient(135deg,#eff9f4,#f5fbfe)!important;
+  box-shadow:0 12px 32px rgba(11,107,87,.10)!important;
+}
+.image-drop--premium,.post-image-drop{
+  border-color:#9fc9b9!important;
+  background:linear-gradient(135deg,#f2faf6,#f4f9fc)!important;
+}
+.mobile-property-nav{
+  border-color:var(--sc-line)!important;
+  border-radius:18px!important;
+  background:rgba(255,255,255,.97)!important;
+  box-shadow:0 14px 40px rgba(17,46,37,.20)!important;
+}
+.mobile-property-nav a[aria-current="page"]{
+  background:linear-gradient(180deg,#eaf7f1,#eef7fb)!important;
+  color:var(--sc-green-dark)!important;
+}
+
+/* Footer */
+.site-footer{
+  background:var(--sc-dark)!important;
+  color:#fff!important;
+}
+.site-footer .brand,.site-footer .site-brand{color:#fff!important}
+.site-footer .brand-mark,.site-footer .site-brand__mark{
+  background:url('/assets/brand/timmua-smartcity-mark.svg') center/contain no-repeat #fff!important;
+  filter:none!important;
+}
+.site-footer .brand>span:last-child,.site-footer .site-brand>span:last-child{
+  background:none!important;
+  color:#fff!important;
+  -webkit-text-fill-color:#fff!important;
+}
+.footer-links a{color:#d5e1de!important}
+.disclaimer,.site-footer p{color:#9fb2ad!important}
+
+@media(max-width:760px){
+  :root{--sc-radius:16px;--sc-radius-lg:20px}
+  .brand-mark,.site-brand__mark{
+    width:38px!important;
+    height:38px!important;
+    flex-basis:38px!important;
+    border-radius:10px!important;
+  }
+  .site-header .brand,.site-brand{gap:8px!important;font-size:.75rem!important;letter-spacing:.045em!important}
+  .site-header .brand>span:last-child{letter-spacing:.045em!important}
+  .page-hero h1,.sub-hero h1,.listing-hero h1,.article-hero h1,
+  .marketplace-hero h1,.floor-hub-hero h1{line-height:.98!important}
+  .article-hero:after,.ppx-hero:after,.lum-hero:after,
+  .home-v2-hero__overlay,.overview-v2-hero__shade{
+    background:linear-gradient(0deg,rgba(5,24,20,.95) 0%,rgba(5,24,20,.62) 64%,rgba(5,24,20,.25) 100%)!important;
+  }
+}
+
+@media(max-width:390px){
+  .site-header .brand>span:last-child{font-size:.69rem!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}

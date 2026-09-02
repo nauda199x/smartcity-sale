@@ -188,7 +188,7 @@ def listing_html(row: dict, rel: str) -> str:
 <meta property="og:title" content="{escape(title)}"><meta property="og:description" content="{escape(short_desc)}">
 <meta property="og:url" content="{escape(canonical)}"><meta property="og:image" content="{escape(og_image)}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="/assets/css/site.css?v=20260901-seo2"><link rel="stylesheet" href="/assets/css/marketplace.css?v=20260901-seo2">
+<link rel="stylesheet" href="/assets/css/site.css?v=20260901-seo2"><link rel="stylesheet" href="/assets/css/marketplace.css?v=20260901-seo2"><link rel="stylesheet" href="/assets/css/site-theme.css?v=20260902-1">
 <script type="application/ld+json">{json.dumps(schema, ensure_ascii=False, separators=(",", ":"))}</script>
 </head>
 <body class="listing-detail-page">

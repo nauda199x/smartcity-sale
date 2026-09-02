@@ -14,6 +14,7 @@ overview=(ROOT/"tong-quan-smart-city"/"index.html").read_text(encoding="utf-8")
 hub=(ROOT/"phan-khu-smart-city/index.html").read_text(encoding="utf-8")
 market=(ROOT/"assets/js/marketplace-list.js").read_text(encoding="utf-8")
 stage=(ROOT/"tools/prepare_portal_v2.py").read_text(encoding="utf-8")
+theme=(ROOT/"assets/css/site-theme.css").read_text(encoding="utf-8")
 
 for token in (
     "REAL ESTATE PORTAL UI 2026",
@@ -75,6 +76,37 @@ if "20260901-homeoverview2" not in stage:
     errors.append("staging does not inject latest homepage/overview stylesheet")
 if "app-shell.js" not in stage:
     errors.append("staging does not ensure shell enhancer")
+if "site-theme.css?v=20260902-1" not in stage:
+    errors.append("staging does not inject the site-wide posting theme")
+
+for token in (
+    "TÌM MUA SMART CITY — SITE THEME 2026-09-02",
+    "--sc-green:#0b6b57",
+    "--sc-blue:#1588df",
+    "--sc-dark:#0e211c",
+    "--sc-gradient:linear-gradient(100deg,#16a777 0%,#1588df 100%)",
+    "font-family:var(--sc-font)!important",
+    ".brand-mark,.site-brand__mark",
+    ".listing-card--marketplace",
+    ".form-section--premium",
+    ".site-footer",
+    "@media(max-width:760px)",
+):
+    if token not in theme:
+        errors.append(f"site-wide posting theme missing {token}")
+
+theme_href="/assets/css/site-theme.css?v=20260902-1"
+for page in ROOT.rglob("*.html"):
+    relative=page.relative_to(ROOT)
+    if any(part in {".git","_site"} for part in relative.parts):
+        continue
+    text=page.read_text(encoding="utf-8",errors="replace")
+    if theme_href not in text:
+        errors.append(f"site-wide posting theme not linked from {relative}")
+        continue
+    styles=re.findall(r'<link[^>]+rel=["\']stylesheet["\'][^>]+href=["\']([^"\']+)',text,re.I)
+    if not styles or styles[-1]!=theme_href:
+        errors.append(f"site-wide posting theme is not the final stylesheet in {relative}")
 
 if modern.count("@media(max-width:760px)") < 1:
     errors.append("mobile breakpoint missing")

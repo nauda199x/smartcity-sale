@@ -1,5 +1,17 @@
 # Tìm Mua Smart City — Design System V2
 
+## Theme toàn site 2026-09-02
+
+`assets/css/site-theme.css` là lớp giao diện cuối cùng, phát triển từ ngôn ngữ thiết kế
+của trang `/dang-tin-smart-city/`: font sans đậm, xanh đậm `#0e211c`, xanh thương hiệu
+`#0b6b57`, điểm nhấn xanh dương `#1588df`, nền `#f5f8f6`, card bo tròn và CTA gradient.
+Lớp này tải sau các stylesheet cũ để toàn bộ route dùng chung một diện mạo mà không đổi
+markup, dữ liệu, JavaScript hay SEO.
+
+`tools/apply_site_theme.py` gắn stylesheet vào public HTML và source template một cách
+idempotent. `tools/prepare_portal_v2.py` lặp lại bảo đảm này trên artifact triển khai;
+`tools/build_seo_portal.py` gắn theme cho các trang chi tiết tin được sinh sau staging.
+
 ## 1. Mục tiêu và audit V1
 
 Design System V2 là lớp giao diện chung, tải sau `v3.css` hoặc `portal.css`. Cách này giữ nguyên pipeline, URL, dữ liệu và JavaScript inventory trong khi đưa các route cũ về cùng một ngôn ngữ thiết kế.
