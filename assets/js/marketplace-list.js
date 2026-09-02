@@ -15,6 +15,7 @@
   const form=root.querySelector("[data-listing-filters]");
   const phase=form?.querySelector('[name="phase"]');
   const tower=form?.querySelector('[name="tower"]');
+  const unitType=form?.querySelector('[name="bedroom"]');
   const towerMap={
   "Sapphire":["S101","S102","S103","S105","S106","S201","S202","S203","S205","S301","S302","S303","S401","S402","S403"],
   "Sakura":["SA1","SA2","SA3","SA5"],
@@ -26,6 +27,18 @@
   "Canopy":["TC1","TC2","TC3"],
   "Sola Park":["G1","G2","G3","G5","G6"],
   "Victoria":["V1","V2","V3"]
+};
+  const phaseUnitTypes={
+  "Sapphire":["Studio","1PN","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
+  "Sakura":["Studio","1PN","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
+  "Miami":["Studio","1PN","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
+  "Tonkin":["Studio","1PN","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
+  "Masteri":["Studio","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
+  "Lumiere":["Studio","1PN","1PN+1","2PN","2PN+1","3PN","4PN","Shop chân đế"],
+  "Imperia":["Studio","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
+  "Canopy":["Studio","1PN","2PN","2PN+1","3PN","3PN+1","Shop chân đế"],
+  "Sola Park":["Studio","1PN+1","2PN","2PN+1","3PN","Shop chân đế"],
+  "Victoria":["Studio","1PN","1PN+1","2PN","2PN+1","3PN","Shop chân đế"]
 };
   const mobileQuery=window.matchMedia("(max-width:700px)");
   const pageSize=()=>mobileQuery.matches?8:16;
@@ -81,6 +94,15 @@
     const options=phase?.value?towerMap[phase.value]||[]:Object.values(towerMap).flat();
     tower.replaceChildren(new Option("Tất cả tòa",""),...options.map(value=>new Option(value,value)));
     if(options.includes(selected))tower.value=selected;
+  };
+  const refreshUnitTypes=()=>{
+    if(!unitType)return;
+    const selected=unitType.value;
+    const options=phase?.value
+      ?phaseUnitTypes[phase.value]||[]
+      :[...new Set(Object.values(phaseUnitTypes).flat())];
+    unitType.replaceChildren(new Option("Tất cả loại căn",""),...options.map(value=>new Option(value,value)));
+    if(options.includes(selected))unitType.value=selected;
   };
   const liveDetailUrl=listing=>{
     const slug=api.cleanText(listing?.slug,120);
@@ -200,9 +222,9 @@
 
   const filterValues=()=>{
     const values=Object.fromEntries(new FormData(form||document.createElement("form")).entries());
-    return {keyword:values.keyword||"",phase:values.phase||"",tower:values.tower||"",bedroom:values.bedroom||"",maxPrice:values.max_price||"",area:values.area||""};
+    return {keyword:values.keyword||"",phase:values.phase||"",tower:values.tower||"",bedroom:values.bedroom||"",maxPrice:values.max_price||"",area:values.area||"",furnishing:values.furnishing||""};
   };
-  const activeFilterCount=values=>["keyword","phase","tower","bedroom","maxPrice","area"].filter(key=>String(values[key]||"").trim()).length;
+  const activeFilterCount=values=>["keyword","phase","tower","bedroom","maxPrice","area","furnishing"].filter(key=>String(values[key]||"").trim()).length;
   const applyClientFilters=(rows,filters)=>{
     let next=[...rows];
     if(filters.area){
@@ -211,6 +233,9 @@
         const area=Number(row.area_sqm||0);
         return area>=Number(min||0)&&(!max||area<=max);
       });
+    }
+    if(filters.furnishing){
+      next=next.filter(row=>String(row.furnishing||"")===String(filters.furnishing));
     }
     return next;
   };
@@ -304,17 +329,17 @@
 
   const scheduleLoad=delay=>{clearTimeout(timer);timer=setTimeout(load,delay);};
   form?.addEventListener("input",event=>{
-    if(event.target===phase)refreshTowers();
+    if(event.target===phase){refreshTowers();refreshUnitTypes();}
     syncMobileControls();
     scheduleLoad(event.target.name==="keyword"?320:60);
   });
   form?.addEventListener("change",event=>{
-    if(event.target===phase)refreshTowers();
+    if(event.target===phase){refreshTowers();refreshUnitTypes();}
     syncMobileControls();
     if(event.target.name==="area"){showRows();return;}
     scheduleLoad(30);
   });
-  form?.addEventListener("reset",()=>setTimeout(()=>{refreshTowers();syncMobileControls();load();},0));
+  form?.addEventListener("reset",()=>setTimeout(()=>{refreshTowers();refreshUnitTypes();syncMobileControls();load();},0));
   mobileQuery.addEventListener?.("change",()=>{if(filteredRows.length)renderMore(true);});
-  refreshTowers();syncMobileControls();load();
+  refreshTowers();refreshUnitTypes();syncMobileControls();load();
 })();
