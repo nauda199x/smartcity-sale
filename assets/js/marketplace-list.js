@@ -28,7 +28,7 @@
   "Victoria":["V1","V2","V3"]
 };
   const mobileQuery=window.matchMedia("(max-width:700px)");
-  const pageSize=()=>mobileQuery.matches?8:10;
+  const pageSize=()=>mobileQuery.matches?8:16;
   let sourceRows=[];
   let filteredRows=[];
   let visibleCount=0;
