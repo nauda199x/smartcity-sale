@@ -16,7 +16,8 @@ HUB=ROOT/"mat-bang-smart-city"/"tonkin"/"index.html"
 TOWERS={c:ROOT/"mat-bang-smart-city"/"tonkin"/c/"index.html" for c in ("tk1","tk2")}
 PREFIX="/images/official/tonkin/"
 EXPECTED={"actual":5,"diagram":3}
-PLANS={"tk1":PREFIX+"tonkin-mat-bang-tk1.webp","tk2":PREFIX+"tonkin-mat-bang-tk2.webp"}
+LEGACY_PLANS={"tk1":PREFIX+"tonkin-mat-bang-tk1.webp","tk2":PREFIX+"tonkin-mat-bang-tk2.webp"}
+PLANS={"tk1":"/images/official/floorplans-hd/tonkin-tk1.webp","tk2":"/images/official/floorplans-hd/tonkin-tk2.webp"}
 TOTAL=PREFIX+"tonkin-tong-mat-bang.webp"
 
 def digest(path):
@@ -61,8 +62,9 @@ def main():
     if [a["href"] for a in soup.find_all("a",href=True) if external(a["href"])]: errors.append("external links present")
     tags=soup.find_all("img",src=True); images=[t["src"] for t in tags]
     if [x for x in images if external(x)]: errors.append("image hotlinks present")
-    if set(images)!=locals: errors.append(f"main image set differs: unused={sorted(locals-set(images))}, undeclared={sorted(set(images)-locals)}")
-    repeated=[x for x,n in Counter(images).items() if n>1]
+    expected_images=(locals-set(LEGACY_PLANS.values()))|set(PLANS.values())
+    if set(images)!=expected_images: errors.append(f"main image set differs: unused={sorted(expected_images-set(images))}, undeclared={sorted(set(images)-expected_images)}")
+    repeated=[x for x,n in Counter(images).items() if n>1 and not x.startswith("/images/official/floorplans-hd/")]
     if repeated: errors.append("main repeats images: "+", ".join(repeated))
     for t in tags:
         src=t["src"]

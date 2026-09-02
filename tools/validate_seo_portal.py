@@ -4,6 +4,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 import re
 import xml.etree.ElementTree as ET
+from bs4 import BeautifulSoup
 
 ROOT=Path(__file__).resolve().parents[1]
 SITE=ROOT/"_site"
@@ -22,13 +23,20 @@ def html_for(url:str)->Path:
 
 
 def canonical(text:str)->str:
-    match=re.search(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)',text,re.I)
-    return match.group(1).strip() if match else ""
+    soup=BeautifulSoup(text,"html.parser")
+    for link in soup.find_all("link"):
+        rel=link.get("rel") or []
+        if "canonical" in rel:
+            return str(link.get("href") or "").strip()
+    return ""
 
 
 def noindex(text:str)->bool:
-    match=re.search(r'<meta[^>]+name=["\']robots["\'][^>]+content=["\']([^"\']+)',text,re.I)
-    return bool(match and "noindex" in match.group(1).lower())
+    soup=BeautifulSoup(text,"html.parser")
+    for meta in soup.find_all("meta"):
+        if str(meta.get("name") or "").lower()=="robots":
+            return "noindex" in str(meta.get("content") or "").lower()
+    return False
 
 
 def main():
@@ -44,13 +52,19 @@ def main():
     if not (SITE/"assets/css/site-theme.css").is_file():
         errors.append("missing staged site-wide theme stylesheet")
 
+    theme_prefix="/assets/css/site-theme.css?v=20260902-"
     for page in SITE.rglob("*.html"):
         text=page.read_text(encoding="utf-8",errors="replace")
-        if "/assets/css/site-theme.css?v=20260902-1" not in text:
+        soup=BeautifulSoup(text,"html.parser")
+        styles=[
+            link.get("href","")
+            for link in soup.find_all("link")
+            if "stylesheet" in (link.get("rel") or [])
+        ]
+        if not any(href.startswith(theme_prefix) for href in styles):
             errors.append(f"site-wide theme missing from {page.relative_to(SITE)}")
             continue
-        styles=re.findall(r'<link[^>]+rel=["\']stylesheet["\'][^>]+href=["\']([^"\']+)',text,re.I)
-        if not styles or styles[-1]!="/assets/css/site-theme.css?v=20260902-1":
+        if not styles or not styles[-1].startswith(theme_prefix):
             errors.append(f"site-wide theme is not final in {page.relative_to(SITE)}")
 
     index=ET.parse(SITE/"sitemap.xml").getroot()

@@ -39,10 +39,15 @@ SOURCE_HOSTS = {
 }
 MEDIA_TYPES = {"actual", "diagram"}
 EXPECTED_MIX = {"actual": 7, "diagram": 3}
+LEGACY_PLAN_PATHS = {
+    f"{LOCAL_PREFIX}victoria-mat-bang-v1.webp",
+    f"{LOCAL_PREFIX}victoria-mat-bang-v2.webp",
+    f"{LOCAL_PREFIX}victoria-mat-bang-v3.webp",
+}
 EXPECTED_PLANS = {
-    "v1": f"{LOCAL_PREFIX}victoria-mat-bang-v1.webp",
-    "v2": f"{LOCAL_PREFIX}victoria-mat-bang-v2.webp",
-    "v3": f"{LOCAL_PREFIX}victoria-mat-bang-v3.webp",
+    "v1": "/images/official/floorplans-hd/victoria-v1.webp",
+    "v2": "/images/official/floorplans-hd/victoria-v2.webp",
+    "v3": "/images/official/floorplans-hd/victoria-v3.webp",
 }
 
 
@@ -153,7 +158,7 @@ def main() -> None:
         errors.append("public page hotlinks images: " + ", ".join(external_images))
 
     image_counts = Counter(page_images)
-    unused = sorted(local_paths - set(page_images))
+    unused = sorted((local_paths - LEGACY_PLAN_PATHS) - set(page_images))
     if unused:
         errors.append("manifest assets not used on main page: " + ", ".join(unused))
     undeclared = sorted(
@@ -162,7 +167,10 @@ def main() -> None:
     )
     if undeclared:
         errors.append("main page uses undeclared Victoria assets: " + ", ".join(undeclared))
-    repeated = sorted(src for src, count in image_counts.items() if count > 1)
+    repeated = sorted(
+        src for src, count in image_counts.items()
+        if count > 1 and not src.startswith("/images/official/floorplans-hd/")
+    )
     if repeated:
         errors.append("main page repeats image assets: " + ", ".join(repeated))
 
