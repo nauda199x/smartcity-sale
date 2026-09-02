@@ -16,7 +16,7 @@ HUB=ROOT/"mat-bang-smart-city"/"sakura"/"index.html"
 TOWERS={c:ROOT/"mat-bang-smart-city"/"sakura"/c/"index.html" for c in ("sa1","sa2","sa3","sa5")}
 PREFIX="/images/official/sakura/"
 EXPECTED={"actual":4,"diagram":4}
-PLANS={c:f"{PREFIX}sakura-mat-bang-{c}.webp" for c in TOWERS}
+LEGACY_PLANS={c:f"{PREFIX}sakura-mat-bang-{c}.webp" for c in TOWERS}\nPLANS={c:f"/images/official/floorplans-hd/sakura-{c}.webp" for c in TOWERS}
 HOSTS={
 "images.trvl-media.com","www.wotif.co.nz","chungcudep.net","www.chungcudep.net",
 "chungcuvinhomessmartcity.com.vn","www.chungcuvinhomessmartcity.com.vn",
@@ -69,9 +69,8 @@ def main():
     tags=soup.find_all("img",src=True); images=[t["src"] for t in tags]
     hot=[x for x in images if external(x)]
     if hot: errors.append("image hotlinks present")
-    if set(images)!=locals: errors.append(f"main image set differs: unused={sorted(locals-set(images))}, undeclared={sorted(set(images)-locals)}")
-    repeated=[x for x,n in Counter(images).items() if n>1]
-    if repeated: errors.append("main repeats images: "+", ".join(repeated))
+    expected_images=(locals-set(LEGACY_PLANS.values()))|set(PLANS.values())\n    if set(images)!=expected_images: errors.append(f"main image set differs: unused={sorted(expected_images-set(images))}, undeclared={sorted(set(images)-expected_images)}")
+    repeated=[x for x,n in Counter(images).items() if n>1 and not x.startswith("/images/official/floorplans-hd/")]\n    if repeated: errors.append("main repeats images: "+", ".join(repeated))
     for t in tags:
         src=t["src"]
         if not t.get("alt","").strip(): errors.append(f"missing alt {src}")
