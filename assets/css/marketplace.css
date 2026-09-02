@@ -530,3 +530,203 @@ body.detail-lightbox-open{overflow:hidden;overscroll-behavior:none}
   }
 }
 
+
+
+/* MARKETPLACE PRICE + DETAIL UX 2026-09-02 */
+.listing-card-fact-price{
+  padding:3px 7px;
+  border-radius:8px;
+  background:#eaf6f1;
+  color:#0b6b57!important;
+  font-size:1.34rem!important;
+  font-weight:900!important;
+  letter-spacing:-.03em
+}
+@media(min-width:1451px){
+  .marketplace-toolbar{
+    grid-template-columns:minmax(210px,1.5fr) repeat(6,minmax(128px,.82fr)) auto
+  }
+}
+@media(min-width:701px){
+  .listing-card-fact-price{font-size:1.42rem!important}
+}
+@media(max-width:700px){
+  .listing-card-fact-price{font-size:1.28rem!important}
+}
+
+/* Detail: put the decision-making information before the gallery on desktop. */
+.listing-detail-page .detail-shell--portal{
+  grid-template-columns:minmax(0,1fr) 350px;
+  gap:34px;
+  padding-top:24px
+}
+.listing-detail-page .detail-overview{
+  margin-bottom:18px;
+  padding:22px 24px 20px;
+  border:1px solid #dfe8e4;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 10px 30px rgba(20,53,42,.055)
+}
+.listing-detail-page .detail-overview__meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px
+}
+.listing-detail-page .detail-overview__meta .eyebrow{margin:0}
+.listing-detail-page .detail-overview__meta>span{
+  display:inline-flex;
+  align-items:center;
+  min-height:28px;
+  padding:4px 9px;
+  border-radius:999px;
+  background:#eaf6f1;
+  color:#0b6b57;
+  font-size:.72rem;
+  font-weight:850;
+  text-transform:uppercase;
+  letter-spacing:.06em
+}
+.listing-detail-page .detail-overview h1{
+  max-width:19ch;
+  margin:0;
+  color:#14211d;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:clamp(2.2rem,4vw,3.65rem);
+  font-weight:900;
+  line-height:1.01;
+  letter-spacing:-.05em
+}
+.listing-detail-page .detail-overview__price{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:8px 14px;
+  margin-top:17px
+}
+.listing-detail-page .detail-overview__price strong{
+  color:#0b6b57;
+  font:900 clamp(2rem,3.2vw,3rem)/1 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:-.045em;
+  font-variant-numeric:tabular-nums
+}
+.listing-detail-page .detail-overview__price span{
+  color:#6c7772;
+  font-size:.92rem;
+  font-weight:700
+}
+.listing-detail-page .detail-overview__facts{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:16px
+}
+.listing-detail-page .detail-overview__facts span{
+  display:inline-flex;
+  align-items:center;
+  min-height:34px;
+  padding:6px 10px;
+  border:1px solid #dfe8e4;
+  border-radius:999px;
+  background:#f7faf8;
+  color:#58645f;
+  font-size:.82rem
+}
+.listing-detail-page .detail-overview__facts b{color:#20302a}
+.listing-detail-page .detail-overview .detail-location{
+  margin:15px 0 0;
+  font-size:.88rem
+}
+.listing-detail-page .detail-gallery-wrap{
+  border:1px solid #dfe6e2;
+  border-radius:18px;
+  background:#f2f5f3;
+  box-shadow:0 10px 30px rgba(20,53,42,.045)
+}
+.listing-detail-page .detail-gallery,
+.listing-detail-page .detail-gallery-track{border-radius:18px}
+.listing-detail-page .detail-gallery-track figure{aspect-ratio:16/9}
+.listing-detail-page .detail-copy{
+  margin-top:18px!important;
+  padding:24px!important;
+  border:1px solid #dfe8e4!important;
+  border-radius:18px!important;
+  background:#fff!important
+}
+.listing-detail-page .detail-copy h2{
+  margin:0 0 12px;
+  font-size:1.65rem
+}
+.listing-detail-page .detail-copy h2:nth-of-type(2){margin-top:30px}
+.listing-detail-page .detail-description{
+  margin:0;
+  color:#3e4945;
+  line-height:1.72
+}
+.listing-detail-page .detail-feature-list>div:first-child dd{
+  color:#0b6b57!important;
+  font-size:1.2rem;
+  font-weight:900
+}
+.listing-detail-page .detail-panel{
+  top:90px;
+  padding:22px;
+  border-radius:18px!important
+}
+.listing-detail-page .detail-panel .detail-price{
+  margin:8px 0 18px;
+  color:#0b6b57!important;
+  font-size:clamp(2rem,3vw,2.65rem)
+}
+.listing-detail-page .detail-specs{margin:16px 0}
+.listing-detail-page .detail-contact .btn{min-height:48px}
+@media(max-width:760px){
+  .listing-detail-page .detail-main{
+    display:flex;
+    flex-direction:column
+  }
+  .listing-detail-page .detail-gallery-wrap{
+    order:1;
+    border-width:0 0 1px;
+    border-radius:0;
+    box-shadow:none
+  }
+  .listing-detail-page .detail-gallery,
+  .listing-detail-page .detail-gallery-track{border-radius:0}
+  .listing-detail-page .detail-gallery-track figure{aspect-ratio:4/3}
+  .listing-detail-page .detail-overview{
+    order:2;
+    margin:0;
+    padding:19px 20px 18px;
+    border:0;
+    border-bottom:1px solid #e2e8e5;
+    border-radius:0;
+    box-shadow:none
+  }
+  .listing-detail-page .detail-overview h1{
+    max-width:none;
+    font-size:clamp(1.85rem,8.5vw,2.6rem);
+    line-height:1.04
+  }
+  .listing-detail-page .detail-overview__price{margin-top:13px}
+  .listing-detail-page .detail-overview__price strong{font-size:1.8rem}
+  .listing-detail-page .detail-overview__facts{
+    gap:6px;
+    margin-top:13px
+  }
+  .listing-detail-page .detail-overview__facts span{
+    min-height:31px;
+    padding:5px 8px;
+    font-size:.77rem
+  }
+  .listing-detail-page .detail-overview .detail-location{margin-top:13px}
+  .listing-detail-page .detail-copy{
+    order:3;
+    margin:0!important;
+    padding:24px 20px 34px!important;
+    border:0!important;
+    border-radius:0!important
+  }
+}
