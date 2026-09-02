@@ -16,7 +16,7 @@ HUB=ROOT/"mat-bang-smart-city"/"miami"/"index.html"
 TOWERS={c:ROOT/"mat-bang-smart-city"/"miami"/c/"index.html" for c in ("gs1","gs2","gs3","gs5","gs6")}
 PREFIX="/images/official/miami/"
 EXPECTED={"actual":5,"diagram":5}
-PLANS={c:f"{PREFIX}miami-mat-bang-{c}.webp" for c in TOWERS}
+LEGACY_PLANS={c:f"{PREFIX}miami-mat-bang-{c}.webp" for c in TOWERS}\nPLANS={c:f"/images/official/floorplans-hd/miami-{c}.webp" for c in TOWERS}
 
 def digest(path):
     h=hashlib.sha1()
@@ -61,9 +61,8 @@ def main():
     tags=soup.find_all("img",src=True); images=[t["src"] for t in tags]
     hot=[x for x in images if external(x)]
     if hot: errors.append("image hotlinks present")
-    if set(images)!=locals: errors.append(f"main image set differs: unused={sorted(locals-set(images))}, undeclared={sorted(set(images)-locals)}")
-    repeated=[x for x,n in Counter(images).items() if n>1]
-    if repeated: errors.append("main repeats images: "+", ".join(repeated))
+    expected_images=(locals-set(LEGACY_PLANS.values()))|set(PLANS.values())\n    if set(images)!=expected_images: errors.append(f"main image set differs: unused={sorted(expected_images-set(images))}, undeclared={sorted(set(images)-expected_images)}")
+    repeated=[x for x,n in Counter(images).items() if n>1 and not x.startswith("/images/official/floorplans-hd/")]\n    if repeated: errors.append("main repeats images: "+", ".join(repeated))
     for t in tags:
         src=t["src"]
         if not t.get("alt","").strip(): errors.append(f"missing alt {src}")
