@@ -179,12 +179,12 @@ def listing_html(row: dict, rel: str) -> str:
     return f'''<!doctype html>
 <html lang="vi"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{escape(title)} | Tìm Mua Smart City</title>
+<title>{escape(title)} | Sàn Smart City</title>
 <meta name="description" content="{escape(short_desc)}">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="{escape(canonical)}">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
-<meta property="og:type" content="article"><meta property="og:site_name" content="Tìm Mua Smart City">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Sàn Smart City">
 <meta property="og:title" content="{escape(title)}"><meta property="og:description" content="{escape(short_desc)}">
 <meta property="og:url" content="{escape(canonical)}"><meta property="og:image" content="{escape(og_image)}">
 <meta name="twitter:card" content="summary_large_image">
@@ -193,7 +193,7 @@ def listing_html(row: dict, rel: str) -> str:
 </head>
 <body class="listing-detail-page">
 <a class="skip-link" href="#main">Bỏ qua điều hướng</a>
-<header class="site-header"><div class="container nav"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">SC</span><span>TÌM MUA SMART CITY</span></a><nav class="nav-links" aria-label="Điều hướng chính"><a href="/tong-quan-smart-city/">Tổng quan</a><a href="/giao-dich-smart-city/">Giao dịch</a><a href="/mua-ban-smart-city/">Mua bán</a><a href="/cho-thue-smart-city/">Cho thuê</a><a href="/dang-tin-smart-city/">Đăng tin</a></nav></div></header>
+<header class="site-header"><div class="container nav"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">SC</span><span>SÀN SMART CITY</span></a><nav class="nav-links" aria-label="Điều hướng chính"><a href="/tong-quan-smart-city/">Tổng quan</a><a href="/giao-dich-smart-city/">Giao dịch</a><a href="/mua-ban-smart-city/">Mua bán</a><a href="/cho-thue-smart-city/">Cho thuê</a><a href="/dang-tin-smart-city/">Đăng tin</a></nav></div></header>
 <main id="main">
 <div class="container breadcrumb"><a href="/">Trang chủ</a><span>/</span><a href="{breadcrumb_parent}">{listing_type}</a><span>/</span>{escape(title)}</div>
 <div class="container detail-shell detail-shell--portal">
@@ -203,7 +203,7 @@ def listing_html(row: dict, rel: str) -> str:
 </article>
 <aside><div class="detail-panel"><p class="eyebrow">{listing_type}</p><strong class="detail-price">{escape(price)}</strong><dl class="detail-specs">{fact_html}</dl><div class="detail-poster"><span>Người đăng</span><strong>{escape(poster)}</strong></div><div class="detail-contact">{call}{zalo_link}</div><p class="detail-note">Giá và trạng thái căn cần được xác nhận lại tại thời điểm liên hệ.</p></div></aside>
 </div></main>
-<footer class="site-footer"><div class="container footer-grid"><div><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">SC</span><span>TÌM MUA SMART CITY</span></a><p>Cổng thông tin & sàn giao dịch chuyên sâu Vinhomes Smart City.</p></div><div><nav class="footer-links"><a href="/giao-dich-smart-city/">Giao dịch</a><a href="/mua-ban-smart-city/">Mua bán</a><a href="/cho-thue-smart-city/">Cho thuê</a><a href="/cam-nang.html">Cẩm nang</a><a href="/dang-tin-smart-city/">Đăng tin</a></nav></div></div></footer>
+<footer class="site-footer"><div class="container footer-grid"><div><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">SC</span><span>SÀN SMART CITY</span></a><p>Mua bán &bull; Cho thuê &bull; Đăng căn tại Smart City.</p></div><div><nav class="footer-links"><a href="/giao-dich-smart-city/">Giao dịch</a><a href="/mua-ban-smart-city/">Mua bán</a><a href="/cho-thue-smart-city/">Cho thuê</a><a href="/cam-nang.html">Cẩm nang</a><a href="/dang-tin-smart-city/">Đăng tin</a></nav></div></div></footer>
 <script src="/assets/js/site.js" defer></script><script src="/assets/app-shell.js" defer></script>
 </body></html>'''
 

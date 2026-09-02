@@ -1,4 +1,4 @@
-# Tìm Mua Smart City — SEO Architecture V1
+# Sàn Smart City — SEO Architecture V1
 
 Ngày lập: 2026-08-25
 

@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "data" / "official"
 SOURCE_FILE = OUT_DIR / "source-pages.json"
 ASSET_FILE = OUT_DIR / "asset-manifest.json"
-USER_AGENT = "Mozilla/5.0 (compatible; TimMuaSmartCityResearchBot/1.0; +https://timmuasmartcity.com/)"
+USER_AGENT = "Mozilla/5.0 (compatible; SanSmartCityResearchBot/1.0; +https://timmuasmartcity.com/)"
 ALLOWED_HOST = "smartcity.vinhomes.vn"
 
 IMG_RE = re.compile(r'''(?:src|data-src|data-lazy-src|href)=["']([^"']+\.(?:jpg|jpeg|png|webp|avif|svg)(?:\?[^"']*)?)["']''', re.I)

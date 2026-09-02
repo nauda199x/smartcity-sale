@@ -1,4 +1,4 @@
-# Tìm Mua Smart City — Portal Architecture V1
+# Sàn Smart City — Portal Architecture V1
 
 Updated: 2026-08-12
 
@@ -137,7 +137,7 @@ Existing blog articles become support content and should internally link into th
 - One strong search / CTA to live inventory, not a full listing grid above the fold.
 - Large visual storytelling blocks using project media.
 - Sticky desktop header; compact mobile bottom navigation.
-- Clear distinction between official-source facts and Tìm Mua Smart City analysis.
+- Clear distinction between official-source facts and Sàn Smart City analysis.
 - Tables are reserved for comparisons; cards for discovery; maps / plans for spatial content.
 - Mobile-first image ratios and typography.
 

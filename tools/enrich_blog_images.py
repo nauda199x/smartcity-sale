@@ -38,7 +38,7 @@ for slug, (img, alt, caption, credit) in MEDIA.items():
         html = html.replace("</head>", f'<meta property="og:image" content="{absolute}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{absolute}"></head>', 1)
     figure = ('<!-- SEO_MEDIA_START --><figure class="seo-media">'
               f'<img src="{img}" alt="{alt}" loading="eager" decoding="async">'
-              f'<figcaption>{caption} · Ảnh tư liệu: {credit}, lưu cục bộ trên Tìm Mua Smart City.</figcaption>'
+              f'<figcaption>{caption} · Ảnh tư liệu: {credit}, lưu cục bộ trên Sàn Smart City.</figcaption>'
               '</figure><!-- SEO_MEDIA_END -->')
     m = re.search(r'(<p class="lead"[^>]*>.*?</p>)', html, flags=re.S)
     if m:

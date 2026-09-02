@@ -76,7 +76,7 @@ From official gallery/news hubs:
 - collect media metadata and original file URLs;
 - discover official news about construction, handover, parks, infrastructure and subdivisions;
 - capture publish date, title, canonical URL and image URLs;
-- do not copy article body verbatim into Tìm Mua Smart City.
+- do not copy article body verbatim into Sàn Smart City.
 
 ## Asset processing rules
 1. Download locally, never hotlink in production.

@@ -26,7 +26,7 @@ START_URLS = [
 ALLOWED_HOST = "smartcity.vinhomes.vn"
 MAX_PAGES = 80
 REQUEST_DELAY = 0.35
-UA = "Mozilla/5.0 (compatible; TimMuaSmartCityResearchBot/1.0; +https://timmuasmartcity.com/)"
+UA = "Mozilla/5.0 (compatible; SanSmartCityResearchBot/1.0; +https://timmuasmartcity.com/)"
 
 
 @dataclass

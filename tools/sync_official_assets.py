@@ -17,7 +17,7 @@ SEEDS = ROOT / "data" / "official" / "asset-seeds.json"
 OUT = ROOT / "images" / "official"
 MANIFEST = ROOT / "data" / "official" / "asset-manifest.json"
 
-UA = "Mozilla/5.0 (compatible; TimMuaSmartCityBot/1.0; +https://timmuasmartcity.com/)"
+UA = "Mozilla/5.0 (compatible; SanSmartCityBot/1.0; +https://timmuasmartcity.com/)"
 SESSION = requests.Session()
 SESSION.headers.update({"User-Agent": UA, "Accept": "text/html,image/avif,image/webp,image/apng,image/*,*/*;q=0.8"})
 
