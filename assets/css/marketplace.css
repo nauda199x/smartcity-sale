@@ -410,3 +410,123 @@ body.detail-lightbox-open{overflow:hidden;overscroll-behavior:none}
   .detail-lightbox-hint{font-size:.72rem}
 }
 @media(prefers-reduced-motion:reduce){.detail-lightbox-stage img.is-animating{transition:none}}
+
+/* Dense marketplace listing — 2026-09-02
+   Keep the desktop inventory compact so users can scan many listings quickly.
+   Mobile keeps the swipeable vertical card pattern. */
+@media(min-width:701px){
+  .marketplace-section{padding:2.65rem 0 4.25rem}
+  .marketplace-heading{margin-bottom:16px}
+  .marketplace-heading h2{font-size:clamp(1.9rem,3vw,2.75rem)}
+  .marketplace-toolbar{margin-bottom:14px}
+  .listing-grid{gap:12px}
+
+  .listing-card--marketplace{
+    grid-template-columns:minmax(250px,31%) minmax(0,1fr);
+    min-height:0;
+    height:230px;
+    border-radius:14px
+  }
+  .listing-card--marketplace .listing-card-media{
+    min-height:0;
+    height:230px
+  }
+  .listing-card-gallery-track{
+    grid-template-columns:minmax(0,1fr) 82px
+  }
+  .listing-card-image-count{
+    right:9px;
+    bottom:9px;
+    padding:5px 8px;
+    font-size:.67rem
+  }
+  .listing-card--marketplace .listing-badges{
+    top:9px;
+    left:9px
+  }
+  .listing-card--marketplace .listing-badge{
+    padding:4px 8px;
+    font-size:.64rem
+  }
+
+  .listing-card-content{
+    padding:14px 18px 8px
+  }
+  .listing-card--marketplace h3{
+    margin-bottom:7px;
+    font-size:1.05rem;
+    line-height:1.3
+  }
+  .listing-card--marketplace h3 a{
+    display:-webkit-box;
+    overflow:hidden;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical
+  }
+  .listing-card-facts{
+    gap:5px 0;
+    margin-bottom:6px;
+    font-size:.79rem
+  }
+  .listing-card-facts>*+*:before{
+    margin:0 7px
+  }
+  .listing-card-fact-price{
+    font-size:1.04rem
+  }
+  .listing-card-location{
+    margin-bottom:6px;
+    font-size:.76rem
+  }
+  .listing-card-description{
+    font-size:.81rem;
+    line-height:1.42;
+    -webkit-line-clamp:2
+  }
+
+  .listing-card-footer{
+    gap:10px;
+    padding:8px 12px 9px 18px
+  }
+  .listing-card-poster{
+    gap:8px
+  }
+  .listing-card-avatar{
+    flex-basis:32px;
+    width:32px;
+    height:32px;
+    font-size:.66rem
+  }
+  .listing-card-poster-text strong{
+    font-size:.77rem
+  }
+  .listing-card-poster-text small{
+    font-size:.69rem
+  }
+  .listing-card-actions{
+    gap:5px
+  }
+  .listing-card-action{
+    min-height:34px;
+    padding:5px 9px;
+    border-radius:8px;
+    font-size:.71rem
+  }
+}
+
+@media(min-width:701px) and (max-width:1050px){
+  .listing-card--marketplace{
+    grid-template-columns:minmax(230px,34%) minmax(0,1fr);
+    height:244px
+  }
+  .listing-card--marketplace .listing-card-media{
+    height:244px
+  }
+  .listing-card-content{
+    padding-inline:16px
+  }
+  .listing-card-footer{
+    padding-left:16px
+  }
+}
+
