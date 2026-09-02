@@ -44,6 +44,7 @@
   let draftTimer=0;
   let progressFrame=0;
   let isSubmitting=false;
+  const mobileWizardMq=matchMedia("(max-width:760px)");
 
   const setSubmitState=(label,disabled=isSubmitting)=>{
     submitButtons.forEach(button=>{button.disabled=disabled;button.textContent=label;});
@@ -186,6 +187,7 @@
   };
   const progressFromScroll=()=>{
     progressFrame=0;
+    if(mobileWizardMq.matches)return;
     const anchor=Math.min(window.innerHeight*.3,240);
     let current=1;
     sections.forEach(section=>{
@@ -194,7 +196,7 @@
     setProgress(current);
   };
   const scheduleProgress=()=>{
-    if(progressFrame)return;
+    if(mobileWizardMq.matches||progressFrame)return;
     progressFrame=requestAnimationFrame(progressFromScroll);
   };
   progressSteps.forEach((item,index)=>{
@@ -257,7 +259,7 @@
       if(savedTower&&[...tower.options].some(option=>option.value===savedTower))tower.value=savedTower;
       updatePhoneHelp();
       updatePriceHelp();
-      if(draftStatus)draftStatus.textContent="Đã khôi phục bản nháp · ảnh cần chọn lại";
+      if(draftStatus)draftStatus.textContent="Đã khôi phục bản nháp · vui lòng chọn lại ảnh";
       return true;
     }catch{
       return false;
