@@ -184,29 +184,13 @@ def main() -> None:
     if not HUB.is_file():
         raise SystemExit(f"Missing hub: {HUB}")
 
-    soup = BeautifulSoup(HUB.read_text(encoding="utf-8"), "html.parser")
-    cards = soup.select(".floor-hub-card")
-    if len(cards) != 49:
-        raise SystemExit(f"Expected 49 floor-plan cards, got {len(cards)}")
-
-    # Idempotency: a queued PR workflow may start after a previous run has
-    # already committed the complete HD set. In that case validate the existing
-    # outputs and stop instead of repeatedly re-encoding/sharpening them.
+    # Idempotency comes first: after the UX redesign the master page is a
+    # 10-project directory instead of a 49-card technical hub. The rendered
+    # manifest is now the source of truth for an already-complete HD set.
     if MANIFEST.is_file():
-        existing_sources = [
-            str(card.select_one(".floor-hub-card__media img[src]")["src"])
-            for card in cards
-            if card.select_one(".floor-hub-card__media img[src]")
-        ]
-        if len(existing_sources) == 49 and all(
-            src.startswith("/images/official/floorplans-hd/") for src in existing_sources
-        ):
-            existing = json.loads(MANIFEST.read_text(encoding="utf-8"))
-            assets = existing.get("assets", [])
-            if existing.get("tower_count") != 49 or len(assets) != 49:
-                raise SystemExit("Existing HD manifest is incomplete")
-            if len({x.get("hd_src") for x in assets}) != 49:
-                raise SystemExit("Existing HD manifest does not contain 49 unique tower images")
+        existing = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        assets = existing.get("assets", [])
+        if existing.get("tower_count") == 49 and len(assets) == 49 and len({x.get("hd_src") for x in assets}) == 49:
             for asset in assets:
                 src = str(asset.get("hd_src") or "")
                 if max(int(asset.get("output_width", 0)), int(asset.get("output_height", 0))) < TARGET_LONG_EDGE:
@@ -215,6 +199,16 @@ def main() -> None:
                     raise SystemExit(f"Existing HD asset missing: {src}")
             print("HD FLOORPLANS ALREADY READY: validated existing 49/49 4K tower renders; no re-encode needed.")
             return
+
+    # Legacy generation fallback: only used when the HD manifest does not yet
+    # exist. Older revisions exposed all 49 source drawings on this hub.
+    soup = BeautifulSoup(HUB.read_text(encoding="utf-8"), "html.parser")
+    cards = soup.select(".floor-hub-card")
+    if len(cards) != 49:
+        raise SystemExit(
+            "HD manifest is missing and the legacy 49-card source hub is no longer available; "
+            f"found {len(cards)} source cards"
+        )
 
     entries: list[dict[str, Any]] = []
     by_old_src: dict[str, list[dict[str, Any]]] = defaultdict(list)
