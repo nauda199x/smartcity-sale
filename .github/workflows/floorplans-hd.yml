@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'tools/render_floorplans_hd.py'
+      - 'tools/validate_floorplan_hub.py'
       - '.github/workflows/floorplans-hd.yml'
 
 permissions:
