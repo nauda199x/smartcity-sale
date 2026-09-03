@@ -341,8 +341,9 @@ def ensure_page_metadata_and_schema() -> None:
 
         if title:
             add_meta(prop="og:title", content=title)
-        if description:
-            add_meta(prop="og:description", content=description)
+        social_description = description or page_name or title
+        if social_description:
+            add_meta(prop="og:description", content=social_description)
         if canonical_url:
             add_meta(prop="og:url", content=canonical_url)
         add_meta(prop="og:site_name", content="Sàn Smart City")
