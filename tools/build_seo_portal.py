@@ -12,11 +12,13 @@ from __future__ import annotations
 from datetime import date
 from html import escape
 from pathlib import Path
-from urllib.parse import urlencode, urlsplit
+from urllib.parse import urlencode, urljoin, urlsplit
 import json
 import re
 import subprocess
 import xml.etree.ElementTree as ET
+
+from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE_ROOT = ROOT / "_site"
@@ -255,6 +257,35 @@ def add_camnang_internal_links() -> None:
         path.write_text(text, encoding="utf-8")
 
 
+
+def add_camnang_navigation_links() -> None:
+    """Expose the editorial hub from primary navigation without hand-editing every page."""
+    changed = 0
+    pattern = re.compile(
+        r'(<nav\b[^>]*class=["\'][^"\']*\bnav-links\b[^"\']*["\'][^>]*>)(.*?)(</nav>)',
+        re.I | re.S,
+    )
+    for path in SITE_ROOT.rglob("*.html"):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        match = pattern.search(text)
+        if not match or 'href="/cam-nang.html"' in match.group(2):
+            continue
+        body = match.group(2)
+        body, inserted = re.subn(
+            r'(<a\b[^>]*href=["\']/tong-quan-smart-city/["\'][^>]*>.*?</a>)',
+            r'\1<a href="/cam-nang.html">Cẩm nang</a>',
+            body,
+            count=1,
+            flags=re.I | re.S,
+        )
+        if not inserted:
+            body += '<a href="/cam-nang.html">Cẩm nang</a>'
+        text = text[:match.start()] + match.group(1) + body + match.group(3) + text[match.end():]
+        path.write_text(text, encoding="utf-8")
+        changed += 1
+    print(f"SEO: added Cẩm nang to {changed} primary navigation blocks")
+
+
 def page_url(path: Path) -> str:
     rel = path.relative_to(SITE_ROOT).as_posix()
     if rel == "index.html":
@@ -270,6 +301,138 @@ def is_indexable(path: Path, text: str) -> bool:
         return False
     robots = re.search(r'<meta[^>]+name=["\']robots["\'][^>]+content=["\']([^"\']+)', text, re.I)
     return not (robots and "noindex" in robots.group(1).lower())
+
+
+
+def ensure_page_metadata_and_schema() -> None:
+    """Normalize social metadata and baseline structured data on every indexable HTML page."""
+    changed = 0
+    schema_added = 0
+    breadcrumb_added = 0
+    default_image = SITE + "/images/hero/hero-smart-city-desktop.webp"
+
+    for path in SITE_ROOT.rglob("*.html"):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        if not is_indexable(path, text) or "</head>" not in text:
+            continue
+
+        soup = BeautifulSoup(text, "html.parser")
+        canonical_tag = soup.find("link", rel=lambda value: value and "canonical" in value)
+        canonical_url = str(canonical_tag.get("href") or "").strip() if canonical_tag else ""
+        title = soup.title.get_text(" ", strip=True) if soup.title else ""
+        description_tag = soup.find("meta", attrs={"name": re.compile(r"^description$", re.I)})
+        description = str(description_tag.get("content") or "").strip() if description_tag else ""
+        h1 = soup.find("h1")
+        page_name = h1.get_text(" ", strip=True) if h1 else title
+
+        additions: list[str] = []
+
+        def add_meta(*, name: str = "", prop: str = "", content: str) -> None:
+            nonlocal changed
+            attrs = {"name": name} if name else {"property": prop}
+            if soup.find("meta", attrs=attrs):
+                return
+            key = "name" if name else "property"
+            value = name or prop
+            additions.append(
+                f'<meta {key}="{escape(value, quote=True)}" content="{escape(content, quote=True)}">'
+            )
+            changed += 1
+
+        if title:
+            add_meta(prop="og:title", content=title)
+        if description:
+            add_meta(prop="og:description", content=description)
+        if canonical_url:
+            add_meta(prop="og:url", content=canonical_url)
+        add_meta(prop="og:site_name", content="Sàn Smart City")
+        add_meta(prop="og:type", content="article" if soup.find("article") else "website")
+        add_meta(prop="og:image", content=default_image)
+        add_meta(name="twitter:card", content="summary_large_image")
+        add_meta(name="twitter:image", content=default_image)
+
+        jsonld_scripts = soup.find_all("script", attrs={"type": "application/ld+json"})
+        has_jsonld = bool(jsonld_scripts)
+        has_breadcrumb = any("BreadcrumbList" in script.get_text() for script in jsonld_scripts)
+
+        schema_objects: list[dict] = []
+        if not has_jsonld and canonical_url:
+            schema_objects.append(
+                {
+                    "@context": "https://schema.org",
+                    "@type": "WebPage",
+                    "name": page_name or title,
+                    "description": description,
+                    "url": canonical_url,
+                    "inLanguage": "vi-VN",
+                    "isPartOf": {
+                        "@type": "WebSite",
+                        "name": "Sàn Smart City",
+                        "url": SITE + "/",
+                    },
+                }
+            )
+
+        breadcrumb = soup.select_one(".breadcrumb, .crumbs, .pp-breadcrumb")
+        if breadcrumb is None:
+            for nav in soup.find_all("nav"):
+                aria = str(nav.get("aria-label") or "").lower()
+                if "breadcrumb" in aria or "đường dẫn" in aria:
+                    breadcrumb = nav
+                    break
+
+        if not has_breadcrumb and breadcrumb is not None and canonical_url:
+            items = []
+            seen = set()
+            for anchor in breadcrumb.find_all("a", href=True):
+                href = urljoin(SITE + "/", str(anchor.get("href") or ""))
+                label = anchor.get_text(" ", strip=True)
+                if not label or not href.startswith(SITE + "/") or href in seen:
+                    continue
+                seen.add(href)
+                items.append(
+                    {
+                        "@type": "ListItem",
+                        "position": len(items) + 1,
+                        "name": label,
+                        "item": href,
+                    }
+                )
+            if canonical_url not in seen:
+                items.append(
+                    {
+                        "@type": "ListItem",
+                        "position": len(items) + 1,
+                        "name": page_name or title,
+                        "item": canonical_url,
+                    }
+                )
+            if len(items) >= 2:
+                schema_objects.append(
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": items,
+                    }
+                )
+                breadcrumb_added += 1
+
+        for schema in schema_objects:
+            additions.append(
+                '<script type="application/ld+json">'
+                + json.dumps(schema, ensure_ascii=False, separators=(",", ":"))
+                + "</script>"
+            )
+            schema_added += 1
+
+        if additions:
+            text = text.replace("</head>", "\n".join(additions) + "\n</head>", 1)
+            path.write_text(text, encoding="utf-8")
+
+    print(
+        f"SEO: normalized metadata fields={changed}, schema blocks={schema_added}, "
+        f"breadcrumbs={breadcrumb_added}"
+    )
 
 
 def write_urlset(path: Path, rows: list[tuple[str, str]]) -> None:
@@ -373,7 +536,9 @@ def main() -> None:
     listing_urls = generate_listing_pages(rows)
     inject_itemlist(rows, "sale", SITE_ROOT / "mua-ban-smart-city/index.html")
     inject_itemlist(rows, "rent", SITE_ROOT / "cho-thue-smart-city/index.html")
+    add_camnang_navigation_links()
     add_camnang_internal_links()
+    ensure_page_metadata_and_schema()
     build_sitemaps(listing_urls)
 
 
