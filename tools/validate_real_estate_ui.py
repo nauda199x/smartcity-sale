@@ -22,8 +22,10 @@ brand_logo=(ROOT/"assets/brand/timmua-smartcity-logo.svg").read_text(encoding="u
 
 if "<span>SÀN SMART CITY</span>" not in home:
     errors.append("homepage header is missing the Sàn Smart City identity")
-if "<title>Sàn Smart City – Mua bán & Cho thuê căn hộ</title>" not in home:
-    errors.append("homepage SEO title is not aligned with the new brand")
+home_title_match=re.search(r"<title>(.*?)</title>",home,re.I|re.S)
+home_title=(home_title_match.group(1) if home_title_match else "").replace("&amp;","&")
+if not ("Vinhomes Smart City" in home_title and "mua bán" in home_title.lower() and "cho thuê" in home_title.lower()):
+    errors.append("homepage SEO title must cover Vinhomes Smart City + mua bán + cho thuê intent")
 if '"name":"Sàn Smart City"' not in home or '"alternateName":"timmuasmartcity.com"' not in home:
     errors.append("homepage WebSite schema is missing the new name or domain alias")
 if manifest.get("name") != "Sàn Smart City" or manifest.get("short_name") != "Sàn SC":
