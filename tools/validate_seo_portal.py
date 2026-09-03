@@ -159,6 +159,19 @@ def main():
     if "Disallow: /admin/" not in robots:
         errors.append("robots.txt must keep /admin/ blocked")
 
+    # Public marketplace/card/admin links must never override clean listing URLs
+    # with the legacy noindex ?slug= detail shell.
+    for script_name in ("marketplace-list.js", "marketplace-admin.js"):
+        script_path=SITE/"assets/js"/script_name
+        if not script_path.is_file():
+            errors.append(f"missing staged {script_name}")
+            continue
+        script_text=script_path.read_text(encoding="utf-8",errors="replace")
+        if "/tin-dang-smart-city/" in script_text or "?slug=" in script_text:
+            errors.append(f"legacy noindex listing route leaked into {script_name}")
+        if "api.listingUrl(" not in script_text:
+            errors.append(f"{script_name} must use api.listingUrl() for approved listing links")
+
     # The generic JS detail shell is intentionally noindex; generated clean listing
     # URLs must be the indexable surfaces.
     shell=(SITE/"tin-dang-smart-city/index.html")
