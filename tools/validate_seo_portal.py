@@ -103,9 +103,55 @@ def main():
             if not re.search(r"<h1(?:\s[^>]*)?>[\s\S]*?</h1>",text,re.I):
                 errors.append(f"missing H1: {url}")
 
+            soup=BeautifulSoup(text,"html.parser")
+            required_social=[
+                ("property","og:title"),
+                ("property","og:description"),
+                ("property","og:url"),
+                ("property","og:site_name"),
+                ("property","og:type"),
+                ("property","og:image"),
+                ("name","twitter:card"),
+            ]
+            for key,value in required_social:
+                if not soup.find("meta",attrs={key:value}):
+                    errors.append(f"missing {value}: {url}")
+            og_url=soup.find("meta",attrs={"property":"og:url"})
+            if og_url and str(og_url.get("content") or "").strip()!=url:
+                errors.append(f"og:url mismatch: {url} -> {og_url.get('content')}")
+            if not soup.find("script",attrs={"type":"application/ld+json"}):
+                errors.append(f"missing JSON-LD: {url}")
+            breadcrumb=soup.select_one(".breadcrumb, .crumbs, .pp-breadcrumb")
+            if breadcrumb is None:
+                for nav in soup.find_all("nav"):
+                    aria=str(nav.get("aria-label") or "").lower()
+                    if "breadcrumb" in aria or "đường dẫn" in aria:
+                        breadcrumb=nav
+                        break
+            if breadcrumb is not None:
+                jsonld=" ".join(
+                    script.get_text()
+                    for script in soup.find_all("script",attrs={"type":"application/ld+json"})
+                )
+                if "BreadcrumbList" not in jsonld:
+                    errors.append(f"visible breadcrumb missing BreadcrumbList schema: {url}")
+
     for can,urls in seen_canonicals.items():
         if len(urls)>1:
             errors.append(f"duplicate canonical {can}: {urls}")
+
+
+    home_text=(SITE/"index.html").read_text(encoding="utf-8",errors="replace")
+    home_soup=BeautifulSoup(home_text,"html.parser")
+    home_jsonld=" ".join(
+        script.get_text()
+        for script in home_soup.find_all("script",attrs={"type":"application/ld+json"})
+    )
+    if "Organization" not in home_jsonld:
+        errors.append("homepage must expose Organization JSON-LD")
+    primary_nav=home_soup.select_one("nav.nav-links")
+    if primary_nav is not None and not primary_nav.find("a",href="/cam-nang.html"):
+        errors.append("homepage primary navigation must link to /cam-nang.html")
 
     robots=(SITE/"robots.txt").read_text(encoding="utf-8")
     if "Sitemap: https://timmuasmartcity.com/sitemap.xml" not in robots:
