@@ -89,6 +89,12 @@ def main():
                 errors.append(f"sitemap URL has no staged page: {url} -> {page.relative_to(SITE)}")
                 continue
             text=page.read_text(encoding="utf-8",errors="replace")
+            if name=="sitemap-listings.xml":
+                parts=urlsplit(url)
+                if parts.query or parts.fragment or not re.fullmatch(r"/(?:mua-ban-smart-city|cho-thue-smart-city)/[^/]+/",parts.path):
+                    errors.append(f"listing sitemap must contain only clean detail URLs: {url}")
+                if "data-listing-detail" in text or "marketplace-detail.js" in text:
+                    errors.append(f"listing sitemap page must be static crawlable HTML, not the JS detail shell: {url}")
             if noindex(text):
                 errors.append(f"noindex URL present in sitemap: {url}")
             can=canonical(text)
@@ -104,6 +110,14 @@ def main():
                 errors.append(f"missing H1: {url}")
 
             soup=BeautifulSoup(text,"html.parser")
+            if name=="sitemap-listings.xml":
+                robots_meta=soup.find("meta",attrs={"name":"robots"})
+                robots_content=str(robots_meta.get("content") if robots_meta else "").lower()
+                if "index" not in robots_content or "follow" not in robots_content:
+                    errors.append(f"listing page must explicitly be index,follow: {url}")
+                description_meta=soup.find("meta",attrs={"name":"description"})
+                if not str(description_meta.get("content") if description_meta else "").strip():
+                    errors.append(f"listing page missing meta description: {url}")
             required_social=[
                 ("property","og:title"),
                 ("property","og:description"),
@@ -158,6 +172,19 @@ def main():
         errors.append("robots.txt missing sitemap index declaration")
     if "Disallow: /admin/" not in robots:
         errors.append("robots.txt must keep /admin/ blocked")
+
+    # Public marketplace/card/admin links must never override clean listing URLs
+    # with the legacy noindex ?slug= detail shell.
+    for script_name in ("marketplace-list.js", "marketplace-admin.js"):
+        script_path=SITE/"assets/js"/script_name
+        if not script_path.is_file():
+            errors.append(f"missing staged {script_name}")
+            continue
+        script_text=script_path.read_text(encoding="utf-8",errors="replace")
+        if "/tin-dang-smart-city/" in script_text or "?slug=" in script_text:
+            errors.append(f"legacy noindex listing route leaked into {script_name}")
+        if "api.listingUrl(" not in script_text:
+            errors.append(f"{script_name} must use api.listingUrl() for approved listing links")
 
     # The generic JS detail shell is intentionally noindex; generated clean listing
     # URLs must be the indexable surfaces.

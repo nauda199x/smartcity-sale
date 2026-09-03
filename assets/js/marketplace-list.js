@@ -104,16 +104,6 @@
     unitType.replaceChildren(new Option("Tất cả loại căn",""),...options.map(value=>new Option(value,value)));
     if(options.includes(selected))unitType.value=selected;
   };
-  const liveDetailUrl=listing=>{
-    const slug=api.cleanText(listing?.slug,120);
-    const route="/tin-dang-smart-city/";
-    return slug?`${route}?slug=${encodeURIComponent(slug)}`:route;
-  };
-  const openLiveFor=listing=>event=>{
-    if(event.defaultPrevented||(event.button&&event.button!==0)||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
-    event.preventDefault();
-    location.assign(liveDetailUrl(listing));
-  };
   const imagesFor=listing=>[...(listing.listing_images||[])].sort((a,b)=>Number(a.sort_order)-Number(b.sort_order));
   const formatArea=value=>Number(value)>0?`${Number(value).toLocaleString("vi-VN",{maximumFractionDigits:1})} m²`:"";
   const pricePerSqm=listing=>{
@@ -140,7 +130,6 @@
     const article=el("article","listing-card listing-card--marketplace");
     if(listing.is_featured)article.classList.add("is-featured");
     const cleanUrl=api.listingUrl(listing);
-    const openLive=openLiveFor(listing);
 
     const media=el("div","listing-card-media");
     const track=el("div","listing-card-gallery-track");
@@ -150,7 +139,6 @@
         const slide=el("a","listing-card-slide");
         slide.href=cleanUrl;
         slide.setAttribute("aria-label",`Xem ${listing.title} — ảnh ${index+1}`);
-        slide.addEventListener("click",openLive);
         const img=document.createElement("img");
         img.src=api.imageUrl(item.storage_path);
         img.alt=item.alt_text||`Ảnh ${index+1} — ${listing.title}`;
@@ -159,7 +147,7 @@
       });
     }else{
       const slide=el("a","listing-card-slide listing-card-placeholder",`${listing.unit_type||"Căn hộ"}\n${listing.tower||"Vinhomes Smart City"}`);
-      slide.href=cleanUrl;slide.addEventListener("click",openLive);track.append(slide);
+      slide.href=cleanUrl;track.append(slide);
     }
     media.append(track);
     if(images.length>1)media.append(el("span","listing-card-image-count",`▧ ${images.length} ảnh`));
@@ -173,7 +161,7 @@
     const content=el("div","listing-card-content");
     const title=el("h3");
     const titleLink=el("a","",listing.title);
-    titleLink.href=cleanUrl;titleLink.addEventListener("click",openLive);title.append(titleLink);
+    titleLink.href=cleanUrl;title.append(titleLink);
 
     const facts=el("div","listing-card-facts");
     facts.append(el("strong","listing-card-fact-price",api.formatCurrency(listing.price_vnd,listing.listing_type)));
@@ -212,7 +200,7 @@
       zaloLink.href=`https://zalo.me/${zalo}`;zaloLink.target="_blank";zaloLink.rel="noopener";actions.append(zaloLink);
     }
     const view=el("a","listing-card-action listing-card-action--view","Xem căn");
-    view.href=cleanUrl;view.addEventListener("click",openLive);actions.append(view);
+    view.href=cleanUrl;actions.append(view);
 
     footer.append(poster,actions);
     body.append(content,footer);

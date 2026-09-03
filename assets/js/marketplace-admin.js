@@ -70,7 +70,7 @@
     if(row.status!=="rejected")actions.append(action("Từ chối","admin-action--reject",()=>{if(confirm(`Từ chối tin ${row.listing_code}?`))patchAndReload(row.id,{status:"rejected"},"Tin đã bị từ chối.");}));
     if(currentStatus==="approved")actions.append(action(row.is_featured?"Bỏ ghim":"Ghim đầu", "admin-action--feature",()=>patchAndReload(row.id,{is_featured:!row.is_featured,sort_priority:row.is_featured?0:100},row.is_featured?"Đã bỏ ghim tin.":"Tin đã được ghim ưu tiên.")));
     if(currentStatus==="approved")actions.append(action(row.listing_type==="rent"?"Đã thuê":"Đã bán","",()=>patchAndReload(row.id,{status:row.listing_type==="rent"?"rented":"sold"},"Đã cập nhật trạng thái giao dịch.")));
-    if(currentStatus==="approved"){const preview=el("a","admin-action","Mở tin");preview.href=`/tin-dang-smart-city/?slug=${encodeURIComponent(row.slug)}`;preview.target="_blank";preview.rel="noopener";actions.append(preview);}
+    if(currentStatus==="approved"){const preview=el("a","admin-action","Mở tin");preview.href=api.listingUrl(row);preview.target="_blank";preview.rel="noopener";actions.append(preview);}
     const deleteButton=action("Xóa vĩnh viễn","admin-action--delete",()=>deleteAndReload(row,deleteButton));
     deleteButton.setAttribute("aria-label",`Xóa vĩnh viễn tin ${row.listing_code||row.title}`);
     actions.append(deleteButton);
