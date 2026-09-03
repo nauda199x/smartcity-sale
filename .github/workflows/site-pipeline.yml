@@ -8,6 +8,12 @@ on:
     # Refresh approved listing pages + listing sitemap every morning (07:20 Vietnam).
     - cron: '20 0 * * *'
   workflow_dispatch:
+  # GitHub Pages is currently configured in legacy branch mode as well.
+  # After that legacy deployment finishes, rebuild and redeploy the generated
+  # SEO site so dynamic listing pages cannot be overwritten by the branch copy.
+  workflow_run:
+    workflows: ["pages build and deployment"]
+    types: [completed]
 
 permissions:
   contents: read
@@ -20,6 +26,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -62,16 +69,16 @@ jobs:
           path: _site
           retention-days: 1
       - name: Configure Pages
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: (github.ref == 'refs/heads/main' || github.event_name == 'workflow_run') && github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: (github.ref == 'refs/heads/main' || github.event_name == 'workflow_run') && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
 
   deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    if: (github.ref == 'refs/heads/main' || github.event_name == 'workflow_run') && github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
     needs: build
     runs-on: ubuntu-latest
     permissions:
