@@ -10,7 +10,7 @@ OUT.mkdir()
 
 files=[
     "index.html","404.html","gateway-tower.html","robots.txt","sitemap.xml","sitemap-images.xml","CNAME",
-    "favicon-32.png","favicon-192.png","favicon-512.png","apple-touch-icon.png","site.webmanifest",
+    "favicon.ico","favicon-32.png","favicon-192.png","favicon-512.png","apple-touch-icon.png","site.webmanifest",
     "data.json",
     # Editorial / SEO assets with unique intent. Project-profile duplicates stay on
     # their canonical /phan-khu-smart-city/ routes instead of being staged twice.
