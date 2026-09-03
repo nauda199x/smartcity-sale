@@ -730,3 +730,33 @@ body.detail-lightbox-open{overflow:hidden;overscroll-behavior:none}
     border-radius:0!important
   }
 }
+
+
+/* MOBILE DETAIL GALLERY ALIGNMENT 2026-09-03 */
+@media(max-width:760px){
+  body.listing-detail-page .detail-shell--portal{
+    display:block!important;
+    width:100%!important;
+    max-width:none!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    padding-left:0!important;
+    padding-right:0!important
+  }
+  body.listing-detail-page .detail-gallery-wrap,
+  body.listing-detail-page .detail-gallery,
+  body.listing-detail-page .detail-gallery-track{
+    width:100%!important;
+    max-width:none!important;
+    margin-left:0!important;
+    margin-right:0!important
+  }
+  body.listing-detail-page .detail-gallery-track figure,
+  body.listing-detail-page .detail-gallery-track img{
+    width:100%!important;
+    max-width:none!important
+  }
+  body.listing-detail-page .detail-gallery-track img{
+    object-position:center center
+  }
+}
