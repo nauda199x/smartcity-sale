@@ -89,6 +89,12 @@ def main():
                 errors.append(f"sitemap URL has no staged page: {url} -> {page.relative_to(SITE)}")
                 continue
             text=page.read_text(encoding="utf-8",errors="replace")
+            if name=="sitemap-listings.xml":
+                parts=urlsplit(url)
+                if parts.query or parts.fragment or not re.fullmatch(r"/(?:mua-ban-smart-city|cho-thue-smart-city)/[^/]+/",parts.path):
+                    errors.append(f"listing sitemap must contain only clean detail URLs: {url}")
+                if "data-listing-detail" in text or "marketplace-detail.js" in text:
+                    errors.append(f"listing sitemap page must be static crawlable HTML, not the JS detail shell: {url}")
             if noindex(text):
                 errors.append(f"noindex URL present in sitemap: {url}")
             can=canonical(text)
@@ -104,6 +110,14 @@ def main():
                 errors.append(f"missing H1: {url}")
 
             soup=BeautifulSoup(text,"html.parser")
+            if name=="sitemap-listings.xml":
+                robots_meta=soup.find("meta",attrs={"name":"robots"})
+                robots_content=str(robots_meta.get("content") if robots_meta else "").lower()
+                if "index" not in robots_content or "follow" not in robots_content:
+                    errors.append(f"listing page must explicitly be index,follow: {url}")
+                description_meta=soup.find("meta",attrs={"name":"description"})
+                if not str(description_meta.get("content") if description_meta else "").strip():
+                    errors.append(f"listing page missing meta description: {url}")
             required_social=[
                 ("property","og:title"),
                 ("property","og:description"),
