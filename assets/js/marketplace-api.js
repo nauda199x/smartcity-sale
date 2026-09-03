@@ -180,10 +180,19 @@
     if(!session)throw new MarketplaceError("Phiên quản trị đã hết hạn.",401);
     return request(restPath("listings",{select:"*,listing_images(*),listing_reports(id,reason,details,created_at)",order:"created_at.desc",limit:"300"}),{token:session.access_token});
   };
+  const triggerSeoSync=async token=>{
+    try{
+      return await request("/functions/v1/marketplace-seo-sync",{method:"POST",body:{},token});
+    }catch(error){
+      console.warn("Marketplace SEO sync dispatch failed; scheduled deployment remains the fallback.",error);
+      return {ok:false,dispatched:false,error:error?.message||"sync_failed"};
+    }
+  };
   const updateListing=async(id,patch)=>{
     const session=await requireAdmin();
     if(!session)throw new MarketplaceError("Phiên quản trị đã hết hạn.",401);
-    return request(restPath("listings",{id:`eq.${id}`}),{method:"PATCH",body:patch,token:session.access_token,headers:{Prefer:"return=minimal"}});
+    await request(restPath("listings",{id:`eq.${id}`}),{method:"PATCH",body:patch,token:session.access_token,headers:{Prefer:"return=minimal"}});
+    return {seoSync:await triggerSeoSync(session.access_token)};
   };
   const deleteListing=async listing=>{
     const session=await requireAdmin();
@@ -200,12 +209,13 @@
       method:"DELETE",token:session.access_token,headers:{Prefer:"return=representation"}
     });
     if(!Array.isArray(deleted)||deleted.length!==1)throw new MarketplaceError("Tin không còn tồn tại hoặc anh/chị không có quyền xóa.",404);
-    return {id,deletedImageCount:imagePaths.length};
+    const seoSync=await triggerSeoSync(session.access_token);
+    return {id,deletedImageCount:imagePaths.length,seoSync};
   };
 
   window.SmartCityMarketplace={
     config,configured,MarketplaceError,cleanText,slugify,formatCurrency,imageUrl,listingUrl,
     listPublic,getPublicListing,createListing,uploadImage,addListingImage,createReport,
-    signIn,signOut,requireAdmin,listAdmin,updateListing,deleteListing
+    signIn,signOut,requireAdmin,listAdmin,updateListing,deleteListing,triggerSeoSync
   };
 })();
