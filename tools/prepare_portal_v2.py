@@ -46,10 +46,11 @@ for name in dirs:
     if src.exists():
         shutil.copytree(src,OUT/name)
 
-# Keep legacy URLs that Google may still know alive long enough to migrate their
-# signals to the current canonical hub. GitHub Pages cannot emit per-path HTTP 301s,
-# so these tiny zero-second meta-refresh pages act as legacy redirects while also
-# declaring the destination canonical explicitly.
+# Keep legacy URLs that Google may still know alive long enough to migrate users
+# to the current canonical hub. GitHub Pages cannot emit per-path HTTP 301s, so
+# these tiny zero-second meta-refresh pages act as legacy redirects. They are
+# noindex so the SEO builder keeps them out of sitemaps while the canonical URL
+# remains the only indexable phân-khu hub.
 legacy_redirects={
     "phan-khu.html":"/phan-khu-smart-city/",
     "phan-khu/index.html":"/phan-khu-smart-city/",
@@ -63,7 +64,7 @@ for rel_path,destination in legacy_redirects.items():
         "<meta charset=\"utf-8\">"
         f"<meta http-equiv=\"refresh\" content=\"0;url={destination}\">"
         f"<link rel=\"canonical\" href=\"{canonical_url}\">"
-        "<meta name=\"robots\" content=\"index,follow\">"
+        "<meta name=\"robots\" content=\"noindex,follow\">"
         "<title>Phân khu Vinhomes Smart City</title>"
         "</head><body>"
         f"<p>Trang đã chuyển sang <a href=\"{destination}\">Phân khu Smart City</a>.</p>"
