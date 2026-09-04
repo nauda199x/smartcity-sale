@@ -46,6 +46,31 @@ for name in dirs:
     if src.exists():
         shutil.copytree(src,OUT/name)
 
+# Keep legacy URLs that Google may still know alive long enough to migrate their
+# signals to the current canonical hub. GitHub Pages cannot emit per-path HTTP 301s,
+# so these tiny zero-second meta-refresh pages act as legacy redirects while also
+# declaring the destination canonical explicitly.
+legacy_redirects={
+    "phan-khu.html":"/phan-khu-smart-city/",
+    "phan-khu/index.html":"/phan-khu-smart-city/",
+}
+for rel_path,destination in legacy_redirects.items():
+    target=OUT/rel_path
+    target.parent.mkdir(parents=True,exist_ok=True)
+    canonical_url=f"https://timmuasmartcity.com{destination}"
+    target.write_text(
+        "<!doctype html><html lang=\"vi\"><head>"
+        "<meta charset=\"utf-8\">"
+        f"<meta http-equiv=\"refresh\" content=\"0;url={destination}\">"
+        f"<link rel=\"canonical\" href=\"{canonical_url}\">"
+        "<meta name=\"robots\" content=\"index,follow\">"
+        "<title>Phân khu Vinhomes Smart City</title>"
+        "</head><body>"
+        f"<p>Trang đã chuyển sang <a href=\"{destination}\">Phân khu Smart City</a>.</p>"
+        "</body></html>",
+        encoding="utf-8",
+    )
+
 # Apply the site-wide visual identity at staging time so every current and future
 # public HTML page receives the same theme without duplicating markup in source files.
 theme_link='<link rel="stylesheet" href="/assets/css/modern-ui.css?v=20260901-homeoverview2">'
