@@ -39,6 +39,8 @@ jobs:
           python3 tools/qa_marketplace_pages.py
           python3 tools/qa_marketplace_accounts.py
           python3 tools/qa_saved_searches_landings.py
+      - name: Validate deep floorplan SEO cluster
+        run: python3 tools/qa_floorplan_seo_cluster.py
       - name: Validate The Victoria dossier
         run: python3 tools/validate_victoria_assets.py
       - name: Validate The Sakura dossier
