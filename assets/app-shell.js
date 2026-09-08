@@ -38,18 +38,36 @@
     });
   }
 
+  function ensureStyle(href,needle){
+    if(document.querySelector(`link[href*="${needle}"]`))return;
+    const style=document.createElement("link");style.rel="stylesheet";style.href=href;document.head.append(style);
+  }
+
+  function loadSavedSearchAssets(){
+    if(!document.querySelector("[data-inventory]")&&!document.querySelector("[data-marketplace-list]"))return;
+    ensureStyle("/assets/css/marketplace-saved-searches.css?v=20260908-growth3","marketplace-saved-searches.css");
+    const loadUi=()=>{
+      if(window.SmartCitySavedSearches){
+        if(!document.querySelector('script[src*="marketplace-saved-searches-ui.js"]')){
+          const ui=document.createElement("script");ui.src="/assets/js/marketplace-saved-searches-ui.js?v=20260908-growth3";ui.defer=true;document.head.append(ui);
+        }
+        return;
+      }
+      if(document.querySelector('script[src*="marketplace-saved-searches.js"]'))return;
+      const saved=document.createElement("script");saved.src="/assets/js/marketplace-saved-searches.js?v=20260908-growth3";saved.addEventListener("load",loadUi,{once:true});document.head.append(saved);
+    };
+    if(window.SmartCityMarketplaceAccount){loadUi();return;}
+    const existing=document.querySelector('script[src*="marketplace-account.js"]');
+    if(existing){existing.addEventListener("load",loadUi,{once:true});return;}
+    const account=document.createElement("script");account.src="/assets/js/marketplace-account.js?v=20260908-growth3";account.addEventListener("load",loadUi,{once:true});document.head.append(account);
+  }
+
   function loadMemberPostingEnhancements(){
     if(!document.querySelector("[data-marketplace-submit]")||!window.SmartCityMarketplace)return;
-    if(!document.querySelector('link[href*="marketplace-account.css"]')){
-      const style=document.createElement("link");
-      style.rel="stylesheet";
-      style.href="/assets/css/marketplace-account.css?v=20260908-growth2";
-      document.head.append(style);
-    }
+    ensureStyle("/assets/css/marketplace-account.css?v=20260908-growth3","marketplace-account.css");
     if(window.SmartCityMarketplaceAccount||document.querySelector('script[src*="marketplace-account.js"]'))return;
     const script=document.createElement("script");
-    script.src="/assets/js/marketplace-account.js?v=20260908-growth2";
-    script.async=false;
+    script.src="/assets/js/marketplace-account.js?v=20260908-growth3";
     document.head.append(script);
   }
 
@@ -91,8 +109,6 @@
   }
 
   function normalizeLegacyShellClasses(){
-    // If an old cached/generated page still contains V2 shell classes, keep it usable
-    // without replacing its semantic structure.
     document.querySelectorAll(".site-header__inner").forEach(el=>el.classList.add("nav"));
     document.querySelectorAll(".site-brand").forEach(el=>el.classList.add("brand"));
     document.querySelectorAll(".site-brand__mark").forEach(el=>el.classList.add("brand-mark"));
@@ -108,6 +124,7 @@
     addMobilePropertyNav();
     bindHeaderState();
     loadMemberPostingEnhancements();
+    loadSavedSearchAssets();
   }
 
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init,{once:true});

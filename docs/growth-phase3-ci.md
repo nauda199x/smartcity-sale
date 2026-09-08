@@ -1,0 +1,1 @@
+CI validates JavaScript syntax, saved-search privacy expectations, inventory-backed landing generation, the existing marketplace account regression suite, SEO canonicals/sitemaps, and the staged portal.

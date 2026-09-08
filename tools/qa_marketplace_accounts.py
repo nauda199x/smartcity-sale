@@ -46,7 +46,7 @@ checks = {
     "freshness action does not grant moderation": "action_name = 'confirm'" in growth2 and "set last_confirmed_at = now()" in growth2,
     "member insert cannot claim admin source": "source_channel in ('form','bulk')" in growth2,
     "dashboard flags stale inventory": "days>21" in dashboard and "data-count-stale" in page and "member-freshness" in css,
-    "growth2 assets use cache-busting version": "20260908-growth2" in page and "20260908-growth2" in shell,
+    "member growth assets use current cache-busting version": "20260908-growth3" in page and "20260908-growth3" in shell,
 }
 
 failed = [name for name, ok in checks.items() if not ok]

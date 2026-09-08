@@ -12,7 +12,8 @@
   <meta name="theme-color" content="#0b6b57">
   <link rel="stylesheet" href="/assets/css/site.css?v=20260901-brand2">
   <link rel="stylesheet" href="/assets/css/marketplace.css?v=20260829-portal2">
-  <link rel="stylesheet" href="/assets/css/marketplace-account.css?v=20260908-growth2">
+  <link rel="stylesheet" href="/assets/css/marketplace-account.css?v=20260908-growth3">
+  <link rel="stylesheet" href="/assets/css/marketplace-saved-searches.css?v=20260908-growth3">
   <link rel="stylesheet" href="/assets/css/site-theme.css?v=20260902-1">
 </head>
 <body class="member-account-page">
@@ -34,7 +35,7 @@
         <div class="member-auth__intro">
           <h2>Một tài khoản, quản lý nhiều căn.</h2>
           <p>Thiết kế cho người đăng thường xuyên: chủ nhà có nhiều căn hoặc môi giới có quỹ hàng lớn.</p>
-          <ul><li>Theo dõi tin đang chờ duyệt và đang hiển thị.</li><li>Ẩn tin ngay khi không còn nhu cầu giao dịch.</li><li>Đánh dấu đã bán/đã cho thuê để quỹ căn luôn sạch.</li><li>Đăng lại tin cũ về hàng chờ duyệt mà không cần nhờ quản trị viên.</li></ul>
+          <ul><li>Theo dõi tin đang chờ duyệt và đang hiển thị.</li><li>Ẩn tin ngay khi không còn nhu cầu giao dịch.</li><li>Đánh dấu đã bán/đã cho thuê để quỹ căn luôn sạch.</li><li>Lưu nhu cầu tìm kiếm và xem ngay số căn mới phù hợp.</li></ul>
         </div>
         <div class="member-auth__form">
           <div class="member-tabs" role="tablist" aria-label="Đăng nhập hoặc tạo tài khoản"><button type="button" class="is-active" data-member-tab="signin">Đăng nhập</button><button type="button" data-member-tab="signup">Tạo tài khoản</button></div>
@@ -57,7 +58,17 @@
 
       <section class="member-card member-dashboard" data-member-dashboard hidden aria-label="Danh sách tin của tôi">
         <div class="member-dashboard__bar"><div class="member-identity" data-member-identity></div><button class="member-signout" type="button" data-member-signout>Đăng xuất</button></div>
-        <div class="member-summary" aria-label="Tổng quan tin đăng"><div><span>Tổng tin</span><strong data-count-all>0</strong></div><div><span>Đang hiển thị</span><strong data-count-approved>0</strong></div><div><span>Chờ duyệt</span><strong data-count-pending>0</strong></div><div><span>Cần xác nhận lại</span><strong data-count-stale>0</strong></div><div><span>Đã ẩn / kết thúc</span><strong data-count-hidden>0</strong></div></div>
+        <div class="member-summary" aria-label="Tổng quan tin đăng"><div><span>Tổng tin</span><strong data-count-all>0</strong></div><div><span>Đang hiển thị</span><strong data-count-approved>0</strong></div><div><span>Chờ duyệt</span><strong data-count-pending>0</strong></div><div><span>Cần xác nhận lại</span><strong data-count-stale>0</strong></div><div><span>Đã ẩn / kết thúc</span><strong data-count-hidden>0</strong></div><div class="is-alert"><span>Căn mới đúng nhu cầu</span><strong data-count-new-matches>0</strong></div></div>
+
+        <p class="member-status member-saved-search-status" data-saved-search-status hidden role="status"></p>
+
+        <section class="member-saved-searches" aria-labelledby="saved-search-title">
+          <div class="member-saved-searches__head">
+            <div><span class="member-tool-kicker">Giữ người tìm quay lại</span><h2 id="saved-search-title">Tìm kiếm đã lưu</h2><p>Lưu bộ lọc mua hoặc thuê, hệ thống sẽ đếm số căn mới được duyệt kể từ lần bạn mở tìm kiếm đó. Đây là thông báo ngay trong tài khoản, không phải email quảng cáo.</p></div>
+            <div class="member-saved-searches__head-actions"><a class="btn" href="/mua-ban-smart-city/#quy-can">Tìm căn mua</a><a class="btn" href="/cho-thue-smart-city/#quy-can">Tìm căn thuê</a></div>
+          </div>
+          <div class="member-saved-search-list" data-saved-search-list><div class="member-saved-search-empty">Đăng nhập để tải tìm kiếm đã lưu…</div></div>
+        </section>
 
         <div class="member-growth-tools">
           <section class="member-bulk" aria-labelledby="bulk-title">
@@ -96,8 +107,10 @@
   <script src="/assets/js/site.js" defer></script>
   <script src="/assets/js/marketplace-config.js?v=20260908-parity1"></script>
   <script src="/assets/js/marketplace-api.js?v=20260908-parity1"></script>
-  <script src="/assets/js/marketplace-account.js?v=20260908-growth2"></script>
-  <script src="/assets/js/marketplace-account-page.js?v=20260908-growth2" defer></script>
-  <script src="/assets/app-shell.js?v=20260908-growth1" defer></script>
+  <script src="/assets/js/marketplace-account.js?v=20260908-growth3"></script>
+  <script src="/assets/js/marketplace-saved-searches.js?v=20260908-growth3"></script>
+  <script src="/assets/js/marketplace-account-page.js?v=20260908-growth3" defer></script>
+  <script src="/assets/js/marketplace-saved-searches-account.js?v=20260908-growth3" defer></script>
+  <script src="/assets/app-shell.js?v=20260908-growth3" defer></script>
 </body>
 </html>
