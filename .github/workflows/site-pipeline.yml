@@ -33,6 +33,9 @@ jobs:
       - name: Validate marketplace paging and administration
         run: |
           node --test tools/qa_admin_api.cjs tools/qa_admin_ui.cjs tools/qa_inventory_api.cjs
+          node --check assets/js/marketplace-saved-searches.js
+          node --check assets/js/marketplace-saved-searches-ui.js
+          node --check assets/js/marketplace-saved-searches-account.js
           python3 tools/qa_marketplace_pages.py
           python3 tools/qa_marketplace_accounts.py
           python3 tools/qa_saved_searches_landings.py
