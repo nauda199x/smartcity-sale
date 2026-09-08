@@ -34,6 +34,10 @@ jobs:
         run: |
           node --test tools/qa_admin_api.cjs tools/qa_admin_ui.cjs tools/qa_inventory_api.cjs
           python3 tools/qa_marketplace_pages.py
+      - name: Validate poster accounts and dashboard
+        run: |
+          node --check assets/js/marketplace-account.js
+          python3 tools/qa_poster_accounts.py
       - name: Validate The Victoria dossier
         run: python3 tools/validate_victoria_assets.py
       - name: Validate The Sakura dossier
