@@ -8,6 +8,8 @@
   const pendingProfileKey="smartcity_marketplace_pending_profile";
   const configured=()=>Boolean(base&&key&&!base.includes("YOUR_PROJECT"));
   const clean=(value,max=300)=>String(value??"").trim().slice(0,max);
+  const escapeHtml=(value,max=500)=>clean(value,max).replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+  const safeStatus=value=>clean(value,24).toLowerCase().replace(/[^a-z-]/g,"");
 
   const headers=token=>({apikey:key,...(token?{Authorization:`Bearer ${token}`}:{})});
   const parse=async response=>{
@@ -88,10 +90,9 @@
   const upsertProfile=async profile=>{
     const session=await currentSession();
     if(!session?.access_token)throw new Error("Vui lòng đăng nhập để lưu hồ sơ.");
-    const rows=await request("/rest/v1/rpc/marketplace_upsert_profile",{method:"POST",token:session.access_token,body:{
+    return request("/rest/v1/rpc/marketplace_upsert_profile",{method:"POST",token:session.access_token,body:{
       p_display_name:clean(profile.displayName,120),p_phone:clean(profile.phone,30),p_poster_type:profile.posterType==="owner"?"owner":"agent",p_company_name:clean(profile.companyName,160)||null
     }});
-    return rows;
   };
   const applyPendingProfile=async()=>{
     let pending=null;
@@ -136,8 +137,6 @@
         const owned=await ownedCreateListing(data);
         if(owned)return owned;
       }catch(error){
-        // Authenticated posting must not silently lose account ownership. Surface
-        // authorization errors instead; only a missing session falls back to anon.
         if(await currentSession())throw error;
       }
       return anonymousCreate(data);
@@ -204,14 +203,14 @@
       if(!rows.length){list.innerHTML='<div class="account-empty"><strong>Chưa có tin nào gắn với tài khoản này.</strong><p>Đăng tin mới khi đang đăng nhập, tin sẽ tự xuất hiện tại đây.</p><a class="btn btn-primary" href="/dang-tin-smart-city/">Đăng tin đầu tiên</a></div>';return;}
       list.replaceChildren(...rows.map(row=>{
         const image=[...(row.listing_images||[])].sort((a,b)=>Number(a.sort_order||0)-Number(b.sort_order||0))[0];
-        const card=document.createElement("article");card.className="account-listing-card";card.dataset.listingId=row.id;
+        const card=document.createElement("article");card.className="account-listing-card";card.dataset.listingId=clean(row.id,50);
         const img=image&&api?.imageUrl?api.imageUrl(image.storage_path):"";
-        const publicLink=row.status==="approved"?`<a class="account-card-link" href="${listingHref(row)}">Xem tin →</a>`:"";
+        const publicLink=row.status==="approved"?`<a class="account-card-link" href="${escapeHtml(listingHref(row),300)}">Xem tin →</a>`:"";
         const actionButtons=[];
         if(["pending","approved"].includes(row.status))actionButtons.push('<button type="button" data-my-action="hide">Ẩn tin</button>');
         if(row.status==="approved")actionButtons.push(`<button type="button" data-my-action="done">${row.listing_type==="rent"?"Đã cho thuê":"Đã bán"}</button>`);
         if(["expired","rejected","sold","rented"].includes(row.status))actionButtons.push('<button type="button" data-my-action="renew">Đăng lại / chờ duyệt</button>');
-        card.innerHTML=`${img?`<img src="${img}" alt="" loading="lazy" decoding="async">`:'<div class="account-card-placeholder">SC</div>'}<div class="account-card-body"><div class="account-card-top"><span class="account-status is-${clean(row.status,20)}">${statusLabel(row.status)}</span><small>${clean(row.listing_code,30)}</small></div><h3>${clean(row.title,180)}</h3><p class="account-card-location">${clean(row.phase,60)} · ${clean(row.tower,40)} · ${clean(row.unit_type,50)}</p><div class="account-card-facts"><strong>${money(row)}</strong><span>${Number(row.view_count||0).toLocaleString("vi-VN")} lượt xem</span><span>Đăng ${formatDate(row.created_at)}</span></div><div class="account-card-actions">${publicLink}${actionButtons.join("")}</div></div>`;
+        card.innerHTML=`${img?`<img src="${escapeHtml(img,900)}" alt="" loading="lazy" decoding="async">`:'<div class="account-card-placeholder">SC</div>'}<div class="account-card-body"><div class="account-card-top"><span class="account-status is-${safeStatus(row.status)}">${escapeHtml(statusLabel(row.status),60)}</span><small>${escapeHtml(row.listing_code,30)}</small></div><h3>${escapeHtml(row.title,180)}</h3><p class="account-card-location">${escapeHtml(row.phase,60)} · ${escapeHtml(row.tower,40)} · ${escapeHtml(row.unit_type,50)}</p><div class="account-card-facts"><strong>${escapeHtml(money(row),60)}</strong><span>${Number(row.view_count||0).toLocaleString("vi-VN")} lượt xem</span><span>Đăng ${escapeHtml(formatDate(row.created_at),30)}</span></div><div class="account-card-actions">${publicLink}${actionButtons.join("")}</div></div>`;
         return card;
       }));
     };
