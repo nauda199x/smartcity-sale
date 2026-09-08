@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Tài khoản người đăng tin | Sàn Smart City</title>
+  <meta name="description" content="Đăng nhập hoặc tạo tài khoản để quản lý tin bán, cho thuê tại Vinhomes Smart City, theo dõi trạng thái duyệt và lượt xem.">
+  <meta name="robots" content="noindex,follow">
+  <link rel="canonical" href="https://timmuasmartcity.com/tai-khoan-smart-city/">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0b6b57">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20260901-brand2">
+  <link rel="stylesheet" href="/assets/css/site-theme.css?v=20260902-1">
+  <link rel="stylesheet" href="/assets/css/marketplace-account.css?v=20260908-account1">
+</head>
+<body class="account-page">
+  <a class="skip-link" href="#main">Bỏ qua điều hướng</a>
+  <header class="site-header"><div class="container nav"><a class="brand" href="/" aria-label="Sàn Smart City – Trang chủ"><span class="brand-mark" aria-hidden="true">SC</span><span>SÀN SMART CITY</span></a><button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav">Menu</button><nav id="primary-nav" class="nav-links" data-nav-links data-open="false" aria-label="Điều hướng chính"><a href="/tong-quan-smart-city/">Tổng quan</a><a href="/mat-bang-smart-city/">Mặt bằng</a><a href="/gia-smart-city/">Giá</a><a href="/mua-ban-smart-city/">Mua bán</a><a href="/cho-thue-smart-city/">Cho thuê</a><a href="/giao-dich-smart-city/">Giao dịch</a><a href="/dang-tin-smart-city/">Đăng tin</a></nav></div></header>
+
+  <main id="main" data-account-root>
+    <section class="account-hero">
+      <div class="container account-hero__grid">
+        <div>
+          <p class="eyebrow">Tài khoản người đăng</p>
+          <h1>Quản lý toàn bộ tin của bạn tại một chỗ.</h1>
+          <p>Tài khoản là tùy chọn. Anh/chị vẫn có thể đăng tin không cần đăng nhập, nhưng khi dùng tài khoản thì các tin mới sẽ được gắn với tài khoản để theo dõi trạng thái duyệt, lượt xem và tự quản lý sau này.</p>
+        </div>
+        <div class="account-hero__benefits" aria-label="Lợi ích tài khoản">
+          <span><b>✓</b> Xem tất cả tin của mình</span>
+          <span><b>✓</b> Theo dõi lượt xem từng tin</span>
+          <span><b>✓</b> Tự ẩn khi đã giao dịch</span>
+          <span><b>✓</b> Đăng lại tin hết hạn để chờ duyệt</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="account-shell">
+      <div class="container">
+        <p class="account-notice" data-account-notice hidden role="status"></p>
+
+        <section class="account-auth" data-account-auth>
+          <div class="account-auth-tabs" role="tablist" aria-label="Đăng nhập hoặc tạo tài khoản">
+            <button class="is-active" type="button" data-auth-tab="login">Đăng nhập</button>
+            <button type="button" data-auth-tab="register">Tạo tài khoản</button>
+          </div>
+
+          <form class="account-form" data-login-form>
+            <div class="account-form__intro"><h2>Đăng nhập</h2><p>Dành cho chủ nhà hoặc môi giới đã có tài khoản.</p></div>
+            <div class="account-fields">
+              <div class="account-field account-field--full"><label for="login-email">Email</label><input id="login-email" name="email" type="email" autocomplete="email" required placeholder="email@example.com"></div>
+              <div class="account-field account-field--full"><label for="login-password">Mật khẩu</label><input id="login-password" name="password" type="password" autocomplete="current-password" required minlength="8"></div>
+            </div>
+            <button class="btn btn-primary" type="submit">Đăng nhập</button>
+            <p class="account-form__privacy">Phiên đăng nhập được lưu trên thiết bị này. Không dùng tài khoản quản trị website tại đây.</p>
+          </form>
+
+          <form class="account-form" data-register-form hidden>
+            <div class="account-form__intro"><h2>Tạo tài khoản người đăng</h2><p>Phù hợp với chủ nhà có nhiều căn và môi giới thường xuyên đăng quỹ hàng.</p></div>
+            <div class="account-fields">
+              <div class="account-field"><label for="register-name">Tên hiển thị</label><input id="register-name" name="display_name" maxlength="120" required autocomplete="name" placeholder="Anh Nam / Minh Homes"></div>
+              <div class="account-field"><label for="register-phone">Số điện thoại / Zalo</label><input id="register-phone" name="phone" type="tel" maxlength="30" required autocomplete="tel" placeholder="09xx xxx xxx"></div>
+              <div class="account-field"><label for="register-type">Bạn là</label><select id="register-type" name="poster_type"><option value="agent">Môi giới</option><option value="owner">Chủ nhà</option></select></div>
+              <div class="account-field"><label for="register-company">Đơn vị / thương hiệu (không bắt buộc)</label><input id="register-company" name="company_name" maxlength="160" autocomplete="organization" placeholder="Ví dụ: Minh Homes"></div>
+              <div class="account-field account-field--full"><label for="register-email">Email đăng nhập</label><input id="register-email" name="email" type="email" autocomplete="email" required placeholder="email@example.com"></div>
+              <div class="account-field account-field--full"><label for="register-password">Mật khẩu</label><input id="register-password" name="password" type="password" autocomplete="new-password" required minlength="8" placeholder="Tối thiểu 8 ký tự"></div>
+            </div>
+            <button class="btn btn-primary" type="submit">Tạo tài khoản</button>
+            <p class="account-form__privacy">Thông tin hồ sơ dùng để hỗ trợ quản lý tin. Website không công khai email đăng nhập. Số điện thoại chỉ hiển thị trên tin khi anh/chị đồng ý công khai lúc đăng.</p>
+          </form>
+        </section>
+
+        <section class="account-dashboard" data-account-dashboard hidden>
+          <div class="account-dashboard-head">
+            <div class="account-identity"><div class="account-avatar" aria-hidden="true">SC</div><div><h2 data-account-name>Tài khoản</h2><p data-account-email></p><span class="account-badge" data-account-profile-badge>Tài khoản thường</span></div></div>
+            <div class="account-head-actions"><a class="btn btn-primary" href="/dang-tin-smart-city/">＋ Đăng tin mới</a><button class="btn" type="button" data-account-signout>Đăng xuất</button></div>
+          </div>
+
+          <div class="account-stats" aria-label="Tổng quan tài khoản">
+            <div class="account-stat"><span>Tổng tin</span><strong data-count-all>0</strong></div>
+            <div class="account-stat"><span>Chờ duyệt</span><strong data-count-pending>0</strong></div>
+            <div class="account-stat"><span>Đang hiển thị</span><strong data-count-approved>0</strong></div>
+            <div class="account-stat"><span>Tổng lượt xem</span><strong data-count-views>0</strong></div>
+          </div>
+
+          <div class="account-dashboard-grid">
+            <section class="account-panel">
+              <div class="account-panel__head"><h2>Tin của tôi</h2><a href="/dang-tin-smart-city/">Đăng thêm tin</a></div>
+              <div class="account-listings" data-my-listings></div>
+            </section>
+
+            <aside class="account-panel">
+              <form class="account-profile-form" data-profile-form>
+                <h3>Hồ sơ người đăng</h3>
+                <div class="account-field"><label for="profile-name">Tên hiển thị</label><input id="profile-name" name="display_name" maxlength="120" required></div>
+                <div class="account-field"><label for="profile-phone">Số điện thoại / Zalo</label><input id="profile-phone" name="phone" type="tel" maxlength="30" required></div>
+                <div class="account-field"><label for="profile-type">Loại tài khoản</label><select id="profile-type" name="poster_type"><option value="agent">Môi giới</option><option value="owner">Chủ nhà</option></select></div>
+                <div class="account-field"><label for="profile-company">Đơn vị / thương hiệu</label><input id="profile-company" name="company_name" maxlength="160"></div>
+                <button class="btn" type="submit">Lưu hồ sơ</button>
+              </form>
+              <p class="account-footer-note">Tin mới được đăng khi đang đăng nhập sẽ tự gắn với tài khoản này. Việc tài khoản có hồ sơ không có nghĩa website xác minh pháp lý của căn hộ hoặc người đăng.</p>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-grid"><div><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">SC</span><span>SÀN SMART CITY</span></a><p>Mua bán · Cho thuê · Đăng căn tại Smart City.</p></div><div><nav class="footer-links" aria-label="Điều hướng cuối trang"><a href="/giao-dich-smart-city/">Giao dịch</a><a href="/mua-ban-smart-city/">Mua bán</a><a href="/cho-thue-smart-city/">Cho thuê</a><a href="/dang-tin-smart-city/">Đăng tin</a><a href="/tai-khoan-smart-city/">Tài khoản</a></nav><p class="disclaimer">Website thông tin và giao dịch độc lập, không phải website chính thức của Vinhomes hoặc các chủ đầu tư/phát triển dự án.</p><p class="disclaimer">© <span data-year>2026</span> Sàn Smart City.</p></div></div></footer>
+
+  <script src="/assets/js/site.js" defer></script>
+  <script src="/assets/js/marketplace-config.js?v=20260908-parity1"></script>
+  <script src="/assets/js/marketplace-api.js?v=20260908-parity1"></script>
+  <script src="/assets/js/marketplace-account.js?v=20260908-account1" defer></script>
+  <script src="/assets/app-shell.js" defer></script>
+</body>
+</html>
