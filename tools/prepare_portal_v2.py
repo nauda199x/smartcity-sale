@@ -36,7 +36,7 @@ dirs=[
     "tong-quan-smart-city","vi-tri-smart-city","mat-bang-smart-city","tien-ich-smart-city",
     "phan-khu-smart-city","gia-smart-city",
     "giao-dich-smart-city","mua-ban-smart-city","cho-thue-smart-city",
-    "dang-tin-smart-city","tin-dang-smart-city","admin","gioi-thieu","lien-he"
+    "dang-tin-smart-city","tin-dang-smart-city","tai-khoan-smart-city","admin","gioi-thieu","lien-he"
 ]
 for name in files:
     src=ROOT/name
@@ -78,7 +78,7 @@ for rel_path,destination in legacy_redirects.items():
 theme_link='<link rel="stylesheet" href="/assets/css/modern-ui.css?v=20260901-homeoverview2">'
 site_theme_link='<link rel="stylesheet" href="/assets/css/site-theme.css?v=20260902-1">'
 theme_meta='<meta name="theme-color" content="#0e211c">'
-shell_script='<script src="/assets/app-shell.js?v=20260901-shellfix1" defer></script>'
+shell_script='<script src="/assets/app-shell.js?v=20260908-growth1" defer></script>'
 themed=0
 for html in OUT.rglob("*.html"):
     if html.relative_to(OUT).parts[0] == "admin":
@@ -96,8 +96,10 @@ for html in OUT.rglob("*.html"):
             text = text.replace(component_link, "")
         text=text.replace("</head>",site_theme_link+"".join(component_links)+"</head>",1)
         html.write_text(text,encoding="utf-8")
+    # Keep the shared shell cache-busted whenever its navigation behavior changes.
+    text=re.sub(r'<script src=["\']/assets/app-shell\.js(?:\?[^"\']*)?["\'] defer></script>', shell_script, text)
     if "app-shell.js" not in text and "</body>" in text:
         text=text.replace("</body>", shell_script + "</body>", 1)
-        html.write_text(text, encoding="utf-8")
+    html.write_text(text, encoding="utf-8")
 
 print(f"staged clean Smart City portal {OUT} · applied modern UI to {themed} HTML files")
