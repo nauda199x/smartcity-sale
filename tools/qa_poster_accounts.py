@@ -31,6 +31,8 @@ account = require(
     'listMyListings',
     'ownedCreateListing',
     'api.createListing=async data=>',
+    'escapeHtml',
+    'safeStatus',
 )
 assert "service_role" not in account.lower()
 assert "supabasePublishableKey" in account
@@ -47,11 +49,19 @@ migration = require(
 )
 assert "service_role" not in migration.lower()
 
-prepare = require("tools/prepare_portal_v2.py", '"tai-khoan-smart-city"')
-shell = require(
+image_policy = require(
+    "supabase/poster-accounts-listing-images.sql",
+    "listing_images_owner_read",
+    "listings.owner_user_id = auth.uid()",
+)
+assert "service_role" not in image_policy.lower()
+
+require("tools/prepare_portal_v2.py", '"tai-khoan-smart-city"')
+require(
     "assets/app-shell.js",
     '/tai-khoan-smart-city/',
     'marketplace-account.js',
+    'marketplace-account.css',
     'addPosterAccountLink',
 )
 
