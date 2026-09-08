@@ -132,6 +132,12 @@ for page in ROOT.rglob("*.html"):
         for link in soup.find_all("link")
         if "stylesheet" in (link.get("rel") or [])
     ]
+    if relative.parts[0] == "admin":
+        if len(styles) != 1 or not styles[0].startswith("/assets/css/marketplace-admin.css"):
+            errors.append("Admin must use its isolated application stylesheet")
+        continue
+    # Scoped marketplace components may follow the shared editorial theme.
+    styles = [href for href in styles if not href.startswith(("/assets/css/listing-detail.css", "/assets/css/marketplace-inventory.css"))]
     if not any(href.startswith(theme_prefix) for href in styles):
         errors.append(f"site-wide posting theme not linked from {relative}")
         continue

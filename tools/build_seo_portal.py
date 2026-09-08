@@ -19,6 +19,7 @@ import subprocess
 import xml.etree.ElementTree as ET
 
 from bs4 import BeautifulSoup
+from marketplace_pages import detail_page, build_inventory, build_market_prices, safe_json
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE_ROOT = ROOT / "_site"
@@ -39,41 +40,30 @@ def parse_marketplace_config() -> tuple[str, str, str]:
 def fetch_approved_listings() -> list[dict]:
     base, key, _ = parse_marketplace_config()
     if not base or not key:
-        print("SEO: marketplace config missing; skip static listing generation")
-        return []
+        raise RuntimeError("Marketplace configuration is required for SEO generation")
     params = {
         "select": "id,slug,listing_code,listing_type,title,description,poster_name,contact_phone,phase,tower,bedroom_count,unit_type,area_sqm,price_vnd,furnishing,floor_label,available_from,is_featured,approved_at,expires_at,created_at,listing_images(id,storage_path,sort_order,alt_text)",
-        "status": "eq.approved",
-        "order": "is_featured.desc,sort_priority.desc,approved_at.desc",
-        "limit": "500",
+        "status": "eq.approved", "order": "approved_at.desc,id.desc", "limit": "500",
     }
-    url = f"{base}/rest/v1/listings?{urlencode(params)}"
-    try:
-        result = subprocess.run(
-            [
-                "curl", "--silent", "--show-error", "--location",
-                "--max-time", "20",
-                "-H", f"apikey: {key}",
-                "-H", "Accept: application/json",
-                "-H", f"Origin: {SITE}",
-                "-H", f"Referer: {SITE}/",
-                url,
-            ],
-            check=False,
-            capture_output=True,
-            text=True,
-        )
-        if result.returncode != 0:
-            print(f"SEO: approved listings fetch failed with curl status {result.returncode}")
-            return []
-        rows = json.loads(result.stdout or "[]")
-        if isinstance(rows, dict) and rows.get("code"):
-            print(f"SEO: approved listings API returned {rows.get('code')}; continuing without static listing pages")
-            return []
-        return rows if isinstance(rows, list) else []
-    except Exception as exc:
-        print(f"SEO: approved listings fetch failed: {type(exc).__name__}")
-        return []
+    output = []
+    offset = 0
+    while True:
+        params["offset"] = str(offset)
+        result = subprocess.run([
+            "curl", "--fail", "--silent", "--show-error", "--location", "--max-time", "30",
+            "--retry", "2", "-H", f"apikey: {key}", "-H", "Accept: application/json",
+            f"{base}/rest/v1/listings?{urlencode(params)}",
+        ], capture_output=True, text=True)
+        if result.returncode:
+            raise RuntimeError("Public inventory fetch failed; stop deployment to preserve published listing pages")
+        batch = json.loads(result.stdout)
+        if not isinstance(batch, list):
+            raise RuntimeError("Invalid inventory response; stop deployment")
+        output.extend(batch)
+        if len(batch) < 500:
+            break
+        offset += len(batch)
+    return output
 
 
 def price_text(value, listing_type: str) -> str:
@@ -178,7 +168,7 @@ def listing_html(row: dict, rel: str) -> str:
     fact_html = "".join(f"<div><dt>{escape(k)}</dt><dd>{escape(str(v))}</dd></div>" for k, v in facts)
     call = f'<a class="btn btn-primary" href="tel:{escape(tel)}">Gọi {escape(phone)}</a>' if tel else ""
     zalo_link = f'<a class="btn" href="https://zalo.me/{escape(zalo)}" target="_blank" rel="noopener">Nhắn Zalo</a>' if zalo else ""
-    return f'''<!doctype html>
+    html = f'''<!doctype html>
 <html lang="vi"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{escape(title)} | Sàn Smart City</title>
@@ -191,7 +181,7 @@ def listing_html(row: dict, rel: str) -> str:
 <meta property="og:url" content="{escape(canonical)}"><meta property="og:image" content="{escape(og_image)}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/assets/css/site.css?v=20260901-seo2"><link rel="stylesheet" href="/assets/css/marketplace.css?v=20260901-seo2"><link rel="stylesheet" href="/assets/css/site-theme.css?v=20260902-1">
-<script type="application/ld+json">{json.dumps(schema, ensure_ascii=False, separators=(",", ":"))}</script>
+<script type="application/ld+json">{safe_json(schema)}</script>
 </head>
 <body class="listing-detail-page">
 <a class="skip-link" href="#main">Bỏ qua điều hướng</a>
@@ -208,6 +198,8 @@ def listing_html(row: dict, rel: str) -> str:
 <footer class="site-footer"><div class="container footer-grid"><div><a class="brand" href="/"><span class="brand-mark" aria-hidden="true">SC</span><span>SÀN SMART CITY</span></a><p>Mua bán &bull; Cho thuê &bull; Đăng căn tại Smart City.</p></div><div><nav class="footer-links"><a href="/giao-dich-smart-city/">Giao dịch</a><a href="/mua-ban-smart-city/">Mua bán</a><a href="/cho-thue-smart-city/">Cho thuê</a><a href="/cam-nang.html">Cẩm nang</a><a href="/dang-tin-smart-city/">Đăng tin</a></nav></div></div></footer>
 <script src="/assets/js/site.js" defer></script><script src="/assets/app-shell.js" defer></script>
 </body></html>'''
+
+    return detail_page(html, row, image_url, price_text)
 
 
 def generate_listing_pages(rows: list[dict]) -> list[tuple[str, str]]:
@@ -233,7 +225,7 @@ def inject_itemlist(rows: list[dict], listing_type: str, target: Path) -> None:
     schema = {"@context": "https://schema.org", "@type": "ItemList", "name": "Căn hộ đang giao dịch tại Vinhomes Smart City", "numberOfItems": len(items), "itemListElement": items}
     text = target.read_text(encoding="utf-8")
     marker = '<script data-seo-itemlist type="application/ld+json">'
-    block = marker + json.dumps(schema, ensure_ascii=False, separators=(",", ":")) + "</script>"
+    block = marker + safe_json(schema) + "</script>"
     if marker in text:
         text = re.sub(r'<script data-seo-itemlist type="application/ld\+json">.*?</script>', block, text, flags=re.S)
     else:
@@ -348,9 +340,12 @@ def ensure_page_metadata_and_schema() -> None:
             add_meta(prop="og:url", content=canonical_url)
         add_meta(prop="og:site_name", content="Sàn Smart City")
         add_meta(prop="og:type", content="article" if soup.find("article") else "website")
-        add_meta(prop="og:image", content=default_image)
+        primary_image = soup.find("meta", attrs={"property": "og:image"})
+        image_content = str(primary_image.get("content") or "") if primary_image else default_image
+        if not soup.select_one("[data-static-listing]") or soup.select_one("[data-detail-gallery] img"):
+            add_meta(prop="og:image", content=image_content)
+            add_meta(name="twitter:image", content=image_content)
         add_meta(name="twitter:card", content="summary_large_image")
-        add_meta(name="twitter:image", content=default_image)
 
         jsonld_scripts = soup.find_all("script", attrs={"type": "application/ld+json"})
         has_jsonld = bool(jsonld_scripts)
@@ -421,7 +416,7 @@ def ensure_page_metadata_and_schema() -> None:
         for schema in schema_objects:
             additions.append(
                 '<script type="application/ld+json">'
-                + json.dumps(schema, ensure_ascii=False, separators=(",", ":"))
+                + safe_json(schema)
                 + "</script>"
             )
             schema_added += 1
@@ -535,10 +530,23 @@ def main() -> None:
         raise SystemExit("_site does not exist; run prepare_portal_v2.py first")
     rows = fetch_approved_listings()
     listing_urls = generate_listing_pages(rows)
-    inject_itemlist(rows, "sale", SITE_ROOT / "mua-ban-smart-city/index.html")
-    inject_itemlist(rows, "rent", SITE_ROOT / "cho-thue-smart-city/index.html")
+    build_inventory(SITE_ROOT, rows, image_url, price_text)
+    build_market_prices(SITE_ROOT, rows, price_text)
     add_camnang_navigation_links()
     add_camnang_internal_links()
+    for page in SITE_ROOT.rglob("*.html"):
+        if page.relative_to(SITE_ROOT).parts[0] == "admin":
+            continue
+        raw = page.read_text()
+        soup = BeautifulSoup(raw, "html.parser")
+        footer = soup.select_one(".footer-links")
+        if footer:
+            for route, label in [("/gioi-thieu/", "Giới thiệu"), ("/lien-he/", "Liên hệ"), ("/chinh-sach-bao-mat.html", "Bảo mật"), ("/dieu-khoan-su-dung.html", "Điều khoản")]:
+                if not footer.find("a", href=route):
+                    link = soup.new_tag("a", href=route)
+                    link.string = label
+                    footer.append(link)
+            page.write_text(str(soup))
     ensure_page_metadata_and_schema()
     build_sitemaps(listing_urls)
 

@@ -249,3 +249,5 @@ body.has-post-success{overflow:hidden}
   .post-success-flow>div{padding:13px 0}
   .post-success-actions{grid-template-columns:1fr}
 }
+
+.post-image-cover{position:absolute;left:6px;bottom:6px;border:1px solid #ddd;border-radius:6px;background:#fff;color:#171717;min-height:36px;padding:6px 9px;font-family:inherit;font-size:14px;font-weight:600;line-height:1.4;cursor:pointer;z-index:2}
