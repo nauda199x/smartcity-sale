@@ -30,7 +30,7 @@
       method,
       headers:{
         apikey:publishableKey,
-        ...(token?{Authorization:`Bearer ${token}`}:{Authorization:`Bearer ${publishableKey}`}),
+        ...(token?{Authorization:`Bearer ${token}`}:{}) ,
         ...(body!==undefined&&!binary?{"Content-Type":"application/json"}:{}),
         ...headers
       },
@@ -202,12 +202,26 @@
     const box=document.createElement("div");
     box.className="member-post-prompt";
     box.dataset.memberPostPrompt="";
+    const mark=document.createElement("span");
+    mark.className="member-post-prompt__mark";
+    mark.setAttribute("aria-hidden","true");
+    const copy=document.createElement("div");
+    const strong=document.createElement("strong");
+    const paragraph=document.createElement("p");
+    const link=document.createElement("a");
+    link.href="/tai-khoan-smart-city/";
     if(session){
-      box.innerHTML=`<span class="member-post-prompt__mark" aria-hidden="true">✓</span><div><strong>Đang đăng bằng tài khoản ${String(session.user?.email||"").replace(/[<>&]/g,"")}</strong><p>Tin gửi từ form này sẽ tự xuất hiện trong mục “Tin của tôi” để bạn theo dõi, ẩn hoặc đăng lại.</p></div><a href="/tai-khoan-smart-city/">Tin của tôi →</a>`;
+      mark.textContent="✓";
+      strong.textContent=`Đang đăng bằng tài khoản ${session.user?.email||""}`;
+      paragraph.textContent="Tin gửi từ form này sẽ tự xuất hiện trong mục “Tin của tôi” để bạn theo dõi, ẩn hoặc đăng lại.";
+      link.textContent="Tin của tôi →";
     }else{
-      box.innerHTML=`<span class="member-post-prompt__mark" aria-hidden="true">◎</span><div><strong>Đăng nhanh vẫn không cần tài khoản.</strong><p>Nếu thường xuyên đăng nhiều căn, bạn có thể tạo tài khoản để quản lý toàn bộ tin trên một màn hình.</p></div><a href="/tai-khoan-smart-city/">Đăng nhập / tạo tài khoản →</a>`;
+      mark.textContent="◎";
+      strong.textContent="Đăng nhanh vẫn không cần tài khoản.";
+      paragraph.textContent="Nếu thường xuyên đăng nhiều căn, bạn có thể tạo tài khoản để quản lý toàn bộ tin trên một màn hình.";
+      link.textContent="Đăng nhập / tạo tài khoản →";
     }
-    head.after(box);
+    copy.append(strong,paragraph);box.append(mark,copy,link);head.after(box);
   };
 
   const bootPostingEnhancements=()=>{
