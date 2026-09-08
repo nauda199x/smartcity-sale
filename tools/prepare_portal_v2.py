@@ -25,6 +25,15 @@ files=[
     "mua-can-ho-vinhomes-smart-city-de-o-hay-dau-tu.html",
     "quy-trinh-chuyen-nhuong-can-ho-vinhomes-smart-city.html",
     "so-sanh-phan-khu-vinhomes-smart-city.html",
+    # Deep floorplan SEO cluster. These root articles are intentionally staged
+    # because the floorplan hubs and Cẩm nang link to them as indexable canonicals.
+    "mat-bang-can-ho-vinhomes-smart-city.html",
+    "mat-bang-can-ho-2pn-vinhomes-smart-city.html",
+    "mat-bang-can-ho-1pn-1-vinhomes-smart-city.html",
+    "cach-doc-mat-bang-tang-ma-can-vinhomes-smart-city.html",
+    "mat-bang-the-sapphire-vinhomes-smart-city.html",
+    "mat-bang-can-ho-masteri-west-heights-theo-loai.html",
+    "cach-chon-toa-masteri-west-heights-west-a-b-c-d.html",
     "ban-can-ho-2pn-vinhomes-smart-city.html",
     "ban-can-ho-duoi-4-ty-vinhomes-smart-city.html",
     "ban-can-ho-sapphire-smart-city.html",
