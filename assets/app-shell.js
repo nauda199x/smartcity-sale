@@ -39,6 +39,7 @@
 
   function loadPosterAccountEnhancer(){
     if(location.pathname.startsWith("/admin"))return;
+    if(!document.querySelector("[data-marketplace-submit]") && !location.pathname.startsWith("/tai-khoan-smart-city/"))return;
     if(window.SmartCityAccount || document.querySelector('script[src*="marketplace-account.js"]'))return;
     // Account code is intentionally loaded after the core marketplace. It patches
     // createListing on the shared API object before a human can submit the form,
