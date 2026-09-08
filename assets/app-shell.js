@@ -26,6 +26,29 @@
     nav.append(cta);
   }
 
+  function addPosterAccountLink(){
+    const nav=document.querySelector(".nav-links");
+    if(!nav || nav.querySelector('[href="/tai-khoan-smart-city/"]')) return;
+    const link=document.createElement("a");
+    link.className="nav-account-link";
+    link.href="/tai-khoan-smart-city/";
+    link.textContent="Tài khoản";
+    const cta=nav.querySelector(".nav-direct-cta");
+    if(cta)nav.insertBefore(link,cta);else nav.append(link);
+  }
+
+  function loadPosterAccountEnhancer(){
+    if(location.pathname.startsWith("/admin"))return;
+    if(window.SmartCityAccount || document.querySelector('script[src*="marketplace-account.js"]'))return;
+    // Account code is intentionally loaded after the core marketplace. It patches
+    // createListing on the shared API object before a human can submit the form,
+    // while keeping anonymous posting working when there is no user session.
+    const script=document.createElement("script");
+    script.src="/assets/js/marketplace-account.js?v=20260908-account1";
+    script.defer=true;
+    document.head.append(script);
+  }
+
   function addMobilePropertyNav(){
     if(document.querySelector(".mobile-property-nav")) return;
     if(document.body.classList.contains("listing-detail-page")) return;
@@ -75,10 +98,12 @@
     document.documentElement.classList.add("real-estate-ui");
     document.body.classList.add("real-estate-portal");
     normalizeLegacyShellClasses();
-    markCurrentNavigation();
     addDirectListingCta();
+    addPosterAccountLink();
+    markCurrentNavigation();
     addMobilePropertyNav();
     bindHeaderState();
+    loadPosterAccountEnhancer();
   }
 
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init,{once:true});
@@ -91,7 +116,7 @@
   const prefetch=event=>{
     const link=event.target.closest?.('a[href]');if(!link)return;
     const url=new URL(link.href,location.origin);
-    if(url.origin!==location.origin||url.search||url.hash||!/^\/(mua-ban-smart-city|cho-thue-smart-city|mat-bang-smart-city|gia-smart-city)\//.test(url.pathname)||done.has(url.href)||done.size>=6)return;
+    if(url.origin!==location.origin||url.search||url.hash||!/^\/(mua-ban-smart-city|cho-thue-smart-city|mat-bang-smart-city|gia-smart-city|tai-khoan-smart-city)\//.test(url.pathname)||done.has(url.href)||done.size>=6)return;
     done.add(url.href);const hint=document.createElement('link');hint.rel='prefetch';hint.href=url.href;document.head.append(hint);
   };
   document.addEventListener('pointerover',prefetch,{passive:true});document.addEventListener('focusin',prefetch);
