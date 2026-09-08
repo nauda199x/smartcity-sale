@@ -43,12 +43,12 @@
     if(!document.querySelector('link[href*="marketplace-account.css"]')){
       const style=document.createElement("link");
       style.rel="stylesheet";
-      style.href="/assets/css/marketplace-account.css?v=20260908-growth1";
+      style.href="/assets/css/marketplace-account.css?v=20260908-growth2";
       document.head.append(style);
     }
     if(window.SmartCityMarketplaceAccount||document.querySelector('script[src*="marketplace-account.js"]'))return;
     const script=document.createElement("script");
-    script.src="/assets/js/marketplace-account.js?v=20260908-growth1";
+    script.src="/assets/js/marketplace-account.js?v=20260908-growth2";
     script.async=false;
     document.head.append(script);
   }

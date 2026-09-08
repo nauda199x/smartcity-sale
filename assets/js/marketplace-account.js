@@ -126,10 +126,10 @@
     const session=await validSession();
     if(!session)throw new MemberError("Vui lòng đăng nhập để xem tin của bạn.",401);
     return request(restPath("listings",{
-      select:"id,listing_code,slug,listing_type,status,title,phase,tower,unit_type,area_sqm,price_vnd,poster_type,created_at,updated_at,approved_at,expires_at,listing_images(storage_path,sort_order,alt_text)",
+      select:"id,listing_code,slug,listing_type,status,title,phase,tower,unit_type,area_sqm,floor_label,unit_code,price_vnd,poster_type,poster_name,contact_phone,source_channel,last_confirmed_at,view_count,created_at,updated_at,approved_at,expires_at,listing_images(storage_path,sort_order,alt_text)",
       owner_user_id:`eq.${session.user.id}`,
       order:"created_at.desc",
-      limit:"300",
+      limit:"1000",
       "listing_images.order":"sort_order.asc,id.asc",
       "listing_images.limit":"1"
     }),{token:session.access_token});
@@ -138,10 +138,65 @@
   const ownerAction=async(listingId,action)=>{
     const session=await validSession();
     if(!session)throw new MemberError("Phiên đăng nhập đã hết hạn.",401);
-    if(!["hide","relist","done"].includes(action))throw new MemberError("Thao tác không hợp lệ.",400);
+    if(!["hide","relist","done","confirm"].includes(action))throw new MemberError("Thao tác không hợp lệ.",400);
     return request("/rest/v1/rpc/owner_listing_action",{
       method:"POST",token:session.access_token,body:{p_listing_id:listingId,p_action:action}
     });
+  };
+
+  const buildOwnedPayload=(data,session,sourceChannel="form")=>{
+    const id=crypto.randomUUID();
+    const listingCode=`SC-${crypto.randomUUID().replace(/-/g,"").slice(0,8).toUpperCase()}`;
+    const slug=`${api.slugify(data.title)||"tin-dang-smart-city"}-${listingCode.toLowerCase()}`;
+    return {...data,id,listing_code:listingCode,slug,owner_user_id:session.user.id,source_channel:sourceChannel};
+  };
+
+  const duplicatePart=value=>api.cleanText(value,120).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/đ/g,"d").replace(/\s+/g," ");
+  const duplicateKey=listing=>{
+    const type=duplicatePart(listing.listing_type);
+    const phase=duplicatePart(listing.phase);
+    const tower=duplicatePart(listing.tower);
+    const unitCode=duplicatePart(listing.unit_code);
+    if(unitCode)return `unit|${type}|${phase}|${tower}|${unitCode}`;
+    const unitType=duplicatePart(listing.unit_type);
+    const area=Number(listing.area_sqm||0).toFixed(1);
+    const floor=duplicatePart(listing.floor_label);
+    const price=Math.round(Number(listing.price_vnd||0));
+    return `soft|${type}|${phase}|${tower}|${unitType}|${area}|${floor}|${price}`;
+  };
+
+  const bulkCreateListings=async rows=>{
+    const session=await validSession();
+    if(!session)throw new MemberError("Vui lòng đăng nhập trước khi đăng nhiều căn.",401);
+    if(!Array.isArray(rows)||!rows.length)throw new MemberError("Chưa có căn hợp lệ để đăng.",400);
+    if(rows.length>50)throw new MemberError("Mỗi lần đăng tối đa 50 căn để hệ thống duyệt ổn định.",400);
+
+    const existing=await listMine();
+    const existingKeys=new Set(existing.map(duplicateKey));
+    const batchKeys=new Set();
+    const accepted=[];
+    const skipped=[];
+
+    rows.forEach((data,index)=>{
+      const key=duplicateKey(data);
+      if(existingKeys.has(key)){
+        skipped.push({index,reason:"Căn này giống một tin đã có trong tài khoản. Hãy dùng Đăng lại/Xác nhận còn hàng thay vì tạo bản sao."});
+        return;
+      }
+      if(batchKeys.has(key)){
+        skipped.push({index,reason:"Dòng bị trùng với một căn khác trong chính file CSV."});
+        return;
+      }
+      batchKeys.add(key);
+      accepted.push(buildOwnedPayload({...data,status:"pending",contact_public:true,is_featured:false,sort_priority:0,approved_at:null,expires_at:null},session,"bulk"));
+    });
+
+    if(!accepted.length)return {created:[],skipped};
+    await request(restPath("listings"),{
+      method:"POST",token:session.access_token,body:accepted,
+      headers:{Prefer:"return=minimal,missing=default"}
+    });
+    return {created:accepted,skipped};
   };
 
   // When a member is signed in, keep the existing zero-friction form but bind the
@@ -149,11 +204,8 @@
   api.createListing=async data=>{
     const session=await validSession();
     if(!session)return originalCreateListing(data);
-    const id=crypto.randomUUID();
-    const listingCode=`SC-${crypto.randomUUID().replace(/-/g,"").slice(0,8).toUpperCase()}`;
-    const slug=`${api.slugify(data.title)||"tin-dang-smart-city"}-${listingCode.toLowerCase()}`;
     const posterType=document.querySelector('[name="poster_type"]:checked')?.value;
-    const payload={...data,id,listing_code:listingCode,slug,owner_user_id:session.user.id,...(["owner","agent"].includes(posterType)?{poster_type:posterType}:{})};
+    const payload=buildOwnedPayload({...data,...(["owner","agent"].includes(posterType)?{poster_type:posterType}:{})},session,"form");
     await request(restPath("listings"),{
       method:"POST",token:session.access_token,body:payload,headers:{Prefer:"return=minimal"}
     });
@@ -231,7 +283,8 @@
   };
 
   window.SmartCityMarketplaceAccount={
-    MemberError,getSession,validSession,signUp,signIn,signOut,listMine,ownerAction
+    MemberError,getSession,validSession,signUp,signIn,signOut,listMine,ownerAction,
+    bulkCreateListings,duplicateKey
   };
 
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",bootPostingEnhancements,{once:true});
