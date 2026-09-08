@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#0b6b57">
   <link rel="stylesheet" href="/assets/css/site.css?v=20260901-brand2">
   <link rel="stylesheet" href="/assets/css/marketplace.css?v=20260829-portal2">
-  <link rel="stylesheet" href="/assets/css/marketplace-account.css?v=20260908-growth1">
+  <link rel="stylesheet" href="/assets/css/marketplace-account.css?v=20260908-growth2">
   <link rel="stylesheet" href="/assets/css/site-theme.css?v=20260902-1">
 </head>
 <body class="member-account-page">
@@ -57,11 +57,37 @@
 
       <section class="member-card member-dashboard" data-member-dashboard hidden aria-label="Danh sách tin của tôi">
         <div class="member-dashboard__bar"><div class="member-identity" data-member-identity></div><button class="member-signout" type="button" data-member-signout>Đăng xuất</button></div>
-        <div class="member-summary" aria-label="Tổng quan tin đăng"><div><span>Tổng tin</span><strong data-count-all>0</strong></div><div><span>Đang hiển thị</span><strong data-count-approved>0</strong></div><div><span>Chờ duyệt</span><strong data-count-pending>0</strong></div><div><span>Đã ẩn / kết thúc</span><strong data-count-hidden>0</strong></div></div>
+        <div class="member-summary" aria-label="Tổng quan tin đăng"><div><span>Tổng tin</span><strong data-count-all>0</strong></div><div><span>Đang hiển thị</span><strong data-count-approved>0</strong></div><div><span>Chờ duyệt</span><strong data-count-pending>0</strong></div><div><span>Cần xác nhận lại</span><strong data-count-stale>0</strong></div><div><span>Đã ẩn / kết thúc</span><strong data-count-hidden>0</strong></div></div>
+
+        <div class="member-growth-tools">
+          <section class="member-bulk" aria-labelledby="bulk-title">
+            <div class="member-bulk__head">
+              <div><span class="member-tool-kicker">Dành cho quỹ hàng lớn</span><h2 id="bulk-title">Đăng nhiều căn bằng CSV</h2><p>Tải mẫu, điền tối đa 50 căn rồi nhập một lần. Hệ thống kiểm tra dữ liệu và tự bỏ qua căn trùng trong tài khoản.</p></div>
+              <a class="btn" href="/assets/templates/mau-dang-nhieu-can-smart-city.csv" download>Tải file mẫu CSV</a>
+            </div>
+            <div class="member-bulk__controls">
+              <label class="member-file-picker"><span>Chọn file CSV</span><input type="file" accept=".csv,text/csv" data-bulk-file></label>
+              <p data-bulk-summary>Chưa chọn file CSV.</p>
+              <button class="btn btn-primary" type="button" data-bulk-import disabled>Đăng các căn hợp lệ</button>
+            </div>
+            <div class="member-bulk__help"><strong>Quy ước giá:</strong> bán nhập theo tỷ (ví dụ 4.5), thuê nhập theo triệu/tháng (ví dụ 12). Có thể nhập trực tiếp số VND nếu cần. <strong>Mã nội bộ</strong> không hiển thị công khai và giúp chống đăng trùng chính xác hơn.</div>
+            <div class="member-bulk__preview" data-bulk-preview hidden></div>
+          </section>
+
+          <aside class="member-freshness-guide">
+            <span class="member-tool-kicker">Quỹ căn sạch</span>
+            <h2>Xác nhận còn hàng</h2>
+            <p>Mỗi tin có mốc xác nhận riêng. Tin quá 21 ngày chưa được xác nhận sẽ được đánh dấu để bạn kiểm tra lại.</p>
+            <div class="member-freshness-legend"><span data-level="fresh">● 0–7 ngày · mới xác nhận</span><span data-level="ok">● 8–21 ngày · đang hoạt động</span><span data-level="stale">● Trên 21 ngày · nên xác nhận lại</span></div>
+            <p class="member-freshness-guide__note">Nút <strong>✓ Còn hàng</strong> chỉ làm mới mốc xác nhận, không tự duyệt tin và không thay đổi nội dung.</p>
+          </aside>
+        </div>
+
+        <div class="member-list-head"><div><span class="member-tool-kicker">Quản lý nguồn hàng</span><h2>Danh sách tin của bạn</h2></div><p>Ưu tiên xác nhận các căn có nhãn “Cần xác nhận lại” để quỹ hàng luôn đáng tin.</p></div>
         <div class="member-list" data-member-list></div>
       </section>
 
-      <div class="member-note"><strong>Lưu ý:</strong> các tin đã đăng trước đây ở chế độ không tài khoản sẽ không tự động ghép vào tài khoản mới. Từ thời điểm bạn đăng nhập, mọi tin mới gửi qua form đăng tin sẽ được gắn đúng tài khoản này.</div>
+      <div class="member-note"><strong>Lưu ý:</strong> các tin đã đăng trước đây ở chế độ không tài khoản sẽ không tự động ghép vào tài khoản mới. Từ thời điểm bạn đăng nhập, mọi tin mới gửi qua form đăng tin hoặc CSV sẽ được gắn đúng tài khoản này.</div>
     </div>
   </main>
 
@@ -70,8 +96,8 @@
   <script src="/assets/js/site.js" defer></script>
   <script src="/assets/js/marketplace-config.js?v=20260908-parity1"></script>
   <script src="/assets/js/marketplace-api.js?v=20260908-parity1"></script>
-  <script src="/assets/js/marketplace-account.js?v=20260908-growth1"></script>
-  <script src="/assets/js/marketplace-account-page.js?v=20260908-growth1" defer></script>
+  <script src="/assets/js/marketplace-account.js?v=20260908-growth2"></script>
+  <script src="/assets/js/marketplace-account-page.js?v=20260908-growth2" defer></script>
   <script src="/assets/app-shell.js?v=20260908-growth1" defer></script>
 </body>
 </html>
