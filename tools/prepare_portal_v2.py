@@ -36,7 +36,7 @@ dirs=[
     "tong-quan-smart-city","vi-tri-smart-city","mat-bang-smart-city","tien-ich-smart-city",
     "phan-khu-smart-city","gia-smart-city",
     "giao-dich-smart-city","mua-ban-smart-city","cho-thue-smart-city",
-    "dang-tin-smart-city","tin-dang-smart-city","admin","gioi-thieu","lien-he"
+    "dang-tin-smart-city","tin-dang-smart-city","tai-khoan-smart-city","admin","gioi-thieu","lien-he"
 ]
 for name in files:
     src=ROOT/name
@@ -91,7 +91,7 @@ for html in OUT.rglob("*.html"):
     if "</head>" in text:
         # The posting-page language must remain the final cascade layer.
         text=re.sub(r'<link[^>]+href=["\']/assets/css/site-theme\.css[^>]*>', "", text)
-        component_links = re.findall(r'<link[^>]+href=["\']/assets/css/(?:listing-detail|marketplace-inventory|marketplace-admin)\.css[^>]*>', text)
+        component_links = re.findall(r'<link[^>]+href=["\']/assets/css/(?:listing-detail|marketplace-inventory|marketplace-admin|marketplace-account)\.css[^>]*>', text)
         for component_link in component_links:
             text = text.replace(component_link, "")
         text=text.replace("</head>",site_theme_link+"".join(component_links)+"</head>",1)
