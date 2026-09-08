@@ -84,3 +84,15 @@
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init,{once:true});
   else init();
 }());
+(function prefetchMarketplaceNavigation(){
+  const connection=navigator.connection;
+  if(connection?.saveData||/2g/.test(connection?.effectiveType||""))return;
+  const done=new Set();
+  const prefetch=event=>{
+    const link=event.target.closest?.('a[href]');if(!link)return;
+    const url=new URL(link.href,location.origin);
+    if(url.origin!==location.origin||url.search||url.hash||!/^\/(mua-ban-smart-city|cho-thue-smart-city|mat-bang-smart-city|gia-smart-city)\//.test(url.pathname)||done.has(url.href)||done.size>=6)return;
+    done.add(url.href);const hint=document.createElement('link');hint.rel='prefetch';hint.href=url.href;document.head.append(hint);
+  };
+  document.addEventListener('pointerover',prefetch,{passive:true});document.addEventListener('focusin',prefetch);
+})();

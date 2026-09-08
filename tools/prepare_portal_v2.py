@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import shutil
+import re
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/"_site"
@@ -35,7 +36,7 @@ dirs=[
     "tong-quan-smart-city","vi-tri-smart-city","mat-bang-smart-city","tien-ich-smart-city",
     "phan-khu-smart-city","gia-smart-city",
     "giao-dich-smart-city","mua-ban-smart-city","cho-thue-smart-city",
-    "dang-tin-smart-city","tin-dang-smart-city","admin"
+    "dang-tin-smart-city","tin-dang-smart-city","admin","gioi-thieu","lien-he"
 ]
 for name in files:
     src=ROOT/name
@@ -80,6 +81,8 @@ theme_meta='<meta name="theme-color" content="#0e211c">'
 shell_script='<script src="/assets/app-shell.js?v=20260901-shellfix1" defer></script>'
 themed=0
 for html in OUT.rglob("*.html"):
+    if html.relative_to(OUT).parts[0] == "admin":
+        continue
     text=html.read_text(encoding="utf-8")
     if "modern-ui.css" not in text and "</head>" in text:
         text=text.replace("</head>", theme_link + theme_meta + "</head>", 1)
@@ -87,8 +90,11 @@ for html in OUT.rglob("*.html"):
         themed+=1
     if "</head>" in text:
         # The posting-page language must remain the final cascade layer.
-        text=text.replace(site_theme_link,"")
-        text=text.replace("</head>",site_theme_link+"</head>",1)
+        text=re.sub(r'<link[^>]+href=["\']/assets/css/site-theme\.css[^>]*>', "", text)
+        component_links = re.findall(r'<link[^>]+href=["\']/assets/css/(?:listing-detail|marketplace-inventory|marketplace-admin)\.css[^>]*>', text)
+        for component_link in component_links:
+            text = text.replace(component_link, "")
+        text=text.replace("</head>",site_theme_link+"".join(component_links)+"</head>",1)
         html.write_text(text,encoding="utf-8")
     if "app-shell.js" not in text and "</body>" in text:
         text=text.replace("</body>", shell_script + "</body>", 1)

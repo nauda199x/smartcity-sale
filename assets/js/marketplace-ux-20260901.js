@@ -281,7 +281,7 @@
     const checks=[
       Boolean(form.querySelector('[name="listing_type"]:checked')),
       Boolean(phase),Boolean(tower),Boolean(unit),Boolean(area),Boolean(clean(q("price_vnd")?.value)),
-      Boolean(clean(titleInput?.value)),Boolean(clean(description?.value)&&description.value.trim().length>=30),
+      Boolean(clean(titleInput?.value)),Boolean(clean(description?.value)&&description.value.trim().length>=1),
       count>0,Boolean(clean(q("poster_name")?.value)),Boolean(clean(q("contact_phone")?.value)),
       Boolean(q("contact_public")?.checked)
     ];
@@ -308,6 +308,11 @@
         filesInput.dispatchEvent(new Event("change",{bubbles:true}));
       });
       figure.append(button);
+      if(index>0){
+        const cover=document.createElement("button");cover.type="button";cover.className="post-image-cover";cover.textContent="Đặt bìa";cover.setAttribute("aria-label",`Đặt ảnh ${index+1} làm ảnh bìa`);
+        cover.addEventListener("click",()=>{const files=[...filesInput.files];const picked=files.splice(index,1)[0];files.unshift(picked);const dt=new DataTransfer();files.forEach(file=>dt.items.add(file));filesInput.files=dt.files;filesInput.dispatchEvent(new Event("change",{bubbles:true}));});figure.append(cover);
+      }
+
     });
   };
 

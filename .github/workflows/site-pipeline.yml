@@ -5,8 +5,8 @@ on:
   push:
     branches: [main]
   schedule:
-    # Refresh approved listing pages + listing sitemap every morning (07:20 Vietnam).
-    - cron: '20 0 * * *'
+    # Match Lumi's refresh cadence. Unchanged inventory skips publishing.
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -21,6 +21,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      deploy_needed: ${{ steps.changes.outputs.needed }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,6 +30,10 @@ jobs:
           python-version: '3.12'
       - name: Install dossier validation dependencies
         run: python3 -m pip install --quiet beautifulsoup4 pillow
+      - name: Validate marketplace paging and administration
+        run: |
+          node --test tools/qa_admin_api.cjs tools/qa_admin_ui.cjs tools/qa_inventory_api.cjs
+          python3 tools/qa_marketplace_pages.py
       - name: Validate The Victoria dossier
         run: python3 tools/validate_victoria_assets.py
       - name: Validate The Sakura dossier
@@ -54,6 +60,9 @@ jobs:
         run: python3 tools/validate_seo_portal.py
       - name: Validate staged portal
         run: python3 tools/validate_portal_v2.py --root _site
+      - name: Check whether scheduled inventory has changed
+        id: changes
+        run: python3 tools/check_marketplace_change.py
       - name: Upload preview artifact
         if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
@@ -62,16 +71,16 @@ jobs:
           path: _site
           retention-days: 1
       - name: Configure Pages
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && steps.changes.outputs.needed == 'true'
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && steps.changes.outputs.needed == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
 
   deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && needs.build.outputs.deploy_needed == 'true'
     needs: build
     runs-on: ubuntu-latest
     permissions:
