@@ -26,6 +26,33 @@
     nav.append(cta);
   }
 
+  function addMemberNavigation(){
+    document.querySelectorAll(".nav-dropdown").forEach(dropdown=>{
+      const summary=dropdown.querySelector(":scope > summary");
+      const menu=dropdown.querySelector(":scope > .nav-dropdown-menu");
+      if(!summary||!menu||!summary.textContent.includes("Giao dịch")||menu.querySelector('a[href="/tai-khoan-smart-city/"]'))return;
+      const link=document.createElement("a");
+      link.href="/tai-khoan-smart-city/";
+      link.textContent="Tin của tôi";
+      menu.append(link);
+    });
+  }
+
+  function loadMemberPostingEnhancements(){
+    if(!document.querySelector("[data-marketplace-submit]")||!window.SmartCityMarketplace)return;
+    if(!document.querySelector('link[href*="marketplace-account.css"]')){
+      const style=document.createElement("link");
+      style.rel="stylesheet";
+      style.href="/assets/css/marketplace-account.css?v=20260908-growth1";
+      document.head.append(style);
+    }
+    if(window.SmartCityMarketplaceAccount||document.querySelector('script[src*="marketplace-account.js"]'))return;
+    const script=document.createElement("script");
+    script.src="/assets/js/marketplace-account.js?v=20260908-growth1";
+    script.async=false;
+    document.head.append(script);
+  }
+
   function addMobilePropertyNav(){
     if(document.querySelector(".mobile-property-nav")) return;
     if(document.body.classList.contains("listing-detail-page")) return;
@@ -75,10 +102,12 @@
     document.documentElement.classList.add("real-estate-ui");
     document.body.classList.add("real-estate-portal");
     normalizeLegacyShellClasses();
+    addMemberNavigation();
     markCurrentNavigation();
     addDirectListingCta();
     addMobilePropertyNav();
     bindHeaderState();
+    loadMemberPostingEnhancements();
   }
 
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init,{once:true});
@@ -91,7 +120,7 @@
   const prefetch=event=>{
     const link=event.target.closest?.('a[href]');if(!link)return;
     const url=new URL(link.href,location.origin);
-    if(url.origin!==location.origin||url.search||url.hash||!/^\/(mua-ban-smart-city|cho-thue-smart-city|mat-bang-smart-city|gia-smart-city)\//.test(url.pathname)||done.has(url.href)||done.size>=6)return;
+    if(url.origin!==location.origin||url.search||url.hash||!/^\/(mua-ban-smart-city|cho-thue-smart-city|mat-bang-smart-city|gia-smart-city|tai-khoan-smart-city)\//.test(url.pathname)||done.has(url.href)||done.size>=6)return;
     done.add(url.href);const hint=document.createElement('link');hint.rel='prefetch';hint.href=url.href;document.head.append(hint);
   };
   document.addEventListener('pointerover',prefetch,{passive:true});document.addEventListener('focusin',prefetch);
