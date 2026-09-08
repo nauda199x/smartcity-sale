@@ -10,6 +10,7 @@ create table if not exists public.saved_searches (
   phase text,
   tower text,
   unit_type text,
+  min_price_vnd bigint,
   max_price_vnd bigint,
   min_area_sqm numeric,
   max_area_sqm numeric,
@@ -26,7 +27,9 @@ create table if not exists public.saved_searches (
   constraint saved_searches_unit_type_len check (unit_type is null or char_length(unit_type) <= 80),
   constraint saved_searches_furnishing_len check (furnishing is null or char_length(furnishing) <= 80),
   constraint saved_searches_fingerprint_len check (char_length(fingerprint) between 8 and 160),
+  constraint saved_searches_min_price_positive check (min_price_vnd is null or min_price_vnd > 0),
   constraint saved_searches_max_price_positive check (max_price_vnd is null or max_price_vnd > 0),
+  constraint saved_searches_price_range check (min_price_vnd is null or max_price_vnd is null or min_price_vnd <= max_price_vnd),
   constraint saved_searches_area_range check (
     (min_area_sqm is null or min_area_sqm >= 0)
     and (max_area_sqm is null or max_area_sqm > 0)
@@ -34,6 +37,21 @@ create table if not exists public.saved_searches (
   ),
   unique (user_id, fingerprint)
 );
+
+-- Production received min_price_vnd as a follow-up migration because the first
+-- saved-search table version only tracked the maximum price.
+alter table public.saved_searches add column if not exists min_price_vnd bigint;
+
+do $$ begin
+  if not exists (select 1 from pg_constraint where conname='saved_searches_min_price_positive') then
+    alter table public.saved_searches
+      add constraint saved_searches_min_price_positive check (min_price_vnd is null or min_price_vnd > 0);
+  end if;
+  if not exists (select 1 from pg_constraint where conname='saved_searches_price_range') then
+    alter table public.saved_searches
+      add constraint saved_searches_price_range check (min_price_vnd is null or max_price_vnd is null or min_price_vnd <= max_price_vnd);
+  end if;
+end $$;
 
 create index if not exists saved_searches_user_updated_idx
   on public.saved_searches(user_id, updated_at desc);
