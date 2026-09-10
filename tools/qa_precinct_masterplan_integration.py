@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
+import re
 
 from build_precinct_masterplans import PROJECTS
 from integrate_precinct_masterplans import tower_display
@@ -51,6 +52,19 @@ for project in PROJECTS:
             sibling_url = f'/mat-bang-smart-city/{slug}/{sibling}/'
             assert sibling_url in tower_text, f"sibling tower link {sibling} missing from {slug}/{tower}"
 
+        # Rich editorial layer: every technical plan page must also be a useful SEO landing page.
+        assert "TOWER_EDITORIAL_START" in tower_text, f"rich editorial marker missing: {slug}/{tower}"
+        assert "tower-editorial.css?v=20260910-1" in tower_text, f"editorial CSS missing: {slug}/{tower}"
+        assert f'Tìm hiểu mặt bằng {display} {project["name"]} trước khi mua hoặc thuê' in tower_text, f"editorial H2 missing: {slug}/{tower}"
+        assert f'FAQ về mặt bằng {display}' in tower_text, f"tower FAQ missing: {slug}/{tower}"
+        assert tower_text.count("<details") >= 4, f"tower FAQ too thin: {slug}/{tower}"
+        assert '/mua-ban-smart-city/' in tower_text and '/cho-thue-smart-city/' in tower_text, f"transaction links missing: {slug}/{tower}"
+        editorial = re.search(r'<!-- TOWER_EDITORIAL_START -->(.*?)<!-- TOWER_EDITORIAL_END -->', tower_text, flags=re.S)
+        assert editorial, f"cannot isolate editorial block: {slug}/{tower}"
+        plain = re.sub(r'<[^>]+>', ' ', editorial.group(1))
+        word_count = len(re.findall(r'\b\w+\b', plain, flags=re.UNICODE))
+        assert word_count >= 650, f"editorial content still thin ({word_count} words): {slug}/{tower}"
+
     legacy = redirect.read_text(encoding="utf-8")
     assert 'content="noindex,follow"' in legacy, f"legacy tong-the must be noindex: {slug}"
     assert f'<link rel="canonical" href="{SITE}/mat-bang-smart-city/{slug}/">' in legacy, f"legacy canonical wrong: {slug}"
@@ -59,6 +73,6 @@ for project in PROJECTS:
 
 assert tower_count >= 49, f"unexpectedly low tower coverage: {tower_count}"
 print(
-    f"floorplan SEO intent integration passed: {len(PROJECTS)} precinct pages + "
-    f"{tower_count} tower pages + crawlable sibling links + legacy redirects"
+    f"floorplan SEO integration passed: {len(PROJECTS)} precinct pages + {tower_count} tower pages + "
+    "rich editorial content (>=650 words/page) + crawlable sibling links + legacy redirects"
 )
