@@ -11,7 +11,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://timmuasmartcity.com"
 START = "<!-- PRECINCT_MASTERPLAN_INTEGRATED_START -->"
 END = "<!-- PRECINCT_MASTERPLAN_INTEGRATED_END -->"
-CSS = '<link rel="stylesheet" href="/assets/css/precinct-masterplan.css?v=20260910-3">'
+TOWER_START = "<!-- TOWER_FLOORPLAN_INTENT_START -->"
+TOWER_END = "<!-- TOWER_FLOORPLAN_INTENT_END -->"
+CSS = '<link rel="stylesheet" href="/assets/css/precinct-masterplan.css?v=20260910-4">'
 
 TOWER_NAMES = {
     "lumiere-evergreen": {
@@ -118,10 +120,82 @@ def masterplan_block(project: dict) -> str:
 {END}'''
 
 
+def sibling_tower_links(project: dict, current: str) -> str:
+    slug = project["slug"]
+    links = []
+    for tower in project["towers"]:
+        display = tower_display(project, tower)
+        url = f"/mat-bang-smart-city/{slug}/{tower}/"
+        current_attr = ' aria-current="page"' if tower == current else ""
+        current_class = " is-current" if tower == current else ""
+        links.append(
+            f'<a class="tower-sibling{current_class}" href="{url}"{current_attr}>{escape(display)}</a>'
+        )
+    return "".join(links)
+
+
+def tower_intent_block(project: dict, tower: str) -> str:
+    slug = project["slug"]
+    name = project["name"]
+    display = tower_display(project, tower)
+    siblings = sibling_tower_links(project, tower)
+    parent_url = f"/mat-bang-smart-city/{slug}/"
+    project_url = f"/phan-khu-smart-city/{slug}/"
+    canonical = f"{SITE}/mat-bang-smart-city/{slug}/{tower}/"
+    return f'''{TOWER_START}
+<section class="section tower-intent-inline" id="tra-cuu-mat-bang-toa" aria-labelledby="tower-intent-title">
+  <div class="container">
+    <div class="section-head tower-intent-head">
+      <div>
+        <p class="eyebrow section-kicker">Mặt bằng tòa · hồ sơ HD · liên kết phân khu</p>
+        <h2 id="tower-intent-title">Mặt bằng tòa {escape(display)} {escape(name)}: bản vẽ HD và tòa cùng phân khu</h2>
+      </div>
+      <p>Trang này là hồ sơ riêng của {escape(display)}. Dùng đúng mặt bằng của tòa trước khi kết luận mã căn, vị trí lõi thang, trục góc, hướng/view hoặc so giá với căn khác.</p>
+    </div>
+
+    <div class="tower-intent-grid">
+      <article class="tower-intent-current">
+        <p class="eyebrow section-kicker">Bạn đang xem</p>
+        <h3>{escape(display)}</h3>
+        <p>Thuộc <strong>{escape(name)}</strong>. URL riêng của hồ sơ này giúp người dùng và công cụ tìm kiếm không phải suy tòa từ một trang mặt bằng tổng.</p>
+        <div class="tower-intent-actions">
+          <a class="btn btn-primary" href="{parent_url}#mat-bang-tong-the">Xem mặt bằng tổng {escape(name)}</a>
+          <a class="btn" href="{project_url}">Xem hồ sơ phân khu</a>
+        </div>
+      </article>
+      <aside class="tower-intent-rules">
+        <p class="eyebrow section-kicker">Cách đọc đúng</p>
+        <ol>
+          <li><strong>Đúng tòa:</strong> xác nhận {escape(display)} trước khi đọc mã căn.</li>
+          <li><strong>Đúng bản vẽ:</strong> phóng to ảnh HD để đọc lõi thang, hành lang và trục căn.</li>
+          <li><strong>Đúng dữ kiện:</strong> chỉ kết luận hướng/view khi sơ đồ hoặc hồ sơ có đủ thông tin để đối chiếu.</li>
+        </ol>
+      </aside>
+    </div>
+
+    <div class="tower-sibling-panel">
+      <div class="tower-sibling-panel__head">
+        <div><p class="eyebrow section-kicker">Internal link theo cụm</p><h3>Các tòa khác trong {escape(name)}</h3></div>
+        <p>Chuyển ngang giữa các tòa để so đúng mặt bằng thay vì quay lại Google hoặc dùng nhầm sơ đồ của tòa khác.</p>
+      </div>
+      <nav class="tower-sibling-nav" aria-label="Mặt bằng các tòa thuộc {escape(name)}">{siblings}</nav>
+    </div>
+
+    <div class="tower-search-guide">
+      <a href="{parent_url}"><strong>1 · Về phân khu</strong><span>Xem tổng thể và vị trí tương quan các tòa.</span></a>
+      <a href="#" onclick="event.preventDefault();document.querySelector('.floorplan-hd-section,.floorplan-hero,.plan-frame')?.scrollIntoView({{behavior:'smooth',block:'center'}})"><strong>2 · Soi bản vẽ HD</strong><span>Zoom để đọc đúng lõi thang và trục căn.</span></a>
+      <a href="/giao-dich-smart-city/"><strong>3 · Xem căn giao dịch</strong><span>Sau khi chốt tòa/trục mới so căn đang bán hoặc cho thuê.</span></a>
+    </div>
+    <p class="tower-canonical-note">Hồ sơ chính: <a href="{canonical}">{escape(canonical)}</a></p>
+  </div>
+</section>
+{TOWER_END}'''
+
+
 def ensure_css(text: str) -> str:
     if "precinct-masterplan.css" in text:
         return re.sub(
-            r'<link rel="stylesheet" href="/assets/css/precinct-masterplan\.css\?v=[^"]+">',
+            r'<link[^>]+href=["\']/assets/css/precinct-masterplan\.css\?v=[^"\']+["\'][^>]*>',
             CSS,
             text,
             count=1,
@@ -132,6 +206,21 @@ def ensure_css(text: str) -> str:
     return text.replace("</head>", CSS + "</head>", 1)
 
 
+def insert_after_preferred_section(text: str, block: str) -> str:
+    for class_name in ("facts-panel", "floorplan-direct-note"):
+        match = re.search(
+            rf'(<section\b[^>]*class=["\'][^"\']*\b{class_name}\b[^"\']*["\'][^>]*>.*?</section>)',
+            text,
+            flags=re.S | re.I,
+        )
+        if match:
+            return text[:match.end()] + block + text[match.end():]
+    first_section = re.search(r'<section\b[^>]*class=["\'][^"\']*\bsection\b', text, flags=re.I)
+    if first_section:
+        return text[:first_section.start()] + block + text[first_section.start():]
+    return text.replace("</main>", block + "</main>", 1)
+
+
 def inject_main_page(project: dict) -> None:
     path = ROOT / "mat-bang-smart-city" / project["slug"] / "index.html"
     if not path.is_file():
@@ -139,17 +228,18 @@ def inject_main_page(project: dict) -> None:
     text = path.read_text(encoding="utf-8")
     text = re.sub(re.escape(START) + r".*?" + re.escape(END), "", text, flags=re.S)
     text = ensure_css(text)
-    block = masterplan_block(project)
+    text = insert_after_preferred_section(text, masterplan_block(project))
+    path.write_text(text, encoding="utf-8")
 
-    facts = re.search(r'(<section\b[^>]*class=["\'][^"\']*\bfacts-panel\b[^"\']*["\'][^>]*>.*?</section>)', text, flags=re.S | re.I)
-    if facts:
-        text = text[:facts.end()] + block + text[facts.end():]
-    else:
-        first_section = re.search(r'<section\b[^>]*class=["\'][^"\']*\bsection\b', text, flags=re.I)
-        if first_section:
-            text = text[:first_section.start()] + block + text[first_section.start():]
-        else:
-            text = text.replace("</main>", block + "</main>", 1)
+
+def inject_tower_page(project: dict, tower: str) -> None:
+    path = ROOT / "mat-bang-smart-city" / project["slug"] / tower / "index.html"
+    if not path.is_file():
+        raise FileNotFoundError(path)
+    text = path.read_text(encoding="utf-8")
+    text = re.sub(re.escape(TOWER_START) + r".*?" + re.escape(TOWER_END), "", text, flags=re.S)
+    text = ensure_css(text)
+    text = insert_after_preferred_section(text, tower_intent_block(project, tower))
     path.write_text(text, encoding="utf-8")
 
 
@@ -187,11 +277,18 @@ def update_hub() -> None:
 
 
 def main() -> None:
+    tower_count = 0
     for project in PROJECTS:
         inject_main_page(project)
         rewrite_legacy_precinct_pages(project)
+        for tower in project["towers"]:
+            inject_tower_page(project, tower)
+            tower_count += 1
     update_hub()
-    print(f"integrated SEO-first precinct masterplans into {len(PROJECTS)} main floorplan pages")
+    print(
+        f"integrated SEO-first floorplan intent into {len(PROJECTS)} precinct pages "
+        f"and {tower_count} tower pages"
+    )
 
 
 if __name__ == "__main__":
