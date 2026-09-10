@@ -11,7 +11,20 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://timmuasmartcity.com"
 START = "<!-- PRECINCT_MASTERPLAN_INTEGRATED_START -->"
 END = "<!-- PRECINCT_MASTERPLAN_INTEGRATED_END -->"
-CSS = '<link rel="stylesheet" href="/assets/css/precinct-masterplan.css?v=20260910-2">'
+CSS = '<link rel="stylesheet" href="/assets/css/precinct-masterplan.css?v=20260910-3">'
+
+TOWER_NAMES = {
+    "lumiere-evergreen": {
+        "a1": "A1 · The Aqua",
+        "a2": "A2 · The Atmos",
+        "a3": "A3 · The Aura",
+    },
+    "canopy": {
+        "tc1": "TC1 · The Canopy Vista",
+        "tc2": "TC2 · The Canopy Summit",
+        "tc3": "TC3 · The Canopy Harmony",
+    },
+}
 
 
 def label_tower(slug: str) -> str:
@@ -21,28 +34,85 @@ def label_tower(slug: str) -> str:
     return slug.replace("-", " ").upper()
 
 
+def tower_display(project: dict, tower: str) -> str:
+    return TOWER_NAMES.get(project["slug"], {}).get(tower, label_tower(tower))
+
+
+def tower_index_rows(project: dict) -> str:
+    slug = project["slug"]
+    name = project["name"]
+    rows = []
+    for tower in project["towers"]:
+        display = tower_display(project, tower)
+        url = f"/mat-bang-smart-city/{slug}/{tower}/"
+        rows.append(
+            "<tr>"
+            f"<td><strong>{escape(display)}</strong></td>"
+            f"<td>Mặt bằng {escape(display)} {escape(name)}</td>"
+            "<td>Sơ đồ tầng, lõi thang, trục căn và ảnh HD theo đúng tòa</td>"
+            f'<td><a href="{url}" aria-label="Xem mặt bằng {escape(display)} {escape(name)}">Xem mặt bằng →</a></td>'
+            "</tr>"
+        )
+    return "".join(rows)
+
+
+def fact_chips(project: dict) -> str:
+    return "".join(f"<span>{escape(fact)}</span>" for fact in project.get("facts", []))
+
+
 def masterplan_block(project: dict) -> str:
     slug = project["slug"]
     name = project["name"]
     tower_links = "".join(
-        f'<a class="precinct-tower" href="/mat-bang-smart-city/{slug}/{tower}/">{escape(label_tower(tower))}</a>'
+        f'<a class="precinct-tower" href="/mat-bang-smart-city/{slug}/{tower}/">{escape(tower_display(project, tower))}</a>'
         for tower in project["towers"]
     )
+    rows = tower_index_rows(project)
+    chips = fact_chips(project)
     return f'''{START}
-<section class="section precinct-masterplan-inline" id="mat-bang-tong-the">
+<section class="section precinct-masterplan-inline" id="mat-bang-tong-the" aria-labelledby="mat-bang-tong-the-title">
   <div class="container">
-    <div class="section-head">
-      <div><p class="eyebrow section-kicker">Mặt bằng tổng thể + mặt bằng tòa</p><h2>Mặt bằng tổng thể {escape(name)}</h2></div>
-      <p>Xem vị trí các tòa trên cùng trang với mặt bằng chi tiết bên dưới để đối chiếu nhanh, không phải chuyển qua một trang tổng thể riêng.</p>
+    <div class="section-head precinct-masterplan-head">
+      <div><p class="eyebrow section-kicker">Tra cứu mặt bằng · tổng thể · từng tòa</p><h2 id="mat-bang-tong-the-title">Mặt bằng {escape(name)}: tổng thể và từng tòa</h2></div>
+      <p>Đi từ sơ đồ phân khu tới đúng tòa, rồi mở mặt bằng HD để đọc lõi thang, trục căn và mã căn. Cấu trúc này giúp người xem tìm đúng dữ liệu mà không phải đoán từ một ảnh tổng.</p>
     </div>
-    <figure class="precinct-plan">
-      <a class="precinct-plan__media" href="{project['image']}" target="_blank" rel="noopener" aria-label="Mở ảnh lớn mặt bằng tổng thể {escape(name)}">
-        <img src="{project['image']}" alt="Mặt bằng tổng thể và bối cảnh {escape(name)}" loading="eager" decoding="async">
-      </a>
-      <figcaption>{escape(project['image_label'])}</figcaption>
-    </figure>
-    <div class="precinct-towers" aria-label="Chọn mặt bằng từng tòa">{tower_links}</div>
-    <div class="notice"><strong>Cách xem nhanh:</strong> dùng ảnh tổng thể để xác định vị trí tòa, sau đó kéo xuống ngay bên dưới để xem mặt bằng chi tiết từng tòa; cần soi kỹ thì bấm mã tòa để mở hồ sơ HD riêng.</div>
+
+    <div class="precinct-intent-grid">
+      <figure class="precinct-plan">
+        <a class="precinct-plan__media" href="{project['image']}" target="_blank" rel="noopener" aria-label="Mở ảnh lớn mặt bằng tổng thể {escape(name)}">
+          <img src="{project['image']}" alt="Mặt bằng tổng thể và bối cảnh {escape(name)}" loading="eager" decoding="async">
+        </a>
+        <figcaption>{escape(project['image_label'])}</figcaption>
+      </figure>
+
+      <aside class="precinct-intent-panel" id="tra-cuu-mat-bang-theo-toa">
+        <p class="eyebrow section-kicker">Tra cứu nhanh</p>
+        <h3>Chọn đúng tòa trước khi đọc mã căn</h3>
+        <p>{escape(project['lead'])}</p>
+        <div class="precinct-fact-chips" aria-label="Thông tin nhanh {escape(name)}">{chips}</div>
+        <div class="precinct-towers" aria-label="Chọn mặt bằng từng tòa">{tower_links}</div>
+      </aside>
+    </div>
+
+    <div class="precinct-index" aria-labelledby="danh-muc-mat-bang-title">
+      <div class="precinct-index__head">
+        <div><p class="eyebrow section-kicker">Danh mục crawlable</p><h3 id="danh-muc-mat-bang-title">Mặt bằng {escape(name)} theo từng tòa</h3></div>
+        <p>Mỗi tòa có URL riêng để Google và người dùng đi thẳng tới đúng hồ sơ kỹ thuật, thay vì gom toàn bộ bản vẽ vào một ảnh hoặc một trang chung.</p>
+      </div>
+      <div class="precinct-index__scroll">
+        <table class="precinct-index-table" aria-label="Danh sách mặt bằng từng tòa {escape(name)}">
+          <thead><tr><th>Tòa</th><th>Nội dung</th><th>Dùng để kiểm tra</th><th>Hồ sơ</th></tr></thead>
+          <tbody>{rows}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="precinct-search-guide">
+      <div><strong>1 · Chọn phân khu/tòa</strong><span>Dùng ảnh tổng thể để xác định đúng cụm và đúng mã tòa.</span></div>
+      <div><strong>2 · Mở mặt bằng HD</strong><span>Zoom sơ đồ đúng tòa để đọc lõi thang, hành lang, trục góc và nhóm căn.</span></div>
+      <div><strong>3 · Đối chiếu căn thực tế</strong><span>Sau khi chốt trục mới so diện tích, hướng/view, khoảng chắn và tin đang giao dịch.</span></div>
+    </div>
+    <div class="notice precinct-seo-note"><strong>Lưu ý dữ liệu:</strong> website chỉ ghi các thông số đã có trong hồ sơ đang lưu. Khi chưa có bản tổng thể hoặc dữ kiện đủ tin cậy, trang giữ mô tả trung lập và dẫn sang đúng mặt bằng tòa thay vì suy đoán.</div>
   </div>
 </section>
 {END}'''
@@ -50,7 +120,12 @@ def masterplan_block(project: dict) -> str:
 
 def ensure_css(text: str) -> str:
     if "precinct-masterplan.css" in text:
-        return text
+        return re.sub(
+            r'<link rel="stylesheet" href="/assets/css/precinct-masterplan\.css\?v=[^"]+">',
+            CSS,
+            text,
+            count=1,
+        )
     theme = re.search(r'<link[^>]+href=["\']/assets/css/site-theme\.css[^>]*>', text)
     if theme:
         return text[:theme.start()] + CSS + text[theme.start():]
@@ -116,7 +191,7 @@ def main() -> None:
         inject_main_page(project)
         rewrite_legacy_precinct_pages(project)
     update_hub()
-    print(f"integrated precinct masterplans into {len(PROJECTS)} main floorplan pages")
+    print(f"integrated SEO-first precinct masterplans into {len(PROJECTS)} main floorplan pages")
 
 
 if __name__ == "__main__":
