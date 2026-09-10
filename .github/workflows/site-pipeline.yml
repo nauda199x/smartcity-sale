@@ -41,6 +41,8 @@ jobs:
           python3 tools/qa_saved_searches_landings.py
       - name: Validate deep marketplace SEO
         run: python3 tools/qa_deep_marketplace_seo.py
+      - name: Validate topical authority SEO
+        run: python3 tools/qa_topical_authority.py
       - name: Validate deep floorplan SEO cluster
         run: python3 tools/qa_floorplan_seo_cluster.py
       - name: Validate Masteri floorplan SEO cluster
@@ -73,6 +75,8 @@ jobs:
         run: python3 tools/build_seo_portal.py
       - name: Deepen marketplace crawl, freshness and schema
         run: python3 tools/deepen_marketplace_seo.py
+      - name: Build topical authority SEO cluster
+        run: python3 tools/build_topical_authority.py
       - name: Remove noindex URLs from generated sitemaps
         run: python3 tools/sanitize_sitemaps.py
       - name: Validate SEO canonicals and sitemaps
