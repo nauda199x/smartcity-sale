@@ -69,6 +69,10 @@ jobs:
         run: python3 tools/validate_real_estate_ui.py
       - name: Build deep precinct masterplans
         run: python3 tools/build_precinct_masterplans.py
+      - name: Integrate masterplans into main floorplan pages
+        run: python3 tools/integrate_precinct_masterplans.py
+      - name: Validate combined precinct floorplan structure
+        run: python3 tools/qa_precinct_masterplan_integration.py
       - name: Validate source portal
         run: python3 tools/validate_portal_v2.py
       - name: Stage clean public site
