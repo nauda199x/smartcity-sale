@@ -216,21 +216,58 @@ def ensure_tower_css(text: str) -> str:
     return replace_or_add_stylesheet(text, "tower-floorplan-intent.css", TOWER_CSS)
 
 
-def ensure_hd_anchor(text: str) -> str:
-    if 'id="mat-bang-hd"' in text or "id='mat-bang-hd'" in text:
-        return text
-    match = re.search(
-        r'<section\b[^>]*class=["\'][^"\']*\bfloorplan-hd-section\b[^"\']*["\'][^>]*>',
-        text,
-        flags=re.I,
-    )
-    if not match:
-        return text
+def add_id_to_opening_tag(text: str, match: re.Match[str]) -> str:
     tag = match.group(0)
     if re.search(r'\bid\s*=', tag, flags=re.I):
         return text
     anchored = tag[:-1] + ' id="mat-bang-hd">'
     return text[:match.start()] + anchored + text[match.end():]
+
+
+def ensure_hd_anchor(text: str) -> str:
+    if 'id="mat-bang-hd"' in text or "id='mat-bang-hd'" in text:
+        return text
+
+    # Newer tower pages have an explicit HD section.
+    match = re.search(
+        r'<section\b[^>]*class=["\'][^"\']*\bfloorplan-hd-section\b[^"\']*["\'][^>]*>',
+        text,
+        flags=re.I,
+    )
+    if match:
+        return add_id_to_opening_tag(text, match)
+
+    # Legacy tower pages (e.g. some Sapphire pages) wrap the plan in .drive-plan.
+    section = re.search(
+        r'<section\b[^>]*>(?:(?!</section>).)*class=["\'][^"\']*\bdrive-plan\b[^"\']*["\'](?:(?!</section>).)*</section>',
+        text,
+        flags=re.S | re.I,
+    )
+    if section:
+        opening = re.match(r'<section\b[^>]*>', section.group(0), flags=re.I)
+        if opening:
+            absolute = re.search(re.escape(opening.group(0)), text[section.start():section.end()])
+            if absolute:
+                start = section.start() + absolute.start()
+                end = section.start() + absolute.end()
+                tag_match = re.search(r'<section\b[^>]*>', text[start:end], flags=re.I)
+                if tag_match:
+                    class Proxy:
+                        def group(self, _=0): return tag_match.group(0)
+                        def start(self): return start
+                        def end(self): return end
+                    return add_id_to_opening_tag(text, Proxy())
+
+    # Final fallback: place a stable HTML anchor immediately before the first local HD plan image.
+    image = re.search(
+        r'<img\b[^>]*src=["\']/images/official/floorplans-hd/[^"\']+["\'][^>]*>',
+        text,
+        flags=re.I,
+    )
+    if image:
+        return text[:image.start()] + '<span id="mat-bang-hd" class="tower-hd-anchor" aria-hidden="true"></span>' + text[image.start():]
+
+    raise ValueError("tower page has no detectable HD floorplan target")
 
 
 def insert_after_preferred_section(text: str, block: str) -> str:
