@@ -21,6 +21,7 @@ GENERIC_REPLACEMENTS = {
     "<strong>Đúng dữ kiện:</strong>": "<strong>Hướng &amp; view:</strong>",
     "Chuyển ngang giữa các tòa để so đúng mặt bằng thay vì quay lại Google hoặc dùng nhầm sơ đồ của tòa khác.": "Mở nhanh các tòa cùng phân khu để so layout, mật độ căn và vị trí trục trước khi chọn căn.",
     "<strong>Nguyên tắc dữ liệu:</strong> chỉ dùng thông số có trong hồ sơ hiện có; không tự suy hướng, view, mật độ hoặc diện tích khi chưa đủ căn cứ.": "<strong>Lưu ý khi xem căn:</strong> hướng và tầm nhìn nên được kiểm tra trên sơ đồ tổng thể và đối chiếu thực tế tại đúng tầng đang quan tâm.",
+    "luồng tra cứu": "cách xem mặt bằng",
 }
 
 BANNED_VISIBLE_PHRASES = (
