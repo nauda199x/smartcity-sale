@@ -69,6 +69,8 @@ jobs:
         run: python3 tools/validate_real_estate_ui.py
       - name: Validate source portal
         run: python3 tools/validate_portal_v2.py
+      - name: Build deep precinct masterplans
+        run: python3 tools/build_precinct_masterplans.py
       - name: Stage clean public site
         run: python3 tools/prepare_portal_v2.py
       - name: Build high-intent traffic SEO cluster
