@@ -41,6 +41,8 @@ jobs:
           python3 tools/qa_saved_searches_landings.py
       - name: Validate deep marketplace SEO
         run: python3 tools/qa_deep_marketplace_seo.py
+      - name: Validate high-intent traffic SEO source
+        run: python3 tools/qa_traffic_seo_cluster.py
       - name: Validate deep floorplan SEO cluster
         run: python3 tools/qa_floorplan_seo_cluster.py
       - name: Validate Masteri floorplan SEO cluster
@@ -67,6 +69,10 @@ jobs:
         run: python3 tools/validate_portal_v2.py
       - name: Stage clean public site
         run: python3 tools/prepare_portal_v2.py
+      - name: Build high-intent traffic SEO cluster
+        run: python3 tools/build_traffic_seo_cluster.py
+      - name: Validate staged traffic SEO cluster
+        run: python3 tools/qa_traffic_seo_cluster.py
       - name: Build inventory-backed SEO landing pages
         run: python3 tools/build_marketplace_landings.py
       - name: Build production SEO surfaces
