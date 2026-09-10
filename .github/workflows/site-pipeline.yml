@@ -67,6 +67,8 @@ jobs:
         run: python3 tools/validate_floorplan_hub.py
       - name: Validate real estate UI system
         run: python3 tools/validate_real_estate_ui.py
+      - name: Build deep precinct masterplans
+        run: python3 tools/build_precinct_masterplans.py
       - name: Validate source portal
         run: python3 tools/validate_portal_v2.py
       - name: Stage clean public site
