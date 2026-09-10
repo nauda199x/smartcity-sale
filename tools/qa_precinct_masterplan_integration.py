@@ -18,12 +18,17 @@ for project in PROJECTS:
 
     text = main.read_text(encoding="utf-8")
     assert 'id="mat-bang-tong-the"' in text, f"masterplan not integrated into {slug}"
+    assert 'id="tra-cuu-mat-bang-theo-toa"' in text, f"SEO intent panel missing in {slug}"
+    assert 'class="precinct-index-table"' in text, f"crawlable tower table missing in {slug}"
+    assert f'Mặt bằng {project["name"]}: tổng thể và từng tòa' in text, f"search-intent heading missing in {slug}"
     assert project["image"] in text, f"masterplan image missing in {slug}"
     assert "PRECINCT_MASTERPLAN_INTEGRATED_START" in text, f"integration marker missing in {slug}"
-    assert "precinct-masterplan.css" in text, f"masterplan css missing in {slug}"
+    assert "precinct-masterplan.css?v=20260910-3" in text, f"masterplan css version missing in {slug}"
     assert f'https://timmuasmartcity.com/mat-bang-smart-city/{slug}/' in text, f"main canonical missing in {slug}"
     for tower in project["towers"]:
-        assert f'/mat-bang-smart-city/{slug}/{tower}/' in text, f"tower link {tower} missing in {slug}"
+        tower_url = f'/mat-bang-smart-city/{slug}/{tower}/'
+        assert tower_url in text, f"tower link {tower} missing in {slug}"
+        assert text.count(tower_url) >= 2, f"tower {tower} should be linked from quick nav and crawlable table in {slug}"
 
     legacy = redirect.read_text(encoding="utf-8")
     assert 'content="noindex,follow"' in legacy, f"legacy tong-the must be noindex: {slug}"
@@ -31,4 +36,4 @@ for project in PROJECTS:
     assert f'/mat-bang-smart-city/{slug}/#mat-bang-tong-the' in legacy, f"legacy redirect target wrong: {slug}"
     assert f'href="/mat-bang-smart-city/{slug}/#mat-bang-tong-the"' in hub, f"hub main-page link missing: {slug}"
 
-print(f"precinct masterplan integration passed: {len(PROJECTS)} combined pages + legacy redirects")
+print(f"precinct SEO intent integration passed: {len(PROJECTS)} combined pages + crawlable tower tables + legacy redirects")
