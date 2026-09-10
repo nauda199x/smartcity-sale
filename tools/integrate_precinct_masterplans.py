@@ -14,12 +14,19 @@ END = "<!-- PRECINCT_MASTERPLAN_INTEGRATED_END -->"
 TOWER_START = "<!-- TOWER_FLOORPLAN_INTENT_START -->"
 TOWER_END = "<!-- TOWER_FLOORPLAN_INTENT_END -->"
 CSS = '<link rel="stylesheet" href="/assets/css/precinct-masterplan.css?v=20260910-4">'
+TOWER_CSS = '<link rel="stylesheet" href="/assets/css/tower-floorplan-intent.css?v=20260910-1">'
 
 TOWER_NAMES = {
     "lumiere-evergreen": {
         "a1": "A1 · The Aqua",
         "a2": "A2 · The Atmos",
         "a3": "A3 · The Aura",
+    },
+    "masteri-west-heights": {
+        "west-a": "West A",
+        "west-b": "West B",
+        "west-c": "West C",
+        "west-d": "West D",
     },
     "canopy": {
         "tc1": "TC1 · The Canopy Vista",
@@ -141,7 +148,6 @@ def tower_intent_block(project: dict, tower: str) -> str:
     siblings = sibling_tower_links(project, tower)
     parent_url = f"/mat-bang-smart-city/{slug}/"
     project_url = f"/phan-khu-smart-city/{slug}/"
-    canonical = f"{SITE}/mat-bang-smart-city/{slug}/{tower}/"
     return f'''{TOWER_START}
 <section class="section tower-intent-inline" id="tra-cuu-mat-bang-toa" aria-labelledby="tower-intent-title">
   <div class="container">
@@ -175,7 +181,7 @@ def tower_intent_block(project: dict, tower: str) -> str:
 
     <div class="tower-sibling-panel">
       <div class="tower-sibling-panel__head">
-        <div><p class="eyebrow section-kicker">Internal link theo cụm</p><h3>Các tòa khác trong {escape(name)}</h3></div>
+        <div><p class="eyebrow section-kicker">Mặt bằng cùng phân khu</p><h3>Các tòa khác trong {escape(name)}</h3></div>
         <p>Chuyển ngang giữa các tòa để so đúng mặt bằng thay vì quay lại Google hoặc dùng nhầm sơ đồ của tòa khác.</p>
       </div>
       <nav class="tower-sibling-nav" aria-label="Mặt bằng các tòa thuộc {escape(name)}">{siblings}</nav>
@@ -183,27 +189,48 @@ def tower_intent_block(project: dict, tower: str) -> str:
 
     <div class="tower-search-guide">
       <a href="{parent_url}"><strong>1 · Về phân khu</strong><span>Xem tổng thể và vị trí tương quan các tòa.</span></a>
-      <a href="#" onclick="event.preventDefault();document.querySelector('.floorplan-hd-section,.floorplan-hero,.plan-frame')?.scrollIntoView({{behavior:'smooth',block:'center'}})"><strong>2 · Soi bản vẽ HD</strong><span>Zoom để đọc đúng lõi thang và trục căn.</span></a>
+      <a href="#mat-bang-hd"><strong>2 · Soi bản vẽ HD</strong><span>Zoom để đọc đúng lõi thang và trục căn.</span></a>
       <a href="/giao-dich-smart-city/"><strong>3 · Xem căn giao dịch</strong><span>Sau khi chốt tòa/trục mới so căn đang bán hoặc cho thuê.</span></a>
     </div>
-    <p class="tower-canonical-note">Hồ sơ chính: <a href="{canonical}">{escape(canonical)}</a></p>
+    <p class="tower-data-note"><strong>Nguyên tắc dữ liệu:</strong> chỉ dùng thông số có trong hồ sơ hiện có; không tự suy hướng, view, mật độ hoặc diện tích khi chưa đủ căn cứ.</p>
   </div>
 </section>
 {TOWER_END}'''
 
 
-def ensure_css(text: str) -> str:
-    if "precinct-masterplan.css" in text:
-        return re.sub(
-            r'<link[^>]+href=["\']/assets/css/precinct-masterplan\.css\?v=[^"\']+["\'][^>]*>',
-            CSS,
-            text,
-            count=1,
-        )
+def replace_or_add_stylesheet(text: str, filename: str, tag: str) -> str:
+    pattern = rf'<link[^>]+href=["\']/assets/css/{re.escape(filename)}\?v=[^"\']+["\'][^>]*>'
+    if filename in text:
+        return re.sub(pattern, tag, text, count=1)
     theme = re.search(r'<link[^>]+href=["\']/assets/css/site-theme\.css[^>]*>', text)
     if theme:
-        return text[:theme.start()] + CSS + text[theme.start():]
-    return text.replace("</head>", CSS + "</head>", 1)
+        return text[:theme.start()] + tag + text[theme.start():]
+    return text.replace("</head>", tag + "</head>", 1)
+
+
+def ensure_css(text: str) -> str:
+    return replace_or_add_stylesheet(text, "precinct-masterplan.css", CSS)
+
+
+def ensure_tower_css(text: str) -> str:
+    return replace_or_add_stylesheet(text, "tower-floorplan-intent.css", TOWER_CSS)
+
+
+def ensure_hd_anchor(text: str) -> str:
+    if 'id="mat-bang-hd"' in text or "id='mat-bang-hd'" in text:
+        return text
+    match = re.search(
+        r'<section\b[^>]*class=["\'][^"\']*\bfloorplan-hd-section\b[^"\']*["\'][^>]*>',
+        text,
+        flags=re.I,
+    )
+    if not match:
+        return text
+    tag = match.group(0)
+    if re.search(r'\bid\s*=', tag, flags=re.I):
+        return text
+    anchored = tag[:-1] + ' id="mat-bang-hd">'
+    return text[:match.start()] + anchored + text[match.end():]
 
 
 def insert_after_preferred_section(text: str, block: str) -> str:
@@ -239,6 +266,8 @@ def inject_tower_page(project: dict, tower: str) -> None:
     text = path.read_text(encoding="utf-8")
     text = re.sub(re.escape(TOWER_START) + r".*?" + re.escape(TOWER_END), "", text, flags=re.S)
     text = ensure_css(text)
+    text = ensure_tower_css(text)
+    text = ensure_hd_anchor(text)
     text = insert_after_preferred_section(text, tower_intent_block(project, tower))
     path.write_text(text, encoding="utf-8")
 
