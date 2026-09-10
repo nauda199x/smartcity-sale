@@ -71,6 +71,8 @@ jobs:
         run: python3 tools/build_precinct_masterplans.py
       - name: Integrate masterplans into main floorplan pages
         run: python3 tools/integrate_precinct_masterplans.py
+      - name: Build rich editorial tower content
+        run: python3 tools/build_rich_tower_content.py
       - name: Validate combined precinct floorplan structure
         run: python3 tools/qa_precinct_masterplan_integration.py
       - name: Validate source portal
