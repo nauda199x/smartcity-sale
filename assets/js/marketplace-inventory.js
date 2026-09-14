@@ -17,10 +17,21 @@
   const quick=root.querySelector("[data-inventory-quick]");
   const towers=api.config.phases||{};
   const keys=["keyword","phase","tower","bedroom","min_price","max_price","area","furnishing","sort"];
+  const staticPage=Number(location.pathname.match(/\/page\/(\d+)\//)?.[1]||1);
   let page=1,version=0,timer,controller,total=0;
+  let lastGood=null;
   const el=(tag,cls,text)=>{const n=document.createElement(tag);n.className=cls||"";if(text!==undefined)n.textContent=text;return n;};
   const values=()=>({...Object.fromEntries(new FormData(form)),...(root.dataset.defaultPhase?{phase:root.dataset.defaultPhase}:{}),...(root.dataset.defaultUnit?{bedroom:root.dataset.defaultUnit}:{})});
   const filters=()=>{const v=values();return {...v,minPrice:v.min_price,maxPrice:v.max_price};};
+  const inventoryKey=()=>{const v=values();return JSON.stringify([page,...keys.map(k=>String(v[k]||""))]);};
+  const rememberRows=()=>{
+    // Keep the actual nodes, including their image error handlers. One snapshot
+    // only; it must match every filter, the sort order and the requested page.
+    lastGood=grid.querySelector(".inventory-row:not(.inventory-skeleton-row)")?{
+      key:inventoryKey(),rows:[...grid.childNodes],links:[...pager.childNodes],
+      pagerHidden:pager.hidden,summary:summary.textContent
+    }:null;
+  };
   const refreshTowers=(selected=form.elements.tower.value)=>{
     const options=towers[form.elements.phase.value]||Object.values(towers).flat();
     form.elements.tower.replaceChildren(new Option("Tất cả tòa",""),...options.map(v=>new Option(v,v)));
@@ -190,11 +201,25 @@
         showState(active?"Không tìm thấy căn phù hợp":(type==="rent"?"Chưa có căn đang cho thuê":"Chưa có căn đang rao bán"),active?"Anh/chị có thể xóa bớt bộ lọc để xem thêm quỹ căn.":"Tin mới sẽ được hiển thị sau khi duyệt.");
       }
       renderPager();updateUrl(true);
+      rememberRows();
       if(scroll){root.querySelector("[data-inventory-results]").scrollIntoView({block:"start",behavior:"instant"});summary.focus({preventScroll:true});}
     }catch(error){
       if(requestVersion!==version)return;
-      count.textContent="Chưa tải được dữ liệu";summary.textContent="";
-      showState("Chưa thể tải quỹ căn","Vui lòng kiểm tra kết nối và thử lại.",true);
+      const status=Number(error?.status||0);
+      const temporary=!status||status===408||status===429||status>=500;
+      if(temporary&&lastGood?.key===inventoryKey()){
+        showState("Chưa cập nhật được dữ liệu mới","Đang hiển thị dữ liệu lưu sẵn. Anh/chị cần xác nhận lại giá và tình trạng căn với người đăng.",true);
+        grid.replaceChildren(...lastGood.rows);
+        pager.replaceChildren(...lastGood.links);pager.hidden=lastGood.pagerHidden;
+        count.textContent="Dữ liệu lưu sẵn";
+        summary.textContent=`${lastGood.summary} · Chưa xác nhận cập nhật mới`;
+      }else{
+        // A known empty result or a different filter/page must never revive
+        // an older set of listings. Access/validation errors stay fail-closed.
+        lastGood=null;
+        count.textContent="Chưa tải được dữ liệu";summary.textContent="";
+        showState("Chưa thể tải quỹ căn","Vui lòng kiểm tra kết nối và thử lại.",true);
+      }
     }finally{clearTimeout(timeout);if(requestVersion===version)setLoading(false);}
   };
   const changed=(delay=0)=>{
@@ -223,5 +248,13 @@
   });
   state.querySelector("[data-inventory-retry]").addEventListener("click",()=>load());
   window.addEventListener("popstate",()=>{clearTimeout(timer);readLocation();syncControls();load();});
-  readLocation();syncControls();load();
+  readLocation();syncControls();
+  // HTML on a category/page URL reflects only that route's default filters,
+  // never additional query/hash filters or an ungenerated ?page= request.
+  const initial=values();
+  const matchesStatic=page===staticPage&&keys.every(k=>String(initial[k]||"")===(
+    k==="sort"?"newest":k==="phase"?root.dataset.defaultPhase||"":k==="bedroom"?root.dataset.defaultUnit||"":""
+  ));
+  if(matchesStatic)rememberRows();
+  load();
 })();

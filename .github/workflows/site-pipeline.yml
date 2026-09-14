@@ -32,7 +32,7 @@ jobs:
         run: python3 -m pip install --quiet beautifulsoup4 pillow
       - name: Validate marketplace paging and administration
         run: |
-          node --test tools/qa_admin_api.cjs tools/qa_admin_ui.cjs tools/qa_inventory_api.cjs
+          node --test tools/qa_admin_api.cjs tools/qa_admin_ui.cjs tools/qa_inventory_api.cjs tools/qa_inventory_ui.cjs
           node --check assets/js/marketplace-saved-searches.js
           node --check assets/js/marketplace-saved-searches-ui.js
           node --check assets/js/marketplace-saved-searches-account.js
